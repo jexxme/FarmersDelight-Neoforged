@@ -31,6 +31,7 @@ import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.RicePaniclesBlock;
 import vectorwing.farmersdelight.common.loot.modifier.AddItemModifier;
+import vectorwing.farmersdelight.common.loot.modifier.FDAddTableLootModifier;
 import vectorwing.farmersdelight.common.loot.modifier.PastrySlicingModifier;
 import vectorwing.farmersdelight.common.loot.modifier.ReplaceItemModifier;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -113,7 +114,7 @@ public class LootModifiers extends GlobalLootModifierProvider
 	}
 
 	private AddTableLootModifier addNewLootPool(ResourceKey<LootTable> lootToAddTo, ResourceKey<LootTable> newPool) {
-		return new AddTableLootModifier(all(LootTableIdCondition.builder(lootToAddTo.identifier())), IGlobalLootModifier.DEFAULT_PRIORITY, newPool);
+		return new FDAddTableLootModifier(all(LootTableIdCondition.builder(lootToAddTo.identifier())), IGlobalLootModifier.DEFAULT_PRIORITY, newPool);
 	}
 
 	private LootItemCondition.Builder anyEntity(HolderGetter<EntityType<?>> entityTypes, EntityType<?>... entity) {
