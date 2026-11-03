@@ -184,15 +184,15 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 			return false;
 		}
 		Transaction transaction = Transaction.openRoot();
-		int amount = inventory.insert(ItemResource.of(addedStack.copy()), 0, transaction);
+		int amount = inventory.insert(0, ItemResource.of(addedStack), addedStack.getCount(), transaction);
 		transaction.close();
-		return amount != addedStack.getCount();
+		return amount > 0;
 	}
 
 	public ItemStack addItem(ItemStack addedStack) {
 		if (!isItemCarvingBoard) {
 			Transaction transaction = Transaction.openRoot();
-			int inserted = inventory.insert(ItemResource.of(addedStack.copy()), 0, transaction);
+			int inserted = inventory.insert(0, ItemResource.of(addedStack), addedStack.getCount(), transaction);
 			transaction.commit();
 			return addedStack.copyWithCount(addedStack.count() - inserted);
 		}

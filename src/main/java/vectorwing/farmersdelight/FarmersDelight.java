@@ -61,6 +61,8 @@ public class FarmersDelight
 		ModConsumeEffectTypes.CONSUME_EFFECTS.register(modEventBus);
 		ModRecipeCategories.RECIPE_BOOK_CATEGORIES.register(modEventBus);
 
+		vectorwing.farmersdelight.gametest.FDGameTests.register(modEventBus);
+
 		RegistryAliases.addRegistryAliases();
 
 		NeoForge.EVENT_BUS.addListener(VillageStructures::addNewVillageBuilding);

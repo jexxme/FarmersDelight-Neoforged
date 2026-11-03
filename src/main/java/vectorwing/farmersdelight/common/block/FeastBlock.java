@@ -132,7 +132,9 @@ public class FeastBlock extends Block
 				}
 				return InteractionResult.SUCCESS;
 			} else {
-				player.sendOverlayMessage(TextUtils.block("feast.use_container", serving.getCraftingRemainder().create().getHoverName()));
+				if (container != null) {
+					player.sendOverlayMessage(TextUtils.block("feast.use_container", container.create().getHoverName()));
+				}
 			}
 		}
 		return InteractionResult.PASS;

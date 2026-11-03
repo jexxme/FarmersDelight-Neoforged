@@ -228,7 +228,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	private ItemStacksResourceHandler createHandler() {
-		return new ItemStacksResourceHandler(0)
+		return new ItemStacksResourceHandler(1)
 		{
 			@Override
 			protected void onContentsChanged(int index, ItemStack previousContents) {
