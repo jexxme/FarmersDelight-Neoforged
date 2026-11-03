@@ -15,6 +15,7 @@
     "datafix.V3818_3Mixin"
   ],
   "client": [
+    "CuboidItemModelWrapperAccessor",
     "HangingSignEditScreenMixin",
     "HideBlockBreakProgressMixin",
     "SignEditScreenMixin"

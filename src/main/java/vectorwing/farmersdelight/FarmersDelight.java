@@ -35,7 +35,8 @@ public class FarmersDelight
 			modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 		}
 
-		modContainer.registerConfig(ModConfig.Type.LOCAL, Configuration.COMMON_CONFIG);
+		// 26.3 dropped ModConfig.Type.COMMON; keep the old file name so existing configs keep working.
+		modContainer.registerConfig(ModConfig.Type.LOCAL, Configuration.COMMON_CONFIG, MODID + "-common.toml");
 		modContainer.registerConfig(ModConfig.Type.CLIENT, Configuration.CLIENT_CONFIG);
 
 		ModSounds.SOUNDS.register(modEventBus);

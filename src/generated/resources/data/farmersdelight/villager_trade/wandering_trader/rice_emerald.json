@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "farmersdelight:config_enabled",
+      "option": "enableWanderingTraderFDTrades"
+    }
+  ],
   "gives": {
     "id": "farmersdelight:rice"
   },

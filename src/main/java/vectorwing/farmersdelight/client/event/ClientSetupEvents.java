@@ -1,8 +1,12 @@
 package vectorwing.farmersdelight.client.event;
 
+import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
+import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
+import vectorwing.farmersdelight.client.model.SkilletCookingConditionalItemModelProperty;
+import vectorwing.farmersdelight.client.renderer.SkilletFlipItemModel;
+
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -54,11 +58,13 @@ public class ClientSetupEvents
 	}
 
 	@SubscribeEvent
-	public static void registerSpecialRenderers(RegisterSpecialModelRendererEvent event) {
-		event.register(
-			Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "skillet_special"),
-			SkilletItemRenderer.Unbaked.MAP_CODEC
-		);
+	public static void registerItemModels(RegisterItemModelsEvent event) {
+		event.register(SkilletFlipItemModel.ID, SkilletFlipItemModel.Unbaked.CODEC);
+	}
+
+	@SubscribeEvent
+	public static void registerConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
+		event.register(FarmersDelight.id("skillet/is_cooking"), SkilletCookingConditionalItemModelProperty.MAP_CODEC);
 	}
 
 	@SubscribeEvent

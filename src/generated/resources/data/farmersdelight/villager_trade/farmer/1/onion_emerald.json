@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "farmersdelight:config_enabled",
+      "option": "enableFarmerFDTrades"
+    }
+  ],
   "gives": {
     "id": "minecraft:emerald"
   },
