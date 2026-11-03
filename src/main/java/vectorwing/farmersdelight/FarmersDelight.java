@@ -49,6 +49,7 @@ public class FarmersDelight
 		ModMenuTypes.MENU_TYPES.register(modEventBus);
 		ModRecipeTypes.RECIPE_TYPES.register(modEventBus);
 		ModRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
+		ModRecipeSerializers.RECIPE_DISPLAYS.register(modEventBus);
 		ModBiomeFeatures.FEATURES.register(modEventBus);
 		ModCreativeTabs.CREATIVE_TABS.register(modEventBus);
 		ModPlacementModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
