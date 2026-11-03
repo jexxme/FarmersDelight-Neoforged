@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": "farmersdelight:copper_knife",
+  "result": {
+    "id": "minecraft:copper_nugget"
+  }
+}
