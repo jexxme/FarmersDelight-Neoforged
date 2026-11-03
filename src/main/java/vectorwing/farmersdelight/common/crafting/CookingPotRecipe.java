@@ -54,7 +54,7 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 	private final @Nullable ItemStackTemplate container;
 	private final float experience;
 	private final int cookTime;
-	private final PlacementInfo placementInfo;
+	private @Nullable PlacementInfo placementInfo;
 
 
 	public CookingPotRecipe(String group, @Nullable CookingPotRecipeBookTab tab, NonNullList<Ingredient> inputItems, ItemStackTemplate output, Optional<ItemStackTemplate> container, float experience, int cookTime) {
@@ -65,7 +65,6 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 		this.container = container.orElse(null);
 		this.experience = experience;
 		this.cookTime = cookTime;
-		this.placementInfo = PlacementInfo.create(inputItems);
 	}
 
 	@Nullable
@@ -135,6 +134,10 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 
 	@Override
 	public PlacementInfo placementInfo() {
+		// 26.3: recipes are decoded before tags are bound, so this must be computed lazily.
+		if (placementInfo == null) {
+			placementInfo = PlacementInfo.create(inputItems);
+		}
 		return placementInfo;
 	}
 

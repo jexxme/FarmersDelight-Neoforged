@@ -36,7 +36,6 @@
   "block.farmersdelight.rice_bale": "Fardo de arroz",
   "block.farmersdelight.rice_bag": "Saco de arroz",
   "block.farmersdelight.straw_bale": "Fardo de palha",
-
   "block.farmersdelight.canvas_sign": "Placa de lona",
   "block.farmersdelight.white_canvas_sign": "Placa de lona branca",
   "block.farmersdelight.orange_canvas_sign": "Placa de lona laranja",
@@ -54,7 +53,6 @@
   "block.farmersdelight.green_canvas_sign": "Placa de lona verde",
   "block.farmersdelight.red_canvas_sign": "Placa de lona vermelha",
   "block.farmersdelight.black_canvas_sign": "Placa de lona preta",
-
   "block.farmersdelight.canvas_wall_sign": "Placa de lona de parede",
   "block.farmersdelight.white_canvas_wall_sign": "Placa de lona branca de parede",
   "block.farmersdelight.orange_canvas_wall_sign": "Placa de lona laranja de parede",
@@ -72,7 +70,6 @@
   "block.farmersdelight.green_canvas_wall_sign": "Placa de lona verde de parede",
   "block.farmersdelight.red_canvas_wall_sign": "Placa de lona vermelha de parede",
   "block.farmersdelight.black_canvas_wall_sign": "Placa de lona preta de parede",
-
   "block.farmersdelight.hanging_canvas_sign": "Placa suspensa de lona",
   "block.farmersdelight.white_hanging_canvas_sign": "Placa suspensa de lona branca",
   "block.farmersdelight.orange_hanging_canvas_sign": "Placa suspensa de lona laranja",
@@ -90,7 +87,6 @@
   "block.farmersdelight.green_hanging_canvas_sign": "Placa suspensa de lona verde",
   "block.farmersdelight.red_hanging_canvas_sign": "Placa suspensa de lona vermelha",
   "block.farmersdelight.black_hanging_canvas_sign": "Placa suspensa de lona preta",
-
   "block.farmersdelight.wall_hanging_canvas_sign": "Placa suspensa de lona de parede",
   "block.farmersdelight.white_wall_hanging_canvas_sign": "Placa suspensa de lona branca de parede",
   "block.farmersdelight.orange_wall_hanging_canvas_sign": "Placa suspensa de lona laranja de parede",
@@ -108,7 +104,6 @@
   "block.farmersdelight.green_wall_hanging_canvas_sign": "Placa suspensa de lona verde de parede",
   "block.farmersdelight.red_wall_hanging_canvas_sign": "Placa suspensa de lona vermelha de parede",
   "block.farmersdelight.black_wall_hanging_canvas_sign": "Placa suspensa de lona preta de parede",
-
   "block.farmersdelight.budding_tomatoes": "Broto de tomate",
   "block.farmersdelight.tomatoes": "Cipó de tomates",
   "block.farmersdelight.tomatoes_on_rope": "Cipó de tomates em corda",
@@ -118,7 +113,6 @@
   "block.farmersdelight.rice_panicles": "Plantio de arroz",
   "block.farmersdelight.brown_mushroom_colony": "Colônia de cogumelos marrons",
   "block.farmersdelight.red_mushroom_colony": "Colônia de cogumelos vermelhos",
-
   "block.farmersdelight.sandy_shrub": "Arbusto arenoso",
   "block.farmersdelight.wild_cabbages": "Couve silvestre",
   "block.farmersdelight.wild_tomatoes": "Tomates rasteiros",
@@ -127,12 +121,10 @@
   "block.farmersdelight.wild_potatoes": "Batata silvestre",
   "block.farmersdelight.wild_beetroots": "Beterraba marítima",
   "block.farmersdelight.wild_rice": "Arroz silvestre",
-
   "block.farmersdelight.apple_pie": "Torta de maçã",
   "block.farmersdelight.sweet_berry_cheesecake": "Cheesecake de bagas doces",
   "block.farmersdelight.chocolate_pie": "Torta de chocolate",
   "block.farmersdelight.pumpkin_pie": "Torta de abóbora",
-
   "item.farmersdelight.tomato": "Tomate",
   "item.farmersdelight.cabbage": "Repolho",
   "item.farmersdelight.onion": "Cebola",
@@ -141,11 +133,9 @@
   "item.farmersdelight.tomato_seeds": "Sementes de tomate",
   "item.farmersdelight.rice_panicle": "Panícula de arroz",
   "item.farmersdelight.rotten_tomato": "Tomate podre",
-
   "item.farmersdelight.straw": "Palha",
   "item.farmersdelight.canvas": "Lona",
   "item.farmersdelight.tree_bark": "Casca de árvore",
-
   "item.farmersdelight.tomato_sauce": "Molho de tomate",
   "item.farmersdelight.milk_bottle": "Frasco de leite",
   "item.farmersdelight.hot_cocoa": "Chocolate quente",
@@ -170,7 +160,6 @@
   "item.farmersdelight.cooked_mutton_chops": "Costeletas de carneiro assadas",
   "item.farmersdelight.ham": "Presunto",
   "item.farmersdelight.smoked_ham": "Presunto defumado",
-
   "item.farmersdelight.pie_crust": "Crosta de torta",
   "item.farmersdelight.cake_slice": "Fatia de bolo",
   "item.farmersdelight.apple_pie_slice": "Fatia de torta de maçã",
@@ -182,15 +171,12 @@
   "item.farmersdelight.honey_cookie": "Biscoito de mel",
   "item.farmersdelight.melon_popsicle": "Picolé de melancia",
   "item.farmersdelight.glow_berry_custard": "Creme de bagas brilhantes",
-
   "item.farmersdelight.earthworm": "Minhoca",
-
   "item.farmersdelight.flint_knife": "Faca de sílex",
   "item.farmersdelight.iron_knife": "Faca de ferro",
   "item.farmersdelight.golden_knife": "Faca de ouro",
   "item.farmersdelight.diamond_knife": "Faca de diamante",
   "item.farmersdelight.netherite_knife": "Faca de netherita",
-
   "item.farmersdelight.barbecue_stick": "Churrasco no palito",
   "item.farmersdelight.egg_sandwich": "Pão com ovo",
   "item.farmersdelight.chicken_sandwich": "Sanduíche de frango",
@@ -204,7 +190,6 @@
   "item.farmersdelight.cod_roll": "Rolinho de bacalhau",
   "item.farmersdelight.kelp_roll": "Rolo de alga",
   "item.farmersdelight.kelp_roll_slice": "Corte de rolo de alga",
-
   "item.farmersdelight.cooked_rice": "Arroz cozido",
   "item.farmersdelight.mixed_salad": "Salada mista",
   "item.farmersdelight.nether_salad": "Salada do Nether",
@@ -218,7 +203,6 @@
   "item.farmersdelight.noodle_soup": "Sopa de macarrão",
   "item.farmersdelight.onion_soup": "Sopa de cebola",
   "item.farmersdelight.bone_broth": "Caldo de osso",
-
   "item.farmersdelight.bacon_and_eggs": "Bacon e ovos",
   "item.farmersdelight.pasta_with_meatballs": "Macarrão com almôndegas",
   "item.farmersdelight.pasta_with_mutton_chop": "Macarrão com costeleta",
@@ -229,7 +213,6 @@
   "item.farmersdelight.squid_ink_pasta": "Macarrão de tinta de lula",
   "item.farmersdelight.grilled_salmon": "Salmão grelhado",
   "item.farmersdelight.mushroom_rice": "Arroz com cogumelos",
-
   "block.farmersdelight.roast_chicken_block": "Frango recheado",
   "item.farmersdelight.roast_chicken": "Porção de frango recheado",
   "block.farmersdelight.stuffed_pumpkin_block": "Abóbora recheada",
@@ -241,22 +224,16 @@
   "block.farmersdelight.gleaming_salad_block": "Salada brilhante",
   "item.farmersdelight.gleaming_salad": "Porção de salada brilhante",
   "block.farmersdelight.rice_roll_medley_block": "Seleção de rolinhos de arroz",
-
   "item.farmersdelight.dog_food": "Ração para cães",
   "item.farmersdelight.horse_feed": "Alimento para cavalos",
-
   "entity.farmersdelight.rotten_tomato": "Tomate podre",
-
   "effect.farmersdelight.nourishment": "Nutrição",
   "effect.farmersdelight.nourishment.description": "Previne a redução do medidor de fome, exceto quando puder curar-se com saturação.",
   "effect.farmersdelight.comfort": "Conforto",
   "effect.farmersdelight.comfort.description": "Concede regeneração natural, não importa o quão faminto você estiver.",
-
   "enchantment.farmersdelight.backstabbing": "Punhalada nas costas",
   "enchantment.farmersdelight.backstabbing.description": "Amplifica o dano ao atingir um alvo pelas costas.",
-
   "itemGroup.farmersdelight": "Farmer's Delight",
-
   "container.farmersdelight.recipe_book.cookable": "Cozinháveis",
   "container.farmersdelight.cooking_pot": "Panela",
   "container.farmersdelight.cooking_pot.served_on": "Servido em: %s",
@@ -264,7 +241,6 @@
   "container.farmersdelight.cooking_pot.heated": "Aquecida",
   "container.farmersdelight.basket": "Cesto",
   "container.farmersdelight.cabinet": "Armário",
-
   "tooltip.farmersdelight.cooking_pot.empty": "Vazia",
   "tooltip.farmersdelight.cooking_pot.single_serving": "Contém 1 porção de:",
   "tooltip.farmersdelight.cooking_pot.many_servings": "Contém %s porções de:",
@@ -276,10 +252,8 @@
   "tooltip.farmersdelight.placeable": "Colocável",
   "tooltip.farmersdelight.placeable_sneaking": "Colocável ao agachar",
   "tooltip.farmersdelight.debug_item": "Item de debug - Não usado durante o jogo",
-
   "advancements.farmersdelight.root.title": "Farmer's Delight",
   "advancements.farmersdelight.root.description": "Um mundo de sabor te espera!",
-
   "advancements.farmersdelight.craft_knife.title": "Caçar e colher",
   "advancements.farmersdelight.craft_knife.description": "Crie uma Faca para pilhar mais matéria-prima de plantas e animais",
   "advancements.farmersdelight.harvest_straw.title": "Dando uma palhinha",
@@ -294,7 +268,6 @@
   "advancements.farmersdelight.use_cutting_board.description": "Com uma ferramenta em mãos, use uma tábua de corte para desconstruir um item",
   "advancements.farmersdelight.obtain_netherite_knife.title": "Se você não aguenta o calor...",
   "advancements.farmersdelight.obtain_netherite_knife.description": "Gaste uma barra inteira de Netherita para aprimorar sua faca! Ou saia da cozinha.",
-
   "advancements.farmersdelight.get_fd_seed.title": "Hortas da natureza",
   "advancements.farmersdelight.get_fd_seed.description": "Quatro hortas novas podem ser encontradas na natureza, em vários climas... ou guardadas em um baú por aí.",
   "advancements.farmersdelight.plant_rice.title": "Molhando suas raízes",
@@ -307,7 +280,6 @@
   "advancements.farmersdelight.get_mushroom_colony.description": "Tesoure uma colônia madura de cogumelos. Para crescer uma assim, precisará de um solo bem rico...",
   "advancements.farmersdelight.plant_all_crops.title": "Rotação de culturas",
   "advancements.farmersdelight.plant_all_crops.description": "Cultive todas as plantas comestíveis que achar, como vegetais, frutas, fungos e raízes!",
-
   "advancements.farmersdelight.place_campfire.title": "Bonfire Lit",
   "advancements.farmersdelight.place_campfire.description": "Acenda uma Fogueira para cozinhar algumas comidas",
   "advancements.farmersdelight.use_skillet.title": "Cozinha portátil",
@@ -322,7 +294,6 @@
   "advancements.farmersdelight.place_feast.description": "Certas refeições são grandes o suficiente para serem colocadas e dividas com amigos!",
   "advancements.farmersdelight.master_chef.title": "Mestre-cuca",
   "advancements.farmersdelight.master_chef.description": "Coma uma porção de cada refeição disponível!",
-
   "subtitles.farmersdelight.block.cooking_pot.boil": "Panela fervendo",
   "subtitles.farmersdelight.block.cutting_board.place_item": "Item colocado na tábua",
   "subtitles.farmersdelight.block.cutting_board.remove_item": "Item removido da tábua",
@@ -340,7 +311,6 @@
   "subtitles.farmersdelight.block.food.slice": "Comida cortada",
   "subtitles.farmersdelight.entity.rotten_tomato.throw": "Tomate podre lançado",
   "subtitles.farmersdelight.entity.rotten_tomato.hit": "Tomate podre estoura",
-
   "block.farmersdelight.feast.use_container": "Você precisa de uma %s para comer isto.",
   "block.farmersdelight.rice.invalid_placement": "Esta semente deve ser plantada em água rasa.",
   "block.farmersdelight.cutting_board.invalid_item": "Isto não parece cortável...",
@@ -350,10 +320,8 @@
   "block.farmersdelight.skillet.underwater": "Não dá para cozinhar dentro d'água...",
   "item.farmersdelight.skillet.how_to_cook": "Use sua outra mão para segurar ingredientes!",
   "item.farmersdelight.skillet.underwater": "Não dá para cozinhar embaixo d'água...",
-
   "death.attack.farmersdelight.stove": "%1$s foi grelhado à perfeição",
   "death.attack.farmersdelight.stove.player": "%1$s foi jogado na grelha por Chef %2$s",
-
   "jei.farmersdelight.cooking": "Panela",
   "jei.farmersdelight.cutting": "Tábua de corte",
   "jei.farmersdelight.chance": "%1$s%% de chance",
@@ -361,7 +329,6 @@
   "jei.farmersdelight.decomposition.light": "Acelerado pela luz do sol",
   "jei.farmersdelight.decomposition.fluid": "Acelerado por água ao redor",
   "jei.farmersdelight.decomposition.accelerators": "Acelerado por ativadores ao redor (veja abaixo)",
-
   "jei.farmersdelight.info.dough": "Trigo pode ser convertido em massa usando um balde de água. Não se preocupe, a água do balde não será consumida!",
   "jei.farmersdelight.info.straw": "Uma fibra vegetal usada em criação. Obtida ao cortar plantas e hortas gramíneas com uma Faca.",
   "jei.farmersdelight.info.knife": "Uma arma leve, com ataques rápidos e dano mediano.\n\nElas podem colher Palha de plantas gramíneas, ou garantir itens secundários de animais.",
@@ -373,11 +340,9 @@
   "jei.farmersdelight.info.wild_potatoes": "Batatas costumam ser encontradas como plantas silvestres em climas frios, como montanhas e taigas.",
   "jei.farmersdelight.info.wild_tomatoes": "Tomates costumam ser encontrados como plantas silvestres em climas áridos, como savanas e desertos.",
   "jei.farmersdelight.info.wild_rice": "Arroz costuma ser encontrado como uma planta silvestre nas lagoas de climas úmidos, como pântanos e selvas.",
-
   "emi.category.farmersdelight.cooking": "Panela",
   "emi.category.farmersdelight.cutting": "Tábua de corte",
   "emi.category.farmersdelight.decomposition": "Decomposição",
-
   "tag.item.c.crops.cabbage": "Hortas de repolho",
   "tag.item.c.crops.grain": "Hortas de grãos",
   "tag.item.c.crops.onion": "Hortas de cebola",
@@ -418,7 +383,6 @@
   "tag.item.c.storage_blocks.rice": "Blocos para armazenar arroz",
   "tag.item.c.storage_blocks.rice_panicle": "Blocos para armazenar panículas de arroz",
   "tag.item.c.storage_blocks.straw": "Blocos para armazenar palha",
-
   "tag.block.farmersdelight.cabinets": "Armários",
   "tag.block.farmersdelight.cabinets.wooden": "Armários de madeira",
   "tag.block.farmersdelight.campfire_signal_smoke": "Sinal de fumaça em fogueiras",
@@ -438,7 +402,6 @@
   "tag.block.farmersdelight.tray_heat_sources": "Fontes de calor com bandeja",
   "tag.block.farmersdelight.unaffected_by_rich_soil": "Não afetado por Solo Rico",
   "tag.block.farmersdelight.wild_crops": "Hortas silvestres",
-
   "tag.item.farmersdelight.cabinets": "Armários",
   "tag.item.farmersdelight.cabinets.wooden": "Armários de madeira",
   "tag.item.farmersdelight.canvas_signs": "Placas de lona",
@@ -455,14 +418,11 @@
   "tag.item.farmersdelight.sweets": "Doces",
   "tag.item.farmersdelight.tools.knives": "Facas",
   "tag.item.farmersdelight.wild_crops": "Hortas silvestres",
-
   "farmersdelight.configuration.title": "Farmer's Delight - Configurações",
-
   "farmersdelight.configuration.section.farmersdelight.client.toml": "Configurações locais",
   "farmersdelight.configuration.section.farmersdelight.client.toml.title": "Configurações locais",
   "farmersdelight.configuration.section.farmersdelight.common.toml": "Configurações gerais",
   "farmersdelight.configuration.section.farmersdelight.common.toml.title": "Configurações gerais",
-
   "farmersdelight.configuration.settings": "Opções de jogo",
   "farmersdelight.configuration.farming": "Colheita",
   "farmersdelight.configuration.crafting": "Fabricação",
@@ -471,7 +431,6 @@
   "farmersdelight.configuration.world": "Geração de mundo",
   "farmersdelight.configuration.debug": "Opções de debug",
   "farmersdelight.configuration.debug.tooltip": "§lAviso:§r Esta seção não deve ser usada durante o jogo normal.",
-
   "farmersdelight.configuration.enableFarmerFDTrades": "Trocas com Fazendeiros",
   "farmersdelight.configuration.enableFarmerFDTrades.tooltip": "Ao habilitar, aldeões fazendeiros de nível Noviço e Aprendiz terão uma chance de comprar hortas deste mod.",
   "farmersdelight.configuration.enableWanderingTraderFDTrades": "Trocas com Vendedor Ambulante",
@@ -480,21 +439,18 @@
   "farmersdelight.configuration.enableRopeReeling.tooltip": "Ao habilitar, jogadores poderão recolher colunas de corda, de baixo para cima, ao agachar e usar cordas com uma mão vazia.",
   "farmersdelight.configuration.canvasSignDarkBackgroundList": "Placas de lona com fundo escuro",
   "farmersdelight.configuration.canvasSignDarkBackgroundList.tooltip": "Uma lista de tinturas que, ao tingirem o fundo de uma Placa de Lona, exibirão texto branco por padrão.\n\nTinturas (em inglês):\n[\"white\", \"orange\", \"magenta\", \"light_blue\", \"yellow\", \"lime\", \"pink\", \"gray\", \"light_gray\", \"cyan\", \"purple\", \"blue\", \"brown\", \"green\", \"red\", \"black\"]",
-
   "farmersdelight.configuration.richSoilBoostChance": "Chance de nutrição do Solo Rico",
   "farmersdelight.configuration.richSoilBoostChance.tooltip": "A chance (em porcentagem decimal) do Solo Rico prover nutrição (farinha de osso) a uma planta enraizada em si. Defina 0.0 para desabilitar.",
   "farmersdelight.configuration.enableTomatoVineClimbingTaggedRopes": "Tomates escalam cordas dentro da tag",
   "farmersdelight.configuration.enableTomatoVineClimbingTaggedRopes.tooltip": "Ao habilitar, hortas de tomate poderão escalar qualquer corda marcada como farmersdelight:ropes. Ao desabilitar, ela só poderá escalar a corda deste mod.\n\n§lAtenção: blocos compatíveis serão convertidos ao bloco definido em defaultTomatoVineRope.§r",
   "farmersdelight.configuration.defaultTomatoVineRope": "Corda padrão para Horta de Tomate",
   "farmersdelight.configuration.defaultTomatoVineRope.tooltip": "Qual corda a horta de tomate deve deixar no lugar ao ser destruída?",
-
   "farmersdelight.configuration.enableCookingPotRecipeBook": "Livro de receitas da Panela",
   "farmersdelight.configuration.enableCookingPotRecipeBook.tooltip": "Ao habilitar, a Panela exibirá um livro de receitas em sua interface, assim como o livro presente na Bancada de Trabalho e na Fornalha.",
   "farmersdelight.configuration.enableVanillaCropCrates": "Caixotes de hortas do jogo base",
   "farmersdelight.configuration.enableVanillaCropCrates.tooltip": "Ao habilitar, caixotes de armazenamento (3x3) serão fabricáveis para hortas do jogo base.",
   "farmersdelight.configuration.cuttingBoardFortuneBonus": "Bônus de fortuna na Tábua de Corte",
   "farmersdelight.configuration.cuttingBoardFortuneBonus.tooltip": "Por quanto (em porcentagem decimal) cada nível de Fortuna deve aumentar as chances de itens raros na Tábua de Corte? Defina 0.0 para desabilitar.",
-
   "farmersdelight.configuration.enableVanillaSoupExtraEffects": "Efeitos extras em sopas do jogo base",
   "farmersdelight.configuration.enableVanillaSoupExtraEffects.tooltip": "Ao habilitar, sopas e ensopados do Minecraft darão Nutrição ao serem consumidos, assim como as refeições deste mod.",
   "farmersdelight.configuration.enableRabbitStewBuff": "Melhoria do Ensopado de Coelho",
@@ -503,22 +459,18 @@
   "farmersdelight.configuration.enablePumpkinPieSneakToPlace.tooltip": "Ao habilitar, a Torta de Abóbora só poderá ser colocada como bloco se o jogador estiver agachado.",
   "farmersdelight.configuration.enableCuttingBoardDispenserBehavior": "Ejetor opera Tábua de Corte",
   "farmersdelight.configuration.enableCuttingBoardDispenserBehavior.tooltip": "Ao habilitar, o Ejetor poderá operar uma Tábua de Corte na sua frente, usando itens armazenados como ferramentas de corte.",
-
   "farmersdelight.configuration.enableStackableSoupItems": "Empilhamento de itens de sopa",
   "farmersdelight.configuration.enableStackableSoupItems.tooltip": "Ao habilitar, qualquer BowlFoodItem na lista a seguir poderá ser empilhado até 16 itens, assim como as refeições do Farmer's Delight.",
   "farmersdelight.configuration.soupItemList": "Itens de sopa",
   "farmersdelight.configuration.soupItemList.tooltip": "Lista de itens de sopa afetados. Eles devem estender a classe BowlFoodItem no código para serem afetados. Afeta sopas do jogo base por padrão.",
-
   "farmersdelight.configuration.generateFDChestLoot": "Gerar itens do mod em baús",
   "farmersdelight.configuration.generateFDChestLoot.tooltip": "Ao habilitar, o mod adicionará novas listas de itens a serem gerados em baús através do jogo (cordas, sementes, ferramentas etc).",
   "farmersdelight.configuration.generateVillageCompostHeaps": "Gerar pilhas de composto em vilarejos",
   "farmersdelight.configuration.generateVillageCompostHeaps.tooltip": "Ao habilitar, pilhas de composto (estruturas com pilhas de Composto Orgânico) serão geradas em Vilas de vez em quando.",
   "farmersdelight.configuration.generateFDCropsOnVillageFarms": "Gerar hortas do mod em vilarejos",
   "farmersdelight.configuration.generateFDCropsOnVillageFarms.tooltip": "Ao habilitar, hortas do Farmer's Delight substituirão hortas do jogo base em fazendas de Vilas de vez em quando.",
-
   "farmersdelight.configuration.enableTomatoRopePermanence": "Permanência da corda em hortas de tomate",
   "farmersdelight.configuration.enableTomatoRopePermanence.tooltip": "Hortas de tomate forçam a colocação de uma Corda quando destruídas. Devido a limitações técnicas, isto também afeta comandos, fazendo 'setblock' neste bloco falhar na primeira execução.\n\nDesabilite esta opção se o bloco estiver impedindo a edição de regiões no modo criativo, ou por comandos. Para o jogo normal, recomendo deixar habilitado.",
-
   "farmersdelight.configuration.enableNourishmentHungerOverlay": "Indicador de Nutrição",
   "farmersdelight.configuration.enableNourishmentHungerOverlay.tooltip": "Ao habilitar, o medidor de fome será exibido com uma camada dourada quando o jogador estiver sob o efeito Nutrição.",
   "farmersdelight.configuration.enableComfortHealthOverlay": "Indicador de Conforto",

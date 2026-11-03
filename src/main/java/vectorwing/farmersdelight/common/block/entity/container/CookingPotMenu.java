@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class CookingPotMenu extends RecipeBookMenu
 {
-	public static final Identifier EMPTY_CONTAINER_SLOT_BOWL = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "item/empty_container_slot_bowl");
+	public static final Identifier EMPTY_CONTAINER_SLOT_BOWL = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "container/slot/bowl");
 
 	public static final int INDEX_MEAL = 6;
 	public static final int INDEX_CONTAINER = 7;

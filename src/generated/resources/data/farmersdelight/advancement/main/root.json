@@ -6,12 +6,11 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "minecraft:textures/block/bricks.png",
+    "background": "minecraft:block/bricks",
     "description": {
       "translate": "advancements.farmersdelight.root.description"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:cooking_pot"
     },
     "show_toast": false,

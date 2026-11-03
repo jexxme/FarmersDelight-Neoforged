@@ -11,11 +11,11 @@
   },
   "render": {
     "type": "immersiveengineering:crop",
-    "block": "farmersdelight:rice_panicles"
+    "value": "farmersdelight:rice_panicles"
   },
   "results": [
     {
-      "count": 2,
+      "Count": 2,
       "id": "farmersdelight:rice_panicle"
     }
   ],
