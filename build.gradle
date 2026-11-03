@@ -65,6 +65,19 @@ neoForge {
         // This run config launches GameTestServer and runs all registered gametests, then exits.
         // By default, the server will crash when no gametests are provided.
         // The gametest system is also enabled by default for other run configs under the /test command.
+        // Playtest clients (see playtest-template/README.md). They use their own game directories under playtest/.
+        playtestClient {
+            client()
+            gameDirectory = project.file('playtest/client')
+            programArguments.addAll '--quickPlayMultiplayer', 'localhost:25565'
+        }
+
+        playtestSolo {
+            client()
+            gameDirectory = project.file('playtest/solo')
+            programArguments.addAll '--quickPlaySingleplayer', 'FD Playtest'
+        }
+
         gameTestServer {
             type = "gameTestServer"
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
