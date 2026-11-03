@@ -96,6 +96,14 @@ Git remotes: `upstream` = https://github.com/vectorwing/FarmersDelight,
 - The **Farmer's Delight Refabricated** team (MehVahdJukaar, Cassian, AyOhEe and contributors) for the
   26.x groundwork.
 - squeek502 (AppleSkin), the reference for the HUD overlay code.
+- Translation updates taken from open pull requests to the original repository (MIT, same license):
+  mpustovoi (ru_ru, [#1396](https://github.com/vectorwing/FarmersDelight/pull/1396)),
+  mykhailolyzhechko (ry_ua, [#1395](https://github.com/vectorwing/FarmersDelight/pull/1395)),
+  cerealconjugo (es_mx, [#1326](https://github.com/vectorwing/FarmersDelight/pull/1326), [#1376](https://github.com/vectorwing/FarmersDelight/pull/1376)),
+  Kayyz1603 (id_id, [#1350](https://github.com/vectorwing/FarmersDelight/pull/1350)),
+  aleimoon (tr_tr, [#1335](https://github.com/vectorwing/FarmersDelight/pull/1335)),
+  hikarosato (uk_ua, [#1331](https://github.com/vectorwing/FarmersDelight/pull/1331)),
+  Bea-CEO (pt_br, [#1299](https://github.com/vectorwing/FarmersDelight/pull/1299)).
 
 ## Contact
 
