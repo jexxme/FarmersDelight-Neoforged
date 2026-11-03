@@ -117,8 +117,8 @@ def build_icon(logo):
     cx, cy = (48 - crate.width) // 2, (48 - crate.height) // 2
     icon.alpha_composite(crate, (cx, cy))
     tag = label("N", pad_x=2)
-    # Pinned to the crate's bottom-right corner, half on the crate.
-    icon.alpha_composite(tag, (cx + crate.width - tag.width + 3, cy + crate.height - tag.height + 4))
+    # Pinned onto the crate's lower right panel.
+    icon.alpha_composite(tag, (cx + crate.width - tag.width + 2, cy + crate.height - tag.height - 3))
     return icon
 
 
