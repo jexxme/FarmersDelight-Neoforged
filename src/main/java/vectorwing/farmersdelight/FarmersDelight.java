@@ -64,6 +64,7 @@ public class FarmersDelight
 		ModRecipeCategories.RECIPE_BOOK_CATEGORIES.register(modEventBus);
 
 		vectorwing.farmersdelight.gametest.FDGameTests.register(modEventBus);
+		vectorwing.farmersdelight.gametest.FDStressTests.register(modEventBus);
 
 		RegistryAliases.addRegistryAliases();
 
