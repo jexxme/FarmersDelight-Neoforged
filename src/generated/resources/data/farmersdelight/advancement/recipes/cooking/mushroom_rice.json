@@ -8,6 +8,7 @@
             "items": [
               "minecraft:brown_mushroom",
               "minecraft:red_mushroom",
+              "minecraft:shelf_mushroom",
               "farmersdelight:rice"
             ]
           }
@@ -17,7 +18,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/mushroom_rice"
+        "recipes": "farmersdelight:cooking/mushroom_rice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

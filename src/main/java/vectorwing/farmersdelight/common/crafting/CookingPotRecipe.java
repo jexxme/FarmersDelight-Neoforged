@@ -54,7 +54,7 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 	private final @Nullable ItemStackTemplate container;
 	private final float experience;
 	private final int cookTime;
-	private final PlacementInfo placementInfo;
+	private @Nullable PlacementInfo placementInfo;
 
 
 	public CookingPotRecipe(String group, @Nullable CookingPotRecipeBookTab tab, NonNullList<Ingredient> inputItems, ItemStackTemplate output, Optional<ItemStackTemplate> container, float experience, int cookTime) {
@@ -65,7 +65,6 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 		this.container = container.orElse(null);
 		this.experience = experience;
 		this.cookTime = cookTime;
-		this.placementInfo = PlacementInfo.create(inputItems);
 	}
 
 	@Nullable
@@ -77,8 +76,17 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 		return this.inputItems;
 	}
 
+	/**
+	 * The item needed to serve the meal: the recipe's container override, otherwise the meal's crafting remainder
+	 * (e.g. a bowl), otherwise nothing.
+	 */
 	public ItemStack getOutputContainer() {
-		return this.container.create();
+		if (this.container != null) {
+			return this.container.create();
+		}
+		ItemStack meal = this.output.create();
+		ItemStackTemplate remainder = meal.getItem().getCraftingRemainder(meal);
+		return remainder != null ? remainder.create() : ItemStack.EMPTY;
 	}
 
 	public Optional<ItemStackTemplate> getContainerOverride() {
@@ -135,13 +143,18 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 
 	@Override
 	public PlacementInfo placementInfo() {
+		// 26.3: recipes are decoded before tags are bound, so this must be computed lazily.
+		if (placementInfo == null) {
+			placementInfo = PlacementInfo.create(inputItems);
+		}
 		return placementInfo;
 	}
 
 	@Override
 	public List<RecipeDisplay> display() {
+		ItemStack servingContainer = getOutputContainer();
 		return List.of(new CookingPotRecipeDisplay(this.inputItems.stream().map(Ingredient::display).toList(),
-			container == null ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(new ItemStackTemplate(container.item(), container.count(), container.components()))),
+			servingContainer.isEmpty() ? Optional.empty() : Optional.of(new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(servingContainer))),
 			new SlotDisplay.ItemStackSlotDisplay(this.output),
 			new SlotDisplay.ItemSlotDisplay(ModItems.COOKING_POT.get()),
 			cookTime,
@@ -170,7 +183,7 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 		if (tab != that.tab) return false;
 		if (!inputItems.equals(that.inputItems)) return false;
 		if (!output.equals(that.output)) return false;
-		return container.equals(that.container);
+		return java.util.Objects.equals(container, that.container);
 	}
 
 	@Override
@@ -179,7 +192,7 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 		result = 31 * result + (getRecipeBookTab() != null ? getRecipeBookTab().hashCode() : 0);
 		result = 31 * result + inputItems.hashCode();
 		result = 31 * result + output.hashCode();
-		result = 31 * result + container.hashCode();
+		result = 31 * result + java.util.Objects.hashCode(container);
 		result = 31 * result + (getExperience() != 0.0f ? Float.floatToIntBits(getExperience()) : 0);
 		result = 31 * result + getCookTime();
 		return result;

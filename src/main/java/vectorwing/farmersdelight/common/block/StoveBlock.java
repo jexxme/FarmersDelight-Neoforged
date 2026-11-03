@@ -21,13 +21,6 @@ import javax.annotation.Nullable;
 
 public class StoveBlock extends AbstractStoveBlock
 {
-	public static final MapCodec<StoveBlock> CODEC = simpleCodec(StoveBlock::new);
-
-	@Override
-	public MapCodec<StoveBlock> codec() {
-        return CODEC;
-    }
-
 	public StoveBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}

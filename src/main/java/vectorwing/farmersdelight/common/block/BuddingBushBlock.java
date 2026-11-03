@@ -33,8 +33,6 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 @SuppressWarnings("deprecation")
 public class BuddingBushBlock extends BushBlock
 {
-	public static final MapCodec<BushBlock> CODEC = simpleCodec(BuddingBushBlock::new);
-
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 4);
 	private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
@@ -46,11 +44,6 @@ public class BuddingBushBlock extends BushBlock
 
 	public BuddingBushBlock(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	public MapCodec<BushBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

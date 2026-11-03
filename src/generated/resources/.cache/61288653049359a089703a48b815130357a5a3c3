@@ -1,0 +1,11 @@
+// 26.3	2026-11-03T23:58:45.450143	Registries for World (farmersdelight[0]): [farmersdelight]
+4387b3e6bd6f9ff8d3ae66e966e738a5fde4337f data/farmersdelight/damage_type/stove_burn.json
+48ad03e2df0feee96e57fceb54a43d1d4b006d58 data/farmersdelight/enchantment/backstabbing.json
+1c1cb412ea6e1e4a11a85f563e97be7790993f8e data/farmersdelight/villager_trade/farmer/1/onion_emerald.json
+b66338fffdba7d4426d6ccdb4407b23aa5a0d4fe data/farmersdelight/villager_trade/farmer/1/tomato_emerald.json
+d4c6feed9a18437409bfd138c2de90376cf5e1ce data/farmersdelight/villager_trade/farmer/2/cabbage_emerald.json
+61ec0929f4147643a2bdb236d1ab248510b46d44 data/farmersdelight/villager_trade/farmer/2/rice_emerald.json
+8fc1413bc70d6b052d041080c2ada13688eb3e29 data/farmersdelight/villager_trade/wandering_trader/cabbage_emerald.json
+405e8409a7ea4442203f809dc60e074149b9d3c6 data/farmersdelight/villager_trade/wandering_trader/onion_emerald.json
+4e13037d705ffd87ba227384824ac7ef8414224c data/farmersdelight/villager_trade/wandering_trader/rice_emerald.json
+8c77190679f4d7e935b7460898e3a8490e2e9c92 data/farmersdelight/villager_trade/wandering_trader/tomato_emerald.json

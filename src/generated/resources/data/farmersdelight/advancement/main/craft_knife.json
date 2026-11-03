@@ -1,6 +1,16 @@
 {
   "parent": "farmersdelight:main/root",
   "criteria": {
+    "copper_knife": {
+      "conditions": {
+        "items": [
+          {
+            "items": "farmersdelight:copper_knife"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "diamond_knife": {
       "conditions": {
         "items": [
@@ -57,7 +67,6 @@
       "translate": "advancements.farmersdelight.craft_knife.description"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:flint_knife"
     },
     "title": {
@@ -67,6 +76,7 @@
   "requirements": [
     [
       "flint_knife",
+      "copper_knife",
       "iron_knife",
       "diamond_knife",
       "golden_knife",

@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "farmersdelight:config_enabled",
+      "option": "enableWanderingTraderFDTrades"
+    }
+  ],
+  "gives": {
+    "id": "farmersdelight:rice"
+  },
+  "max_uses": 1,
+  "reputation_discount": 0.05,
+  "wants": {
+    "id": "minecraft:emerald"
+  },
+  "xp": 12
+}

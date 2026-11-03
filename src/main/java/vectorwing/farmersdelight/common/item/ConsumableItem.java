@@ -1,12 +1,13 @@
 package vectorwing.farmersdelight.common.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -78,7 +79,7 @@ public class ConsumableItem extends Item
 			} else {
 				if (consumer instanceof Player player && !((Player) consumer).getAbilities().instabuild) {
 					if (!player.getInventory().add(containerStack)) {
-						player.drop(containerStack, false);
+						player.drop(containerStack, false, Prediction.SERVER_ONLY);
 					}
 				}
 				return stack;

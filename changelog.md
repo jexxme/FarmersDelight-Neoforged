@@ -1,3 +1,18 @@
+## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.3)
+
+- First release of Farmer's Delight Neoforged: Farmer's Delight 1.3.3 content on Minecraft 26.3 / NeoForge 26.3.0.101 / Java 25.
+- Canvas signs use vanilla sign block entities; fuel/compost/villager food are item components;
+  rich soil tilling is data-driven; loot modifiers and all data use the 26.3 JSON formats.
+- Data generation ported to the 26.3 registry-bootstrap datagen.
+- Villager trade config toggles work again; config file name stays `farmersdelight-common.toml`.
+- Skillet shows the cooking ingredient (with flip animation) in hand.
+- Rich soil registers the 26.3 plant support tags (`supports_crops`, `supports_vegetation`, ...).
+- Fixes for open upstream issues (see docs/UPSTREAM_ISSUES.md):
+  rope fences in vanilla fence item tags (#1412), tag-based straw drops `#farmersdelight:drops_straw` (#1411),
+  stoves lit by any fire starter (#1407), farmers compost FD seeds (#1404), `fd_add_table` accepts
+  `lootTable` and `table` (#1391), quick-moving meals awards the crafted stat (#1384).
+- Known gaps: EMI/CraftTweaker integrations disabled.
+
 # Changelog
 
 ## 1.3.3

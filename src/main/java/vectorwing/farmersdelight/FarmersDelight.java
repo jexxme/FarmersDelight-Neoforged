@@ -35,7 +35,8 @@ public class FarmersDelight
 			modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 		}
 
-		modContainer.registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
+		// 26.3 dropped ModConfig.Type.COMMON; keep the old file name so existing configs keep working.
+		modContainer.registerConfig(ModConfig.Type.LOCAL, Configuration.COMMON_CONFIG, MODID + "-common.toml");
 		modContainer.registerConfig(ModConfig.Type.CLIENT, Configuration.CLIENT_CONFIG);
 
 		ModSounds.SOUNDS.register(modEventBus);
@@ -59,6 +60,8 @@ public class FarmersDelight
 		ModAdvancements.TRIGGERS.register(modEventBus);
 		ModConsumeEffectTypes.CONSUME_EFFECTS.register(modEventBus);
 		ModRecipeCategories.RECIPE_BOOK_CATEGORIES.register(modEventBus);
+
+		vectorwing.farmersdelight.gametest.FDGameTests.register(modEventBus);
 
 		RegistryAliases.addRegistryAliases();
 

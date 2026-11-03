@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.integration.jei.category;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -31,7 +30,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
+
 public class CookingRecipeCategory implements IRecipeCategory<RecipeHolder<CookingPotRecipe>>
 {
 	protected final IDrawable heatIndicator;

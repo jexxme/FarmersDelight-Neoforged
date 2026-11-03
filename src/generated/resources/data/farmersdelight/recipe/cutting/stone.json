@@ -1,0 +1,14 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:stone"
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "minecraft:cobblestone"
+      }
+    }
+  ],
+  "tool": "#minecraft:pickaxes"
+}

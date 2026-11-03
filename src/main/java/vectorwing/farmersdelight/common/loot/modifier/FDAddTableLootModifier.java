@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.common.loot.modifier;
 
+import net.minecraft.core.Holder;
+import java.util.Optional;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -25,12 +27,12 @@ public class FDAddTableLootModifier extends AddTableLootModifier
 {
 	public static final Supplier<MapCodec<FDAddTableLootModifier>> CODEC = Suppliers.memoize(() ->
 			RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
-					.and(ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("lootTable").forGetter((m) -> m.lootTable))
+					.and(net.neoforged.neoforge.common.util.NeoForgeExtraCodecs.aliasedFieldOf(ResourceKey.codec(Registries.LOOT_TABLE), "lootTable", "table").forGetter((m) -> m.lootTable))
 					.apply(inst, FDAddTableLootModifier::new)));
 
 	private final ResourceKey<LootTable> lootTable;
 
-	protected FDAddTableLootModifier(LootItemCondition[] conditionsIn, int priority, ResourceKey<LootTable> lootTable) {
+	protected FDAddTableLootModifier(Optional<Holder<LootItemCondition>> conditionsIn, int priority, ResourceKey<LootTable> lootTable) {
 		super(conditionsIn, priority, lootTable);
 		this.lootTable = lootTable;
 	}

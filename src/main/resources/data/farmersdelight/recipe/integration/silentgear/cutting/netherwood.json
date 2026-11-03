@@ -11,10 +11,7 @@
       "item": "silentgear:netherwood_log"
     }
   ],
-  "tool": {
-    "type": "farmersdelight:tool_action",
-    "action": "axe_strip"
-  },
+  "tool": "#minecraft:axes",
   "result": [
     {
       "item": "silentgear:stripped_netherwood_log"

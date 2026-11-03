@@ -6,11 +6,7 @@
     }
   ],
   "type": "create:milling",
-  "ingredients": [
-    {
-      "item": "farmersdelight:wild_tomatoes"
-    }
-  ],
+  "ingredient": "farmersdelight:wild_tomatoes",
   "results": [
     {
       "id": "farmersdelight:tomato_seeds",

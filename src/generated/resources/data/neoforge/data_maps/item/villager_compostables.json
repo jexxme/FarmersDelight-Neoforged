@@ -1,0 +1,10 @@
+{
+  "values": {
+    "farmersdelight:cabbage_seeds": {
+      "can_villager_compost": true
+    },
+    "farmersdelight:tomato_seeds": {
+      "can_villager_compost": true
+    }
+  }
+}

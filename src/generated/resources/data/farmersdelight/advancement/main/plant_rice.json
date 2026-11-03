@@ -3,12 +3,10 @@
   "criteria": {
     "plant_rice": {
       "conditions": {
-        "location": [
-          {
-            "block": "farmersdelight:rice",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "farmersdelight:rice"
+        }
       },
       "trigger": "minecraft:placed_block"
     }
@@ -19,7 +17,6 @@
       "translate": "advancements.farmersdelight.plant_rice.description"
     },
     "icon": {
-      "count": 1,
       "id": "farmersdelight:rice"
     },
     "title": {

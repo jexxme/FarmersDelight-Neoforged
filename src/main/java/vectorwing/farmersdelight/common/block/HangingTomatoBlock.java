@@ -40,8 +40,15 @@ public class HangingTomatoBlock extends TomatoBlock
 		return placeRope(level, pos);
 	}
 
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-		if (Configuration.ENABLE_TOMATO_ROPE_PERMANENCE.get() && !movedByPiston && !state.is(newState.getBlock())) {
+	/**
+	 * 26.x: {@code onRemove} no longer exists; this hook runs after the block was replaced by a different block.
+	 * Keeps the rope in place when the vine is removed by something other than a player (who is handled in
+	 * {@link #onDestroyedByPlayer}), e.g. explosions or commands.
+	 */
+	@Override
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
+		if (Configuration.ENABLE_TOMATO_ROPE_PERMANENCE.get() && !movedByPiston && level.getBlockState(pos).isAir()) {
 			placeRope(level, pos);
 		}
 	}

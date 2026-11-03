@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.common;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.neoforged.fml.common.asm.enumextension.EnumProxy;
-import vectorwing.farmersdelight.client.renderer.SkilletItemRenderer;
+import vectorwing.farmersdelight.client.renderer.SkilletArmPoseTransformer;
 
 public class EnumParameters
 {
@@ -20,6 +20,6 @@ public class EnumParameters
 //		RecipeBookCategories.class, (Supplier<List<ItemStack>>) () -> List.of(new ItemStack(ModItems.DUMPLINGS.get()), new ItemStack(ModItems.TOMATO_SAUCE.get()))
 //	);
 	public static final EnumProxy<HumanoidModel.ArmPose> PROXY_SKILLET_FLIP = new EnumProxy<>(
-		HumanoidModel.ArmPose.class, false, new SkilletItemRenderer.ArmPoseTransformer()
+		HumanoidModel.ArmPose.class, false, new SkilletArmPoseTransformer()
 	);
 }

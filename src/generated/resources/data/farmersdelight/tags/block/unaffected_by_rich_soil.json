@@ -1,5 +1,6 @@
 {
   "values": [
+    "minecraft:wildflowers",
     "minecraft:grass_block",
     "minecraft:short_grass",
     "minecraft:moss_block",
@@ -14,6 +15,6 @@
     "farmersdelight:sandy_shrub",
     "#farmersdelight:mushroom_colonies",
     "#farmersdelight:wild_crops",
-    "#minecraft:tall_flowers"
+    "#c:flowers/tall"
   ]
 }

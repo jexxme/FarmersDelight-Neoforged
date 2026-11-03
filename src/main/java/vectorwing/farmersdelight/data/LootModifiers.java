@@ -1,19 +1,22 @@
 package vectorwing.farmersdelight.data;
 
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.predicates.BlockPredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
+import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.component.predicates.DataComponentPredicates;
-import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -37,6 +40,7 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class LootModifiers extends GlobalLootModifierProvider
@@ -49,6 +53,7 @@ public class LootModifiers extends GlobalLootModifierProvider
 	protected void start() {
 		HolderGetter<Item> items = this.registries.lookupOrThrow(Registries.ITEM);
 		HolderGetter<EntityType<?>> entityTypes = this.registries.lookupOrThrow(Registries.ENTITY_TYPE);
+		HolderGetter<Block> blocks = this.registries.lookupOrThrow(Registries.BLOCK);
 		// Chest Loot
 		this.add("add_loot_abandoned_mineshaft", this.addNewLootPool(BuiltInLootTables.ABANDONED_MINESHAFT, ModChestLootTables.ABANDONED_MINESHAFT));
 		this.add("add_loot_bastion_hoglin_stable", this.addNewLootPool(BuiltInLootTables.BASTION_HOGLIN_STABLE, ModChestLootTables.BASTION_HOGLIN_STABLE));
@@ -66,60 +71,67 @@ public class LootModifiers extends GlobalLootModifierProvider
 		this.add("add_loot_village_taiga_house", this.addNewLootPool(BuiltInLootTables.VILLAGE_TAIGA_HOUSE, ModChestLootTables.VILLAGE_TAIGA_HOUSE));
 
 		// Entity Loot
-		this.add("add_onion_to_illagers", this.addItemOnPlayerKill(entityTypes, ModItems.ONION.get(), 0.02F, EntityType.PILLAGER, EntityType.EVOKER, EntityType.VINDICATOR));
-		this.add("add_onion_to_zombies", this.addItemOnPlayerKill(entityTypes, ModItems.ONION.get(), 0.02F, EntityType.ZOMBIE, EntityType.HUSK, EntityType.ZOMBIE_VILLAGER));
+		this.add("add_onion_to_illagers", this.addItemOnPlayerKill(entityTypes, ModItems.ONION.get(), 0.02F, EntityTypes.PILLAGER, EntityTypes.EVOKER, EntityTypes.VINDICATOR));
+		this.add("add_onion_to_zombies", this.addItemOnPlayerKill(entityTypes, ModItems.ONION.get(), 0.02F, EntityTypes.ZOMBIE, EntityTypes.HUSK, EntityTypes.ZOMBIE_VILLAGER));
 
 		// Knife Scavenging
-		this.add("scavenging_feather", this.addItemOnKnifeKill(items, entityTypes, Items.FEATHER, EntityType.CHICKEN));
-		this.add("scavenging_ham_from_hoglin", this.addItemOnKnifeKill(items, entityTypes, ModItems.HAM.get(), false, 1.0F, EntityType.HOGLIN));
-		this.add("scavenging_ham_from_pig", this.addItemOnKnifeKill(items, entityTypes, ModItems.HAM.get(), false, 0.5F, EntityType.PIG));
-		this.add("scavenging_leather", this.addItemOnKnifeKill(items, entityTypes, Items.LEATHER, EntityType.COW, EntityType.MOOSHROOM, EntityType.HORSE, EntityType.DONKEY, EntityType.MULE, EntityType.LLAMA, EntityType.TRADER_LLAMA));
-		this.add("scavenging_rabbit_hide", this.addItemOnKnifeKill(items, entityTypes, Items.RABBIT_HIDE, EntityType.RABBIT));
-		this.add("scavenging_shulker_shell", this.addItemOnKnifeKill(items, entityTypes, Items.SHULKER_SHELL, EntityType.SHULKER));
-		this.add("scavenging_smoked_ham_from_hoglin", this.addItemOnKnifeKill(items, entityTypes, ModItems.SMOKED_HAM.get(), true, 1.0F, EntityType.HOGLIN));
-		this.add("scavenging_smoked_ham_from_pig", this.addItemOnKnifeKill(items, entityTypes, ModItems.SMOKED_HAM.get(), true, 0.5F, EntityType.PIG));
-		this.add("scavenging_string", this.addItemOnKnifeKill(items, entityTypes, Items.STRING, EntityType.SPIDER, EntityType.CAVE_SPIDER));
-		this.add("scavenging_pumpkin", new ReplaceItemModifier(new LootItemCondition[]{
-			LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.PUMPKIN).build(),
-			MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES))
-				.and(hasSilkTouch().invert()).build()
-		},Items.PUMPKIN, ModItems.PUMPKIN_SLICE.get(), 4));
+		this.add("scavenging_feather", this.addItemOnKnifeKill(items, entityTypes, Items.FEATHER, EntityTypes.CHICKEN));
+		this.add("scavenging_ham_from_hoglin", this.addItemOnKnifeKill(items, entityTypes, ModItems.HAM.get(), false, 1.0F, EntityTypes.HOGLIN));
+		this.add("scavenging_ham_from_pig", this.addItemOnKnifeKill(items, entityTypes, ModItems.HAM.get(), false, 0.5F, EntityTypes.PIG));
+		this.add("scavenging_leather", this.addItemOnKnifeKill(items, entityTypes, Items.LEATHER, EntityTypes.COW, EntityTypes.MOOSHROOM, EntityTypes.HORSE, EntityTypes.DONKEY, EntityTypes.MULE, EntityTypes.LLAMA, EntityTypes.TRADER_LLAMA));
+		this.add("scavenging_rabbit_hide", this.addItemOnKnifeKill(items, entityTypes, Items.RABBIT_HIDE, EntityTypes.RABBIT));
+		this.add("scavenging_shulker_shell", this.addItemOnKnifeKill(items, entityTypes, Items.SHULKER_SHELL, EntityTypes.SHULKER));
+		this.add("scavenging_smoked_ham_from_hoglin", this.addItemOnKnifeKill(items, entityTypes, ModItems.SMOKED_HAM.get(), true, 1.0F, EntityTypes.HOGLIN));
+		this.add("scavenging_smoked_ham_from_pig", this.addItemOnKnifeKill(items, entityTypes, ModItems.SMOKED_HAM.get(), true, 0.5F, EntityTypes.PIG));
+		this.add("scavenging_string", this.addItemOnKnifeKill(items, entityTypes, Items.STRING, EntityTypes.SPIDER, EntityTypes.CAVE_SPIDER));
+		this.add("scavenging_pumpkin", new ReplaceItemModifier(all(
+			MatchBlock.blockMatches(blocks, Blocks.PUMPKIN),
+			MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES)),
+			InvertedLootItemCondition.invert(hasSilkTouch())
+		), Items.PUMPKIN, ModItems.PUMPKIN_SLICE.get(), 4));
 
 		// Pastry Slicing
-		this.add("slicing_apple_pie", this.pastrySlicing(items, ModItems.APPLE_PIE_SLICE.get(), ModBlocks.APPLE_PIE.get()));
-		this.add("slicing_cake", this.pastrySlicing(items, ModItems.CAKE_SLICE.get(), Blocks.CAKE));
-		this.add("slicing_chocolate_pie", this.pastrySlicing(items, ModItems.CHOCOLATE_PIE_SLICE.get(), ModBlocks.CHOCOLATE_PIE.get()));
-		this.add("slicing_pumpkin_pie", this.pastrySlicing(items, ModItems.PUMPKIN_PIE_SLICE.get(), ModBlocks.PUMPKIN_PIE.get()));
-		this.add("slicing_sweet_berry_cheesecake", this.pastrySlicing(items, ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get(), ModBlocks.SWEET_BERRY_CHEESECAKE.get()));
-		this.add("slicing_candle_cake", this.candleCakeSlicing(items));
+		this.add("slicing_apple_pie", this.pastrySlicing(items, blocks, ModItems.APPLE_PIE_SLICE.get(), ModBlocks.APPLE_PIE.get()));
+		this.add("slicing_cake", this.pastrySlicing(items, blocks, ModItems.CAKE_SLICE.get(), Blocks.CAKE));
+		this.add("slicing_chocolate_pie", this.pastrySlicing(items, blocks, ModItems.CHOCOLATE_PIE_SLICE.get(), ModBlocks.CHOCOLATE_PIE.get()));
+		this.add("slicing_pumpkin_pie", this.pastrySlicing(items, blocks, ModItems.PUMPKIN_PIE_SLICE.get(), ModBlocks.PUMPKIN_PIE.get()));
+		this.add("slicing_sweet_berry_cheesecake", this.pastrySlicing(items, blocks, ModItems.SWEET_BERRY_CHEESECAKE_SLICE.get(), ModBlocks.SWEET_BERRY_CHEESECAKE.get()));
+		this.add("slicing_candle_cake", this.candleCakeSlicing(items, blocks));
 
 		// Straw Harvesting
-		this.add("straw_from_grass", this.strawHarvesting(items, LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS), 0.2F));
-		this.add("straw_from_mature_rice", this.strawHarvesting(items, LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.RICE_CROP_PANICLES.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3)), 1.0F));
-		this.add("straw_from_mature_wheat", this.strawHarvesting(items, LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.WHEAT).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7)), 1.0F));
-		this.add("straw_from_sandy_shrub", this.strawHarvesting(items, LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.SANDY_SHRUB.get()), 0.3F));
-		this.add("straw_from_tall_grass", this.strawHarvesting(items, LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS), 0.2F));
+		this.add("straw_from_grass", this.strawHarvesting(items, MatchBlock.blockMatches(BlockPredicate.Builder.block().of(blocks, ModTags.Blocks.DROPS_STRAW)), 0.2F));
+		this.add("straw_from_mature_rice", this.strawHarvesting(items, MatchBlock.blockMatches(blocks, ModBlocks.RICE_CROP_PANICLES.get(), StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3)), 1.0F));
+		this.add("straw_from_mature_wheat", this.strawHarvesting(items, MatchBlock.blockMatches(blocks, Blocks.WHEAT, StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7)), 1.0F));
+		this.add("straw_from_sandy_shrub", this.strawHarvesting(items, MatchBlock.blockMatches(blocks, ModBlocks.SANDY_SHRUB.get()), 0.3F));
+	}
+
+	private static Optional<Holder<LootItemCondition>> all(LootItemCondition.Builder... conditions) {
+		if (conditions.length == 1) {
+			return Optional.of(Holder.direct(conditions[0].build()));
+		}
+		return Optional.of(Holder.direct(AllOfCondition.allOf(conditions).build()));
 	}
 
 	private AddTableLootModifier addNewLootPool(ResourceKey<LootTable> lootToAddTo, ResourceKey<LootTable> newPool) {
-		return new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(lootToAddTo.registry()).build()}, IGlobalLootModifier.DEFAULT_PRIORITY, newPool);
+		return new AddTableLootModifier(all(LootTableIdCondition.builder(lootToAddTo.identifier())), IGlobalLootModifier.DEFAULT_PRIORITY, newPool);
+	}
+
+	private LootItemCondition.Builder anyEntity(HolderGetter<EntityType<?>> entityTypes, EntityType<?>... entity) {
+		LootItemCondition.Builder[] entityConditions = new LootItemCondition.Builder[entity.length];
+		for (int i = 0; i < entity.length; i++) {
+			entityConditions[i] = LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityTypes, entity[i]));
+		}
+		return entityConditions.length > 1 ? AnyOfCondition.anyOf(entityConditions) : entityConditions[0];
 	}
 
 	private AddItemModifier addItemOnPlayerKill(HolderGetter<EntityType<?>> entityTypes, Item item, float chance, EntityType<?>... entity) {
-		LootItemCondition.Builder[] entityConditions = new LootItemCondition.Builder[entity.length];
-		for (int i = 0; i < entity.length; i++) {
-			entityConditions[i] = LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-				EntityPredicate.Builder.entity().of(entityTypes, entity[i]).build());
-		}
-		List<LootItemCondition> conditions = new ArrayList<>();
-		conditions.add(entityConditions.length > 1 ? AnyOfCondition.anyOf(entityConditions).build() : entityConditions[0].build());
-		conditions.add(LootItemKilledByPlayerCondition.killedByPlayer().build());
-
+		List<LootItemCondition.Builder> conditions = new ArrayList<>();
+		conditions.add(anyEntity(entityTypes, entity));
+		conditions.add(LootItemKilledByPlayerCondition.killedByPlayer());
 		if (chance < 1.0F) {
-			conditions.add(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries, chance, 0.01F).build());
+			conditions.add(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries.lookupOrThrow(Registries.ENCHANTMENT), chance, 0.01F));
 		}
-
-		return new AddItemModifier(conditions.toArray(LootItemCondition[]::new), item, 1);
+		return new AddItemModifier(all(conditions.toArray(LootItemCondition.Builder[]::new)), item, 1);
 	}
 
 	private AddItemModifier addItemOnKnifeKill(HolderGetter<Item> items, HolderGetter<EntityType<?>> entityTypes, Item item, EntityType<?>... entity) {
@@ -127,73 +139,50 @@ public class LootModifiers extends GlobalLootModifierProvider
 	}
 
 	private AddItemModifier addItemOnKnifeKill(HolderGetter<Item> items, HolderGetter<EntityType<?>> entityTypes, Item item, Boolean onFire, float chance, EntityType<?>... entity) {
-		LootItemCondition.Builder[] entityConditions = new LootItemCondition.Builder[entity.length];
-		for (int i = 0; i < entity.length; i++) {
-			entityConditions[i] = LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-				EntityPredicate.Builder.entity().of(entityTypes, entity[i]).build());
-		}
-
-		List<LootItemCondition> conditions = new ArrayList<>();
-		conditions.add(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES)).build()).build()).build());
-		conditions.add(entityConditions.length > 1 ? AnyOfCondition.anyOf(entityConditions).build() : entityConditions[0].build());
-
+		List<LootItemCondition.Builder> conditions = new ArrayList<>();
+		conditions.add(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER,
+				EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES)))));
+		conditions.add(anyEntity(entityTypes, entity));
 		if (onFire != null) {
-			conditions.add(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(onFire))).build());
+			conditions.add(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(onFire))));
 		}
-
 		if (chance < 1.0F) {
-			conditions.add(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries, chance, 0.1F).build());
+			conditions.add(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries.lookupOrThrow(Registries.ENCHANTMENT), chance, 0.1F));
 		}
-
-		return new AddItemModifier(conditions.toArray(LootItemCondition[]::new), item, 1);
+		return new AddItemModifier(all(conditions.toArray(LootItemCondition.Builder[]::new)), item, 1);
 	}
 
-	private AddItemModifier candleCakeSlicing(HolderGetter<Item> items) {
-		List<Block> cakes = List.of(Blocks.CANDLE_CAKE, Blocks.WHITE_CANDLE_CAKE, Blocks.ORANGE_CANDLE_CAKE, Blocks.MAGENTA_CANDLE_CAKE, Blocks.LIGHT_BLUE_CANDLE_CAKE, Blocks.YELLOW_CANDLE_CAKE, Blocks.LIME_CANDLE_CAKE, Blocks.PINK_CANDLE_CAKE, Blocks.GRAY_CANDLE_CAKE, Blocks.LIGHT_GRAY_CANDLE_CAKE, Blocks.CYAN_CANDLE_CAKE, Blocks.PURPLE_CANDLE_CAKE, Blocks.BLUE_CANDLE_CAKE, Blocks.BROWN_CANDLE_CAKE, Blocks.GREEN_CANDLE_CAKE, Blocks.RED_CANDLE_CAKE, Blocks.BLACK_CANDLE_CAKE);
-		LootItemCondition.Builder[] conditions = new LootItemCondition.Builder[cakes.size()];
-		for (int i = 0; i < cakes.size(); i++) {
-			conditions[i] = LootItemBlockStatePropertyCondition.hasBlockStateProperties(cakes.get(i));
+	private AddItemModifier candleCakeSlicing(HolderGetter<Item> items, HolderGetter<Block> blocks) {
+		List<Block> cakes = new ArrayList<>();
+		cakes.add(Blocks.CANDLE_CAKE);
+		for (DyeColor color : DyeColor.values()) {
+			cakes.add(Blocks.DYED_CANDLE_CAKE.pick(color));
 		}
-		return new AddItemModifier(new LootItemCondition[]{
-			MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES)).build(),
-			AnyOfCondition.anyOf(conditions).build()
-		}, ModItems.CAKE_SLICE.get(), 7);
+		LootItemCondition.Builder[] conditions = cakes.stream().map(cake -> MatchBlock.blockMatches(blocks, cake)).toArray(LootItemCondition.Builder[]::new);
+		return new AddItemModifier(all(
+			MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES)),
+			AnyOfCondition.anyOf(conditions)
+		), ModItems.CAKE_SLICE.get(), 7);
 	}
 
-	private PastrySlicingModifier pastrySlicing(HolderGetter<Item> items, Item receivedItem, Block slicedBlock) {
-		return new PastrySlicingModifier(new LootItemCondition[]{
-			MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES)).build(),
-			LootItemBlockStatePropertyCondition.hasBlockStateProperties(slicedBlock).build()
-		}, receivedItem);
+	private PastrySlicingModifier pastrySlicing(HolderGetter<Item> items, HolderGetter<Block> blocks, Item receivedItem, Block slicedBlock) {
+		return new PastrySlicingModifier(all(
+			MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES)),
+			MatchBlock.blockMatches(blocks, slicedBlock)
+		), receivedItem);
 	}
 
-	private AddItemModifier strawHarvesting(HolderGetter<Item> items, LootItemBlockStatePropertyCondition.Builder slicedBlock, float chance) {
-		List<LootItemCondition> conditions = new ArrayList<>();
-
-		conditions.add(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.STRAW_HARVESTERS)).build());
+	private AddItemModifier strawHarvesting(HolderGetter<Item> items, LootItemCondition.Builder harvestedBlock, float chance) {
+		List<LootItemCondition.Builder> conditions = new ArrayList<>();
+		conditions.add(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.STRAW_HARVESTERS)));
 		if (chance < 1.0F) {
-			conditions.add(LootItemRandomChanceCondition.randomChance(chance).build());
+			conditions.add(LootItemRandomChanceCondition.randomChance(chance));
 		}
-		conditions.add(slicedBlock.build());
-
-		return new AddItemModifier(conditions.toArray(LootItemCondition[]::new), ModItems.STRAW.get(), 1);
+		conditions.add(harvestedBlock);
+		return new AddItemModifier(all(conditions.toArray(LootItemCondition.Builder[]::new)), ModItems.STRAW.get(), 1);
 	}
 
-	protected LootItemCondition.Builder hasSilkTouch() {
-		return MatchTool.toolMatches(
-			ItemPredicate.Builder.item().withComponents(
-				DataComponentMatchers.Builder.components().partial(
-						DataComponentPredicates.ENCHANTMENTS,
-						EnchantmentsPredicate.enchantments(
-							List.of(
-								new EnchantmentPredicate(
-									this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1)
-								)
-							)
-						)
-					)
-					.build()
-			)
-		);
+	private Holder<LootItemCondition> hasSilkTouch() {
+		return this.registries.lookupOrThrow(Registries.PREDICATE).getOrThrow(LootPredicates.TOOL_CAN_SILK_TOUCH);
 	}
 }

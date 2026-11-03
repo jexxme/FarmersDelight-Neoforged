@@ -2,37 +2,32 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "ability": "shears_harvest",
-                  "condition": "neoforge:can_item_perform_ability"
-                }
-              ],
+              "condition": {
+                "type": "neoforge:can_item_perform_ability",
+                "ability": "shears_harvest"
+              },
               "name": "farmersdelight:sandy_shrub"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
+              "condition": {
+                "type": "minecraft:random_chance",
+                "chance": 0.125
+              },
+              "modifier": [
                 {
-                  "chance": 0.125,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "functions": [
-                {
-                  "function": "minecraft:explosion_decay"
+                  "type": "minecraft:explosion_decay"
                 },
                 {
+                  "type": "minecraft:apply_bonus",
                   "enchantment": "minecraft:fortune",
                   "formula": "minecraft:uniform_bonus_count",
-                  "function": "minecraft:apply_bonus",
                   "parameters": {
                     "bonusMultiplier": 2
                   }
@@ -43,7 +38,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "farmersdelight:blocks/sandy_shrub"

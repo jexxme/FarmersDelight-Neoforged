@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:poplar_chest_boat"
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "minecraft:poplar_boat"
+      }
+    },
+    {
+      "item": {
+        "id": "minecraft:chest"
+      }
+    }
+  ],
+  "tool": "#minecraft:hoes"
+}

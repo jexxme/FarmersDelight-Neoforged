@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.integration.jei;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -27,7 +26,7 @@ import java.util.List;
 
 @JeiPlugin
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
+
 @SuppressWarnings("unused")
 public class JEIPlugin implements IModPlugin
 {

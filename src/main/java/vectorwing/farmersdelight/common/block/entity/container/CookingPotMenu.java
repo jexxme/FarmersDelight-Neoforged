@@ -12,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.SlotItemHandler;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -25,7 +24,7 @@ import java.util.Objects;
 
 public class CookingPotMenu extends RecipeBookMenu
 {
-	public static final Identifier EMPTY_CONTAINER_SLOT_BOWL = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "item/empty_container_slot_bowl");
+	public static final Identifier EMPTY_CONTAINER_SLOT_BOWL = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "container/slot/bowl");
 
 	public static final int INDEX_MEAL = 6;
 	public static final int INDEX_CONTAINER = 7;
@@ -119,6 +118,7 @@ public class CookingPotMenu extends RecipeBookMenu
 				if (!this.moveItemStackTo(slotStack, indexInventoryStart, indexInventoryEnd, true)) {
 					return ItemStack.EMPTY;
 				}
+				slot.onQuickCraft(slotStack, slotStackCopy);
 			} else if (index > INDEX_OUTPUT) {
 				if (slotStack.is(ModTags.Items.SERVING_CONTAINERS) || slotStack.is(blockEntity.getContainer().getItem())) {
 					if (!this.moveItemStackTo(slotStack, INDEX_CONTAINER, INDEX_OUTPUT, false)) {

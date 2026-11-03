@@ -1,6 +1,7 @@
 package vectorwing.farmersdelight.common.item;
 
-import net.minecraft.advancements.CriteriaTriggers;
+
+import net.minecraft.util.Prediction;import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -207,7 +208,7 @@ public class SkilletItem extends BlockItem
 			ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT, ItemStackWrapper.EMPTY);
 			if (!storedStack.getStack().isEmpty()) {
 				ItemStack cookingStack = storedStack.getStack();
-				player.getInventory().placeItemBackInInventory(cookingStack);
+				player.getInventory().placeItemBackInInventory(cookingStack, Prediction.PREDICTED);
 				stack.remove(ModDataComponents.SKILLET_INGREDIENT);
 				stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
 				stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
@@ -228,7 +229,7 @@ public class SkilletItem extends BlockItem
 				cookingRecipe.ifPresent((recipe) -> {
 					ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack));
 					if (!player.getInventory().add(resultStack)) {
-						player.drop(resultStack, false);
+						player.drop(resultStack, false, Prediction.SERVER_ONLY);
 					}
 					if (player instanceof ServerPlayer) {
 						CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
@@ -270,16 +271,6 @@ public class SkilletItem extends BlockItem
 			return serverLevel.recipeAccess().getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(stack), level);
 		}
 		return Optional.empty();
-	}
-
-	@Override
-	protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, @Nullable Player player, ItemStack stack, BlockState state) {
-		super.updateCustomBlockEntityTag(pos, level, player, stack, state);
-		if (level.getBlockEntity(pos) instanceof SkilletBlockEntity skillet) {
-			skillet.setSkilletItem(stack);
-			return true;
-		}
-		return false;
 	}
 
 	public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {

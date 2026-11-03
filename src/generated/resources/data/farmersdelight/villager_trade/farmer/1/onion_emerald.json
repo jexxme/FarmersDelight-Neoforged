@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "farmersdelight:config_enabled",
+      "option": "enableFarmerFDTrades"
+    }
+  ],
+  "gives": {
+    "id": "minecraft:emerald"
+  },
+  "max_uses": 16,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 26,
+    "id": "farmersdelight:onion"
+  },
+  "xp": 2
+}

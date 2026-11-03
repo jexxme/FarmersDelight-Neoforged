@@ -1,7 +1,6 @@
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
+
 package vectorwing.farmersdelight.client.particle;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 
 import javax.annotation.ParametersAreNonnullByDefault;

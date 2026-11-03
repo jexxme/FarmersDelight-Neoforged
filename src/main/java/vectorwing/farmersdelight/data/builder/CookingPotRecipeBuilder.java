@@ -1,21 +1,20 @@
 package vectorwing.farmersdelight.data.builder;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
+import net.minecraft.advancements.triggers.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -26,13 +25,13 @@ import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import vectorwing.farmersdelight.data.Recipes;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-@MethodsReturnNonnullByDefault
 public class CookingPotRecipeBuilder implements RecipeBuilder
 {
 	private final HolderGetter<Item> items;
@@ -105,7 +104,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		return RecipeBuilder.getDefaultRecipeId(resultStack);
 	}
 
-	public CookingPotRecipeBuilder setRecipeBookTab(CookingPotRecipeBookTab category) {
+	public CookingPotRecipeBuilder setRecipeBookCategory(CookingPotRecipeBookTab category) {
 		this.category = category;
 		return this;
 	}
@@ -174,18 +173,18 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	@Override
 	public void save(RecipeOutput output, ResourceKey<Recipe<?>> resourceKey) {
 		Advancement.Builder advancementBuilder = output.advancement()
-			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
-			.rewards(AdvancementRewards.Builder.recipe(resourceKey))
-			.requirements(AdvancementRequirements.Strategy.OR);
+				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(resourceKey)))
+				.rewards(AdvancementRewards.Builder.recipe(resourceKey))
+				.requirements(AdvancementRequirements.Strategy.OR);
 		this.criteria.forEach(advancementBuilder::addCriterion);
 		CookingPotRecipe recipe = new CookingPotRecipe(
-			"",
-			this.category,
-			this.ingredients,
-			this.resultStack,
-			Optional.ofNullable(this.container),
-			this.experience,
-			this.cookingTime
+				"",
+				this.category,
+				this.ingredients,
+				this.resultStack,
+				Optional.ofNullable(this.container),
+				this.experience,
+				this.cookingTime
 		);
 		output.accept(resourceKey, recipe, advancementBuilder.build(resourceKey.identifier().withPrefix("recipes/")));
 	}

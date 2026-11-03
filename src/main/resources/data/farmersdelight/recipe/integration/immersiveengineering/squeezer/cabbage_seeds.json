@@ -8,8 +8,8 @@
   "type": "immersiveengineering:squeezer",
   "energy": 6400,
   "fluid": {
-    "amount": 80,
-    "id": "immersiveengineering:plantoil"
+    "Amount": 80,
+    "FluidName": "immersiveengineering:plantoil"
   },
   "input": {
     "item": "farmersdelight:cabbage_seeds"

@@ -74,12 +74,17 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 	protected InteractionResult tryToIgnite(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		Item heldItem = heldStack.getItem();
 
-		if (heldItem instanceof FlintAndSteelItem) {
+		if (heldItem instanceof FlintAndSteelItem || heldStack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.FIRESTARTER_LIGHT)) {
 			if (!level.isClientSide()) {
-				level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, MathUtils.RAND.nextFloat() * 0.4F + 0.8F);
+				boolean fireCharge = heldItem instanceof net.minecraft.world.item.FireChargeItem;
+				level.playSound(null, pos, fireCharge ? SoundEvents.FIRECHARGE_USE : SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, MathUtils.RAND.nextFloat() * 0.4F + 0.8F);
 			}
 			ignite(player, level, pos, state);
-			heldStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
+			if (heldStack.isDamageableItem()) {
+				heldStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
+			} else if (!player.getAbilities().instabuild) {
+				heldStack.shrink(1);
+			}
 			return InteractionResult.SUCCESS;
 		}
 

@@ -1,9 +1,9 @@
 {
   "block.farmersdelight.stove": "Kompor",
   "block.farmersdelight.cooking_pot": "Panci Memasak",
-  "block.farmersdelight.wooden_basket": "Keranjang",
   "block.farmersdelight.cutting_board": "Talenan",
   "block.farmersdelight.skillet": "Wajan",
+  "block.farmersdelight.wooden_basket": "Keranjang",
   "block.farmersdelight.oak_cabinet": "Kabinet Ek",
   "block.farmersdelight.birch_cabinet": "Kabinet Betula",
   "block.farmersdelight.spruce_cabinet": "Kabinet Cemara",
@@ -33,7 +33,6 @@
   "block.farmersdelight.rice_bale": "Karung Beras",
   "block.farmersdelight.rice_bag": "Sekarung Beras",
   "block.farmersdelight.straw_bale": "Bal Jerami",
-
   "block.farmersdelight.canvas_sign": "Papan Tanda Kanvas",
   "block.farmersdelight.white_canvas_sign": "Papan Tanda Kanvas Putih",
   "block.farmersdelight.orange_canvas_sign": "Papan Tanda Kanvas Jingga",
@@ -51,7 +50,6 @@
   "block.farmersdelight.green_canvas_sign": "Papan Tanda Kanvas Hijau",
   "block.farmersdelight.red_canvas_sign": "Papan Tanda Kanvas Merah",
   "block.farmersdelight.black_canvas_sign": "Papan Tanda Kanvas Hitam",
-
   "block.farmersdelight.canvas_wall_sign": "Papan Tanda Dinding Kanvas",
   "block.farmersdelight.white_canvas_wall_sign": "Papan Tanda Dinding Kanvas Putih",
   "block.farmersdelight.orange_canvas_wall_sign": "Papan Tanda Dinding Kanvas Jingga",
@@ -69,7 +67,6 @@
   "block.farmersdelight.green_canvas_wall_sign": "Papan Tanda Dinding Kanvas Hijau",
   "block.farmersdelight.red_canvas_wall_sign": "Papan Tanda Dinding Kanvas Merah",
   "block.farmersdelight.black_canvas_wall_sign": "Papan Tanda Dinding Kanvas Hitam",
-
   "block.farmersdelight.hanging_canvas_sign": "Papan Tanda Gantung Kanvas",
   "block.farmersdelight.white_hanging_canvas_sign": "Papan Tanda Gantung Kanvas Putih",
   "block.farmersdelight.orange_hanging_canvas_sign": "Papan Tanda Gantung Kanvas Jingga",
@@ -87,7 +84,6 @@
   "block.farmersdelight.green_hanging_canvas_sign": "Papan Tanda Gantung Kanvas Hijau",
   "block.farmersdelight.red_hanging_canvas_sign": "Papan Tanda Gantung Kanvas Merah",
   "block.farmersdelight.black_hanging_canvas_sign": "Papan Tanda Gantung Kanvas Hitam",
-
   "block.farmersdelight.budding_tomatoes": "Tumbuhan Merambat Tomat Berkuncup",
   "block.farmersdelight.tomatoes": "Tomat",
   "block.farmersdelight.cabbages": "Kubis",
@@ -96,20 +92,17 @@
   "block.farmersdelight.rice_panicles": "Tanaman Beras",
   "block.farmersdelight.brown_mushroom_colony": "Koloni Jamur Coklat",
   "block.farmersdelight.red_mushroom_colony": "Koloni Jamur Merah",
-
   "block.farmersdelight.sandy_shrub": "Semak Belukar Berpasir",
   "block.farmersdelight.wild_cabbages": "Kubis Liar",
   "block.farmersdelight.wild_tomatoes": "Tomat Liar",
   "block.farmersdelight.wild_onions": "Bawang Liar",
   "block.farmersdelight.wild_carrots": "Wortel Liar",
   "block.farmersdelight.wild_potatoes": "Kentang Liar",
-  "block.farmersdelight.wild_beetroots": "Bit Laut",
+  "block.farmersdelight.wild_beetroots": "Bit Liar",
   "block.farmersdelight.wild_rice": "Beras Liar",
-
   "block.farmersdelight.apple_pie": "Pai Apel",
-  "block.farmersdelight.sweet_berry_cheesecake": "Kue Keju Berry Manis",
+  "block.farmersdelight.sweet_berry_cheesecake": "Kue Keju Beri Manis",
   "block.farmersdelight.chocolate_pie": "Pai Coklat",
-
   "item.farmersdelight.tomato": "Tomat",
   "item.farmersdelight.cabbage": "Kubis",
   "item.farmersdelight.onion": "Bawang",
@@ -118,11 +111,9 @@
   "item.farmersdelight.tomato_seeds": "Benih Tomat",
   "item.farmersdelight.rice_panicle": "Malai Beras",
   "item.farmersdelight.rotten_tomato": "Tomat Busuk",
-
   "item.farmersdelight.straw": "Jerami",
   "item.farmersdelight.canvas": "Kanvas",
   "item.farmersdelight.tree_bark": "Kulit Kayu",
-
   "item.farmersdelight.tomato_sauce": "Saus Tomat",
   "item.farmersdelight.fried_egg": "Telur Goreng",
   "item.farmersdelight.milk_bottle": "Botol Susu",
@@ -145,28 +136,24 @@
   "item.farmersdelight.cooked_salmon_slice": "Irisan Salem Bakar",
   "item.farmersdelight.mutton_chops": "Daging Domba Mentah",
   "item.farmersdelight.cooked_mutton_chops": "Daging Domba Bakar",
-  "item.farmersdelight.ham": "Daging",
-  "item.farmersdelight.smoked_ham": "Daging Matang",
-
+  "item.farmersdelight.ham": "Daging Ham",
+  "item.farmersdelight.smoked_ham": "Daging Ham Asap",
   "item.farmersdelight.pie_crust": "Kerak Pai",
   "item.farmersdelight.cake_slice": "Potongan Kue",
   "item.farmersdelight.apple_pie_slice": "Potongan Pai Apel",
-  "item.farmersdelight.sweet_berry_cheesecake_slice": "Potongan Kue Keju Berry Manis",
+  "item.farmersdelight.sweet_berry_cheesecake_slice": "Potongan Kue Keju Beri Manis",
   "item.farmersdelight.chocolate_pie_slice": "Potongan Pai Cokelat",
   "item.farmersdelight.fruit_salad": "Salad Buah",
-  "item.farmersdelight.sweet_berry_cookie": "Kue Berry Manis",
-  "item.farmersdelight.honey_cookie": "Kue Madu",
+  "item.farmersdelight.sweet_berry_cookie": "Biskuit Beri Manis",
+  "item.farmersdelight.honey_cookie": "Biskuit Madu",
   "item.farmersdelight.melon_popsicle": "Es Loli Semangka",
-  "item.farmersdelight.glow_berry_custard": "Pudding Berry Sinar",
-
+  "item.farmersdelight.glow_berry_custard": "Pudding Buni Sinar",
   "item.farmersdelight.earthworm": "Cacing Tanah",
-
   "item.farmersdelight.flint_knife": "Pisau Batu Api",
   "item.farmersdelight.iron_knife": "Pisau Besi",
   "item.farmersdelight.golden_knife": "Pisau Emas",
   "item.farmersdelight.diamond_knife": "Pisau Berlian",
   "item.farmersdelight.netherite_knife": "Pisau Netherit",
-
   "item.farmersdelight.barbecue_stick": "Barbekyu di atas Batang Kayu",
   "item.farmersdelight.egg_sandwich": "Roti Berlapis Telur",
   "item.farmersdelight.chicken_sandwich": "Roti Berlapis Ayam",
@@ -180,7 +167,6 @@
   "item.farmersdelight.cod_roll": "Gulungan Kod",
   "item.farmersdelight.kelp_roll": "Gulungan Kelp",
   "item.farmersdelight.kelp_roll_slice": "Irisan Gulungan Kelp",
-
   "item.farmersdelight.cooked_rice": "Nasi",
   "item.farmersdelight.mixed_salad": "Salad Campuran",
   "item.farmersdelight.nether_salad": "Salad Nether",
@@ -193,7 +179,6 @@
   "item.farmersdelight.baked_cod_stew": "Rebusan Kod Panggang",
   "item.farmersdelight.noodle_soup": "Mie Kuah",
   "item.farmersdelight.bone_broth": "Kaldu Tulang",
-
   "item.farmersdelight.bacon_and_eggs": "Bakon dan Telur",
   "item.farmersdelight.pasta_with_meatballs": "Pasta Bakso",
   "item.farmersdelight.pasta_with_mutton_chop": "Pasta Daging Domba",
@@ -204,33 +189,25 @@
   "item.farmersdelight.squid_ink_pasta": "Pasta Tinta Cumi-Cumi",
   "item.farmersdelight.grilled_salmon": "Salem Panggang",
   "item.farmersdelight.mushroom_rice": "Nasi Jamur",
-
   "block.farmersdelight.roast_chicken_block": "Ayam Panggang",
   "item.farmersdelight.roast_chicken": "Sepiring Ayam Panggang",
   "block.farmersdelight.stuffed_pumpkin_block": "Labu Isi",
   "item.farmersdelight.stuffed_pumpkin": "Semangkuk Labu Isi",
-  "block.farmersdelight.honey_glazed_ham_block": "Daging Berlapis Madu",
-  "item.farmersdelight.honey_glazed_ham": "Sepiring Daging Berlapis Madu",
+  "block.farmersdelight.honey_glazed_ham_block": "Daging Ham Berlapis Madu",
+  "item.farmersdelight.honey_glazed_ham": "Sepiring Daging Ham Berlapis Madu",
   "block.farmersdelight.shepherds_pie_block": "Pai Gembala",
   "item.farmersdelight.shepherds_pie": "Sepiring Pie Gembala",
   "block.farmersdelight.rice_roll_medley_block": "Medley Nasi Gulung",
-
   "item.farmersdelight.dog_food": "Makanan Serigala",
   "item.farmersdelight.horse_feed": "Pakan Kuda",
-
   "entity.farmersdelight.rotten_tomato": "Tomat Busuk",
-
   "effect.farmersdelight.nourishment": "Bergizi",
-  "effect.farmersdelight.comfort": "Kenyamanan",
-
   "effect.farmersdelight.nourishment.description": "Mencegah kehilangan rasa lapar, kecuali saat menggunakan saturasi untuk menyembuhkan luka.",
+  "effect.farmersdelight.comfort": "Kenyamanan",
   "effect.farmersdelight.comfort.description": "Membuat Anda kebal terhadap Kelaparan, Kelambatan dan Kelemahan.",
-
   "enchantment.farmersdelight.backstabbing": "Menusuk dari Belakang",
   "enchantment.farmersdelight.backstabbing.description": "Memperkuat kerusakan saat menyerang target dari belakang.",
-
   "itemGroup.farmersdelight": "Farmer's Delight",
-
   "container.farmersdelight.recipe_book.cookable": "Menampilkan Dapat Dimasak",
   "container.farmersdelight.cooking_pot": "Panci Memasak",
   "container.farmersdelight.cooking_pot.served_on": "Disajikan di: %s",
@@ -238,7 +215,6 @@
   "container.farmersdelight.cooking_pot.heated": "Dipanaskan",
   "container.farmersdelight.basket": "Keranjang",
   "container.farmersdelight.cabinet": "Kabinet",
-
   "tooltip.farmersdelight.cooking_pot.empty": "Kosong",
   "tooltip.farmersdelight.cooking_pot.single_serving": "Menampung 1 porsi:",
   "tooltip.farmersdelight.cooking_pot.many_servings": "Menampung %s porsi:",
@@ -247,10 +223,8 @@
   "tooltip.farmersdelight.milk_bottle": "Menghapus 1 Efek",
   "tooltip.farmersdelight.hot_cocoa": "Menghapus 1 Efek Berbahaya",
   "tooltip.farmersdelight.melon_juice": "Cepat Sehat Kecil",
-
   "advancements.farmersdelight.root.title": "Farmer's Delight",
   "advancements.farmersdelight.root.description": "Dunia yang lezat sedang menunggumu!",
-  
   "advancements.farmersdelight.craft_knife.title": "Berburu dan Mengumpulkan",
   "advancements.farmersdelight.craft_knife.description": "Buat Pisau untuk mencari lebih banyak barang dari tumbuhan dan hewan",
   "advancements.farmersdelight.harvest_straw.title": "Menggenggam Jerami",
@@ -265,7 +239,6 @@
   "advancements.farmersdelight.use_cutting_board.description": "Dengan alat di tangan, gunakan pada Talenan untuk memisahkan beberapa item",
   "advancements.farmersdelight.obtain_netherite_knife.title": "Jika Kamu Tidak Tahan Panas...",
   "advancements.farmersdelight.obtain_netherite_knife.description": "Habiskan seluruh Batangan Netherit untuk meningkatkan pisaumu! Mungkin waktunya keluar dari dapur...",
-  
   "advancements.farmersdelight.get_fd_seed.title": "Tanaman Alam Liar",
   "advancements.farmersdelight.get_fd_seed.description": "Empat tanaman baru dapat ditemukan di alam liar, di berbagai iklim... atau mungkin di peti di suatu tempat.",
   "advancements.farmersdelight.plant_rice.title": "Mencelupkan Akarmu",
@@ -278,7 +251,6 @@
   "advancements.farmersdelight.get_mushroom_colony.description": "Tanam Jamur di Tanah Subur pada tempat yang gelap, perhatikan koloni terbentuk, lalu guntinglah!",
   "advancements.farmersdelight.plant_all_crops.title": "Sirkulasi Tanaman",
   "advancements.farmersdelight.plant_all_crops.description": "Budidaya semua sayuran, buah-buahan, jamur dan akar yang dapat Kamu temukan!",
-
   "advancements.farmersdelight.place_campfire.title": "Api Unggun Menyala",
   "advancements.farmersdelight.place_campfire.description": "Tempatkan Api Unggun agar Kamu tetap hangat di malam hari",
   "advancements.farmersdelight.use_skillet.title": "Memasak Portabel",
@@ -293,7 +265,6 @@
   "advancements.farmersdelight.place_feast.description": "Beberapa makanan paling baik disajikan di atas meja, untuk dibagikan dengan teman-teman. Siapkan mangkukmu!",
   "advancements.farmersdelight.master_chef.title": "Master Chef",
   "advancements.farmersdelight.master_chef.description": "Makan hidangan dari setiap makanan yang tersedia!",
-
   "subtitles.farmersdelight.block.cooking_pot.boil": "Panci mendidih",
   "subtitles.farmersdelight.block.cutting_board.knife_cut": "Potong dengan pisau",
   "subtitles.farmersdelight.block.stove.crackle": "Kompor berderak",
@@ -304,7 +275,6 @@
   "subtitles.farmersdelight.block.tomatoes.pick_tomatoes": "Tomat bermunculan",
   "subtitles.farmersdelight.entity.rotten_tomato.throw": "Tomat Busuk terbang",
   "subtitles.farmersdelight.entity.rotten_tomato.hit": "Percikan Tomat Busuk",
-
   "block.farmersdelight.feast.use_container": "Anda membutuhkan %s untuk memakan ini.",
   "block.farmersdelight.rice.invalid_placement": "Tanaman ini tidak akan bertahan dengan baik di luar perairan dangkal.",
   "block.farmersdelight.cutting_board.invalid_item": "Ini sepertinya tidak bisa dipotong...",
@@ -313,10 +283,8 @@
   "block.farmersdelight.skillet.underwater": "Tidak bisa memasak saat kebanjiran...",
   "item.farmersdelight.skillet.how_to_cook": "Gunakan tanganmu yang lain untuk memegang bahan!",
   "item.farmersdelight.skillet.underwater": "Tidak bisa memasak di bawah air...",
-
   "death.attack.farmersdelight.stove": "%1$s dipanggang dengan sempurna",
   "death.attack.farmersdelight.stove.player": "%1$s dilemparkan ke atas panggangan oleh Chef %2$s",
-
   "jei.farmersdelight.cooking": "Memasak",
   "jei.farmersdelight.cutting": "Talenan",
   "jei.farmersdelight.chance": "%1$s%% peluang",
@@ -324,16 +292,15 @@
   "jei.farmersdelight.decomposition.light": "Dipercepat oleh sinar matahari",
   "jei.farmersdelight.decomposition.fluid": "Dipercepat oleh air yang berdekatan",
   "jei.farmersdelight.decomposition.accelerators": "Dipercepat oleh aktivator yang berdekatan (lihat di bawah)",
-  
   "jei.farmersdelight.info.dough": "Gandum bisa dibuat menjadi tepung dengan menaruhnya di meja kerajinan beserta Ember Air. Tapi tenang, airnya tidak akan habis!",
   "jei.farmersdelight.info.straw": "Serat tanaman kering yang digunakan dalam kerajinan. Diperoleh dengan memotong tanaman berumput dan tanaman dengan Pisau.",
   "jei.farmersdelight.info.knife": "Senjata jarak dekat yang ringan, dengan ayunan cepat dan kerusakan ringan.\n\nMereka dapat memanen Jerami dari rumput, dan menjamin jatuhnya hewan lagi.",
   "jei.farmersdelight.info.ham": "Potongan besar daging dari kaki Babi atau Hoglin.\n\nKamu memerlukan sesuatu yang lebih ringan dari Pedang untuk memotongnya...",
-  "jei.farmersdelight.info.wild_cabbages": "Kubis banyak ditemukan sebagai tanaman liar di pesisir pantai.",
-  "jei.farmersdelight.info.wild_beetroots": "Bit banyak ditemukan sebagai tanaman liar di pesisir pantai.",
+  "jei.farmersdelight.info.wild_cabbages": "Kubis umumnya ditemukan sebagai tanaman liar di pesisir pantai.",
+  "jei.farmersdelight.info.wild_beetroots": "Bit umumnya ditemukan sebagai tanaman liar di pesisir pantai.",
   "jei.farmersdelight.info.wild_carrots": "Wortel umumnya ditemukan sebagai tanaman liar di daerah beriklim sedang, seperti dataran dan hutan.",
   "jei.farmersdelight.info.wild_onions": "Bawang umumnya ditemukan sebagai tanaman liar di daerah beriklim sedang, seperti dataran dan hutan.",
-  "jei.farmersdelight.info.wild_potatoes": "Kentang banyak ditemukan sebagai tanaman liar di daerah dingin, seperti pegunungan dan taiga.",
-  "jei.farmersdelight.info.wild_tomatoes": "Tomat banyak ditemukan sebagai tanaman liar di lahan gersang, seperti sabana dan gurun.",
+  "jei.farmersdelight.info.wild_potatoes": "Kentang umumnya ditemukan sebagai tanaman liar di daerah dingin, seperti pegunungan dan taiga.",
+  "jei.farmersdelight.info.wild_tomatoes": "Tomat umumnya ditemukan sebagai tanaman liar di lahan gersang, seperti sabana dan gurun.",
   "jei.farmersdelight.info.wild_rice": "Beras umumnya ditemukan sebagai tanaman liar di kolam-kolam lahan basah, seperti rawa dan hutan."
 }

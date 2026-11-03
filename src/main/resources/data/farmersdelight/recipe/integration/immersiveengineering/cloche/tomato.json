@@ -11,11 +11,11 @@
   },
   "render": {
     "type": "immersiveengineering:crop",
-    "block": "farmersdelight:tomatoes"
+    "value": "farmersdelight:tomatoes"
   },
   "results": [
     {
-      "count": 2,
+      "Count": 2,
       "id": "farmersdelight:tomato"
     }
   ],
