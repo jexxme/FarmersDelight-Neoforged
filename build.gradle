@@ -3,7 +3,7 @@ plugins {
 //    id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.148'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -161,6 +161,9 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.compilerArgs += ['-Xmaxerrs', '5000']
+    options.fork = true
+    options.forkOptions.jvmArgs += ['-Duser.language=en', '-Duser.country=US']
 }
 
 idea {
@@ -175,3 +178,9 @@ idea {
 //compileJava {
 //    options.compilerArgs << "-Acrafttweaker.processor.document.output_directory=${file('docsOut')}"
 //}
+
+// 26.3 port: the datagen package has not been ported to the 26.3 data generation APIs yet.
+// Generated resources are committed under src/generated/resources instead.
+sourceSets.main.java {
+    exclude 'vectorwing/farmersdelight/data/**'
+}
