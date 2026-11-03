@@ -9,7 +9,7 @@ public class RegistryAliases
 	public static void addRegistryAliases() {
 		addBlockAlias("basket", "bamboo_basket");
 		addItemAlias("basket", "bamboo_basket");
-		// 26.3: Canvas Signs now use the vanilla sign block entities (sign bodies are rendered from block models).
+		// 26.x: Canvas Signs now use the vanilla sign block entities (sign bodies are rendered from block models).
 		addBlockEntityAlias("canvas_sign", "sign");
 		addBlockEntityAlias("hanging_canvas_sign", "hanging_sign");
 	}

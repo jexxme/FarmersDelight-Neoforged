@@ -9,7 +9,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.CommonHooks;
@@ -48,24 +47,24 @@ public class RichSoilBlock extends Block
 
 		BlockPos abovePos = pos.above();
 		BlockState aboveState = level.getBlockState(abovePos);
-		if (!aboveState.is(ModTags.Blocks.PLANTED_FROM_BELOW) && boostPlant(aboveState, abovePos, level, BonemealSource.INTERACTION)) {
+		if (!aboveState.is(ModTags.Blocks.PLANTED_FROM_BELOW) && boostPlant(aboveState, abovePos, level)) {
 			return;
 		}
 
 		BlockPos belowPos = pos.below();
 		BlockState belowState = level.getBlockState(belowPos);
 		if (belowState.is(ModTags.Blocks.PLANTED_FROM_BELOW)) {
-			boostPlant(belowState, belowPos, level, BonemealSource.INTERACTION);
+			boostPlant(belowState, belowPos, level);
 		}
 	}
 
-	public static boolean boostPlant(BlockState plantState, BlockPos plantPos, ServerLevel level, BonemealSource source) {
+	public static boolean boostPlant(BlockState plantState, BlockPos plantPos, ServerLevel level) {
 		if (plantState.is(ModTags.Blocks.UNAFFECTED_BY_RICH_SOIL)) {
 			return false;
 		}
 		if (plantState.getBlock() instanceof BonemealableBlock growable) {
-			if (growable.isValidBonemealTarget(level, plantPos, plantState, source) && CommonHooks.canCropGrow(level, plantPos, plantState, true)) {
-				growable.performBonemeal(level, level.getRandom(), plantPos, plantState, source);
+			if (growable.isValidBonemealTarget(level, plantPos, plantState) && CommonHooks.canCropGrow(level, plantPos, plantState, true)) {
+				growable.performBonemeal(level, level.getRandom(), plantPos, plantState);
 				PacketDistributor.sendToPlayersTrackingChunk(level, level.getChunkAt(plantPos).getPos(), new RichSoilBoostParticlesPayload(plantPos));
 				CommonHooks.fireCropGrowPost(level, plantPos, plantState);
 				return true;
@@ -87,7 +86,14 @@ public class RichSoilBlock extends Block
 		return false;
 	}
 
-	// 26.3: Tilling into Rich Soil Farmland is data-driven, see data/neoforge/data_maps/block/transformables.json
+	@Override
+	@Nullable
+	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
+		if (toolAction.equals(ItemAbilities.HOE_TILL) && context.getLevel().getBlockState(context.getClickedPos().above()).isAir()) {
+			return ModBlocks.RICH_SOIL_FARMLAND.get().defaultBlockState();
+		}
+		return null;
+	}
 
 
 	@Override

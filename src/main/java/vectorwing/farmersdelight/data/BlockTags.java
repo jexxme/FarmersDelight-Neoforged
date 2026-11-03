@@ -83,7 +83,7 @@ public class BlockTags extends BlockTagsProvider
 			ModBlocks.RICH_SOIL.get(),
 			ModBlocks.RICH_SOIL_FARMLAND.get()
 		);
-		fdTag(ModTags.Blocks.MINEABLE_WITH_KNIFE).addTags(net.minecraft.tags.BlockTags.WOOL_SLABS, net.minecraft.tags.BlockTags.WOOL_STAIRS).add(
+		fdTag(ModTags.Blocks.MINEABLE_WITH_KNIFE).add(
 				Blocks.CACTUS,
 				Blocks.MELON,
 				Blocks.PUMPKIN,
@@ -106,7 +106,7 @@ public class BlockTags extends BlockTagsProvider
 	}
 
 	protected void registerMinecraftTags() {
-		// 26.3: plant support/growth is tag-driven
+		// 26.x: plant support/growth is tag-driven
 		fdTag(net.minecraft.tags.BlockTags.SUPPORTS_VEGETATION).add(ModBlocks.RICH_SOIL.get(), ModBlocks.RICH_SOIL_FARMLAND.get());
 		fdTag(net.minecraft.tags.BlockTags.SUPPORTS_CROPS).add(ModBlocks.RICH_SOIL_FARMLAND.get());
 		fdTag(net.minecraft.tags.BlockTags.GROWS_CROPS).add(ModBlocks.RICH_SOIL_FARMLAND.get());
@@ -115,11 +115,6 @@ public class BlockTags extends BlockTagsProvider
 		fdTag(net.minecraft.tags.BlockTags.SUPPORTS_BIG_DRIPLEAF).add(ModBlocks.RICH_SOIL.get(), ModBlocks.RICH_SOIL_FARMLAND.get());
 		fdTag(net.minecraft.tags.BlockTags.SUPPORTS_SMALL_DRIPLEAF).add(ModBlocks.RICH_SOIL.get());
 		fdTag(net.minecraft.tags.BlockTags.SUPPORT_OVERRIDE_CACTUS_FLOWER).add(ModBlocks.RICH_SOIL_FARMLAND.get());
-		fdTag(net.minecraft.tags.BlockTags.WASHED_AWAY_BY_FLUIDS).add(
-			ModBlocks.CABBAGE_CROP.get(), ModBlocks.ONION_CROP.get(), ModBlocks.TOMATO_CROP.get(), ModBlocks.RICE_CROP_PANICLES.get(),
-			ModBlocks.WILD_CABBAGES.get(), ModBlocks.WILD_ONIONS.get(), ModBlocks.WILD_TOMATOES.get(), ModBlocks.WILD_CARROTS.get(),
-			ModBlocks.WILD_POTATOES.get(), ModBlocks.WILD_BEETROOTS.get(), ModBlocks.SANDY_SHRUB.get(),
-			ModBlocks.BROWN_MUSHROOM_COLONY.get(), ModBlocks.RED_MUSHROOM_COLONY.get(), ModBlocks.BUDDING_TOMATO_CROP.get());
 		fdTag(net.minecraft.tags.BlockTags.CLIMBABLE).add(
 			ModBlocks.ROPE.get(),
 			ModBlocks.TOMATO_CROP_ON_ROPE.get());
@@ -337,7 +332,7 @@ public class BlockTags extends BlockTagsProvider
 				Blocks.HOPPER)
 			.add(TagEntry.optionalElement(Identifier.parse("create:chute")));
 		fdTag(ModTags.Blocks.DROPS_STRAW).add(Blocks.SHORT_GRASS, Blocks.TALL_GRASS);
-		fdTag(ModTags.Blocks.COMPOST_ACTIVATORS).add(Blocks.SHELF_MUSHROOM).add(
+		fdTag(ModTags.Blocks.COMPOST_ACTIVATORS).add(
 				Blocks.BROWN_MUSHROOM,
 				Blocks.RED_MUSHROOM,
 				Blocks.PODZOL,

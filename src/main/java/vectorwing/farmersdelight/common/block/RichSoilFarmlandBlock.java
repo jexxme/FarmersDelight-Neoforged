@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 public class RichSoilFarmlandBlock extends FarmlandBlock
 {
 	public RichSoilFarmlandBlock(Properties properties) {
-		super(ModBlocks.RICH_SOIL.get(), properties);
+		super(properties);
 	}
 
 	@Override
@@ -41,11 +41,14 @@ public class RichSoilFarmlandBlock extends FarmlandBlock
 	}
 
 	private static boolean isNearWater(LevelReader level, BlockPos pos) {
-		BlockState farmland = level.getBlockState(pos);
-		return level.findBlocksIn(pos.offset(-4, 0, -4), pos.offset(4, 1, 4)).filterState(state -> farmland.canBeHydrated(level, pos, state.getFluidState())).anyMatched()
-				|| FarmlandWaterManager.hasBlockWaterTicket(level, pos);
+		BlockState state = level.getBlockState(pos);
+		for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+			if (state.canBeHydrated(level, pos, level.getFluidState(nearbyPos), nearbyPos)) {
+				return true;
+			}
+		}
+		return FarmlandWaterManager.hasBlockWaterTicket(level, pos);
 	}
-
 
 	public static void turnToRichSoil(@Nullable Entity entity, BlockState state, Level level, BlockPos pos) {
 		level.setBlockAndUpdate(pos, pushEntitiesUp(state, ModBlocks.RICH_SOIL.get().defaultBlockState(), level, pos));

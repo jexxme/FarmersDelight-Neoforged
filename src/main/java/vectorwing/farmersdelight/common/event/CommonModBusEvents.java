@@ -20,7 +20,6 @@ import vectorwing.farmersdelight.common.block.state.CanvasSign;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
-import vectorwing.farmersdelight.common.ItemDefaultComponents;
 
 import java.util.Optional;
 
@@ -29,7 +28,6 @@ public class CommonModBusEvents
 {
 	@SubscribeEvent
 	public static void onModifyDefaultComponents(ModifyDefaultComponentsEvent event) {
-		ItemDefaultComponents.apply(event);
 		if (DatagenModLoader.isRunningDataGen()) {
 			return;
 		}
@@ -45,7 +43,7 @@ public class CommonModBusEvents
 	}
 
 	/**
-	 * 26.3: Canvas Signs are plain vanilla signs now, so they need to be valid blocks for the vanilla sign block entity types.
+	 * 26.x: Canvas Signs are plain vanilla signs now, so they need to be valid blocks for the vanilla sign block entity types.
 	 */
 	@SubscribeEvent
 	public static void onAddBlockEntityTypeBlocks(BlockEntityTypeAddBlocksEvent event) {

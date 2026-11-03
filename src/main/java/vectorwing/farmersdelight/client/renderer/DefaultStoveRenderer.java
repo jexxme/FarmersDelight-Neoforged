@@ -48,10 +48,10 @@ public class DefaultStoveRenderer<T extends AbstractStoveBlockEntity> implements
 
 			// Rotate item to face the stove's front side
 			float f = -state.direction.toYRot();
-			poseStack.rotateDegrees(Axis.YP, f);
+			poseStack.mulPose(Axis.YP.rotationDegrees(f));
 
 			// Rotate item flat on the stove. Use X and Y from now on
-			poseStack.rotateDegrees(Axis.XP, 90.0F);
+			poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
 
 			// Neatly align items according to their index
 			Vec2 itemOffset = state.offsets[i];

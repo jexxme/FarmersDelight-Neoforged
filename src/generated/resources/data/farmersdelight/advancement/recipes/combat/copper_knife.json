@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:copper_knife"
+        "recipe": "farmersdelight:copper_knife"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

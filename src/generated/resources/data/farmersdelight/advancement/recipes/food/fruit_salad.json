@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:fruit_salad"
+        "recipe": "farmersdelight:fruit_salad"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

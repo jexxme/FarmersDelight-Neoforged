@@ -2,8 +2,8 @@
   "type": "farmersdelight:cooking",
   "experience": 1.0,
   "ingredients": [
-    "#minecraft:mushrooms",
-    "#minecraft:mushrooms",
+    "minecraft:brown_mushroom",
+    "minecraft:red_mushroom",
     "#c:crops/rice",
     [
       "minecraft:carrot",

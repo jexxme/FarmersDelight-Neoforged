@@ -71,7 +71,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu>
 		if (this.isHovering(HEAT_ICON.x, HEAT_ICON.y, HEAT_ICON.width, HEAT_ICON.height, mouseX, mouseY)) {
 			String key = "cooking_pot." + (this.menu.isHeated() ? "heated" : "not_heated");
 			ClientTooltipComponent tooltip = ClientTooltipComponent.create(TextUtils.container(key).getVisualOrderText());
-			gui.tooltip(this.font, List.of(tooltip), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null, false);
+			gui.tooltip(this.font, List.of(tooltip), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null);
 		}
 	}
 
@@ -89,9 +89,9 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu>
 					tooltip.add(ClientTooltipComponent.create(TextUtils.container("cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY).getVisualOrderText()));
 				}
 
-				gui.tooltip(font, tooltip, mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null, false);
+				gui.tooltip(font, tooltip, mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null);
 			} else {
-				gui.tooltip(font, List.of(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null, false, this.hoveredSlot.getItem());
+				gui.tooltip(font, List.of(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null, this.hoveredSlot.getItem());
 			}
 		}
 	}

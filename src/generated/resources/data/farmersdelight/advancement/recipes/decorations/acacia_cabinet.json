@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:acacia_cabinet"
+        "recipe": "farmersdelight:acacia_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

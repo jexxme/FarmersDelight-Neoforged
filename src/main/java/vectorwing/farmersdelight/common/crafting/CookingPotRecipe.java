@@ -143,7 +143,7 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 
 	@Override
 	public PlacementInfo placementInfo() {
-		// 26.3: recipes are decoded before tags are bound, so this must be computed lazily.
+		// 26.x: recipes are decoded before tags are bound, so this must be computed lazily.
 		if (placementInfo == null) {
 			placementInfo = PlacementInfo.create(inputItems);
 		}

@@ -11,7 +11,7 @@ import vectorwing.farmersdelight.FarmersDelight;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Adds the Farmer's Delight trades to the vanilla trade pools (data-driven since 26.3).
+ * Adds the Farmer's Delight trades to the vanilla trade pools (data-driven on 26.x).
  */
 public class VillagerTags extends TagsProvider<VillagerTrade>
 {

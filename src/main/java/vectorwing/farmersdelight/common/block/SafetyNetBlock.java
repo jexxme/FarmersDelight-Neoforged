@@ -72,5 +72,5 @@ public class SafetyNetBlock extends Block implements SimpleWaterloggedBlock
 		}
 	}
 
-	// 26.3: Bouncing is handled by BlockBehaviour.Properties#bounceRestitution (see ModBlocks.SAFETY_NET).
+	// 26.x: Bouncing is handled by BlockBehaviour.Properties#bounceRestitution (see ModBlocks.SAFETY_NET).
 }

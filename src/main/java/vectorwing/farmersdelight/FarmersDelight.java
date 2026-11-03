@@ -35,8 +35,8 @@ public class FarmersDelight
 			modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 		}
 
-		// 26.3 dropped ModConfig.Type.COMMON; keep the old file name so existing configs keep working.
-		modContainer.registerConfig(ModConfig.Type.LOCAL, Configuration.COMMON_CONFIG, MODID + "-common.toml");
+		// Same file name as the 26.3 build (which uses ModConfig.Type.LOCAL), so configs carry over.
+		modContainer.registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG, MODID + "-common.toml");
 		modContainer.registerConfig(ModConfig.Type.CLIENT, Configuration.CLIENT_CONFIG);
 
 		ModSounds.SOUNDS.register(modEventBus);
@@ -54,6 +54,7 @@ public class FarmersDelight
 		ModPlacementModifiers.PLACEMENT_MODIFIERS.register(modEventBus);
 		ModBiomeModifiers.BIOME_MODIFIER_SERIALIZERS.register(modEventBus);
 		ModLootFunctions.LOOT_FUNCTIONS.register(modEventBus);
+		ModLootFunctions.LOOT_CONDITIONS.register(modEventBus);
 		ModLootModifiers.LOOT_MODIFIERS.register(modEventBus);
 		ModConditionCodecs.CONDITION_CODECS.register(modEventBus);
 		ModIngredientTypes.INGREDIENT_TYPES.register(modEventBus);

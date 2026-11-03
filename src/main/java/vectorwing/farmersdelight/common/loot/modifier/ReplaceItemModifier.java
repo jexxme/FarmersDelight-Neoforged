@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.loot.modifier;
 
-import net.minecraft.core.Holder;
-import java.util.Optional;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -37,14 +35,14 @@ public class ReplaceItemModifier extends LootModifier
 	/**
 	 * This loot modifier removes all instances of the specified item, replacing it by another specified addition.
 	 */
-	public ReplaceItemModifier(Optional<Holder<LootItemCondition>> conditions, int priority, Item removedItem, Item addedItem, int addedCount) {
+	public ReplaceItemModifier(LootItemCondition[] conditions, int priority, Item removedItem, Item addedItem, int addedCount) {
 		super(conditions, priority);
 		this.removedItem = removedItem;
 		this.addedItem = addedItem;
 		this.addedCount = addedCount;
 	}
 
-	public ReplaceItemModifier(Optional<Holder<LootItemCondition>> conditions, Item removedItem, Item addedItem, int addedCount) {
+	public ReplaceItemModifier(LootItemCondition[] conditions, Item removedItem, Item addedItem, int addedCount) {
 		this(conditions, IGlobalLootModifier.DEFAULT_PRIORITY, removedItem, addedItem, addedCount);
 	}
 

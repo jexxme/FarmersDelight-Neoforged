@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:cabbage"
+        "recipe": "farmersdelight:cabbage"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

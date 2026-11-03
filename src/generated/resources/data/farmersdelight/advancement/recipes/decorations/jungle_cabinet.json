@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:jungle_cabinet"
+        "recipe": "farmersdelight:jungle_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

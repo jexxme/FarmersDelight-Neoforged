@@ -11,6 +11,7 @@ import net.minecraft.gametest.framework.TestData;
 import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -151,13 +153,13 @@ public final class FDGameTests
 		helper.succeedWhen(() -> helper.assertBlockPresent(ModBlocks.ROPE.get(), vine));
 	}
 
-	/** 26.3 moved fuel, compost and villager food to item components / data maps; check they are applied. */
+	/** Fuel and compost come from NeoForge data maps, villager food from Villager.FOOD_POINTS; check they are applied. */
 	private static void itemComponentsAndData(GameTestHelper helper) {
-		helper.assertTrue(new ItemStack(ModItems.CANVAS.get()).has(DataComponents.COOKING_FUEL), "Canvas should be a furnace fuel");
-		helper.assertTrue(new ItemStack(ModItems.CABBAGE.get()).has(DataComponents.COMPOSTABLE), "Cabbage should be compostable");
-		helper.assertTrue(new ItemStack(ModItems.CABBAGE.get()).has(DataComponents.VILLAGER_FOOD), "Cabbage should be villager food");
-		helper.assertTrue(BuiltInRegistries.ITEM.wrapAsHolder(ModItems.CABBAGE_SEEDS.get()).getData(NeoForgeDataMaps.VILLAGER_COMPOSTABLES) != null,
-				"Cabbage seeds should be villager compostable");
+		helper.assertTrue(BuiltInRegistries.ITEM.wrapAsHolder(ModItems.CANVAS.get()).getData(NeoForgeDataMaps.FURNACE_FUELS) != null, "Canvas should be a furnace fuel");
+		helper.assertTrue(BuiltInRegistries.ITEM.wrapAsHolder(ModItems.CABBAGE.get()).getData(NeoForgeDataMaps.COMPOSTABLES) != null, "Cabbage should be compostable");
+		helper.assertTrue(Villager.FOOD_POINTS.containsKey(ModItems.CABBAGE.get()), "Cabbage should be villager food");
+		Compostable seeds = BuiltInRegistries.ITEM.wrapAsHolder(ModItems.CABBAGE_SEEDS.get()).getData(NeoForgeDataMaps.COMPOSTABLES);
+		helper.assertTrue(seeds != null && seeds.canVillagerCompost(), "Cabbage seeds should be villager compostable");
 		ResourceKey<Recipe<?>> tomatoSauce = ResourceKey.create(Registries.RECIPE, FarmersDelight.id("cooking/tomato_sauce"));
 		helper.assertTrue(helper.getLevel().recipeAccess().byKey(tomatoSauce).isPresent(), "Tomato Sauce recipe should be loaded");
 		helper.succeed();

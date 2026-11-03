@@ -4,7 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import vectorwing.farmersdelight.FarmersDelight;
 
@@ -13,16 +13,16 @@ public class WildCropGeneration
 {
 
 	// Those are unused, but kept for reference just in case
-    public static ResourceKey<Feature> SANDY_SHRUB = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "sandy_shrub"));
-    public static ResourceKey<Feature> WILD_CABBAGES = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_cabbages"));
-	public static ResourceKey<Feature> WILD_ONIONS = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_onions"));
-	public static ResourceKey<Feature> WILD_TOMATOES = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_tomatoes"));
-	public static ResourceKey<Feature> WILD_CARROTS = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_carrots"));
-	public static ResourceKey<Feature> WILD_POTATOES = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_potatoes"));
-	public static ResourceKey<Feature> WILD_BEETROOTS = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_beetroots"));
-	public static ResourceKey<Feature> WILD_RICE = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_rice"));
-	public static ResourceKey<Feature> BROWN_MUSHROOM_COLONIES = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "brown_mushroom_colony"));
-	public static ResourceKey<Feature> RED_MUSHROOM_COLONIES = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "red_mushroom_colony"));
+    public static ResourceKey<ConfiguredFeature<?, ?>> SANDY_SHRUB = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "sandy_shrub"));
+    public static ResourceKey<ConfiguredFeature<?, ?>> WILD_CABBAGES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_cabbages"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_ONIONS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_onions"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_TOMATOES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_tomatoes"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_CARROTS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_carrots"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_POTATOES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_potatoes"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_BEETROOTS = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_beetroots"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> WILD_RICE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "wild_rice"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> BROWN_MUSHROOM_COLONIES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "brown_mushroom_colony"));
+	public static ResourceKey<ConfiguredFeature<?, ?>> RED_MUSHROOM_COLONIES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "red_mushroom_colony"));
 
     public static ResourceKey<PlacedFeature> PATCH_SANDY_SHRUB = ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_sandy_shrub"));
     public static ResourceKey<PlacedFeature> PATCH_WILD_CABBAGES = ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "patch_wild_cabbages"));
@@ -39,7 +39,7 @@ public class WildCropGeneration
 	}
 
 	// FIXME: This.
-    public static void bootstrapConfiguredFeatures(BootstrapContext<Feature> context) {
+    public static void bootstrapConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 //        context.register(FEATURE_PATCH_SANDY_SHRUB, new Feature<>(
 //                Feature.RANDOM_PATCH,
 //                new RandomPatchConfiguration(32, 2, 3,

@@ -1,3 +1,12 @@
+## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.2)
+
+- Backport of the 26.3 build to Minecraft 26.2 / NeoForge 26.2.0.93: same content, fixes and GameTests.
+- 26.2 differences: fuel and compost values come from NeoForge data maps (`furnace_fuels`, `compostables`;
+  FD seeds are villager-compostable through the `can_villager_compost` flag), villager food uses
+  `Villager.FOOD_POINTS`, rich soil tilling uses the NeoForge tool action, worldgen uses configured
+  features, and `#farmersdelight:drops_straw` is checked by a small `farmersdelight:block_tag` loot condition.
+- Poplar wood recipes are 26.3-only and not part of this build.
+
 ## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.3)
 
 - First release of Farmer's Delight Neoforged: Farmer's Delight 1.3.3 content on Minecraft 26.3 / NeoForge 26.3.0.101 / Java 25.

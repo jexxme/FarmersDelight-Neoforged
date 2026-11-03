@@ -1,19 +1,16 @@
 {
   "type": "farmersdelight:pastry_slicing",
-  "condition": {
-    "type": "minecraft:all_of",
-    "terms": [
-      {
-        "type": "minecraft:match_tool",
-        "predicate": {
-          "items": "#farmersdelight:tools/knives"
-        }
-      },
-      {
-        "type": "minecraft:match_block",
-        "blocks": "farmersdelight:apple_pie"
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": "#farmersdelight:tools/knives"
       }
-    ]
-  },
+    },
+    {
+      "block": "farmersdelight:apple_pie",
+      "condition": "minecraft:block_state_property"
+    }
+  ],
   "slice": "farmersdelight:apple_pie_slice"
 }

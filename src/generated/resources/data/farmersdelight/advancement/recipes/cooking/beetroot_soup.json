@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:cooking/beetroot_soup"
+        "recipe": "farmersdelight:cooking/beetroot_soup"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

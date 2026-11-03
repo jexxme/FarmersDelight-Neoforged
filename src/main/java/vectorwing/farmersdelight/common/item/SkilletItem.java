@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.common.item;
 
-
-import net.minecraft.util.Prediction;import net.minecraft.advancements.triggers.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -208,7 +207,7 @@ public class SkilletItem extends BlockItem
 			ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT, ItemStackWrapper.EMPTY);
 			if (!storedStack.getStack().isEmpty()) {
 				ItemStack cookingStack = storedStack.getStack();
-				player.getInventory().placeItemBackInInventory(cookingStack, Prediction.PREDICTED);
+				player.getInventory().placeItemBackInInventory(cookingStack);
 				stack.remove(ModDataComponents.SKILLET_INGREDIENT);
 				stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
 				stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
@@ -229,7 +228,7 @@ public class SkilletItem extends BlockItem
 				cookingRecipe.ifPresent((recipe) -> {
 					ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack));
 					if (!player.getInventory().add(resultStack)) {
-						player.drop(resultStack, false, Prediction.SERVER_ONLY);
+						player.drop(resultStack, false);
 					}
 					if (player instanceof ServerPlayer) {
 						CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);

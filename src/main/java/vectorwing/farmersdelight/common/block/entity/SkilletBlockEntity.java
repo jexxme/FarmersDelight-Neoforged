@@ -170,7 +170,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				map.set(typed);
 			}
 		}
-		// 26.3: BlockItem#updateCustomBlockEntityTag is gone; the placed skillet item is rebuilt from the block item's components.
+		// 26.x: BlockItem#updateCustomBlockEntityTag is gone; the placed skillet item is rebuilt from the block item's components.
 		skilletStack = new ItemStack(ModItems.SKILLET.get().builtInRegistryHolder(), 1, map.build());
 		fireAspectLevel = level != null ? ItemUtils.getValidatedEnchantmentLevel(Enchantments.FIRE_ASPECT, level.registryAccess(), skilletStack) : 0;
 		inventoryChanged();
