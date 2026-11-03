@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "${loader_version_range}"
-issueTrackerURL = "https://github.com/vectorwing/FarmersDelight/issues"
+# Unofficial port: do not send bug reports of this port to the original issue tracker.
 license="${mod_license}"
 
 [[mods]]
@@ -12,7 +12,7 @@ bannerFile = "logo.png"
 logoBlur = false
 credits = "Chloe Dawn, Grimmauld, CDAGaming, TelepathicGrunt, XFactHD, GizmoThemoonPig, ConductiveFoam, simibubi, MerchantPug, Jozufozu, bagel, Silk, SkySom, Eutro, RaymondBlaze and many others!"
 authors = "${mod_authors}"
-description = "A cozy farming and cooking expansion for Minecraft!"
+description = "${mod_description}"
 enumExtensions="META-INF/enumextensions.json"
 ## Catalogue mod compatibility
 itemIcon = "farmersdelight:stove"

@@ -37,7 +37,7 @@ repositories {
 }
 
 base {
-    archivesName = 'FarmersDelight'
+    archivesName = 'FarmersDelight-UnofficialPort-neoforge'
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
@@ -183,4 +183,11 @@ idea {
 // Generated resources are committed under src/generated/resources instead.
 sourceSets.main.java {
     exclude 'vectorwing/farmersdelight/data/**'
+}
+
+// Ship the MIT license notice inside the jar
+tasks.named('jar', Jar).configure {
+    from('LICENSE') {
+        rename { 'LICENSE_farmersdelight' }
+    }
 }

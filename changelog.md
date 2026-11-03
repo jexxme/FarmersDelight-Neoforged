@@ -1,3 +1,11 @@
+## 1.3.3+port.1 (Unofficial Minecraft 26.3 NeoForge port)
+
+- Ported to Minecraft 26.3 / NeoForge 26.3.0.101 / Java 25 (unofficial, see README).
+- Canvas signs use vanilla sign block entities; fuel/compost/villager food are item components;
+  rich soil tilling is data-driven; loot modifiers and all data use the 26.3 JSON formats.
+- Known gaps: datagen not ported, EMI/CraftTweaker integrations disabled, villager trade config toggles
+  have no effect, config file is now `farmersdelight-local.toml`.
+
 # Changelog
 
 ## 1.3.3
