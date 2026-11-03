@@ -1,16 +1,16 @@
 modLoader = "javafml"
 loaderVersion = "${loader_version_range}"
-# Unofficial port: do not send bug reports of this port to the original issue tracker.
+# Farmer's Delight Neoforged: bug reports go to this project's own tracker, not to the original Farmer's Delight.
+# TODO: set issueTrackerURL / displayURL once the GitHub repository exists.
 license="${mod_license}"
 
 [[mods]]
 modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
-displayURL = "https://github.com/vectorwing/FarmersDelight"
 bannerFile = "logo.png"
 logoBlur = false
-credits = "Chloe Dawn, Grimmauld, CDAGaming, TelepathicGrunt, XFactHD, GizmoThemoonPig, ConductiveFoam, simibubi, MerchantPug, Jozufozu, bagel, Silk, SkySom, Eutro, RaymondBlaze and many others!"
+credits = "Original mod by vectorwing (https://github.com/vectorwing/FarmersDelight). 26.x groundwork by the Farmer's Delight Refabricated team (MehVahdJukaar, Cassian, AyOhEe). Farmer's Delight contributors: Chloe Dawn, Grimmauld, CDAGaming, TelepathicGrunt, XFactHD, GizmoThemoonPig, ConductiveFoam, simibubi, MerchantPug, Jozufozu, bagel, Silk, SkySom, Eutro, RaymondBlaze and many others!"
 authors = "${mod_authors}"
 description = "${mod_description}"
 enumExtensions="META-INF/enumextensions.json"

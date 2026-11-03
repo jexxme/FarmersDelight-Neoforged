@@ -37,7 +37,7 @@ repositories {
 }
 
 base {
-    archivesName = 'FarmersDelight-UnofficialPort-neoforge'
+    archivesName = 'FarmersDelight-Neoforged'
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)

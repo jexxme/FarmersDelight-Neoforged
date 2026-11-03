@@ -1,6 +1,6 @@
-## 1.3.3+port.1 (Unofficial Minecraft 26.3 NeoForge port)
+## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.3)
 
-- Ported to Minecraft 26.3 / NeoForge 26.3.0.101 / Java 25 (unofficial, see README).
+- First release of Farmer's Delight Neoforged: Farmer's Delight 1.3.3 content on Minecraft 26.3 / NeoForge 26.3.0.101 / Java 25.
 - Canvas signs use vanilla sign block entities; fuel/compost/villager food are item components;
   rich soil tilling is data-driven; loot modifiers and all data use the 26.3 JSON formats.
 - Known gaps: datagen not ported, EMI/CraftTweaker integrations disabled, villager trade config toggles
