@@ -290,6 +290,8 @@ public class ItemTags extends ItemTagsProvider
 			.addTag(CommonTags.Items.FOODS_PASTA)
 			.addTag(CommonTags.Items.FOODS_COOKED_EGG);
 
+		fdTag(net.minecraft.tags.BlockItemTags.FENCES.item()).add(ModItems.ROPE_FENCE.get());
+		fdTag(net.minecraft.tags.BlockItemTags.FENCE_GATES.item()).add(ModItems.ROPE_FENCE_GATE.get());
 		fdTag(Tags.Items.FENCES).add(ModItems.ROPE_FENCE.get());
 		fdTag(Tags.Items.FENCE_GATES).add(ModItems.ROPE_FENCE_GATE.get());
 

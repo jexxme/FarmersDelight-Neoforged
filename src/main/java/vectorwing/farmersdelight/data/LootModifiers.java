@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.data;
 
+import net.minecraft.advancements.predicates.BlockPredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
@@ -98,11 +99,10 @@ public class LootModifiers extends GlobalLootModifierProvider
 		this.add("slicing_candle_cake", this.candleCakeSlicing(items, blocks));
 
 		// Straw Harvesting
-		this.add("straw_from_grass", this.strawHarvesting(items, MatchBlock.blockMatches(blocks, Blocks.SHORT_GRASS), 0.2F));
+		this.add("straw_from_grass", this.strawHarvesting(items, MatchBlock.blockMatches(BlockPredicate.Builder.block().of(blocks, ModTags.Blocks.DROPS_STRAW)), 0.2F));
 		this.add("straw_from_mature_rice", this.strawHarvesting(items, MatchBlock.blockMatches(blocks, ModBlocks.RICE_CROP_PANICLES.get(), StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3)), 1.0F));
 		this.add("straw_from_mature_wheat", this.strawHarvesting(items, MatchBlock.blockMatches(blocks, Blocks.WHEAT, StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7)), 1.0F));
 		this.add("straw_from_sandy_shrub", this.strawHarvesting(items, MatchBlock.blockMatches(blocks, ModBlocks.SANDY_SHRUB.get()), 0.3F));
-		this.add("straw_from_tall_grass", this.strawHarvesting(items, MatchBlock.blockMatches(blocks, Blocks.TALL_GRASS), 0.2F));
 	}
 
 	private static Optional<Holder<LootItemCondition>> all(LootItemCondition.Builder... conditions) {

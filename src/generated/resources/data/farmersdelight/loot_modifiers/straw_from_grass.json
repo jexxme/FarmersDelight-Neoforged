@@ -15,7 +15,7 @@
       },
       {
         "type": "minecraft:match_block",
-        "blocks": "minecraft:short_grass"
+        "blocks": "#farmersdelight:drops_straw"
       }
     ]
   },

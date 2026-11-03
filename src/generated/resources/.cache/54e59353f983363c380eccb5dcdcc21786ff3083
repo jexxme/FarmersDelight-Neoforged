@@ -1,4 +1,4 @@
-// 26.3	2026-11-03T23:52:26.0624911	farmersdelight-global/Tags for minecraft:block mod id farmersdelight
+// 26.3	2026-11-03T23:58:45.4420688	farmersdelight-global/Tags for minecraft:block mod id farmersdelight
 38f828e4676e464f280ee9fcbbd1065fa89e4218 data/create/tags/block/brittle.json
 8481234a20c9d13f4da1a07b9651d1b99bbd0fad data/create/tags/block/fan_transparent.json
 89dff4a2813a4b6fe13cde6e775266a1d606a4aa data/create/tags/block/passive_boiler_heaters.json
@@ -21,6 +21,7 @@ b1919af26385c8c277cbefc52e2d517cfa896190 data/c/tags/block/storage_blocks/rice_p
 6644ebda4035b2e597066fa2def42ba14650cfbc data/farmersdelight/tags/block/campfire_signal_smoke.json
 ac699ecfae3feeddbc49f3fe3d45e9fa5c84388e data/farmersdelight/tags/block/compost_activators.json
 17bf02f1662de477e421a897a9b1a092da3fd1b4 data/farmersdelight/tags/block/drops_cake_slice.json
+06b6e4c22355ffe121a9223815abb12fd83ff008 data/farmersdelight/tags/block/drops_straw.json
 e0807dee5085dc45ed2c07737845f88270bc224e data/farmersdelight/tags/block/feasts.json
 bfaccff8e729039a0c1d0db4d359ded77f7c60c8 data/farmersdelight/tags/block/heat_conductors.json
 641a6e1f4ea5020a7d3d0ccd6b1642b3426c3455 data/farmersdelight/tags/block/heat_sources.json

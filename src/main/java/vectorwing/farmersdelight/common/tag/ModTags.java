@@ -26,6 +26,8 @@ public class ModTags
 
 		// Blocks which accelerate decomposition of Organic Compost if placed adjacent to it.
 		public static final TagKey<Block> COMPOST_ACTIVATORS = modBlockTag("compost_activators");
+		// Grass-like blocks that have a chance to drop Straw when broken with a straw harvester (e.g. a knife).
+		public static final TagKey<Block> DROPS_STRAW = modBlockTag("drops_straw");
 
 		// Blocks which should drop a Cake Slice when sliced by a knife. Populated by all candle cakes by default.
 		public static final TagKey<Block> DROPS_CAKE_SLICE = modBlockTag("drops_cake_slice");

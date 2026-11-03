@@ -32,7 +32,7 @@ public class ItemAbilityIngredient implements ICustomIngredient
 			).apply(inst, ItemAbilityIngredient::new));
 
 	protected final ItemAbility itemAbility;
-	protected Stream<Holder<Item>> itemHolders;
+	protected java.util.List<Holder<Item>> itemHolders;
 
 	public ItemAbilityIngredient(ItemAbility itemAbility) {
 		this.itemAbility = itemAbility;
@@ -68,7 +68,8 @@ public class ItemAbilityIngredient implements ICustomIngredient
 		if (this.itemHolders == null) {
 			itemHolders = BuiltInRegistries.ITEM.stream()
 					.filter(item -> canPerform(new ItemStack(item), itemAbility))
-					.map(BuiltInRegistries.ITEM::wrapAsHolder);
+					.map(BuiltInRegistries.ITEM::wrapAsHolder)
+					.toList();
 		}
 	}
 
@@ -80,7 +81,7 @@ public class ItemAbilityIngredient implements ICustomIngredient
 	@Override
 	public Stream<Holder<Item>> items() {
 		dissolve();
-		return itemHolders;
+		return itemHolders.stream();
 	}
 
 	@Override

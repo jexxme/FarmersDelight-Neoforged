@@ -1,4 +1,4 @@
-// 26.3	2026-11-03T23:52:26.0599489	farmersdelight-global/Tags for minecraft:item mod id farmersdelight
+// 26.3	2026-11-03T23:58:45.4400442	farmersdelight-global/Tags for minecraft:item mod id farmersdelight
 65eba9e0353834055ff822059bd7e1784fe218ad data/createaddition/tags/item/plants.json
 f55c336a7c0c249fc90b76c979cfa5d5f6a277bf data/createaddition/tags/item/plant_foods.json
 578c1c9a03e76fe2831f34ee8a74b0d5396e7c0e data/create/tags/item/upright_on_belt.json
@@ -89,6 +89,8 @@ b1d4ce3e56c5776870a8fdd487526210fd93ecbd data/minecraft/tags/item/enchantable/mi
 b1d4ce3e56c5776870a8fdd487526210fd93ecbd data/minecraft/tags/item/enchantable/mining_loot.json
 b144808149c1364e3cd3dc4b4128b76b24e00bf1 data/minecraft/tags/item/enchantable/sharp_weapon.json
 b144808149c1364e3cd3dc4b4128b76b24e00bf1 data/minecraft/tags/item/enchantable/weapon.json
+76c23603e65410291af111793aa931640128fae8 data/minecraft/tags/item/fences.json
+1ba129ce39f820a673b8ed7d47d083a5252dd5e3 data/minecraft/tags/item/fence_gates.json
 166fca1b0d8b63bf7564f93e9e7d0bf3dd45bf03 data/minecraft/tags/item/flowers.json
 7441d3370afb8b426c09f3608f0dd0aea4f54e4d data/minecraft/tags/item/hanging_signs.json
 9f7c54970bfbea398bb27fdc66750b6459bc9946 data/minecraft/tags/item/horse_tempt_items.json

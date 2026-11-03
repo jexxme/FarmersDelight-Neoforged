@@ -118,6 +118,7 @@ public class CookingPotMenu extends RecipeBookMenu
 				if (!this.moveItemStackTo(slotStack, indexInventoryStart, indexInventoryEnd, true)) {
 					return ItemStack.EMPTY;
 				}
+				slot.onQuickCraft(slotStack, slotStackCopy);
 			} else if (index > INDEX_OUTPUT) {
 				if (slotStack.is(ModTags.Items.SERVING_CONTAINERS) || slotStack.is(blockEntity.getContainer().getItem())) {
 					if (!this.moveItemStackTo(slotStack, INDEX_CONTAINER, INDEX_OUTPUT, false)) {

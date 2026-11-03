@@ -53,6 +53,7 @@ public class DataGenerators
 		event.createProvider(EnchantmentTags::new);
 		event.createProvider(VillagerTags::new);
 		event.createProvider(LootModifiers::new);
+		event.createProvider(DataMaps::new);
 		event.createProvider(SoundDefinitions::new);
 		event.addProvider(new StructureUpdater("structures/village/houses", FarmersDelight.MODID, event.getGenerator().getPackOutput(), event.getResourceManager(PackType.SERVER_DATA)));
 	}

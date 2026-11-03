@@ -27,7 +27,7 @@ public class FDAddTableLootModifier extends AddTableLootModifier
 {
 	public static final Supplier<MapCodec<FDAddTableLootModifier>> CODEC = Suppliers.memoize(() ->
 			RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
-					.and(ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("lootTable").forGetter((m) -> m.lootTable))
+					.and(net.neoforged.neoforge.common.util.NeoForgeExtraCodecs.aliasedFieldOf(ResourceKey.codec(Registries.LOOT_TABLE), "lootTable", "table").forGetter((m) -> m.lootTable))
 					.apply(inst, FDAddTableLootModifier::new)));
 
 	private final ResourceKey<LootTable> lootTable;

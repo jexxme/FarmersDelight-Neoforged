@@ -336,6 +336,7 @@ public class BlockTags extends BlockTagsProvider
 		fdTag(ModTags.Blocks.HEAT_CONDUCTORS).add(
 				Blocks.HOPPER)
 			.add(TagEntry.optionalElement(Identifier.parse("create:chute")));
+		fdTag(ModTags.Blocks.DROPS_STRAW).add(Blocks.SHORT_GRASS, Blocks.TALL_GRASS);
 		fdTag(ModTags.Blocks.COMPOST_ACTIVATORS).add(Blocks.SHELF_MUSHROOM).add(
 				Blocks.BROWN_MUSHROOM,
 				Blocks.RED_MUSHROOM,
