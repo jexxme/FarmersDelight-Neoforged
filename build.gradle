@@ -77,7 +77,7 @@ neoForge {
             // gameDirectory = project.file('run-data')
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file(project.findProperty('datagenOutput') ?: 'src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
         configureEach {
@@ -179,11 +179,6 @@ idea {
 //    options.compilerArgs << "-Acrafttweaker.processor.document.output_directory=${file('docsOut')}"
 //}
 
-// 26.3 port: the datagen package has not been ported to the 26.3 data generation APIs yet.
-// Generated resources are committed under src/generated/resources instead.
-sourceSets.main.java {
-    exclude 'vectorwing/farmersdelight/data/**'
-}
 
 // Ship the MIT license notice inside the jar
 tasks.named('jar', Jar).configure {

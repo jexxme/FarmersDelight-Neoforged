@@ -3,7 +3,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:block.barrel.close"
+        "name": "block.barrel.close"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.cabinet.close"
@@ -12,7 +12,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:block.barrel.open"
+        "name": "block.barrel.open"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.cabinet.open"
@@ -36,7 +36,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:block.wood.place"
+        "name": "block.wood.place"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.cutting_board.carve_tool"
@@ -52,7 +52,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:block.wood.place"
+        "name": "block.wood.place"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.cutting_board.place_item"
@@ -61,7 +61,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:block.wood.hit"
+        "name": "block.wood.hit"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.cutting_board.remove_item"
@@ -70,7 +70,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:block.wool.break"
+        "name": "block.wool.break"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.food.slice"
@@ -79,7 +79,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:item.armor.equip_generic"
+        "name": "item.armor.equip_generic"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.food.take_portion"
@@ -88,7 +88,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:item.lead.tied"
+        "name": "item.lead.tied"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.rope_fence_gate.close"
@@ -97,7 +97,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:item.lead.untied"
+        "name": "item.lead.break"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.rope_fence_gate.open"
@@ -121,7 +121,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:block.campfire.crackle"
+        "name": "block.campfire.crackle"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.stove.crackle"
@@ -130,7 +130,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:block.sweet_berry_bush.pick_berries"
+        "name": "block.sweet_berry_bush.pick_berries"
       }
     ],
     "subtitle": "subtitles.farmersdelight.block.tomatoes.pick_tomatoes"
@@ -139,7 +139,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:entity.slime.attack"
+        "name": "entity.slime.attack"
       }
     ],
     "subtitle": "subtitles.farmersdelight.entity.rotten_tomato.hit"
@@ -148,7 +148,7 @@
     "sounds": [
       {
         "type": "event",
-        "name": "minecraft:entity.snowball.throw"
+        "name": "entity.snowball.throw"
       }
     ],
     "subtitle": "subtitles.farmersdelight.entity.rotten_tomato.throw"

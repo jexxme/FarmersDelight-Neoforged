@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.data;
 
+import net.neoforged.neoforge.common.Tags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -36,7 +37,7 @@ public class ModEnchantments
 	}
 
 	private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
-		context.register(key, builder.build(key.registry()));
+		context.register(key, builder.build(key.identifier()));
 	}
 
 	private static ResourceKey<Enchantment> key(String name) {

@@ -96,5 +96,6 @@
       ],
       "rolls": 3
     }
-  ]
+  ],
+  "random_sequence": "farmersdelight:chests/fd_abandoned_mineshaft"
 }

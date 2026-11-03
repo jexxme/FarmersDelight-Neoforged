@@ -32,5 +32,6 @@
       ],
       "rolls": 1
     }
-  ]
+  ],
+  "random_sequence": "farmersdelight:chests/fd_bastion_treasure"
 }

@@ -60,5 +60,6 @@
       },
       "rolls": 1
     }
-  ]
+  ],
+  "random_sequence": "farmersdelight:blocks/wild_onions"
 }

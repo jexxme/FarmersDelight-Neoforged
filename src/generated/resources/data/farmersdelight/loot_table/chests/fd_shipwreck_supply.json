@@ -87,5 +87,6 @@
         "min": 1
       }
     }
-  ]
+  ],
+  "random_sequence": "farmersdelight:chests/fd_shipwreck_supply"
 }

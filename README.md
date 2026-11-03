@@ -36,23 +36,25 @@ For the same reason it can't be installed together with any other Farmer's Delig
 | Blocks and block entities (cooking pot, stove, cutting board, skillet, basket, cabinets, canvas signs) | ✅ |
 | Client | ✅ starts without errors; in-game rendering/GUIs not fully tested yet |
 | JEI integration | ✅ (JEI 31.14 for 26.3) |
-| Data generators (`runData`) | ❌ not ported yet (generated JSON is committed) |
+| Data generators (`runData`) | ✅ recipes, loot tables, loot modifiers, advancements, tags, villager trades, damage types, enchantments, sounds |
 | EMI / CraftTweaker integrations | ❌ disabled for now |
 
-### Known issues and changes in 26.3
+### Notes on 26.3
 
-- **Datagen is not ported yet.** The `vectorwing.farmersdelight.data` package is excluded from compilation,
-  and the 26.3-format JSON under `src/generated/resources` is maintained directly.
+- **Data generation:** `./gradlew runData` writes `src/generated/resources`. Datapack-registry content
+  (recipes, loot tables, advancements, villager trades, damage types, enchantments) is generated through
+  NeoForge's `GatherDataRegistryEntriesEvent`. Block states, block/item models, item model definitions,
+  worldgen features and biome modifiers are hand-maintained in `src/main/resources`.
 - **Canvas signs** use the vanilla sign block entities, because sign bodies are block models in 26.3.
   Canvas signs from old worlds are mapped via registry aliases.
-- **Villager trades** are data-driven in 26.3 (`data/farmersdelight/villager_trade`). Because of that,
-  the config options `enableFarmerFDTrades` / `enableWanderingTraderFDTrades` currently have no effect.
-- **Config file:** NeoForge 26.3 dropped the `COMMON` config type. The settings are now in
-  `config/farmersdelight-local.toml`.
-- **Skillet in hand:** showing food in the skillet while it cooks uses an unfinished renderer and may look wrong.
-- Cutting board tool checks (`farmersdelight:item_ability`) fall back to the vanilla tool tags
-  (`#minecraft:axes`, `#minecraft:pickaxes`, ...). NeoForge 26.3 removed the vanilla tool item
-  abilities (`axe_strip`, `axe_dig`, ...).
+- **Villager trades** are data-driven in 26.3 (`data/farmersdelight/villager_trade`). The config options
+  `enableFarmerFDTrades` / `enableWanderingTraderFDTrades` still work: they're applied as load conditions.
+- **Config file:** still `config/farmersdelight-common.toml`. Internally it's a `LOCAL` config now,
+  because NeoForge 26.3 dropped the `COMMON` type.
+- **Cutting board tools:** NeoForge 26.3 removed the vanilla tool abilities (`axe_strip`, `axe_dig`, ...),
+  so the built-in recipes use the vanilla tool tags (`#minecraft:axes`, `#minecraft:pickaxes`, ...).
+  Add-on recipes that still use `farmersdelight:item_ability` with those ability names keep working
+  through a tag fallback.
 
 ## Building
 
