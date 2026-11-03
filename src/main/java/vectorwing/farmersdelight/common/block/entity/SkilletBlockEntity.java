@@ -206,8 +206,11 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 
 	public ItemStack removeItem() {
 		ItemStack withdrawn;
+		ItemResource content = inventory.getResource(0);
+		if (content.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
 		try (Transaction tx = Transaction.openRoot()){
-			ItemResource content = inventory.getResource(0);
 			int amount = inventory.extract(content, getStoredStack().getMaxStackSize(), tx);
 			withdrawn = content.toStack(amount);
 			tx.commit();
@@ -245,5 +248,13 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	@Override
 	public void clearContent() {
 		ItemUtils.clearItems(inventory);
+	}
+
+	// 26.x: the block entity is already gone in Block#affectNeighborsAfterRemoval, so contents are dropped here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null && !level.isClientSide()) {
+			ItemUtils.dropItems(level, pos, inventory);
+		}
 	}
 }

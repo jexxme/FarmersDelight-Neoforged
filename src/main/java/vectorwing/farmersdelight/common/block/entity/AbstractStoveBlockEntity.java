@@ -247,4 +247,12 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 			}
 		};
 	}
+
+	// 26.x: the block entity is already gone in Block#affectNeighborsAfterRemoval, so contents are dropped here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null && !level.isClientSide()) {
+			ItemUtils.dropItems(level, pos, items);
+		}
+	}
 }

@@ -58,10 +58,8 @@ public class CabinetBlock extends BaseEntityBlock
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof Container container) {
-			Containers.dropContents(level, pos, container);
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		// Contents are dropped by the vanilla container hook (BlockEntity#preRemoveSideEffects)
+		level.updateNeighbourForOutputSignal(pos, this);
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
 
