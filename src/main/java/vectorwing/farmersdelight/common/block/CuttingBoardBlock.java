@@ -99,10 +99,8 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof CuttingBoardBlockEntity cuttingBoard) {
-			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), cuttingBoard.getStoredItem());
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		// Contents are dropped by CuttingBoardBlockEntity#preRemoveSideEffects
+		level.updateNeighbourForOutputSignal(pos, this);
 
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}

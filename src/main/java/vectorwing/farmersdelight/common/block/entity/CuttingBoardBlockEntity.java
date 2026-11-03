@@ -202,12 +202,15 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	public ItemStack removeItem() {
 		isItemCarvingBoard = false;
 
-		Transaction transaction = Transaction.openRoot();
 		ItemResource type = inventory.getResource(0);
-		int amount = inventory.extract(type, getMaxStackSize(), transaction);
-		transaction.commit();
-
-		return type.toStack(amount);
+		if (type.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
+		try (Transaction transaction = Transaction.openRoot()) {
+			int amount = inventory.extract(type, getMaxStackSize(), transaction);
+			transaction.commit();
+			return type.toStack(amount);
+		}
 	}
 
 	public boolean carveToolOnBoard(ItemStack toolStack) {
@@ -225,7 +228,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	}
 
 	public ItemStack getStoredItem() {
-		return inventory.getResource(0).toStack();
+		return inventory.getResource(0).toStack(inventory.getAmountAsInt(0));
 	}
 
 	public int getMaxStackSize() {
@@ -258,5 +261,13 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	@Override
 	public void clearContent() {
 		ItemUtils.clearItems(inventory);
+	}
+
+	// 26.x: the block entity is already gone in Block#affectNeighborsAfterRemoval, so contents are dropped here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null && !level.isClientSide()) {
+			net.minecraft.world.Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getStoredItem());
+		}
 	}
 }

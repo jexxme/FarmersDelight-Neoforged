@@ -156,11 +156,8 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof CookingPotBlockEntity cookingPot) {
-			Containers.dropContents(level, pos, cookingPot.getDroppableInventory());
-			cookingPot.getUsedRecipesAndPopExperience(level, Vec3.atCenterOf(pos));
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		// Contents are dropped by CookingPotBlockEntity#preRemoveSideEffects
+		level.updateNeighbourForOutputSignal(pos, this);
 
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}

@@ -191,9 +191,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof AbstractStoveBlockEntity stoveEntity) {
-			ItemUtils.dropItems(level, pos, stoveEntity.getItems());
-		}
+		// Contents are dropped by AbstractStoveBlockEntity#preRemoveSideEffects
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
 

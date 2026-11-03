@@ -41,7 +41,9 @@ public class CookingPotItemHandler implements ResourceHandler<ItemResource>
 
 	@Override
 	public boolean isValid(int index, ItemResource resource) {
-		return false;
+		// Same side rules as insert(): ingredients from the top, serving containers from the sides/bottom.
+		boolean allowed = (side == null || side.equals(Direction.UP)) ? index < SLOTS_INPUT : index == SLOT_CONTAINER_INPUT;
+		return allowed && itemHandler.isValid(index, resource);
 	}
 
 	@Override
