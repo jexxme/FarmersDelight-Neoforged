@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.item;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +17,7 @@ import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 
-@MethodsReturnNonnullByDefault
+
 public class RottenTomatoItem extends Item implements ProjectileItem
 {
 	public RottenTomatoItem(Properties properties) {

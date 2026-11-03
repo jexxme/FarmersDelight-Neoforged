@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.integration.jei.category;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -27,7 +26,7 @@ import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
+
 public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<CuttingBoardRecipe>>
 {
 	public static final int OUTPUT_GRID_X = 76;

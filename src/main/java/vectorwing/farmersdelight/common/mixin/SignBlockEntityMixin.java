@@ -1,0 +1,33 @@
+package vectorwing.farmersdelight.common.mixin;
+
+// Adapted from Farmer's Delight Refabricated (MIT, https://github.com/MehVahdJukaar/FarmersDelightRefabricated)
+
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignText;
+import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import vectorwing.farmersdelight.common.block.state.CanvasSign;
+
+@Mixin(SignBlockEntity.class)
+public abstract class SignBlockEntityMixin extends BlockEntity {
+	public SignBlockEntityMixin(BlockEntityType<?> type, BlockPos worldPosition, BlockState blockState) {
+		super(type, worldPosition, blockState);
+	}
+
+	@ModifyExpressionValue(method = {"<init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", "loadAdditional", "applyImplicitComponents"},
+			at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/entity/SignText;EMPTY:Lnet/minecraft/world/level/block/entity/SignText;"))
+	private SignText fdrf$fixSignTextColor(SignText signText) {
+		if (getBlockState().getBlock() instanceof CanvasSign canvasSignBlock) {
+			if (canvasSignBlock.isDarkBackground()) {
+				return signText.asMutable().setColor(DyeColor.WHITE).asImmutable();
+			}
+		}
+		return signText;
+	}
+}

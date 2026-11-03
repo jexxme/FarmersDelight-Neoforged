@@ -10,6 +10,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,7 +21,6 @@ import vectorwing.farmersdelight.common.world.WildCropGeneration;
 
 public class SandyShrubBlock extends BushBlock implements IShearable, BonemealableBlock
 {
-	public static final MapCodec<SandyShrubBlock> CODEC = simpleCodec(SandyShrubBlock::new);
 
 	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
@@ -39,18 +39,18 @@ public class SandyShrubBlock extends BushBlock implements IShearable, Bonemealab
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
 		return true;
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		level.registryAccess().lookup(Registries.CONFIGURED_FEATURE).flatMap((value) -> value.get(WildCropGeneration.FEATURE_PATCH_SANDY_SHRUB)).ifPresent(
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
+		level.registryAccess().lookup(Registries.PLACED_FEATURE).flatMap((value) -> value.get(WildCropGeneration.PATCH_SANDY_SHRUB)).ifPresent(
 			(value) -> value.value().place(level, level.getChunkSource().getGenerator(), random, pos.above())
 		);
 	}

@@ -1,5 +1,7 @@
 package vectorwing.farmersdelight.common.loot.modifier;
 
+import net.minecraft.core.Holder;
+import java.util.Optional;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -38,19 +40,19 @@ public class PastrySlicingModifier extends LootModifier
 	 * If the block is a PieBlock, it drops up to 4 slices.
 	 * Otherwise, this does nothing.
 	 */
-	public PastrySlicingModifier(LootItemCondition[] conditions, int priority, Item pastrySlice) {
+	public PastrySlicingModifier(Optional<Holder<LootItemCondition>> conditions, int priority, Item pastrySlice) {
 		super(conditions, priority);
 		this.pastrySlice = pastrySlice;
 	}
 
-	public PastrySlicingModifier(LootItemCondition[] conditions, Item pastrySlice) {
+	public PastrySlicingModifier(Optional<Holder<LootItemCondition>> conditions, Item pastrySlice) {
 		this(conditions, IGlobalLootModifier.DEFAULT_PRIORITY, pastrySlice);
 	}
 
 	@Nonnull
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-		BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
+		BlockState state = context.getOptional(LootContextParams.BLOCK_STATE);
 		if (state != null) {
 			Block targetBlock = state.getBlock();
 			if (targetBlock instanceof CakeBlock) {

@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.common.loot.function;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
+import net.minecraft.core.Holder;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.Identifier;
@@ -14,8 +14,9 @@ import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+import java.util.Optional;
 
-@MethodsReturnNonnullByDefault
+
 @ParametersAreNonnullByDefault
 public class CopySkilletFunction extends LootItemConditionalFunction
 {
@@ -24,7 +25,7 @@ public class CopySkilletFunction extends LootItemConditionalFunction
 		i -> commonFields(i).apply(i, CopySkilletFunction::new)
 	);
 
-	private CopySkilletFunction(List<LootItemCondition> predicates) {
+	private CopySkilletFunction(Optional<Holder<LootItemCondition>> predicates) {
 		super(predicates);
 	}
 
@@ -39,7 +40,7 @@ public class CopySkilletFunction extends LootItemConditionalFunction
 
 	@Override
 	protected ItemStack run(ItemStack stack, LootContext context) {
-		if (context.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof SkilletBlockEntity skillet) {
+		if (context.getOptional(LootContextParams.BLOCK_ENTITY) instanceof SkilletBlockEntity skillet) {
 			stack = skillet.getSkilletAsItem();
 		}
 		return stack;

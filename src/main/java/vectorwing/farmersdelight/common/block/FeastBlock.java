@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block;
 
+import net.minecraft.util.Prediction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -120,7 +121,7 @@ public class FeastBlock extends Block
 					heldStack.shrink(1);
 				}
 				if (!player.getInventory().add(serving)) {
-					player.drop(serving, false);
+					player.drop(serving, false, Prediction.PREDICTED);
 				}
 				if (level.getBlockState(pos).getValue(getServingsProperty()) == 0 && !this.hasLeftovers) {
 					level.destroyBlock(pos, true);

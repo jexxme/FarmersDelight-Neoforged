@@ -35,7 +35,7 @@ public class FarmersDelight
 			modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 		}
 
-		modContainer.registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
+		modContainer.registerConfig(ModConfig.Type.LOCAL, Configuration.COMMON_CONFIG);
 		modContainer.registerConfig(ModConfig.Type.CLIENT, Configuration.CLIENT_CONFIG);
 
 		ModSounds.SOUNDS.register(modEventBus);

@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.common.entity;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -21,7 +20,7 @@ import vectorwing.farmersdelight.common.registry.ModSounds;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
+
 public class RottenTomatoEntity extends ThrowableItemProjectile
 {
 	public RottenTomatoEntity(EntityType<? extends RottenTomatoEntity> entityType, Level level) {

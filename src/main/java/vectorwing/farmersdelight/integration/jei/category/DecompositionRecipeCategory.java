@@ -1,6 +1,5 @@
 package vectorwing.farmersdelight.integration.jei.category;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
+
 public class DecompositionRecipeCategory implements IRecipeCategory<DecompositionDummy>
 {
 //	public static final Identifier UID = Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "decomposition");

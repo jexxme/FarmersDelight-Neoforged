@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Prediction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -35,7 +36,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.block.state.CookingPotSupport;
@@ -50,8 +50,6 @@ import java.util.Optional;
 @SuppressWarnings("deprecation")
 public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, EntityBlock
 {
-	public static final MapCodec<CookingPotBlock> CODEC = simpleCodec(CookingPotBlock::new);
-
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final EnumProperty<CookingPotSupport> SUPPORT = EnumProperty.create("support", CookingPotSupport.class);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -62,11 +60,6 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 	public CookingPotBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(SUPPORT, CookingPotSupport.NONE).setValue(WATERLOGGED, false));
-	}
-
-	@Override
-	protected MapCodec<? extends Block> codec() {
-		return CODEC;
 	}
 
 	@Override
@@ -81,7 +74,7 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 				ItemStack servingStack = cookingPot.useHeldItemOnMeal(heldStack);
 				if (servingStack != ItemStack.EMPTY) {
 					if (!player.getInventory().add(servingStack)) {
-						player.drop(servingStack, false);
+						player.drop(servingStack, false, Prediction.SERVER_ONLY);
 					}
 					level.playSound(null, pos, ModSounds.BLOCK_FOOD_TAKE_PORTION.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
 				} else {

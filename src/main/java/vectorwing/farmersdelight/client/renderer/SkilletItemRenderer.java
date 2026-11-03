@@ -53,12 +53,12 @@ public record SkilletItemRenderer(SpriteGetter spriteGetter) implements SpecialM
 				float maxH = 0.4F;
 				poseStack.translate(0, maxH * Mth.sin(animation * Mth.PI), 0);
 				float rotationAnimation = argument.skilletFlipped ? animation + 1.0F : animation;
-				poseStack.mulPose(Axis.XP.rotationDegrees(180 * rotationAnimation));
+				poseStack.rotateDegrees(Axis.XP, 180 * rotationAnimation);
 			} else {
-				poseStack.mulPose(Axis.XP.rotationDegrees(argument.skilletFlipped ? 180 : 0));
+				poseStack.rotateDegrees(Axis.XP, argument.skilletFlipped ? 180 : 0);
 			}
 
-			poseStack.mulPose(Axis.XP.rotationDegrees(90));
+			poseStack.rotateDegrees(Axis.XP, 90);
 			poseStack.scale(0.5F, 0.5F, 0.5F);
 
 			// Render item
@@ -75,7 +75,7 @@ public record SkilletItemRenderer(SpriteGetter spriteGetter) implements SpecialM
 		// Render block
 		if (animation != 0 && argument.firstperson) {
 			poseStack.translate(0, 0, 1);
-			poseStack.mulPose(Axis.XN.rotationDegrees(Mth.sin(animation * Mth.TWO_PI) * 15));
+			poseStack.rotateDegrees(Axis.XN, Mth.sin(animation * Mth.TWO_PI) * 15);
 			poseStack.translate(0F, 0, -1);
 			poseStack.translate(0, 0, -Mth.sin(animation * Mth.PI) * 0.2);
 		}

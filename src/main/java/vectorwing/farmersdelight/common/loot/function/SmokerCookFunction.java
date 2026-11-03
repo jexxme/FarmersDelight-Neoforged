@@ -1,6 +1,6 @@
 package vectorwing.farmersdelight.common.loot.function;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
+import net.minecraft.core.Holder;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Optional;
 
-@MethodsReturnNonnullByDefault
+
 @ParametersAreNonnullByDefault
 public class SmokerCookFunction extends LootItemConditionalFunction
 {
@@ -24,7 +24,7 @@ public class SmokerCookFunction extends LootItemConditionalFunction
 		i -> commonFields(i).apply(i, SmokerCookFunction::new)
 	);
 
-	protected SmokerCookFunction(List<LootItemCondition> predicates) {
+	protected SmokerCookFunction(Optional<Holder<LootItemCondition>> predicates) {
 		super(predicates);
 	}
 

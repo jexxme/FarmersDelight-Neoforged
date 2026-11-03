@@ -5,18 +5,19 @@
   "mixins": [
     "CampfireBaleMixin",
     "CuttingBoardDispenserMixin",
-    "KeepRichSoilUntrampledMixin",
     "NourishmentAlwaysEatMixin",
     "PlacePumpkinPieMixin",
     "RopeFenceConnectionMixin",
+    "SignBlockEntityMixin",
     "VillagersTargetRichSoilMixin",
     "datafix.ItemStackComponentizationFixMixin",
     "datafix.V1460Mixin",
     "datafix.V3818_3Mixin"
   ],
   "client": [
-    "CanvasSignEditScreenMixin",
-    "HideBlockBreakProgressMixin"
+    "HangingSignEditScreenMixin",
+    "HideBlockBreakProgressMixin",
+    "SignEditScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

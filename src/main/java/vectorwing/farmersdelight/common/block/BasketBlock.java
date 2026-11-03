@@ -43,7 +43,6 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
-	public static final MapCodec<BasketBlock> CODEC = simpleCodec(BasketBlock::new);
 
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
@@ -68,11 +67,6 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 	public BasketBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.UP).setValue(WATERLOGGED, false));
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.client.renderer;
 
+import net.minecraft.tags.ItemTags;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -70,10 +71,10 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 
 		// Rotate item to face the cutting board's front side
 		float f = -state.direction.toYRot();
-		matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
+		matrixStackIn.rotateDegrees(Axis.YP, f);
 
 		// Rotate item flat on the cutting board. Use X and Y from now on
-		matrixStackIn.mulPose(Axis.XP.rotationDegrees(90.0F));
+		matrixStackIn.rotateDegrees(Axis.XP, 90.0F);
 
 		// Resize the item
 		matrixStackIn.scale(0.6F, 0.6F, 0.6F);
@@ -85,7 +86,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 
 		// Rotate block to face the cutting board's front side
 		float f = -state.direction.toYRot();
-		matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
+		matrixStackIn.rotateDegrees(Axis.YP, f);
 
 		// Resize the block
 		matrixStackIn.scale(0.8F, 0.8F, 0.8F);
@@ -97,7 +98,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 
 		// Rotate item to face the cutting board's front side
 		float f = -state.direction.toYRot() + 180;
-		matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
+		matrixStackIn.rotateDegrees(Axis.YP, f);
 
 		// Rotate item to be carved on the surface, A little less so for hoes and pickaxes.
 		float poseAngle;
@@ -108,7 +109,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 		} else {
 			poseAngle = 180.0F;
 		}
-		matrixStackIn.mulPose(Axis.ZP.rotationDegrees(poseAngle));
+		matrixStackIn.rotateDegrees(Axis.ZP, poseAngle);
 
 		// Resize the item
 		matrixStackIn.scale(0.6F, 0.6F, 0.6F);
@@ -147,7 +148,7 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
 			// TODO this is a very hacky check for pickaxes.
 			Item toolItem = stack.getItem();
 			state.isPickaxe = toolItem.isCorrectToolForDrops(toolItem.getDefaultInstance(), Blocks.COBBLESTONE.defaultBlockState());
-			state.isHoe = toolItem instanceof HoeItem;
+			state.isHoe = stack.is(ItemTags.HOES);
 			state.isTrident = toolItem instanceof TridentItem;
 
 			state.rendersFlat = stack.is(ModTags.Items.FLAT_ON_CUTTING_BOARD);
