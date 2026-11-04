@@ -101,6 +101,7 @@ public class PieBlock extends Block
 		return InteractionResult.PASS;
 	}
 
+	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		if (level.isClientSide()) {
 			if (consumeBite(level, pos, state, player).consumesAction()) {

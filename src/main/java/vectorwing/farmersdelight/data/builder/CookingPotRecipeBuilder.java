@@ -147,6 +147,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		this.setNamespace(FarmersDelight.MODID).save(output);
 	}
 
+	@Override
 	public void save(RecipeOutput output) {
 		Identifier defaultLocation = getDefaultRecipeId(result);
 		save(output, Identifier.fromNamespaceAndPath(this.namespace != null ? namespace : defaultLocation.getNamespace(), defaultLocation.getPath()).withPrefix("cooking/"));
