@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:cooked_salmon_slice_from_campfire_cooking"
+        "recipe": "farmersdelight:cooked_salmon_slice_from_campfire_cooking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -2,19 +2,23 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      },
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "modifier": {
-            "type": "farmersdelight:copy_skillet"
-          },
+          "functions": [
+            {
+              "function": "farmersdelight:copy_skillet"
+            }
+          ],
           "name": "farmersdelight:skillet"
         }
       ],
-      "rolls": 1
+      "rolls": 1.0
     }
   ],
   "random_sequence": "farmersdelight:blocks/skillet"

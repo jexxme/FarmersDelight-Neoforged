@@ -7,7 +7,7 @@ import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagKey;
 
 /**
- * 26.3: vanilla {@link TagAppender} only accepts {@link ResourceKey}s. This adapter keeps the
+ * 26.x: vanilla {@link TagAppender} only accepts {@link ResourceKey}s. This adapter keeps the
  * object-based style of the original tag providers ({@code .add(ModItems.FOO.get())}).
  */
 public final class FDTagAppender<T>

@@ -42,6 +42,16 @@ public class CookingPotResultSlot extends ResourceHandlerSlot
 		super.onTake(player, stack);
 	}
 
+	// ResourceHandlerSlot turns this into a no-op, so shift-clicking meals out never reached onQuickCraft(stack, amount)
+	// (no crafting stats). This is the vanilla Slot behaviour.
+	@Override
+	public void onQuickCraft(ItemStack picked, ItemStack original) {
+		int count = original.getCount() - picked.getCount();
+		if (count > 0) {
+			this.onQuickCraft(original, count);
+		}
+	}
+
 	@Override
 	protected void onQuickCraft(ItemStack stack, int amount) {
 		this.removeCount += amount;

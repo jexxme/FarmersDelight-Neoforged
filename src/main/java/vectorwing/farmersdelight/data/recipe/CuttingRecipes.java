@@ -105,7 +105,7 @@ public class CuttingRecipes
 
 	private static void cuttingFoods(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.FOODS_DOUGH)), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.RAW_PASTA.get(), 1)
-				.save(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "tag_dough"));
+				.save(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "cutting/tag_dough"));
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.KELP_ROLL.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.KELP_ROLL_SLICE.get(), 3)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CAKE), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.CAKE_SLICE.get(), 7)
@@ -184,16 +184,22 @@ public class CuttingRecipes
 
 	private static void salvagingMinerals(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BRICKS), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.BRICK, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.NETHER_BRICKS), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.NETHER_BRICK, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.STONE), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.COBBLESTONE, 1)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DEEPSLATE), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.COBBLED_DEEPSLATE, 1)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.QUARTZ_BLOCK), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.QUARTZ, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AMETHYST_BLOCK), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.AMETHYST_SHARD, 4)
+				.salvaging()
 				.saveToFD(output);
 	}
 
@@ -216,8 +222,6 @@ public class CuttingRecipes
 		stripLogForBark(holderGetter, output, Items.CHERRY_WOOD, Items.STRIPPED_CHERRY_WOOD);
 		stripLogForBark(holderGetter, output, Items.PALE_OAK_LOG, Items.STRIPPED_PALE_OAK_LOG);
 		stripLogForBark(holderGetter, output, Items.PALE_OAK_WOOD, Items.STRIPPED_PALE_OAK_WOOD);
-		stripLogForBark(holderGetter, output, Items.POPLAR_LOG, Items.STRIPPED_POPLAR_LOG);
-		stripLogForBark(holderGetter, output, Items.POPLAR_WOOD, Items.STRIPPED_POPLAR_WOOD);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BAMBOO_BLOCK), Ingredient.of(holderGetter.getOrThrow(ItemTags.AXES)), Items.STRIPPED_BAMBOO_BLOCK)
 				.addResult(ModItems.STRAW.get())
 				.addSound(SoundEvents.AXE_STRIP).saveToFD(output);
@@ -256,9 +260,6 @@ public class CuttingRecipes
 		salvagePlankFromFurniture(holderGetter, output, WoodType.PALE_OAK,
 				Items.PALE_OAK_PLANKS, Items.PALE_OAK_DOOR, Items.PALE_OAK_TRAPDOOR, Items.PALE_OAK_SIGN, Items.PALE_OAK_HANGING_SIGN, Items.PALE_OAK_FENCE, Items.PALE_OAK_FENCE_GATE,
 				Items.PALE_OAK_PRESSURE_PLATE, Items.PALE_OAK_BUTTON, Items.PALE_OAK_BOAT, ModItems.PALE_OAK_CABINET.get());
-		salvagePlankFromFurniture(holderGetter, output, WoodType.POPLAR,
-			Items.POPLAR_PLANKS, Items.POPLAR_DOOR, Items.POPLAR_TRAPDOOR, Items.POPLAR_SIGN, Items.POPLAR_HANGING_SIGN, Items.POPLAR_FENCE, Items.POPLAR_FENCE_GATE,
-			Items.POPLAR_PRESSURE_PLATE, Items.POPLAR_BUTTON, Items.POPLAR_BOAT);
         salvagePlankFromFurniture(holderGetter, output, WoodType.BAMBOO,
                 Items.BAMBOO_PLANKS, Items.BAMBOO_DOOR, Items.BAMBOO_TRAPDOOR, Items.BAMBOO_SIGN, Items.BAMBOO_HANGING_SIGN, Items.BAMBOO_FENCE, Items.BAMBOO_FENCE_GATE,
                 Items.BAMBOO_PRESSURE_PLATE, Items.BAMBOO_BUTTON, Items.BAMBOO_RAFT, ModItems.BAMBOO_CABINET.get());
@@ -353,10 +354,7 @@ public class CuttingRecipes
 			.addResult(Items.CHEST)
 			.salvaging()
 			.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.POPLAR_CHEST_BOAT), hoes, Items.POPLAR_BOAT)
-			.addResult(Items.CHEST)
-			.salvaging()
-			.saveToFD(output);
+
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BAMBOO_CHEST_RAFT), hoes, Items.BAMBOO_RAFT)
 			.addResult(Items.CHEST)
 			.salvaging()
@@ -382,7 +380,7 @@ public class CuttingRecipes
 	}
 
 	/**
-	 * 26.3: NeoForge removed the vanilla tool abilities (axe_dig, hoe_dig, ...); only abilities that still exist
+	 * 26.x: NeoForge removed the vanilla tool abilities (axe_dig, hoe_dig, ...); only abilities that still exist
 	 * (e.g. shears_dig) are combined with the tag, otherwise the vanilla tool tag alone is used.
 	 */
 	private static Ingredient matchesTool(HolderGetter<Item> holderGetter, String abilityName, TagKey<Item> toolTag) {

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:pale_oak_cabinet"
+        "recipe": "farmersdelight:pale_oak_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

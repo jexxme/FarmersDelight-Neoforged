@@ -46,6 +46,8 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
+	public static final MapCodec<SkilletBlock> CODEC = simpleCodec(SkilletBlock::new);
+
 	public static final int MINIMUM_COOKING_TIME = 60;
 
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -58,6 +60,11 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	public SkilletBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(SUPPORT, false).setValue(WATERLOGGED, false));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -98,10 +105,7 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof SkilletBlockEntity skillet) {
-			ItemStacksResourceHandler inventory = skillet.getInventory();
-			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), inventory.getResource(0).toStack(inventory.getAmountAsInt(0)));
-		}
+		// Contents are dropped by SkilletBlockEntity#preRemoveSideEffects
 
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
@@ -178,6 +182,7 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
 		if (level.isClientSide()) {
 			return createTickerHelper(blockEntity, ModBlockEntityTypes.SKILLET.get(), SkilletBlockEntity::animationTick);

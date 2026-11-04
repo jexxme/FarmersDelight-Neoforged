@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:green_canvas_sign"
+        "recipe": "farmersdelight:green_canvas_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

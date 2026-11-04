@@ -53,10 +53,10 @@ public class SkilletRenderer implements BlockEntityRenderer<SkilletBlockEntity, 
 
 				// Rotate item to face the skillet's front side
 				float degrees = -state.direction.toYRot();
-				poseStack.rotateDegrees(Axis.YP, degrees);
+				poseStack.mulPose(Axis.YP.rotationDegrees(degrees));
 
 				// Rotate item flat on the skillet. Use X and Y from now on
-				poseStack.rotateDegrees(Axis.XP, 90.0F);
+				poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
 
 				// Resize the items
 				poseStack.scale(0.5F, 0.5F, 0.5F);

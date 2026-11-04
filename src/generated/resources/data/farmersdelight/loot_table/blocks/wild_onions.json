@@ -8,22 +8,24 @@
           "children": [
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "neoforge:can_item_perform_ability",
-                "ability": "shears_harvest"
-              },
+              "conditions": [
+                {
+                  "ability": "shears_harvest",
+                  "condition": "neoforge:can_item_perform_ability"
+                }
+              ],
               "name": "farmersdelight:wild_onions"
             },
             {
               "type": "minecraft:item",
-              "modifier": [
+              "functions": [
                 {
-                  "type": "minecraft:explosion_decay"
+                  "function": "minecraft:explosion_decay"
                 },
                 {
-                  "type": "minecraft:apply_bonus",
                   "enchantment": "minecraft:fortune",
                   "formula": "minecraft:uniform_bonus_count",
+                  "function": "minecraft:apply_bonus",
                   "parameters": {
                     "bonusMultiplier": 2
                   }
@@ -34,31 +36,35 @@
           ]
         }
       ],
-      "rolls": 1
+      "rolls": 1.0
     },
     {
-      "condition": {
-        "type": "minecraft:inverted",
-        "term": {
-          "type": "neoforge:can_item_perform_ability",
-          "ability": "shears_harvest"
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "ability": "shears_harvest",
+            "condition": "neoforge:can_item_perform_ability"
+          }
         }
-      },
+      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:allium"
         }
       ],
-      "modifier": {
-        "type": "minecraft:set_count",
-        "count": {
-          "type": "minecraft:uniform",
-          "max": 3,
-          "min": 1
+      "functions": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 3.0,
+            "min": 1.0
+          },
+          "function": "minecraft:set_count"
         }
-      },
-      "rolls": 1
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "farmersdelight:blocks/wild_onions"

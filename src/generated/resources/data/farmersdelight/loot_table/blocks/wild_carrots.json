@@ -8,22 +8,24 @@
           "children": [
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "neoforge:can_item_perform_ability",
-                "ability": "shears_harvest"
-              },
+              "conditions": [
+                {
+                  "ability": "shears_harvest",
+                  "condition": "neoforge:can_item_perform_ability"
+                }
+              ],
               "name": "farmersdelight:wild_carrots"
             },
             {
               "type": "minecraft:item",
-              "modifier": [
+              "functions": [
                 {
-                  "type": "minecraft:explosion_decay"
+                  "function": "minecraft:explosion_decay"
                 },
                 {
-                  "type": "minecraft:apply_bonus",
                   "enchantment": "minecraft:fortune",
                   "formula": "minecraft:uniform_bonus_count",
+                  "function": "minecraft:apply_bonus",
                   "parameters": {
                     "bonusMultiplier": 2
                   }
@@ -34,7 +36,7 @@
           ]
         }
       ],
-      "rolls": 1
+      "rolls": 1.0
     }
   ],
   "random_sequence": "farmersdelight:blocks/wild_carrots"

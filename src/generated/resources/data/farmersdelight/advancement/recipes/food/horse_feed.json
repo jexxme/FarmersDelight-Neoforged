@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:horse_feed"
+        "recipe": "farmersdelight:horse_feed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

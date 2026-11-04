@@ -32,6 +32,7 @@ public class SteamParticle extends SingleQuadParticle
 		return Layer.TRANSLUCENT;
 	}
 
+	@Override
 	public void tick() {
 		this.xo = this.x;
 		this.yo = this.y;

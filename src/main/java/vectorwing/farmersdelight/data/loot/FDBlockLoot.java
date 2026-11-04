@@ -35,7 +35,8 @@ import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.*;
-import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import vectorwing.farmersdelight.common.block.*;
 import vectorwing.farmersdelight.common.loot.function.CopySkilletFunction;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -50,8 +51,8 @@ import java.util.concurrent.ExecutionException;
 
 public class FDBlockLoot extends BlockLootSubProvider
 {
-	public FDBlockLoot(LootTableSubProvider.Context output) {
-		super(Set.of(), FeatureFlags.REGISTRY.allFlags(), output);
+	public FDBlockLoot(HolderLookup.Provider registries) {
+		super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
 	}
 
 	@Override
@@ -64,13 +65,13 @@ public class FDBlockLoot extends BlockLootSubProvider
 
 	@Override
 	public void generate() {
-		HolderGetter<Block> blockLookup = this.blocks;
-		HolderGetter<Item> itemLookup = this.items;
-		HolderGetter<Enchantment> enchantmentLookup = this.enchantments;
+		HolderGetter<Block> blockLookup = this.registries.lookupOrThrow(Registries.BLOCK);
+		HolderGetter<Item> itemLookup = this.registries.lookupOrThrow(Registries.ITEM);
+		HolderGetter<Enchantment> enchantmentLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 		dropSelf(ModBlocks.STOVE.get());
 		dropNamedContainer(ModBlocks.WOODEN_BASKET.get());
 		dropNamedContainer(ModBlocks.BAMBOO_BASKET.get());
-		add(ModBlocks.COOKING_POT.get(), (block) -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool().setRolls(ContextIntProviders.exactly(1)).add(LootItem.lootTableItem(block)
+		add(ModBlocks.COOKING_POT.get(), (block) -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block)
 			.apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
 				.include(DataComponents.CUSTOM_NAME)
 				.include(ModDataComponents.MEAL.get())
@@ -85,7 +86,7 @@ public class FDBlockLoot extends BlockLootSubProvider
 		add(ModBlocks.ONION_CROP.get(), createSeedlessCropDrops(ModBlocks.ONION_CROP.get(), ModItems.ONION.get(), enchantmentLookup));
 		dropOther(ModBlocks.RICE_CROP.get(), ModItems.RICE.get());
 		add(ModBlocks.RICE_CROP_PANICLES.get(), block -> LootTable.lootTable().withPool(this.applyExplosionDecay(block, LootPool.lootPool()
-			.setRolls(ContextIntProviders.exactly(1))
+			.setRolls(ConstantValue.exactly(1.0F))
 			.add(AlternativesEntry.alternatives(
 				LootItem.lootTableItem(ModItems.RICE.get())
 					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(RicePaniclesBlock.RICE_AGE, 3)))
@@ -95,37 +96,37 @@ public class FDBlockLoot extends BlockLootSubProvider
 
 		add(ModBlocks.TOMATO_CROP.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
 				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
-				.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))
+				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
 				.apply(ApplyBonusCount.addUniformBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), 1)))
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.TOMATO_SEEDS.get()))
 				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.ROPELOGGED, false))))
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
 				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
 				.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
 
 		add(ModBlocks.TOMATO_CROP_ON_ROPE.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
 				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
-				.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))
+				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
 				.apply(ApplyBonusCount.addUniformBonusCount(enchantmentLookup.getOrThrow(Enchantments.FORTUNE), 1)))
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
 				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
 				.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
 
 		add(ModBlocks.SANDY_SHRUB.get(), block -> LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(AlternativesEntry.alternatives(
 					LootItem.lootTableItem(block)
 						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST)),
@@ -140,10 +141,10 @@ public class FDBlockLoot extends BlockLootSubProvider
 		add(ModBlocks.WILD_ONIONS.get(), block -> wildCropNoSeeds(block, ModItems.ONION.get(), enchantmentLookup)
 			//onions drop alliums too
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(Items.ALLIUM))
 				.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST).invert())
-				.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3)))));
+				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))));
 		add(ModBlocks.WILD_POTATOES.get(), block -> wildCropNoSeeds(block, Items.POTATO, enchantmentLookup));
 		add(ModBlocks.WILD_TOMATOES.get(), block -> wildCrop(block, ModItems.TOMATO.get(), ModItems.TOMATO_SEEDS.get(), enchantmentLookup));
 
@@ -240,7 +241,7 @@ public class FDBlockLoot extends BlockLootSubProvider
 		dropSelf(ModBlocks.CANVAS_RUG.get());
 		dropSelf(ModBlocks.TATAMI.get());
 		add(ModBlocks.FULL_TATAMI_MAT.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
-			.setRolls(ContextIntProviders.exactly(1))
+			.setRolls(ConstantValue.exactly(1.0F))
 			.add(LootItem.lootTableItem(block)
 				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(TatamiMatBlock.PART, BedPart.HEAD)))))));
 		dropSelf(ModBlocks.HALF_TATAMI_MAT.get());
@@ -263,13 +264,13 @@ public class FDBlockLoot extends BlockLootSubProvider
 		add(ModBlocks.GLEAMING_SALAD_BLOCK.get(), block -> this.platedFood(block, 4));
 		add(ModBlocks.STUFFED_PUMPKIN_BLOCK.get(), block -> LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(block))
 				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, 4)))));
 	}
 
 	private LootItemCondition.Builder hasBlockStateProperties(Block block, StatePropertiesPredicate.Builder builder) {
-		return MatchBlock.blockMatches(this.blocks, block, builder);
+		return LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(builder);
 	}
 
 	protected void dropNamedContainer(Block block) {
@@ -279,20 +280,20 @@ public class FDBlockLoot extends BlockLootSubProvider
 
 	protected LootTable.Builder mushroomColony(Block block, Item mushroom) {
 		return this.applyExplosionDecay(block, LootTable.lootTable().withPool(LootPool.lootPool()
-			.setRolls(ContextIntProviders.exactly(1))
+			.setRolls(ConstantValue.exactly(1.0F))
 			.add(AlternativesEntry.alternatives(
 				LootItem.lootTableItem(mushroom)
-					.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(2)))
+					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
 					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 0))),
 				LootItem.lootTableItem(mushroom)
-					.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(3)))
+					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(3.0F)))
 					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 1))),
 				LootItem.lootTableItem(mushroom)
-					.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(4)))
+					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
 					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 2))),
 				//fully grown should only drop mushrooms if not harvested by shears
 				LootItem.lootTableItem(mushroom)
-					.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(5)))
+					.apply(SetItemCountFunction.setCount(ConstantValue.exactly(5.0F)))
 					.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST).invert())
 					.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(MushroomColonyBlock.COLONY_AGE, 3))),
 				//if broken with shears at max age, drop self
@@ -330,12 +331,12 @@ public class FDBlockLoot extends BlockLootSubProvider
 	protected LootTable.Builder wildCrop(Block block, Item crop, Item seeds, HolderGetter<Enchantment> registryLookup) {
 		return LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(crop))
 				.when(LootItemRandomChanceCondition.randomChance(0.2F))
 				.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST).invert()))
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(AlternativesEntry.alternatives(
 					LootItem.lootTableItem(block)
 						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST)),
@@ -347,7 +348,7 @@ public class FDBlockLoot extends BlockLootSubProvider
 	protected LootTable.Builder wildCropNoSeeds(Block block, Item crop, HolderGetter<Enchantment> registryLookup) {
 		return LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(AlternativesEntry.alternatives(
 					LootItem.lootTableItem(block)
 						.when(CanItemPerformAbility.canItemPerformAbility(ItemAbilities.SHEARS_HARVEST)),
@@ -359,11 +360,11 @@ public class FDBlockLoot extends BlockLootSubProvider
 	protected LootTable.Builder platedFood(Block block, int servings) {
 		return LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(block))
 				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(Items.BOWL))
 				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
 	}
@@ -371,15 +372,15 @@ public class FDBlockLoot extends BlockLootSubProvider
 	protected LootTable.Builder platedFoodExtraDrop(Block block, Item extraDrop, int servings) {
 		return LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(block))
 				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings))))
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(Items.BOWL))
 				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()))
 			.withPool(LootPool.lootPool()
-				.setRolls(ContextIntProviders.exactly(1))
+				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(extraDrop))
 				.when(hasBlockStateProperties(block, 		StatePropertiesPredicate.Builder.properties().hasProperty(FeastBlock.SERVINGS, servings)).invert()));
 	}

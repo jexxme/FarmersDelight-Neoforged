@@ -11,6 +11,7 @@ import net.minecraft.gametest.framework.TestData;
 import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -112,7 +114,10 @@ public final class FDGameTests
 		var recipe = stove.getCookingRecipe(beef);
 		helper.assertTrue(recipe.isPresent(), "Raw beef should have a stove (campfire) recipe");
 		helper.assertTrue(stove.placeFood(null, beef, recipe.get()), "Stove should accept raw beef");
-		helper.succeedWhen(() -> helper.assertItemEntityPresent(Items.COOKED_BEEF, stovePos.above(), 3.0));
+		helper.succeedWhen(() -> {
+			helper.assertItemEntityCountIs(Items.COOKED_BEEF, stovePos.above(), 3.0, 1);
+			helper.assertTrue(stove.isEmpty(), "The beef must leave the stove once cooked");
+		});
 	}
 
 	/** A skillet on a lit stove cooks raw beef. */
@@ -147,17 +152,22 @@ public final class FDGameTests
 		helper.setBlock(vine.below(), Blocks.DIRT);
 		helper.setBlock(top, ModBlocks.ROPE.get());
 		helper.setBlock(vine, ModBlocks.TOMATO_CROP_ON_ROPE.get());
-		helper.setBlock(vine, Blocks.AIR);
-		helper.succeedWhen(() -> helper.assertBlockPresent(ModBlocks.ROPE.get(), vine));
+		// A real break by a player, not just replacing the block
+		helper.getLevel().destroyBlock(helper.absolutePos(vine), true, helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL));
+		helper.succeedWhen(() -> {
+			helper.assertBlockPresent(ModBlocks.ROPE.get(), vine);
+			// The rope stays as a block, so it must not also drop as an item (that would be a rope dupe)
+			helper.assertItemEntityNotPresent(ModItems.ROPE.get(), vine, 2.0);
+		});
 	}
 
-	/** 26.3 moved fuel, compost and villager food to item components / data maps; check they are applied. */
+	/** Fuel and compost come from NeoForge data maps, villager food from Villager.FOOD_POINTS; check they are applied. */
 	private static void itemComponentsAndData(GameTestHelper helper) {
-		helper.assertTrue(new ItemStack(ModItems.CANVAS.get()).has(DataComponents.COOKING_FUEL), "Canvas should be a furnace fuel");
-		helper.assertTrue(new ItemStack(ModItems.CABBAGE.get()).has(DataComponents.COMPOSTABLE), "Cabbage should be compostable");
-		helper.assertTrue(new ItemStack(ModItems.CABBAGE.get()).has(DataComponents.VILLAGER_FOOD), "Cabbage should be villager food");
-		helper.assertTrue(BuiltInRegistries.ITEM.wrapAsHolder(ModItems.CABBAGE_SEEDS.get()).getData(NeoForgeDataMaps.VILLAGER_COMPOSTABLES) != null,
-				"Cabbage seeds should be villager compostable");
+		helper.assertTrue(BuiltInRegistries.ITEM.wrapAsHolder(ModItems.CANVAS.get()).getData(NeoForgeDataMaps.FURNACE_FUELS) != null, "Canvas should be a furnace fuel");
+		helper.assertTrue(BuiltInRegistries.ITEM.wrapAsHolder(ModItems.CABBAGE.get()).getData(NeoForgeDataMaps.COMPOSTABLES) != null, "Cabbage should be compostable");
+		helper.assertTrue(Villager.FOOD_POINTS.containsKey(ModItems.CABBAGE.get()), "Cabbage should be villager food");
+		Compostable seeds = BuiltInRegistries.ITEM.wrapAsHolder(ModItems.CABBAGE_SEEDS.get()).getData(NeoForgeDataMaps.COMPOSTABLES);
+		helper.assertTrue(seeds != null && seeds.canVillagerCompost(), "Cabbage seeds should be villager compostable");
 		ResourceKey<Recipe<?>> tomatoSauce = ResourceKey.create(Registries.RECIPE, FarmersDelight.id("cooking/tomato_sauce"));
 		helper.assertTrue(helper.getLevel().recipeAccess().byKey(tomatoSauce).isPresent(), "Tomato Sauce recipe should be loaded");
 		helper.succeed();

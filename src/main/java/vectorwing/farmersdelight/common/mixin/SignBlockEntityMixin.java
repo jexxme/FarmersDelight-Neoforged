@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.common.mixin;
 
 // Adapted from Farmer's Delight Refabricated (MIT, https://github.com/MehVahdJukaar/FarmersDelightRefabricated)
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -20,12 +20,11 @@ public abstract class SignBlockEntityMixin extends BlockEntity {
 		super(type, worldPosition, blockState);
 	}
 
-	@ModifyExpressionValue(method = {"<init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", "loadAdditional", "applyImplicitComponents"},
-			at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/entity/SignText;EMPTY:Lnet/minecraft/world/level/block/entity/SignText;"))
+	@ModifyReturnValue(method = "createDefaultSignText", at = @At("TAIL"))
 	private SignText fdrf$fixSignTextColor(SignText signText) {
 		if (getBlockState().getBlock() instanceof CanvasSign canvasSignBlock) {
 			if (canvasSignBlock.isDarkBackground()) {
-				return signText.asMutable().setColor(DyeColor.WHITE).asImmutable();
+				return signText.setColor(DyeColor.WHITE);
 			}
 		}
 		return signText;

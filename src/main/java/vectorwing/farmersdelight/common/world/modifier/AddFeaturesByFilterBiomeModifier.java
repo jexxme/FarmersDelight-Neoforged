@@ -2,7 +2,6 @@ package vectorwing.farmersdelight.common.world.modifier;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -25,7 +24,7 @@ public record AddFeaturesByFilterBiomeModifier(
 {
 
 	@Override
-	public void modify(RegistryAccess registries, Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
+	public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
 		if (phase == Phase.ADD && this.allowedBiomes.contains(biome)) {
 			if (deniedBiomes.isPresent() && this.deniedBiomes.get().contains(biome)) {
 				return;

@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class CabinetBlock extends BaseEntityBlock
 {
+	public static final MapCodec<CabinetBlock> CODEC = simpleCodec(CabinetBlock::new);
 
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -36,6 +37,11 @@ public class CabinetBlock extends BaseEntityBlock
 	public CabinetBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -52,10 +58,8 @@ public class CabinetBlock extends BaseEntityBlock
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof Container container) {
-			Containers.dropContents(level, pos, container);
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		// Contents are dropped by the vanilla container hook (BlockEntity#preRemoveSideEffects)
+		level.updateNeighbourForOutputSignal(pos, this);
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
 

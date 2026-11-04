@@ -147,6 +147,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 		this.setNamespace(FarmersDelight.MODID).save(output);
 	}
 
+	@Override
 	public void save(RecipeOutput output) {
 		Identifier defaultLocation = getDefaultRecipeId(result);
 		save(output, Identifier.fromNamespaceAndPath(this.namespace != null ? namespace : defaultLocation.getNamespace(), defaultLocation.getPath()).withPrefix("cooking/"));
@@ -173,7 +174,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	@Override
 	public void save(RecipeOutput output, ResourceKey<Recipe<?>> resourceKey) {
 		Advancement.Builder advancementBuilder = output.advancement()
-				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(resourceKey)))
+				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
 				.rewards(AdvancementRewards.Builder.recipe(resourceKey))
 				.requirements(AdvancementRequirements.Strategy.OR);
 		this.criteria.forEach(advancementBuilder::addCriterion);

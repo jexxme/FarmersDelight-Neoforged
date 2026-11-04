@@ -158,7 +158,7 @@ public class ModBlocks
 	public static final Supplier<Block> FULL_TATAMI_MAT = regBlock("full_tatami_mat",
 		TatamiMatBlock::new, Block.Properties.ofFullCopy(Blocks.WOOL.white()).strength(0.3F));
 	public static final Supplier<Block> HALF_TATAMI_MAT = regBlock("half_tatami_mat",
-		TatamiHalfMatBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WOOL.white()).strength(0.3F).pushReaction(PushReaction.POPPED));
+		TatamiHalfMatBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WOOL.white()).strength(0.3F).pushReaction(PushReaction.DESTROY));
 
 	public static final Supplier<Block> CANVAS_SIGN = regCanvasSign(null);
 	public static final Supplier<Block> WHITE_CANVAS_SIGN = regCanvasSign(DyeColor.WHITE);
@@ -295,7 +295,7 @@ public class ModBlocks
 	public static final Supplier<Block> TOMATO_CROP = regBlock("tomatoes",
 		TomatoBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT));
 	public static final Supplier<Block> TOMATO_CROP_ON_ROPE = regBlock("tomatoes_on_rope",
-		HangingTomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.PUSH_PULL));
+		HangingTomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.NORMAL));
 	public static final Supplier<Block> RICE_CROP = regBlock("rice",
 		RiceBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT).strength(0.2F));
 	public static final Supplier<Block> RICE_CROP_PANICLES = regBlock("rice_panicles",

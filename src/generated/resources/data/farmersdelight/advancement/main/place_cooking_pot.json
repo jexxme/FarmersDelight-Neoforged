@@ -3,10 +3,12 @@
   "criteria": {
     "cooking_pot": {
       "conditions": {
-        "location": {
-          "type": "minecraft:match_block",
-          "blocks": "farmersdelight:cooking_pot"
-        }
+        "location": [
+          {
+            "block": "farmersdelight:cooking_pot",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
       },
       "trigger": "minecraft:placed_block"
     }

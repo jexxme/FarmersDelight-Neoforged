@@ -39,6 +39,7 @@ public class SafetyNetBlock extends Block implements SimpleWaterloggedBlock
 	}
 
 	@Nullable
+	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluid = context.getLevel().getFluidState(context.getClickedPos());
 		return this.defaultBlockState().setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
@@ -72,5 +73,5 @@ public class SafetyNetBlock extends Block implements SimpleWaterloggedBlock
 		}
 	}
 
-	// 26.3: Bouncing is handled by BlockBehaviour.Properties#bounceRestitution (see ModBlocks.SAFETY_NET).
+	// 26.x: Bouncing is handled by BlockBehaviour.Properties#bounceRestitution (see ModBlocks.SAFETY_NET).
 }

@@ -39,7 +39,7 @@ public class ItemAbilityIngredient implements ICustomIngredient
 	}
 
 	/**
-	 * 26.3: NeoForge removed the vanilla tool item abilities (axe_strip, axe_dig, pickaxe_dig, shovel_dig, hoe_dig, ...),
+	 * 26.x: NeoForge removed the vanilla tool item abilities (axe_strip, axe_dig, pickaxe_dig, shovel_dig, hoe_dig, ...),
 	 * since stripping/tilling/flattening became data-driven block transformers. Vanilla tools no longer report them via
 	 * canPerformAction, so fall back to the matching vanilla tool tag for those ability names.
 	 */
@@ -93,6 +93,7 @@ public class ItemAbilityIngredient implements ICustomIngredient
 		return itemAbility;
 	}
 
+	@Override
 	public IngredientType<?> getType() {
 		return ModIngredientTypes.ITEM_ABILITY_INGREDIENT.get();
 	}
