@@ -120,8 +120,7 @@ public class FeastBlock extends Block
 					heldStack.shrink(1);
 				}
 				if (!player.getInventory().add(serving)) {
-					player.drop(serving, false)
-;
+					player.drop(serving, false);
 				}
 				if (level.getBlockState(pos).getValue(getServingsProperty()) == 0 && !this.hasLeftovers) {
 					level.destroyBlock(pos, true);

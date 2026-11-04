@@ -173,8 +173,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder
 	@Override
 	public void save(RecipeOutput output, ResourceKey<Recipe<?>> resourceKey) {
 		Advancement.Builder advancementBuilder = output.advancement()
-				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey)
-)
+				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
 				.rewards(AdvancementRewards.Builder.recipe(resourceKey))
 				.requirements(AdvancementRequirements.Strategy.OR);
 		this.criteria.forEach(advancementBuilder::addCriterion);
