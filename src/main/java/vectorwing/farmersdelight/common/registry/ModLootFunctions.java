@@ -3,8 +3,10 @@ package vectorwing.farmersdelight.common.registry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.loot.condition.BlockTagCondition;
 import vectorwing.farmersdelight.common.loot.function.CopySkilletFunction;
 import vectorwing.farmersdelight.common.loot.function.SmokerCookFunction;
 
@@ -16,4 +18,8 @@ public class ModLootFunctions
 
 	public static final Supplier<MapCodec<? extends LootItemFunction>> COPY_SKILLET = LOOT_FUNCTIONS.register("copy_skillet", () -> CopySkilletFunction.CODEC);
 	public static final Supplier<MapCodec<? extends LootItemFunction>> SMOKER_COOK = LOOT_FUNCTIONS.register("smoker_cook", () -> SmokerCookFunction.CODEC);
+
+	public static final DeferredRegister<MapCodec<? extends LootItemCondition>> LOOT_CONDITIONS = DeferredRegister.create(Registries.LOOT_CONDITION_TYPE, FarmersDelight.MODID);
+
+	public static final Supplier<MapCodec<? extends LootItemCondition>> BLOCK_TAG = LOOT_CONDITIONS.register("block_tag", () -> BlockTagCondition.CODEC);
 }

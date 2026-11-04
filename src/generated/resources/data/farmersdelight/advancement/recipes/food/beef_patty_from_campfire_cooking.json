@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:beef_patty_from_campfire_cooking"
+        "recipe": "farmersdelight:beef_patty_from_campfire_cooking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

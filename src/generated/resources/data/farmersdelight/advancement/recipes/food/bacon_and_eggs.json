@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:bacon_and_eggs"
+        "recipe": "farmersdelight:bacon_and_eggs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

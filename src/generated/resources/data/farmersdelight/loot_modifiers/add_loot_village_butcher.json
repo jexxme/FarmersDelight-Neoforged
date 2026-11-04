@@ -1,8 +1,10 @@
 {
   "type": "neoforge:add_table",
-  "condition": {
-    "type": "neoforge:loot_table_id",
-    "loot_table_id": "minecraft:chests/village/village_butcher"
-  },
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/village/village_butcher"
+    }
+  ],
   "table": "farmersdelight:chests/fd_village_butcher"
 }

@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.loot.modifier;
 
-import net.minecraft.core.Holder;
-import java.util.Optional;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -34,15 +32,12 @@ public class AddItemModifier extends LootModifier
 	/**
 	 * This loot modifier adds an item to the loot table, given the conditions specified.
 	 */
-	public AddItemModifier(Optional<Holder<LootItemCondition>> conditions, int priority, Item addedItem, int count) {
-		super(conditions, priority);
+	public AddItemModifier(LootItemCondition[] conditions, Item addedItem, int count) {
+		super(conditions);
 		this.addedItem = addedItem;
 		this.count = count;
 	}
 
-	public AddItemModifier(Optional<Holder<LootItemCondition>> conditions, Item addedItem, int count) {
-		this(conditions, IGlobalLootModifier.DEFAULT_PRIORITY, addedItem, count);
-	}
 
 	@Nonnull
 	@Override

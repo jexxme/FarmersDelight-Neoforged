@@ -111,6 +111,7 @@ public class BasketBlockEntity extends RandomizableContainerBlockEntity implemen
 		this.transferCooldown = ticks;
 	}
 
+	@Override
 	public boolean isOnCooldown() {
 		return this.transferCooldown > 0;
 	}

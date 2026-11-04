@@ -1,17 +1,19 @@
-## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.3)
+## Farmer's Delight Neoforged 1.3.3+neoforged.1
 
-- First release of Farmer's Delight Neoforged: Farmer's Delight 1.3.3 content on Minecraft 26.3 / NeoForge 26.3.0.101 / Java 25.
-- Canvas signs use vanilla sign block entities; fuel/compost/villager food are item components;
-  rich soil tilling is data-driven; loot modifiers and all data use the 26.3 JSON formats.
-- Data generation ported to the 26.3 registry-bootstrap datagen.
-- Villager trade config toggles work again; config file name stays `farmersdelight-common.toml`.
-- Skillet shows the cooking ingredient (with flip animation) in hand.
-- Rich soil registers the 26.3 plant support tags (`supports_crops`, `supports_vegetation`, ...).
+- First release of Farmer's Delight Neoforged: Farmer's Delight 1.3.3 content on Minecraft 26.1 to 26.3
+  (NeoForge, Java 25), one file per Minecraft version.
+- Updated to the 26.x formats: data generation, loot modifiers, item components, data-driven rich soil tilling.
+- Villager trade config toggles work again; the config file name stays `farmersdelight-common.toml`.
+- The skillet shows the ingredient (with flip animation) in hand.
 - Fixes for open upstream issues (see docs/UPSTREAM_ISSUES.md):
   rope fences in vanilla fence item tags (#1412), tag-based straw drops `#farmersdelight:drops_straw` (#1411),
   stoves lit by any fire starter (#1407), farmers compost FD seeds (#1404), `fd_add_table` accepts
   `lootTable` and `table` (#1391), quick-moving meals awards the crafted stat (#1384).
-- Known gaps: EMI/CraftTweaker integrations disabled.
+- Fixed during the port, found by in-world tests: ingredients not consumed, item loss and duplication in the
+  cooking pot, cutting board (tool carving) and skillet, contents lost when blocks break, hoppers, food on
+  stoves not showing, skillet use in hand eating the food, the cooking pot recipe book, multiplayer join crashes.
+- Recipe ids are the same as in Farmer's Delight 1.21, so packs and scripts keep working.
+- Not yet available: EMI and CraftTweaker integration.
 
 # Changelog
 

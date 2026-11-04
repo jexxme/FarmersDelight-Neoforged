@@ -20,6 +20,7 @@ public class ModRecipeTypes
 	public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String identifier) {
 		return new RecipeType<>()
 		{
+			@Override
 			public String toString() {
 				return FarmersDelight.MODID + ":" + identifier;
 			}

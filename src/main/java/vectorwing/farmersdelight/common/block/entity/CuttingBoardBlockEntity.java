@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import vectorwing.farmersdelight.common.block.entity.inventory.SafeItemStacksResourceHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -80,8 +81,9 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	@Override
 	protected void loadAdditional(ValueInput input) {
 		super.loadAdditional(input);
-		isItemCarvingBoard = input.getBooleanOr("IsItemCarved", false);
 		inventory.deserialize(input);
+		// An empty board can't be carving (also repairs boards saved in that stuck state)
+		isItemCarvingBoard = input.getBooleanOr("IsItemCarved", false) && !inventory.getResource(0).isEmpty();
 	}
 
 	@Override
@@ -202,17 +204,20 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	public ItemStack removeItem() {
 		isItemCarvingBoard = false;
 
-		Transaction transaction = Transaction.openRoot();
 		ItemResource type = inventory.getResource(0);
-		int amount = inventory.extract(type, getMaxStackSize(), transaction);
-		transaction.commit();
-
-		return type.toStack(amount);
+		if (type.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
+		try (Transaction transaction = Transaction.openRoot()) {
+			int amount = inventory.extract(type, getMaxStackSize(), transaction);
+			transaction.commit();
+			return type.toStack(amount);
+		}
 	}
 
 	public boolean carveToolOnBoard(ItemStack toolStack) {
 		if (toolStack.has(DataComponents.TOOL) || toolStack.getItem() instanceof TridentItem || toolStack.getItem() instanceof ShearsItem) {
-			if (addItem(toolStack) == ItemStack.EMPTY) {
+			if (addItem(toolStack).isEmpty()) {
 				isItemCarvingBoard = true;
 				return true;
 			}
@@ -225,7 +230,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	}
 
 	public ItemStack getStoredItem() {
-		return inventory.getResource(0).toStack();
+		return inventory.getResource(0).toStack(inventory.getAmountAsInt(0));
 	}
 
 	public int getMaxStackSize() {
@@ -246,10 +251,15 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	}
 
 	private ItemStacksResourceHandler createHandler() {
-		return new ItemStacksResourceHandler(1)
+		return new SafeItemStacksResourceHandler(1)
 		{
 			@Override
 			protected void onContentsChanged(int index, ItemStack previousContents) {
+				// Automation can pull a carved tool off the board; without this the board stayed "carving" forever
+				// and refused every item.
+				if (getResource(0).isEmpty()) {
+					isItemCarvingBoard = false;
+				}
 				inventoryChanged();
 			}
 		};
@@ -258,5 +268,13 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	@Override
 	public void clearContent() {
 		ItemUtils.clearItems(inventory);
+	}
+
+	// 26.x: the block entity is already gone in Block#affectNeighborsAfterRemoval, so contents are dropped here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null && !level.isClientSide()) {
+			net.minecraft.world.Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getStoredItem());
+		}
 	}
 }

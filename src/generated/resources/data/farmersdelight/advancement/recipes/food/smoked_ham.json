@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:smoked_ham"
+        "recipe": "farmersdelight:smoked_ham"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

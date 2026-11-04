@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:beetroot_from_crate"
+        "recipe": "farmersdelight:beetroot_from_crate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

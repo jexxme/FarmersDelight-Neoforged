@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import vectorwing.farmersdelight.common.block.entity.inventory.SafeItemStacksResourceHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -157,7 +158,8 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	public ItemStack getSkilletAsItem() {
-		return skilletStack;
+		// A copy: callers (loot, pick block) hand it to players, which must not change the skillet stored here
+		return skilletStack.copy();
 	}
 
 	@Override
@@ -170,7 +172,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 				map.set(typed);
 			}
 		}
-		// 26.3: BlockItem#updateCustomBlockEntityTag is gone; the placed skillet item is rebuilt from the block item's components.
+		// 26.x: BlockItem#updateCustomBlockEntityTag is gone; the placed skillet item is rebuilt from the block item's components.
 		skilletStack = new ItemStack(ModItems.SKILLET.get().builtInRegistryHolder(), 1, map.build());
 		fireAspectLevel = level != null ? ItemUtils.getValidatedEnchantmentLevel(Enchantments.FIRE_ASPECT, level.registryAccess(), skilletStack) : 0;
 		inventoryChanged();
@@ -206,8 +208,11 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 
 	public ItemStack removeItem() {
 		ItemStack withdrawn;
+		ItemResource content = inventory.getResource(0);
+		if (content.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
 		try (Transaction tx = Transaction.openRoot()){
-			ItemResource content = inventory.getResource(0);
 			int amount = inventory.extract(content, getStoredStack().getMaxStackSize(), tx);
 			withdrawn = content.toStack(amount);
 			tx.commit();
@@ -228,7 +233,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	private ItemStacksResourceHandler createHandler() {
-		return new ItemStacksResourceHandler(1)
+		return new SafeItemStacksResourceHandler(1)
 		{
 			@Override
 			protected void onContentsChanged(int index, ItemStack previousContents) {
@@ -245,5 +250,13 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	@Override
 	public void clearContent() {
 		ItemUtils.clearItems(inventory);
+	}
+
+	// 26.x: the block entity is already gone in Block#affectNeighborsAfterRemoval, so contents are dropped here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null && !level.isClientSide()) {
+			ItemUtils.dropItems(level, pos, inventory);
+		}
 	}
 }

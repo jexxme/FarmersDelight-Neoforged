@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:flint_knife"
+        "recipe": "farmersdelight:flint_knife"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

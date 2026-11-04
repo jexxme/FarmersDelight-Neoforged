@@ -16,7 +16,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:cooking/chicken_soup"
+        "recipe": "farmersdelight:cooking/chicken_soup"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

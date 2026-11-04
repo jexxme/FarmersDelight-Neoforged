@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:beef_patty"
+        "recipe": "farmersdelight:beef_patty"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

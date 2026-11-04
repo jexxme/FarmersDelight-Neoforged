@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:mangrove_cabinet"
+        "recipe": "farmersdelight:mangrove_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

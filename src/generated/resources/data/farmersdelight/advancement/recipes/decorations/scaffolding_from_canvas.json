@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:scaffolding_from_canvas"
+        "recipe": "farmersdelight:scaffolding_from_canvas"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

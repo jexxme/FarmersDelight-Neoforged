@@ -1,13 +1,13 @@
 package vectorwing.farmersdelight.common.item;
 
-
-import net.minecraft.util.Prediction;import net.minecraft.advancements.triggers.CriteriaTriggers;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -160,18 +160,25 @@ public class SkilletItem extends BlockItem
 				return InteractionResult.PASS;
 			}
 
-			Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getCookingRecipe(cookingStack, level);
-			if (recipe.isPresent()) {
+			// Recipes only exist on the server; the synced campfire input set lets the client make the same decision,
+			// so it doesn't pass the click on to the other hand (which would eat the food instead).
+			if (level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(cookingStack)) {
 				if (player.isUnderWater()) {
 					player.sendOverlayMessage(TextUtils.item("skillet.underwater"));
 					return InteractionResult.PASS;
 				}
-				ItemStack cookingStackCopy = cookingStack.copy();
-				ItemStack cookingStackUnit = cookingStackCopy.split(1);
-				skilletStack.set(ModDataComponents.SKILLET_INGREDIENT, new ItemStackWrapper(cookingStackUnit));
-				skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH, recipe.get().value().cookingTime());
-				player.startUsingItem(hand);
-				player.setItemInHand(otherHand, cookingStackCopy);
+				if (level instanceof ServerLevel) {
+					Optional<RecipeHolder<CampfireCookingRecipe>> recipe = getCookingRecipe(cookingStack, level);
+					if (recipe.isEmpty()) {
+						return InteractionResult.CONSUME;
+					}
+					ItemStack cookingStackCopy = cookingStack.copy();
+					ItemStack cookingStackUnit = cookingStackCopy.split(1);
+					skilletStack.set(ModDataComponents.SKILLET_INGREDIENT, new ItemStackWrapper(cookingStackUnit));
+					skilletStack.set(ModDataComponents.COOKING_TIME_LENGTH, recipe.get().value().cookingTime());
+					player.startUsingItem(hand);
+					player.setItemInHand(otherHand, cookingStackCopy);
+				}
 				return InteractionResult.CONSUME;
 			} else {
 				player.sendOverlayMessage(TextUtils.item("skillet.how_to_cook"));
@@ -208,7 +215,7 @@ public class SkilletItem extends BlockItem
 			ItemStackWrapper storedStack = stack.getOrDefault(ModDataComponents.SKILLET_INGREDIENT, ItemStackWrapper.EMPTY);
 			if (!storedStack.getStack().isEmpty()) {
 				ItemStack cookingStack = storedStack.getStack();
-				player.getInventory().placeItemBackInInventory(cookingStack, Prediction.PREDICTED);
+				player.getInventory().placeItemBackInInventory(cookingStack);
 				stack.remove(ModDataComponents.SKILLET_INGREDIENT);
 				stack.remove(ModDataComponents.COOKING_TIME_LENGTH);
 				stack.remove(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get());
@@ -229,7 +236,7 @@ public class SkilletItem extends BlockItem
 				cookingRecipe.ifPresent((recipe) -> {
 					ItemStack resultStack = recipe.value().assemble(new SingleRecipeInput(cookingStack));
 					if (!player.getInventory().add(resultStack)) {
-						player.drop(resultStack, false, Prediction.SERVER_ONLY);
+						player.drop(resultStack, false);
 					}
 					if (player instanceof ServerPlayer) {
 						CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
@@ -247,8 +254,9 @@ public class SkilletItem extends BlockItem
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		if (stack.has(ModDataComponents.COOKING_TIME_LENGTH.get())) {
-			return Math.round(13.0F - (float) ClientRenderUtils.getClientPlayerHack().getUseItemRemainingTicks() * 13.0F / (float) this.getUseDuration(stack, ClientRenderUtils.getClientPlayerHack()));
+		Player clientPlayer = stack.has(ModDataComponents.COOKING_TIME_LENGTH.get()) ? ClientRenderUtils.getClientPlayerHack() : null;
+		if (clientPlayer != null) {
+			return Math.round(13.0F - (float) clientPlayer.getUseItemRemainingTicks() * 13.0F / (float) this.getUseDuration(stack, clientPlayer));
 		} else {
 			return super.getBarWidth(stack);
 		}
@@ -273,6 +281,7 @@ public class SkilletItem extends BlockItem
 		return Optional.empty();
 	}
 
+	@Override
 	public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {
 		if (!level.isClientSide() && state.getDestroySpeed(level, pos) != 0.0F) {
 			stack.hurtAndBreak(1, entity, EquipmentSlot.MAINHAND);

@@ -1,7 +1,5 @@
 package vectorwing.farmersdelight.common.loot.modifier;
 
-import net.minecraft.core.Holder;
-import java.util.Optional;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -32,8 +30,8 @@ public class FDAddTableLootModifier extends AddTableLootModifier
 
 	private final ResourceKey<LootTable> lootTable;
 
-	protected FDAddTableLootModifier(Optional<Holder<LootItemCondition>> conditionsIn, int priority, ResourceKey<LootTable> lootTable) {
-		super(conditionsIn, priority, lootTable);
+	protected FDAddTableLootModifier(LootItemCondition[] conditionsIn, ResourceKey<LootTable> lootTable) {
+		super(conditionsIn, lootTable);
 		this.lootTable = lootTable;
 	}
 

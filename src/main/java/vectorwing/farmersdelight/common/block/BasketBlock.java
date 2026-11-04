@@ -43,6 +43,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
+	public static final MapCodec<BasketBlock> CODEC = simpleCodec(BasketBlock::new);
 
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
@@ -70,6 +71,11 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 	}
 
 	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, ENABLED, WATERLOGGED);
 	}
@@ -89,10 +95,8 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof BasketBlockEntity basket) {
-			Containers.dropContents(level, pos, basket);
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		// Contents are dropped by the vanilla container hook (BlockEntity#preRemoveSideEffects)
+		level.updateNeighbourForOutputSignal(pos, this);
 
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
@@ -137,6 +141,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 			.setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
 	}
 
+	@Override
 	public boolean useShapeForLightOcclusion(BlockState state) {
 		return true;
 	}
@@ -173,6 +178,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level.isClientSide() ? null : createTickerHelper(blockEntityType, ModBlockEntityTypes.BASKET.get(), BasketBlockEntity::pushItemsTick);
 	}

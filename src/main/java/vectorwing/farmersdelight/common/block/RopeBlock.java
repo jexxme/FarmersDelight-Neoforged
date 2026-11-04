@@ -51,6 +51,7 @@ public class RopeBlock extends IronBarsBlock
 		return true;
 	}
 
+	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (stack.is(ModItems.ROPE.get())) {
 			// TODO: Find equivalent to InteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION.

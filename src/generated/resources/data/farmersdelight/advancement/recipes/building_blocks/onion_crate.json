@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:onion_crate"
+        "recipe": "farmersdelight:onion_crate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -21,15 +21,24 @@ import javax.annotation.Nullable;
 
 public class StoveBlock extends AbstractStoveBlock
 {
+	public static final MapCodec<StoveBlock> CODEC = simpleCodec(StoveBlock::new);
+
+	@Override
+	public MapCodec<StoveBlock> codec() {
+        return CODEC;
+    }
+
 	public StoveBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 
+	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new StoveBlockEntity(pos, state);
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		if (level.isClientSide() && state.getValue(LIT)) return createTickerHelper(blockEntityType, ModBlockEntityTypes.STOVE.get(), StoveBlockEntity::particleTick);
 		return createStoveTicker(level, blockEntityType, ModBlockEntityTypes.STOVE.get());

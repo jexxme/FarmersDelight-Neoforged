@@ -19,7 +19,7 @@ public class RecipeWrapper implements RecipeInput {
 
 	@Override
 	public ItemStack getItem(int slot) {
-		return handler.getResource(slot).toStack();
+		return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
 	}
 
 	@Override

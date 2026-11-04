@@ -83,7 +83,7 @@ public class CuttingRecipes
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.COOKED_MUTTON), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.COOKED_MUTTON_CHOPS.get(), 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.INK_SAC), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.black(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.INK_SAC), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BLACK_DYE, 2)
 				.saveToFD(output);
 	}
 
@@ -105,7 +105,7 @@ public class CuttingRecipes
 
 	private static void cuttingFoods(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.FOODS_DOUGH)), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.RAW_PASTA.get(), 1)
-				.save(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "tag_dough"));
+				.save(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "cutting/tag_dough"));
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.KELP_ROLL.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.KELP_ROLL_SLICE.get(), 3)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CAKE), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.CAKE_SLICE.get(), 7)
@@ -121,79 +121,85 @@ public class CuttingRecipes
 	}
 
 	private static void cuttingFlowers(HolderGetter<Item> holderGetter, RecipeOutput output) {
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.WITHER_ROSE), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.black(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.WITHER_ROSE), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BLACK_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CORNFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.blue(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CORNFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BLUE_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BLUE_ORCHID), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.lightBlue(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BLUE_ORCHID), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.LIGHT_BLUE_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AZURE_BLUET), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.lightGray(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AZURE_BLUET), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.LIGHT_GRAY_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.OXEYE_DAISY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.lightGray(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.OXEYE_DAISY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.LIGHT_GRAY_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.WHITE_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.lightGray(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.WHITE_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.LIGHT_GRAY_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ALLIUM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.magenta(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ALLIUM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.MAGENTA_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ORANGE_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.orange(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.ORANGE_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.ORANGE_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.PINK_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.pink(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.PINK_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.PINK_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.RED_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.red(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.RED_TULIP), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.RED_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.POPPY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.red(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.POPPY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.RED_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LILY_OF_THE_VALLEY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.white(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.LILY_OF_THE_VALLEY), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.WHITE_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DANDELION), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.yellow(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DANDELION), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.YELLOW_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.TORCHFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.orange(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.TORCHFLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.ORANGE_DYE, 2)
 				.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CLOSED_EYEBLOSSOM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.gray(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CLOSED_EYEBLOSSOM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.GRAY_DYE, 2)
 			.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.OPEN_EYEBLOSSOM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.orange(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.OPEN_EYEBLOSSOM), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.ORANGE_DYE, 2)
 			.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CACTUS_FLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.pink(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CACTUS_FLOWER), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.PINK_DYE, 2)
 			.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.GOLDEN_DANDELION), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.DYE.yellow(), 2)
+		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.GOLDEN_DANDELION), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.YELLOW_DYE, 2)
 			.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_BEETROOTS.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.BEETROOT_SEEDS, 1)
-				.addResult(Items.DYE.red())
+				.addResult(Items.RED_DYE)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_CABBAGES.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.CABBAGE_SEEDS.get(), 1)
-				.addResultWithChance(Items.DYE.yellow(), 0.5F, 2)
+				.addResultWithChance(Items.YELLOW_DYE, 0.5F, 2)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_CARROTS.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.CARROT, 1)
-				.addResultWithChance(Items.DYE.lightGray(), 0.5F, 2)
+				.addResultWithChance(Items.LIGHT_GRAY_DYE, 0.5F, 2)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_ONIONS.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.ONION.get(), 1)
-				.addResult(Items.DYE.magenta(), 2)
-				.addResultWithChance(Items.DYE.lime(), 0.1F)
+				.addResult(Items.MAGENTA_DYE, 2)
+				.addResultWithChance(Items.LIME_DYE, 0.1F)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_POTATOES.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), Items.POTATO, 1)
-				.addResultWithChance(Items.DYE.purple(), 0.5F, 2)
+				.addResultWithChance(Items.PURPLE_DYE, 0.5F, 2)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_RICE.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.RICE.get(), 1)
 				.addResultWithChance(ModItems.STRAW.get(), 0.5F)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.WILD_TOMATOES.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.TOMATO_SEEDS.get(), 1)
 				.addResultWithChance(ModItems.TOMATO.get(), 0.2F)
-				.addResultWithChance(Items.DYE.green(), 0.1F)
+				.addResultWithChance(Items.GREEN_DYE, 0.1F)
 				.saveToFD(output);
 	}
 
 	private static void salvagingMinerals(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BRICKS), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.BRICK, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.NETHER_BRICKS), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.NETHER_BRICK, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.STONE), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.COBBLESTONE, 1)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DEEPSLATE), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.COBBLED_DEEPSLATE, 1)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.QUARTZ_BLOCK), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.QUARTZ, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AMETHYST_BLOCK), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.AMETHYST_SHARD, 4)
+				.salvaging()
 				.saveToFD(output);
 	}
 
@@ -216,8 +222,6 @@ public class CuttingRecipes
 		stripLogForBark(holderGetter, output, Items.CHERRY_WOOD, Items.STRIPPED_CHERRY_WOOD);
 		stripLogForBark(holderGetter, output, Items.PALE_OAK_LOG, Items.STRIPPED_PALE_OAK_LOG);
 		stripLogForBark(holderGetter, output, Items.PALE_OAK_WOOD, Items.STRIPPED_PALE_OAK_WOOD);
-		stripLogForBark(holderGetter, output, Items.POPLAR_LOG, Items.STRIPPED_POPLAR_LOG);
-		stripLogForBark(holderGetter, output, Items.POPLAR_WOOD, Items.STRIPPED_POPLAR_WOOD);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BAMBOO_BLOCK), Ingredient.of(holderGetter.getOrThrow(ItemTags.AXES)), Items.STRIPPED_BAMBOO_BLOCK)
 				.addResult(ModItems.STRAW.get())
 				.addSound(SoundEvents.AXE_STRIP).saveToFD(output);
@@ -256,9 +260,6 @@ public class CuttingRecipes
 		salvagePlankFromFurniture(holderGetter, output, WoodType.PALE_OAK,
 				Items.PALE_OAK_PLANKS, Items.PALE_OAK_DOOR, Items.PALE_OAK_TRAPDOOR, Items.PALE_OAK_SIGN, Items.PALE_OAK_HANGING_SIGN, Items.PALE_OAK_FENCE, Items.PALE_OAK_FENCE_GATE,
 				Items.PALE_OAK_PRESSURE_PLATE, Items.PALE_OAK_BUTTON, Items.PALE_OAK_BOAT, ModItems.PALE_OAK_CABINET.get());
-		salvagePlankFromFurniture(holderGetter, output, WoodType.POPLAR,
-			Items.POPLAR_PLANKS, Items.POPLAR_DOOR, Items.POPLAR_TRAPDOOR, Items.POPLAR_SIGN, Items.POPLAR_HANGING_SIGN, Items.POPLAR_FENCE, Items.POPLAR_FENCE_GATE,
-			Items.POPLAR_PRESSURE_PLATE, Items.POPLAR_BUTTON, Items.POPLAR_BOAT);
         salvagePlankFromFurniture(holderGetter, output, WoodType.BAMBOO,
                 Items.BAMBOO_PLANKS, Items.BAMBOO_DOOR, Items.BAMBOO_TRAPDOOR, Items.BAMBOO_SIGN, Items.BAMBOO_HANGING_SIGN, Items.BAMBOO_FENCE, Items.BAMBOO_FENCE_GATE,
                 Items.BAMBOO_PRESSURE_PLATE, Items.BAMBOO_BUTTON, Items.BAMBOO_RAFT, ModItems.BAMBOO_CABINET.get());
@@ -353,10 +354,7 @@ public class CuttingRecipes
 			.addResult(Items.CHEST)
 			.salvaging()
 			.saveToFD(output);
-		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.POPLAR_CHEST_BOAT), hoes, Items.POPLAR_BOAT)
-			.addResult(Items.CHEST)
-			.salvaging()
-			.saveToFD(output);
+
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BAMBOO_CHEST_RAFT), hoes, Items.BAMBOO_RAFT)
 			.addResult(Items.CHEST)
 			.salvaging()
@@ -382,7 +380,7 @@ public class CuttingRecipes
 	}
 
 	/**
-	 * 26.3: NeoForge removed the vanilla tool abilities (axe_dig, hoe_dig, ...); only abilities that still exist
+	 * 26.x: NeoForge removed the vanilla tool abilities (axe_dig, hoe_dig, ...); only abilities that still exist
 	 * (e.g. shears_dig) are combined with the tag, otherwise the vanilla tool tag alone is used.
 	 */
 	private static Ingredient matchesTool(HolderGetter<Item> holderGetter, String abilityName, TagKey<Item> toolTag) {

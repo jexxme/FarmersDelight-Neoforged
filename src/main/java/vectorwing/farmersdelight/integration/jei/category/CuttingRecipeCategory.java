@@ -93,7 +93,7 @@ public class CuttingRecipeCategory implements IRecipeCategory<RecipeHolder<Cutti
 			int yOffset = centerY + ((i / 2) * 19);
 
 			int index = i;
-			builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_GRID_X + xOffset, OUTPUT_GRID_Y + yOffset).add(recipeOutputs.get(i).stack())
+			builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_GRID_X + xOffset, OUTPUT_GRID_Y + yOffset).add(recipeOutputs.get(i).stack().create())
 				.addRichTooltipCallback((_, tooltip) -> {
 					ChanceResult output = recipeOutputs.get(index);
 					float chance = output.chance();

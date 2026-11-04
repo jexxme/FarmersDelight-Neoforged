@@ -1,7 +1,6 @@
 package vectorwing.farmersdelight.client.gui;
 
-
-import net.minecraft.network.chat.TextColor;import net.minecraft.ChatFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -46,7 +45,7 @@ public class CookingPotTooltip implements ClientTooltipComponent
 
 	@Override
 	public void extractText(GuiGraphicsExtractor gui, Font font, int x, int y) {
-		Integer color = TextColor.GRAY.getValue();
+		Integer color = ChatFormatting.GRAY.getColor();
 		int gray = color == null ? -1 : color;
 
 		// TODO this might not work as expected. I'm guessing with most of the methods.

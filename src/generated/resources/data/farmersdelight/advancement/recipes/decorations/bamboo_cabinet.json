@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:bamboo_cabinet"
+        "recipe": "farmersdelight:bamboo_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

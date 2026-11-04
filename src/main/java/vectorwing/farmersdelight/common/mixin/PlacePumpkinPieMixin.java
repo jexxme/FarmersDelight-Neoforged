@@ -31,7 +31,7 @@ public class PlacePumpkinPieMixin
 				return;
 		}
 
-		//dont use useOn here, not safe anymore in 26.3..
+		//dont use useOn here, not safe anymore in 26.x..
 		BlockItem pie = (BlockItem) ModItems.DEBUG_PUMPKIN_PIE.get();
 		InteractionResult placed = pie.place(new BlockPlaceContext(context));
 		if (placed.consumesAction()) {

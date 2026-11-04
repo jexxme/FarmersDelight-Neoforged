@@ -143,7 +143,7 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 
 	@Override
 	public PlacementInfo placementInfo() {
-		// 26.3: recipes are decoded before tags are bound, so this must be computed lazily.
+		// 26.x: recipes are decoded before tags are bound, so this must be computed lazily.
 		if (placementInfo == null) {
 			placementInfo = PlacementInfo.create(inputItems);
 		}
@@ -204,9 +204,11 @@ public class CookingPotRecipe implements Recipe<RecipeInput>
 			String group = buffer.readUtf();
 			CookingPotRecipeBookTab tab = CookingPotRecipeBookTab.findByName(buffer.readUtf());
 			int i = buffer.readVarInt();
-			NonNullList<Ingredient> inputItems = NonNullList.withSize(i, Ingredient.of());
-
-			inputItems.replaceAll(ignored -> Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
+			// 26.3: Ingredient.of() (empty) throws, so don't prefill the list with it.
+			NonNullList<Ingredient> inputItems = NonNullList.create();
+			for (int j = 0; j < i; j++) {
+				inputItems.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
+			}
 
 			ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 			Optional<ItemStackTemplate> container = ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC).decode(buffer);

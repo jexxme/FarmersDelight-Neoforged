@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.utility.TextUtils;
@@ -41,6 +42,15 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu>
 		super.init();
 		this.widthTooNarrow = this.width < 379;
 		this.titleLabelX = 28;
+		if (!Configuration.ENABLE_COOKING_POT_RECIPE_BOOK.get()) {
+			// Recipe book turned off in the config: hide it and remove its button
+			((CookingPotRecipeBookComponent) this.recipeBookComponent).forceHide();
+			this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
+			List.copyOf(this.children()).stream()
+					.filter(widget -> widget instanceof net.minecraft.client.gui.components.ImageButton || widget == this.recipeBookComponent)
+					.forEach(this::removeWidget);
+			return;
+		}
 		this.setInitialFocus(this.recipeBookComponent);
 	}
 
@@ -71,7 +81,7 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu>
 		if (this.isHovering(HEAT_ICON.x, HEAT_ICON.y, HEAT_ICON.width, HEAT_ICON.height, mouseX, mouseY)) {
 			String key = "cooking_pot." + (this.menu.isHeated() ? "heated" : "not_heated");
 			ClientTooltipComponent tooltip = ClientTooltipComponent.create(TextUtils.container(key).getVisualOrderText());
-			gui.tooltip(this.font, List.of(tooltip), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null, false);
+			gui.tooltip(this.font, List.of(tooltip), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null);
 		}
 	}
 
@@ -89,9 +99,9 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu>
 					tooltip.add(ClientTooltipComponent.create(TextUtils.container("cooking_pot.served_on", container).withStyle(ChatFormatting.GRAY).getVisualOrderText()));
 				}
 
-				gui.tooltip(font, tooltip, mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null, false);
+				gui.tooltip(font, tooltip, mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null);
 			} else {
-				gui.tooltip(font, List.of(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null, false, this.hoveredSlot.getItem());
+				gui.tooltip(font, List.of(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null, this.hoveredSlot.getItem());
 			}
 		}
 	}

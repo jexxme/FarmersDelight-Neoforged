@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:roast_chicken_block"
+        "recipe": "farmersdelight:roast_chicken_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
