@@ -28,7 +28,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HopperBlock;
@@ -521,8 +520,8 @@ public final class FDStressTests
 		ServerLevel level = helper.getLevel();
 		for (int i = 0; i < 30; i++) {
 			BlockState state = level.getBlockState(helper.absolutePos(crop));
-			if (state.getBlock() instanceof BonemealableBlock bonemealable && bonemealable.isValidBonemealTarget(level, helper.absolutePos(crop), state, BonemealSource.INTERACTION)) {
-				bonemealable.performBonemeal(level, level.getRandom(), helper.absolutePos(crop), state, BonemealSource.INTERACTION);
+			if (state.getBlock() instanceof BonemealableBlock bonemealable && bonemealable.isValidBonemealTarget(level, helper.absolutePos(crop), state)) {
+				bonemealable.performBonemeal(level, level.getRandom(), helper.absolutePos(crop), state);
 			}
 		}
 		helper.succeedWhen(() -> helper.assertBlockPresent(ModBlocks.TOMATO_CROP_ON_ROPE.get(), crop.above()));
