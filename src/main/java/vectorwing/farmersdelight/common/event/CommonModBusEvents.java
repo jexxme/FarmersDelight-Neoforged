@@ -27,7 +27,11 @@ public class CommonModBusEvents
 		}
 		if (Configuration.ENABLE_STACKABLE_SOUP_ITEMS.get()) {
 			Configuration.SOUP_ITEM_LIST.get().forEach((key) -> {
-				Optional<Holder.Reference<Item>> item = BuiltInRegistries.ITEM.get(Identifier.parse(key));
+				Identifier id = Identifier.tryParse(key);
+				Optional<Holder.Reference<Item>> item = id == null ? Optional.empty() : BuiltInRegistries.ITEM.get(id);
+				if (item.isEmpty()) {
+					FarmersDelight.LOGGER.warn("soupItemList: '{}' is not a known item id, skipping it", key);
+				}
 				item.ifPresent(itemReference -> event.modify(itemReference.value(), builder -> builder.set(DataComponents.MAX_STACK_SIZE, 16)));
 			});
 		}

@@ -285,6 +285,19 @@ public final class FDStressTests
 					problems.add(recipes.get(i).id().identifier().getPath() + ": not cut with " + tool);
 				} else if (!board.getStoredItem().isEmpty()) {
 					problems.add(recipes.get(i).id().identifier().getPath() + ": input not consumed");
+				} else {
+					// Every guaranteed result drops, in the right amount
+					BlockPos absolute = helper.absolutePos(pos);
+					List<net.minecraft.world.entity.item.ItemEntity> drops = helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, new net.minecraft.world.phys.AABB(absolute).inflate(1.5));
+					for (var result : recipe.getRollableResults()) {
+						if (result.chance() < 1.0F || result.stack() == null) continue;
+						ItemStack expected = result.stack().create();
+						int dropped = drops.stream().filter(entity -> entity.getItem().is(expected.getItem())).mapToInt(entity -> entity.getItem().getCount()).sum();
+						if (dropped < expected.getCount()) {
+							problems.add(recipes.get(i).id().identifier().getPath() + ": dropped " + dropped + " of " + expected);
+						}
+					}
+					drops.forEach(net.minecraft.world.entity.Entity::discard);
 				}
 			} catch (Exception e) {
 				problems.add(recipes.get(i).id().identifier().getPath() + ": " + e);
@@ -401,7 +414,10 @@ public final class FDStressTests
 		pot.setChanged();
 		helper.runAfterDelay(300, () -> {
 			int output = pot.getInventory().getAmountAsInt(CookingPotBlockEntity.OUTPUT_SLOT);
-			helper.assertTrue(output <= ModItems.TOMATO_SAUCE.get().getDefaultMaxStackSize(), "Output overflowed: " + output);
+			helper.assertValueEqual(output, ModItems.TOMATO_SAUCE.get().getDefaultMaxStackSize(), "sauces in the full output slot");
+			// The meal that couldn't be served waits in the pot, with its bowl, instead of being lost
+			helper.assertTrue(pot.getMeal().is(ModItems.TOMATO_SAUCE.get()), "The cooked meal must stay in the pot, meal: " + pot.getMeal());
+			helper.assertValueEqual(pot.getInventory().getAmountAsInt(CookingPotBlockEntity.CONTAINER_SLOT), 1, "bowls left");
 			helper.succeed();
 		});
 	}

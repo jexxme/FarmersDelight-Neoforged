@@ -90,7 +90,7 @@ public final class FDConservationTests
 	// ------------------------------------------------------------------ accounting
 
 	/** Item counts keyed by resource (item + components), so a lost or added component also counts as a mismatch. */
-	private static final class Ledger
+	static final class Ledger
 	{
 		final Map<ItemResource, Long> counts = new HashMap<>();
 
@@ -157,7 +157,7 @@ public final class FDConservationTests
 	}
 
 	/** Everything the block holds, by reading its storage directly (not through a side-limited handler). */
-	private static Ledger contents(BlockEntity be) {
+	static Ledger contents(BlockEntity be) {
 		Ledger ledger = new Ledger();
 		switch (be) {
 			case CookingPotBlockEntity pot -> ledger.addAll(pot.getInventory());

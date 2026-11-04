@@ -105,7 +105,7 @@ public class CuttingRecipes
 
 	private static void cuttingFoods(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.FOODS_DOUGH)), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.RAW_PASTA.get(), 1)
-				.save(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "tag_dough"));
+				.save(output, Identifier.fromNamespaceAndPath(FarmersDelight.MODID, "cutting/tag_dough"));
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(ModItems.KELP_ROLL.get()), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.KELP_ROLL_SLICE.get(), 3)
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.CAKE), Ingredient.of(holderGetter.getOrThrow(CommonTags.Items.TOOLS_KNIFE)), ModItems.CAKE_SLICE.get(), 7)
@@ -184,16 +184,22 @@ public class CuttingRecipes
 
 	private static void salvagingMinerals(HolderGetter<Item> holderGetter, RecipeOutput output) {
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.BRICKS), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.BRICK, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.NETHER_BRICKS), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.NETHER_BRICK, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.STONE), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.COBBLESTONE, 1)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.DEEPSLATE), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.COBBLED_DEEPSLATE, 1)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.QUARTZ_BLOCK), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.QUARTZ, 4)
+				.salvaging()
 				.saveToFD(output);
 		CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(Items.AMETHYST_BLOCK), Ingredient.of(holderGetter.getOrThrow(ItemTags.PICKAXES)), Items.AMETHYST_SHARD, 4)
+				.salvaging()
 				.saveToFD(output);
 	}
 

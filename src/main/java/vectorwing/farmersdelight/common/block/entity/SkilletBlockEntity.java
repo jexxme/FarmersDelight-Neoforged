@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import vectorwing.farmersdelight.common.block.entity.inventory.SafeItemStacksResourceHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -157,7 +158,8 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	public ItemStack getSkilletAsItem() {
-		return skilletStack;
+		// A copy: callers (loot, pick block) hand it to players, which must not change the skillet stored here
+		return skilletStack.copy();
 	}
 
 	@Override
@@ -231,7 +233,7 @@ public class SkilletBlockEntity extends SyncedBlockEntity implements HeatableBlo
 	}
 
 	private ItemStacksResourceHandler createHandler() {
-		return new ItemStacksResourceHandler(1)
+		return new SafeItemStacksResourceHandler(1)
 		{
 			@Override
 			protected void onContentsChanged(int index, ItemStack previousContents) {

@@ -79,7 +79,7 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 			BlockEntity tileEntity = level.getBlockEntity(pos);
 			if (tileEntity instanceof CookingPotBlockEntity cookingPot) {
 				ItemStack servingStack = cookingPot.useHeldItemOnMeal(heldStack);
-				if (servingStack != ItemStack.EMPTY) {
+				if (!servingStack.isEmpty()) {
 					if (!player.getInventory().add(servingStack)) {
 						player.drop(servingStack, false);
 					}
