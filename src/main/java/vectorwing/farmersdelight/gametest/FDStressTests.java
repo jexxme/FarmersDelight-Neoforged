@@ -254,7 +254,7 @@ public final class FDStressTests
 			List<String> missing = new ArrayList<>();
 			for (int i = 0; i < pots.size(); i++) {
 				CookingPotBlockEntity pot = helper.getBlockEntity(pots.get(i), CookingPotBlockEntity.class);
-				ItemStack output = pot.getInventory().getResource(CookingPotBlockEntity.OUTPUT_SLOT).toStack();
+				ItemStack output = pot.getInventory().getResource(CookingPotBlockEntity.OUTPUT_SLOT).toStack(pot.getInventory().getAmountAsInt(CookingPotBlockEntity.OUTPUT_SLOT));
 				if (!output.is(expected.get(i).getItem())) {
 					missing.add(recipes.get(i).id().identifier().getPath());
 				}

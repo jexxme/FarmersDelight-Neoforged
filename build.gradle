@@ -4,6 +4,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.148'
+    id 'net.ltgt.errorprone' version '5.2.0'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -120,6 +121,9 @@ configurations {
 }
 
 dependencies {
+    // Static analysis, see the "Guards" section at the end of this file
+    errorprone "com.google.errorprone:error_prone_core:2.52.0"
+
     // JEI
     compileOnly "mezz.jei:jei-${jei_minecraft}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${jei_minecraft}-neoforge-api:${jei_version}"
@@ -199,3 +203,76 @@ tasks.named('jar', Jar).configure {
         rename { 'LICENSE_farmersdelight' }
     }
 }
+
+
+//////////////// Guards
+// Checks that catch bug classes the compiler doesn't, after they slipped through once. Run with `./gradlew check`.
+
+// Every method that overrides something must say @Override. When Minecraft/NeoForge removes or renames a hook
+// (like Block#onRemove in 26.x), the build then fails instead of the method silently never being called again.
+tasks.withType(JavaCompile).configureEach {
+    options.errorprone {
+        disableAllChecks = true
+        error('MissingOverride')
+    }
+}
+
+// Code patterns that compile fine but were real bugs in this port. Suppress a deliberate use with a
+// trailing `// guard:allow <rule>` comment on the same line.
+def forbiddenPatterns = [
+    [rule: 'bare-toStack',
+     regex: ~/\.toStack\(\)/,
+     why: 'ItemResource#toStack() is a COPY with count 1. Use toStack(handler.getAmountAsInt(slot)) and write changes back with handler.set(...).'],
+    [rule: 'empty-ingredient',
+     regex: ~/Ingredient\.of\(\s*\)/,
+     why: 'An empty Ingredient throws in 26.x (also when decoded on the client). Use Optional/empty lists instead.'],
+    [rule: 'removed-hook-onRemove',
+     regex: ~/\bvoid\s+onRemove\s*\(/,
+     why: 'Block#onRemove no longer exists in 26.x. Drop contents in BlockEntity#preRemoveSideEffects, update neighbours in Block#affectNeighborsAfterRemoval.'],
+]
+
+tasks.register('checkForbiddenPatterns') {
+    group = 'verification'
+    description = 'Fails on code patterns that caused bugs in the 26.x port (see build.gradle).'
+    def sources = fileTree('src/main/java') { include '**/*.java' }
+    def root = projectDir.toPath()
+    def patterns = forbiddenPatterns
+    inputs.files(sources)
+    doLast {
+        def problems = []
+        sources.each { File file ->
+            def lines = file.readLines('UTF-8')
+            def rel = root.relativize(file.toPath()).toString().replace(File.separatorChar, '/' as char)
+            lines.eachWithIndex { String line, int i ->
+                def code = line.replaceFirst(/\/\/.*$/, '')
+                patterns.each { p ->
+                    if (code =~ p.regex && !line.contains("guard:allow ${p.rule}")) {
+                        problems << "${rel}:${i + 1}: [${p.rule}] ${line.trim()}\n    ${p.why}"
+                    }
+                }
+            }
+            // The block entity is already gone in Block#affectNeighborsAfterRemoval: reading it there always returns null.
+            int depth = -1
+            lines.eachWithIndex { String line, int i ->
+                if (depth < 0 && line =~ /\baffectNeighborsAfterRemoval\s*\(/ && !line.trim().endsWith(';')) {
+                    depth = 0
+                }
+                if (depth >= 0) {
+                    if (line.contains('getBlockEntity(') && !line.contains('guard:allow be-in-removal')) {
+                        problems << "${rel}:${i + 1}: [be-in-removal] ${line.trim()}\n    The block entity is already removed here in 26.x. Move this to BlockEntity#preRemoveSideEffects."
+                    }
+                    depth += line.count('{') - line.count('}')
+                    if (depth <= 0 && line.contains('}')) depth = -1
+                }
+            }
+        }
+        if (!problems.isEmpty()) {
+            throw new GradleException("Forbidden patterns found (${problems.size()}):\n" + problems.join('\n'))
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn 'checkForbiddenPatterns'
+}
+

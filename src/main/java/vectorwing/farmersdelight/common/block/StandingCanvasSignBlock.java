@@ -22,6 +22,7 @@ public class StandingCanvasSignBlock extends StandingSignBlock implements Canvas
 	}
 
 	@Nullable
+	@Override
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
 	}

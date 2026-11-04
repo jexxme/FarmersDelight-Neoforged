@@ -21,6 +21,7 @@ public class WallCanvasSignBlock extends WallSignBlock implements CanvasSign
 	}
 
 	@Nullable
+	@Override
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
 	}
