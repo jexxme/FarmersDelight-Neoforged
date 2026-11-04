@@ -209,6 +209,7 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
 		return level instanceof ServerLevel serverLevel ? createTickerHelper(blockEntity, ModBlockEntityTypes.COOKING_POT.get(),
 			(commonLevel, blockPos, blockState, be) -> {

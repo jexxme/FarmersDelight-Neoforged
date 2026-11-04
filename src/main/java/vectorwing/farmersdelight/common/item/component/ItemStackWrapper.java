@@ -24,6 +24,7 @@ public class ItemStackWrapper
 		return this.itemStack;
 	}
 
+	@Override
 	public int hashCode() {
 		return this.hashCode;
 	}

@@ -52,6 +52,7 @@ public class TomatoBlock extends CropBlock
 		super(properties);
 	}
 
+	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		int age = state.getValue(getAgeProperty());
 		boolean isMature = age == getMaxAge();
@@ -79,6 +80,7 @@ public class TomatoBlock extends CropBlock
 		}
 	}
 
+	@Override
 	public boolean isRandomlyTicking(BlockState state) {
 		return true;
 	}

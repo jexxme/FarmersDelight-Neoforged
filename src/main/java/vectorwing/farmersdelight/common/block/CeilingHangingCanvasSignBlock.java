@@ -23,6 +23,7 @@ public class CeilingHangingCanvasSignBlock extends CeilingHangingSignBlock imple
 	}
 
 	@Nullable
+	@Override
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
 	}

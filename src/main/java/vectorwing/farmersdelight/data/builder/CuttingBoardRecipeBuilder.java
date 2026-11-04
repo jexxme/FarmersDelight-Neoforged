@@ -133,6 +133,7 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 		setNamespace(FarmersDelight.MODID).save(output);
 	}
 
+	@Override
 	public void save(RecipeOutput output) {
 		Identifier defaultLocation = getDefaultRecipeId(getResult());
 		build(output, Identifier.fromNamespaceAndPath(this.namespace != null ? namespace : defaultLocation.getNamespace(), defaultLocation.getPath()).withPrefix(folder.getSerializedName() + "/"));
