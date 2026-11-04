@@ -15,13 +15,17 @@ public class ItemStackWrapper
 	private final ItemStack itemStack;
 	private final int hashCode;
 
+	/**
+	 * Data component values must never change once created, because copies of an item share them. The stack is copied
+	 * on the way in and on the way out, so changing a returned stack (like taking a serving) can't leak into other items.
+	 */
 	public ItemStackWrapper(ItemStack stack) {
-		this.itemStack = stack;
+		this.itemStack = stack.copy();
 		this.hashCode = ItemStack.hashItemAndComponents(stack);
 	}
 
 	public ItemStack getStack() {
-		return this.itemStack;
+		return this.itemStack.copy();
 	}
 
 	@Override
@@ -32,7 +36,7 @@ public class ItemStackWrapper
 	@Override
 	public boolean equals(Object object) {
 		if (object instanceof ItemStackWrapper itemStackWrapper) {
-			return ItemStack.matches(this.itemStack, itemStackWrapper.getStack());
+			return ItemStack.matches(this.itemStack, itemStackWrapper.itemStack);
 		}
 		return false;
 	}

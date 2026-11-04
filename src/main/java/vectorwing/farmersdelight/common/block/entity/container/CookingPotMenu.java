@@ -10,7 +10,11 @@ import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.recipebook.ServerPlaceRecipe;
 import net.minecraft.world.level.Level;
+import vectorwing.farmersdelight.common.block.entity.inventory.RecipeWrapper;
+import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import java.util.List;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
@@ -174,15 +178,38 @@ public class CookingPotMenu extends RecipeBookMenu
 	}
 
 	@Override
-	public PostPlaceAction handlePlacement(boolean useMaxItems, boolean allowDroppingItemsToClear, RecipeHolder<?> recipe, ServerLevel level, Inventory inventory) {
-		//TODO this shouldn't be null but I'm handling it later
-		//     worth referencing the implementation in AbstractCraftingMenu, i think.
-		return null;
+	public PostPlaceAction handlePlacement(boolean useMaxItems, boolean allowDroppingItemsToClear, RecipeHolder<?> recipe, ServerLevel level, Inventory playerInventory) {
+		if (!(recipe.value() instanceof CookingPotRecipe)) {
+			return PostPlaceAction.NOTHING;
+		}
+		@SuppressWarnings("unchecked")
+		RecipeHolder<CookingPotRecipe> cookingRecipe = (RecipeHolder<CookingPotRecipe>) recipe;
+		List<Slot> inputSlots = slots.subList(0, INDEX_MEAL);
+		return ServerPlaceRecipe.placeRecipe(new ServerPlaceRecipe.CraftingMenuAccess<CookingPotRecipe>()
+		{
+			@Override
+			public void fillCraftSlotsStackedContents(StackedItemContents stackedContents) {
+				CookingPotMenu.this.fillCraftSlotsStackedContents(stackedContents);
+			}
+
+			@Override
+			public void clearCraftingContent() {
+				for (Slot slot : inputSlots) {
+					slot.set(ItemStack.EMPTY);
+				}
+			}
+
+			@Override
+			public boolean recipeMatches(RecipeHolder<CookingPotRecipe> holder) {
+				return holder.value().matches(new RecipeWrapper(inventory), level);
+			}
+		}, 3, 2, inputSlots, inputSlots, playerInventory, cookingRecipe, useMaxItems, allowDroppingItemsToClear);
 	}
 
 	@Override
 	public void fillCraftSlotsStackedContents(StackedItemContents helper) {
-		for (int i = 0; i < inventory.size(); i++) {
+		// Only the ingredient slots: the meal, container and output slots are not ingredients for the recipe book
+		for (int i = 0; i < INDEX_MEAL; i++) {
 			helper.accountSimpleStack(inventory.getResource(i).toStack(inventory.getAmountAsInt(i)));
 		}
 	}

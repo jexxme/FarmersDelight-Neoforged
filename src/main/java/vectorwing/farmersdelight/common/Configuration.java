@@ -88,7 +88,7 @@ public class Configuration
 		COMMON_BUILDER.push(CATEGORY_OVERRIDES);
 		ENABLE_VANILLA_SOUP_EXTRA_EFFECTS = COMMON_BUILDER.comment("If enabled, soups and stews from Minecraft will grant Nourishment when eaten, similar to meals from this mod.")
 			.define("enableVanillaSoupExtraEffects", true);
-		ENABLE_RABBIT_STEW_BUFF = COMMON_BUILDER.comment("If enabled, Rabbit Stew will be given improved food stats, to match its crafting cost.")
+		ENABLE_RABBIT_STEW_BUFF = COMMON_BUILDER.comment("If enabled, Rabbit Stew will be given improved food stats, to match its crafting cost.", "Changes item defaults at startup: the client and the server must use the same value.")
 			.define("enableRabbitStewBuff", true);
 		ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE = COMMON_BUILDER.comment("If enabled, Pumpkin Pie will require the user to sneak to place it down as a block.")
 			.define("enablePumpkinPieSneakToPlace", false);
@@ -96,9 +96,9 @@ public class Configuration
 			.define("enableCuttingBoardDispenserBehavior", true);
 
 		COMMON_BUILDER.push(CATEGORY_OVERRIDES_STACK_SIZE);
-		ENABLE_STACKABLE_SOUP_ITEMS = COMMON_BUILDER.comment("If enabled, any BowlFoodItem in the following list will become stackable to 16, much like Farmer's Delight's meals.")
+		ENABLE_STACKABLE_SOUP_ITEMS = COMMON_BUILDER.comment("If enabled, the items in the following list become stackable to 16, much like Farmer's Delight's meals.", "Changes item defaults at startup: the client and the server must use the same value, or stacks desync.")
 			.define("enableStackableSoupItems", true);
-		SOUP_ITEM_LIST = COMMON_BUILDER.comment("List of targeted food items. They must extend the BowlFoodItem class in code to be affected. Defaults to vanilla soups and stews.")
+		SOUP_ITEM_LIST = COMMON_BUILDER.comment("Item ids to make stackable. Defaults to vanilla soups and stews. Unknown or invalid ids are skipped with a warning.")
 			.defineList("soupItemList", ImmutableList.of("minecraft:mushroom_stew", "minecraft:beetroot_soup", "minecraft:rabbit_stew"), () -> "", obj -> true);
 		COMMON_BUILDER.pop();
 		COMMON_BUILDER.pop();

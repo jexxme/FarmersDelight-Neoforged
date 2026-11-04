@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import vectorwing.farmersdelight.common.block.entity.inventory.SafeItemStacksResourceHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -80,8 +81,9 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	@Override
 	protected void loadAdditional(ValueInput input) {
 		super.loadAdditional(input);
-		isItemCarvingBoard = input.getBooleanOr("IsItemCarved", false);
 		inventory.deserialize(input);
+		// An empty board can't be carving (also repairs boards saved in that stuck state)
+		isItemCarvingBoard = input.getBooleanOr("IsItemCarved", false) && !inventory.getResource(0).isEmpty();
 	}
 
 	@Override
@@ -215,7 +217,7 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 
 	public boolean carveToolOnBoard(ItemStack toolStack) {
 		if (toolStack.has(DataComponents.TOOL) || toolStack.getItem() instanceof TridentItem || toolStack.getItem() instanceof ShearsItem) {
-			if (addItem(toolStack) == ItemStack.EMPTY) {
+			if (addItem(toolStack).isEmpty()) {
 				isItemCarvingBoard = true;
 				return true;
 			}
@@ -249,10 +251,15 @@ public class CuttingBoardBlockEntity extends SyncedBlockEntity implements Cleara
 	}
 
 	private ItemStacksResourceHandler createHandler() {
-		return new ItemStacksResourceHandler(1)
+		return new SafeItemStacksResourceHandler(1)
 		{
 			@Override
 			protected void onContentsChanged(int index, ItemStack previousContents) {
+				// Automation can pull a carved tool off the board; without this the board stayed "carving" forever
+				// and refused every item.
+				if (getResource(0).isEmpty()) {
+					isItemCarvingBoard = false;
+				}
 				inventoryChanged();
 			}
 		};
