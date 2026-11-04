@@ -21,6 +21,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.CeilingHangingSignBlock;
+import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.SignText;
 import net.minecraft.world.level.block.state.BlockState;
@@ -153,10 +155,12 @@ public class HangingCanvasSignRenderer implements BlockEntityRenderer<HangingCan
 
 		BlockState blockState = blockEntity.getBlockState();
 		state.attachmentType = HangingSignBlock.getAttachmentPoint(blockState);
-		if (blockState.getBlock() instanceof WallSignBlock) {
-			state.transformations = HangingSignRenderer.TRANSFORMATIONS.wallTransformation(blockState.getValue(WallSignBlock.FACING));
+		// Wall hanging signs are WallHangingSignBlock (not WallSignBlock) and have no rotation property: checking the
+		// wrong class crashed the client as soon as a wall hanging canvas sign was in view.
+		if (blockState.getBlock() instanceof WallHangingSignBlock) {
+			state.transformations = HangingSignRenderer.TRANSFORMATIONS.wallTransformation(blockState.getValue(WallHangingSignBlock.FACING));
 		} else {
-			state.transformations = HangingSignRenderer.TRANSFORMATIONS.freeTransformations(blockState.getValue(StandingSignBlock.ROTATION));
+			state.transformations = HangingSignRenderer.TRANSFORMATIONS.freeTransformations(blockState.getValue(CeilingHangingSignBlock.ROTATION));
 		}
 
 		state.dye = ((CanvasSign)blockState.getBlock()).getBackgroundColor();
