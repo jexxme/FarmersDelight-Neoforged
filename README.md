@@ -8,9 +8,16 @@ cutting boards, new crops, rich soil, meals and feasts.
 > Please report bugs here, not on the original Farmer's Delight tracker or
 > [Discord](https://discord.gg/eFsz5SK).
 
-| Minecraft | Loader | Branch | Version |
+| Minecraft | Loader | Branch | Jar |
 |---|---|---|---|
-| 26.3 | NeoForge 26.3.0.101+ (Java 25) | `26.3` | `1.3.3+neoforged.1` |
+| 26.3 | NeoForge 26.3.0.101+ | `26.3` | `FarmersDelight-Neoforged-26.3-1.3.3+neoforged.1.jar` |
+| 26.2 | NeoForge 26.2.0.93+ | `26.2` | `FarmersDelight-Neoforged-26.2-1.3.3+neoforged.1.jar` |
+| 26.1.2 | NeoForge 26.1.2.126+ | `26.1.2` | `FarmersDelight-Neoforged-26.1.2-1.3.3+neoforged.1.jar` |
+| 26.1, 26.1.1 | NeoForge 26.1.0.19-beta to 26.1.1.x (beta) | `26.1.1` | `FarmersDelight-Neoforged-26.1.1-1.3.3+neoforged.1.jar` |
+
+All builds are version `1.3.3+neoforged.1` (Java 25) with the same content and fixes. Minecraft and NeoForge
+changed too many APIs and data formats inside 26.x for one jar to cover them, so each row has its own branch
+and jar, and the jar name contains the Minecraft version.
 
 Versions follow the Farmer's Delight content version plus a build number, and the mod ID stays
 `farmersdelight`, so existing worlds and add-ons keep working. It can't be installed alongside another
