@@ -114,15 +114,15 @@ public class ModBlocks
 	public static final Supplier<Block> RICE_BALE = regBlock("rice_bale",
 		RiceBaleBlock::new, Block.Properties.ofFullCopy(Blocks.HAY_BLOCK));
 	public static final Supplier<Block> RICE_BAG = regBlock("rice_bag",
-		Block::new, Block.Properties.ofFullCopy(Blocks.WOOL.white()));
+		Block::new, Block.Properties.ofFullCopy(Blocks.WHITE_WOOL));
 	public static final Supplier<Block> STRAW_BALE = regBlock("straw_bale",
 		StrawBaleBlock::new, Block.Properties.ofFullCopy(Blocks.HAY_BLOCK));
 
 	// Building
 	public static final Supplier<Block> ROPE = regBlock("rope",
-		RopeBlock::new, Block.Properties.ofFullCopy(Blocks.CARPET.brown()).noCollision().noOcclusion().strength(0.2F).sound(SoundType.WOOL));
+		RopeBlock::new, Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).noCollision().noOcclusion().strength(0.2F).sound(SoundType.WOOL));
 	public static final Supplier<Block> SAFETY_NET = regBlock("safety_net",
-		SafetyNetBlock::new, Block.Properties.ofFullCopy(Blocks.CARPET.brown()).strength(0.2F).sound(SoundType.WOOL).bounceRestitution(0.6F));
+		SafetyNetBlock::new, Block.Properties.ofFullCopy(Blocks.BROWN_CARPET).strength(0.2F).sound(SoundType.WOOL));
 	public static final Supplier<Block> ROPE_FENCE = regBlock("rope_fence",
 		RopeFenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).strength(1.0F));
 	public static final Supplier<Block> ROPE_FENCE_GATE = regBlock("rope_fence_gate",
@@ -152,13 +152,13 @@ public class ModBlocks
 	public static final Supplier<Block> WARPED_CABINET = regBlock("warped_cabinet",
 		CabinetBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL).sound(SoundType.NETHER_WOOD));
 	public static final Supplier<Block> CANVAS_RUG = regBlock("canvas_rug",
-		CanvasRugBlock::new, Block.Properties.ofFullCopy(Blocks.CARPET.white()).sound(SoundType.GRASS).strength(0.2F));
+		CanvasRugBlock::new, Block.Properties.ofFullCopy(Blocks.WHITE_CARPET).sound(SoundType.GRASS).strength(0.2F));
 	public static final Supplier<Block> TATAMI = regBlock("tatami",
-		TatamiBlock::new, Block.Properties.ofFullCopy(Blocks.WOOL.white()));
+		TatamiBlock::new, Block.Properties.ofFullCopy(Blocks.WHITE_WOOL));
 	public static final Supplier<Block> FULL_TATAMI_MAT = regBlock("full_tatami_mat",
-		TatamiMatBlock::new, Block.Properties.ofFullCopy(Blocks.WOOL.white()).strength(0.3F));
+		TatamiMatBlock::new, Block.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F));
 	public static final Supplier<Block> HALF_TATAMI_MAT = regBlock("half_tatami_mat",
-		TatamiHalfMatBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WOOL.white()).strength(0.3F).pushReaction(PushReaction.POPPED));
+		TatamiHalfMatBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F).pushReaction(PushReaction.DESTROY));
 
 	public static final Supplier<Block> CANVAS_SIGN = regCanvasSign(null);
 	public static final Supplier<Block> WHITE_CANVAS_SIGN = regCanvasSign(DyeColor.WHITE);
@@ -295,7 +295,7 @@ public class ModBlocks
 	public static final Supplier<Block> TOMATO_CROP = regBlock("tomatoes",
 		TomatoBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT));
 	public static final Supplier<Block> TOMATO_CROP_ON_ROPE = regBlock("tomatoes_on_rope",
-		HangingTomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.PUSH_PULL));
+		HangingTomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.NORMAL));
 	public static final Supplier<Block> RICE_CROP = regBlock("rice",
 		RiceBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT).strength(0.2F));
 	public static final Supplier<Block> RICE_CROP_PANICLES = regBlock("rice_panicles",

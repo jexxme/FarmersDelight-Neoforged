@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data.builder;
 
 import java.util.Optional;
-import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -133,6 +133,7 @@ public class CuttingBoardRecipeBuilder implements RecipeBuilder
 		setNamespace(FarmersDelight.MODID).save(output);
 	}
 
+	@Override
 	public void save(RecipeOutput output) {
 		Identifier defaultLocation = getDefaultRecipeId(getResult());
 		build(output, Identifier.fromNamespaceAndPath(this.namespace != null ? namespace : defaultLocation.getNamespace(), defaultLocation.getPath()).withPrefix(folder.getSerializedName() + "/"));

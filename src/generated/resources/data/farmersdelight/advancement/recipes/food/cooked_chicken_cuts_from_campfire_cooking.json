@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:cooked_chicken_cuts_from_campfire_cooking"
+        "recipe": "farmersdelight:cooked_chicken_cuts_from_campfire_cooking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

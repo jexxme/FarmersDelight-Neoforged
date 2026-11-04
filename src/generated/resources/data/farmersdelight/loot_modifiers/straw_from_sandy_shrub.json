@@ -1,23 +1,20 @@
 {
   "type": "farmersdelight:add_item",
-  "condition": {
-    "type": "minecraft:all_of",
-    "terms": [
-      {
-        "type": "minecraft:match_tool",
-        "predicate": {
-          "items": "#farmersdelight:straw_harvesters"
-        }
-      },
-      {
-        "type": "minecraft:random_chance",
-        "chance": 0.3
-      },
-      {
-        "type": "minecraft:match_block",
-        "blocks": "farmersdelight:sandy_shrub"
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": "#farmersdelight:straw_harvesters"
       }
-    ]
-  },
+    },
+    {
+      "chance": 0.3,
+      "condition": "minecraft:random_chance"
+    },
+    {
+      "block": "farmersdelight:sandy_shrub",
+      "condition": "minecraft:block_state_property"
+    }
+  ],
   "item": "farmersdelight:straw"
 }

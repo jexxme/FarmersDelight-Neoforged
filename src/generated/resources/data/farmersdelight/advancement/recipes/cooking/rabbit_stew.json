@@ -9,7 +9,6 @@
               "minecraft:rabbit",
               "minecraft:brown_mushroom",
               "minecraft:red_mushroom",
-              "minecraft:shelf_mushroom",
               "minecraft:carrot",
               "minecraft:potato"
             ]
@@ -20,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:cooking/rabbit_stew"
+        "recipe": "farmersdelight:cooking/rabbit_stew"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

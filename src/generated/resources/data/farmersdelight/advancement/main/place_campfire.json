@@ -3,19 +3,23 @@
   "criteria": {
     "campfire": {
       "conditions": {
-        "location": {
-          "type": "minecraft:match_block",
-          "blocks": "minecraft:campfire"
-        }
+        "location": [
+          {
+            "block": "minecraft:campfire",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
       },
       "trigger": "minecraft:placed_block"
     },
     "soul_campfire": {
       "conditions": {
-        "location": {
-          "type": "minecraft:match_block",
-          "blocks": "minecraft:soul_campfire"
-        }
+        "location": [
+          {
+            "block": "minecraft:soul_campfire",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
       },
       "trigger": "minecraft:placed_block"
     }

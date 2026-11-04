@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 /**
  * Load condition that checks a boolean option of the common config.
- * Used for data that became data-driven in 26.3 (e.g. villager trades) so the old config toggles keep working.
+ * Used for data that became data-driven in 26.x (e.g. villager trades) so the old config toggles keep working.
  * <p>
  * JSON: {@code {"type": "farmersdelight:config_enabled", "option": "enableFarmerFDTrades"}}
  */

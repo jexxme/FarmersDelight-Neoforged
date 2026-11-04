@@ -2,50 +2,52 @@
   "type": "minecraft:block",
   "pools": [
     {
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "minecraft:all_of",
-                "terms": [
-                  {
-                    "type": "minecraft:match_block",
-                    "blocks": "farmersdelight:rice_panicles",
-                    "state": {
-                      "age": "3"
-                    }
-                  },
-                  {
-                    "type": "minecraft:match_tool",
-                    "predicate": {
-                      "items": "#farmersdelight:tools/knives"
-                    }
+              "conditions": [
+                {
+                  "block": "farmersdelight:rice_panicles",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "age": "3"
                   }
-                ]
-              },
+                },
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#farmersdelight:tools/knives"
+                  }
+                }
+              ],
               "name": "farmersdelight:rice"
             },
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "minecraft:match_block",
-                "blocks": "farmersdelight:rice_panicles",
-                "state": {
-                  "age": "3"
+              "conditions": [
+                {
+                  "block": "farmersdelight:rice_panicles",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "age": "3"
+                  }
                 }
-              },
+              ],
               "name": "farmersdelight:rice_panicle"
             }
           ]
         }
       ],
-      "modifier": {
-        "type": "minecraft:explosion_decay"
-      },
-      "rolls": 1
+      "functions": [
+        {
+          "function": "minecraft:explosion_decay"
+        }
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "farmersdelight:blocks/rice_panicles"

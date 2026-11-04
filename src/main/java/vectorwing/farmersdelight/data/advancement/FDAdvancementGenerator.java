@@ -1,13 +1,10 @@
 package vectorwing.farmersdelight.data.advancement;
 
 import net.minecraft.data.advancements.AdvancementSubProvider;
-import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.advancements.Advancement;
 
 import net.minecraft.advancements.*;
-import net.minecraft.advancements.predicates.*;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
-import net.minecraft.advancements.triggers.*;
+import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -33,26 +30,19 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class FDAdvancementGenerator extends AdvancementSubProvider {
-	private HolderGetter<Block> blocks;
-
-	public FDAdvancementGenerator(BootstrapContext<Advancement> output) {
-		super(output);
-	}
-
+public class FDAdvancementGenerator implements AdvancementSubProvider {
 	@Override
-	public void generate() {
-		HolderGetter<Item> holderGetter = output.lookup(Registries.ITEM);
-		this.blocks = output.lookup(Registries.BLOCK);
+	public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> output) {
+		HolderGetter<Item> holderGetter = registries.lookupOrThrow(Registries.ITEM);
 
 		AdvancementHolder farmersDelight = Advancement.Builder.advancement()
-				.rootDisplay(ModItems.COOKING_POT.get(),
+				.display(ModItems.COOKING_POT.get(),
 						TextUtils.advancement("root.title"),
 						TextUtils.advancement("root.description"),
 						Identifier.parse("minecraft:block/bricks"),
 						AdvancementType.TASK, false, false, false)
 				.addCriterion("seeds", InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[]{}))
-				.save(this.output, getNameId("main/root").toString());
+				.save(output, getNameId("main/root"));
 
 		// Harvesting Branch
 		AdvancementHolder huntAndGather = getAdvancement(farmersDelight, ModItems.FLINT_KNIFE.get(), "craft_knife", AdvancementType.TASK, true, true, false)
@@ -63,34 +53,34 @@ public class FDAdvancementGenerator extends AdvancementSubProvider {
 				.addCriterion("golden_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_KNIFE.get()))
 				.addCriterion("netherite_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.NETHERITE_KNIFE.get()))
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.save(this.output, getNameId("main/craft_knife").toString());
+				.save(output, getNameId("main/craft_knife"));
 
 		AdvancementHolder graspingAtStraws = getAdvancement(huntAndGather, ModItems.STRAW.get(), "harvest_straw", AdvancementType.TASK, true, false, false)
 				.addCriterion("harvest_straw", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.STRAW.get()))
-				.save(this.output, getNameId("main/harvest_straw").toString());
+				.save(output, getNameId("main/harvest_straw"));
 
 		AdvancementHolder advancedComposting = getAdvancement(graspingAtStraws, ModItems.ORGANIC_COMPOST.get(), "place_organic_compost", AdvancementType.TASK, true, false, false)
 				.addCriterion("place_organic_compost", placedBlock(ModBlocks.ORGANIC_COMPOST.get()))
-				.save(this.output, getNameId("main/place_organic_compost").toString());
+				.save(output, getNameId("main/place_organic_compost"));
 
 		AdvancementHolder plantFood = getAdvancement(advancedComposting, ModItems.RICH_SOIL.get(), "get_rich_soil", AdvancementType.GOAL, true, true, false)
 				.addCriterion("get_rich_soil", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.RICH_SOIL.get()))
-				.save(this.output, getNameId("main/get_rich_soil").toString());
+				.save(output, getNameId("main/get_rich_soil"));
 
 		AdvancementHolder wildButcher = getAdvancement(huntAndGather, ModItems.HAM.get(), "get_ham", AdvancementType.TASK, true, false, false)
 				.addCriterion("ham", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.HAM.get()))
 				.addCriterion("smoked_ham", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SMOKED_HAM.get()))
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.save(this.output, getNameId("main/get_ham").toString());
+				.save(output, getNameId("main/get_ham"));
 
 		AdvancementHolder watchYourFingers = getAdvancement(huntAndGather, ModItems.CUTTING_BOARD.get(), "use_cutting_board", AdvancementType.TASK, true, false, false)
 				.addCriterion("cutting_board", CuttingBoardTrigger.TriggerInstance.simple())
-				.save(this.output, getNameId("main/use_cutting_board").toString());
+				.save(output, getNameId("main/use_cutting_board"));
 
 		AdvancementHolder cantTakeTheHeat = getAdvancement(watchYourFingers, ModItems.NETHERITE_KNIFE.get(), "obtain_netherite_knife", AdvancementType.CHALLENGE, true, true, false)
 				.addCriterion("obtain_netherite_knife", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.NETHERITE_KNIFE.get()))
 				.rewards(AdvancementRewards.Builder.experience(200))
-				.save(this.output, getNameId("main/obtain_netherite_knife").toString());
+				.save(output, getNameId("main/obtain_netherite_knife"));
 
 		// Farming Branch
 		AdvancementHolder cropsOfTheWild = getAdvancement(farmersDelight, ModItems.WILD_ONIONS.get(), "get_fd_seed", AdvancementType.TASK, true, true, false)
@@ -99,26 +89,26 @@ public class FDAdvancementGenerator extends AdvancementSubProvider {
 				.addCriterion("onion", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ONION.get()))
 				.addCriterion("rice", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.RICE.get()))
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.save(this.output, getNameId("main/get_fd_seed").toString());
+				.save(output, getNameId("main/get_fd_seed"));
 
 		AdvancementHolder fungusAmongUs = getAdvancement(cropsOfTheWild, ModItems.RED_MUSHROOM_COLONY.get(), "get_mushroom_colony", AdvancementType.TASK, true, false, false)
 				.addCriterion("brown_mushroom_colony", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BROWN_MUSHROOM_COLONY.get()))
 				.addCriterion("red_mushroom_colony", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.RED_MUSHROOM_COLONY.get()))
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.save(this.output, getNameId("main/get_mushroom_colony").toString());
+				.save(output, getNameId("main/get_mushroom_colony"));
 
 		AdvancementHolder dippingYourRoots = getAdvancement(cropsOfTheWild, ModItems.RICE.get(), "plant_rice", AdvancementType.TASK, true, false, false)
 				.addCriterion("plant_rice", placedBlock(ModBlocks.RICE_CROP.get()))
-				.save(this.output, getNameId("main/plant_rice").toString());
+				.save(output, getNameId("main/plant_rice"));
 
 		AdvancementHolder tallmato = getAdvancement(cropsOfTheWild, ModItems.TOMATO.get(), "harvest_ropelogged_tomato", AdvancementType.TASK, true, false, false)
 				.addCriterion("harvest_ropelogged_tomato", CriteriaTriggers.DEFAULT_BLOCK_USE.createCriterion(
 						new DefaultBlockInteractionTrigger.TriggerInstance(
 								Optional.empty(),
 								Optional.of(
-										Holder.direct(
+										ContextAwarePredicate.create(
 												LocationCheck.checkLocation(
-														LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(output.lookup(Registries.BLOCK), ModBlocks.TOMATO_CROP_ON_ROPE.get()).setProperties(
+														LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registries.lookupOrThrow(Registries.BLOCK), ModBlocks.TOMATO_CROP_ON_ROPE.get()).setProperties(
 																StatePropertiesPredicate.Builder.properties()
 																		.hasProperty(TomatoBlock.VINE_AGE, 0)
 														))
@@ -127,14 +117,14 @@ public class FDAdvancementGenerator extends AdvancementSubProvider {
 								)
 						)
 				))
-				.save(this.output, getNameId("main/harvest_ropelogged_tomato").toString());
+				.save(output, getNameId("main/harvest_ropelogged_tomato"));
 
 		AdvancementHolder booHiss = getAdvancement(tallmato, ModItems.ROTTEN_TOMATO.get(), "hit_raider_with_rotten_tomato", AdvancementType.TASK, true, true, false)
 				.addCriterion("hit_raider_with_rotten_tomato", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(
 						Optional.of(DamagePredicate.Builder.damageInstance()
-								.type(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(this.damageTypes, (DamageTypeTags.IS_PROJECTILE))).direct(EntityPredicate.Builder.entity().of(output.lookup(Registries.ENTITY_TYPE), ModEntityTypes.ROTTEN_TOMATO.get()))).build()),
-						Optional.of(EntityPredicate.Builder.entity().of(output.lookup(Registries.ENTITY_TYPE), EntityTypeTags.RAIDERS).build())))
-				.save(this.output, getNameId("main/hit_raider_with_rotten_tomato").toString());
+								.type(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE)).direct(EntityPredicate.Builder.entity().of(registries.lookupOrThrow(Registries.ENTITY_TYPE), ModEntityTypes.ROTTEN_TOMATO.get()))).build()),
+						Optional.of(EntityPredicate.Builder.entity().of(registries.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypeTags.RAIDERS).build())))
+				.save(output, getNameId("main/hit_raider_with_rotten_tomato"));
 
 		AdvancementHolder cropRotation = getAdvancement(dippingYourRoots, ModItems.CABBAGE.get(), "plant_all_crops", AdvancementType.CHALLENGE, true, true, false)
 				.addCriterion("wheat", placedBlock(Blocks.WHEAT))
@@ -157,30 +147,30 @@ public class FDAdvancementGenerator extends AdvancementSubProvider {
 				.addCriterion("red_mushroom", placedBlock(Blocks.RED_MUSHROOM))
 				.addCriterion("glow_berries", placedBlock(Blocks.CAVE_VINES))
 				.rewards(AdvancementRewards.Builder.experience(100))
-				.save(this.output, getNameId("main/plant_all_crops").toString());
+				.save(output, getNameId("main/plant_all_crops"));
 
 		// Cooking Branch
 		AdvancementHolder bonfireLit = getAdvancement(farmersDelight, Blocks.CAMPFIRE, "place_campfire", AdvancementType.TASK, true, true, false)
 				.addCriterion("campfire", placedBlock(Blocks.CAMPFIRE))
 				.addCriterion("soul_campfire", placedBlock(Blocks.SOUL_CAMPFIRE))
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.save(this.output, getNameId("main/place_campfire").toString());
+				.save(output, getNameId("main/place_campfire"));
 
 		AdvancementHolder portableCooking = getAdvancement(bonfireLit, ModItems.SKILLET.get(), "use_skillet", AdvancementType.TASK, true, false, false)
-				.addCriterion("skillet", usedItem(output.lookup(Registries.ITEM), ModItems.SKILLET.get()))
-				.save(this.output, getNameId("main/use_skillet").toString());
+				.addCriterion("skillet", usedItem(registries.lookupOrThrow(Registries.ITEM), ModItems.SKILLET.get()))
+				.save(output, getNameId("main/use_skillet"));
 
 		AdvancementHolder sizzlingHot = getAdvancement(portableCooking, ModItems.SKILLET.get(), "place_skillet", AdvancementType.TASK, true, false, false)
 				.addCriterion("skillet", placedBlock(ModBlocks.SKILLET.get()))
-				.save(this.output, getNameId("main/place_skillet").toString());
+				.save(output, getNameId("main/place_skillet"));
 
 		AdvancementHolder dinnerIsServed = getAdvancement(bonfireLit, ModItems.COOKING_POT.get(), "place_cooking_pot", AdvancementType.GOAL, true, true, false)
 				.addCriterion("cooking_pot", placedBlock(ModBlocks.COOKING_POT.get()))
-				.save(this.output, getNameId("main/place_cooking_pot").toString());
+				.save(output, getNameId("main/place_cooking_pot"));
 
 		AdvancementHolder nourishing = getAdvancement(dinnerIsServed, ModItems.STEAK_AND_POTATOES.get(), "eat_nourishing_food", AdvancementType.TASK, true, false, false)
 				.addCriterion("nourishment", EffectsChangedTrigger.TriggerInstance.hasEffects(MobEffectsPredicate.Builder.effects().and(ModEffects.NOURISHMENT)))
-				.save(this.output, getNameId("main/eat_nourishing_food").toString());
+				.save(output, getNameId("main/eat_nourishing_food"));
 
 		AdvancementHolder gloriousFeast = getAdvancement(nourishing, ModItems.ROAST_CHICKEN_BLOCK.get(), "place_feast", AdvancementType.TASK, true, true, false)
 				.addCriterion("roast_chicken", placedBlock(ModBlocks.ROAST_CHICKEN_BLOCK.get()))
@@ -190,7 +180,7 @@ public class FDAdvancementGenerator extends AdvancementSubProvider {
 				.addCriterion("gleaming_salad", placedBlock(ModBlocks.GLEAMING_SALAD_BLOCK.get()))
 				.addCriterion("rice_roll_medley", placedBlock(ModBlocks.RICE_ROLL_MEDLEY_BLOCK.get()))
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.save(this.output, getNameId("main/place_feast").toString());
+				.save(output, getNameId("main/place_feast"));
 
         AdvancementHolder masterChef = getAdvancement(gloriousFeast, ModItems.HONEY_GLAZED_HAM.get(), "master_chef", AdvancementType.CHALLENGE, true, true, false)
                 .addCriterion("mixed_salad", usedItem(holderGetter, ModItems.MIXED_SALAD.get()))
@@ -221,11 +211,11 @@ public class FDAdvancementGenerator extends AdvancementSubProvider {
                 .addCriterion("shepherds_pie", usedItem(holderGetter, ModItems.SHEPHERDS_PIE.get()))
 				.addCriterion("gleaming_salad", usedItem(holderGetter, ModItems.GLEAMING_SALAD.get()))
                 .rewards(AdvancementRewards.Builder.experience(200))
-                .save(this.output, getNameId("main/master_chef").toString());
+                .save(output, getNameId("main/master_chef"));
     }
 
-	private Criterion<?> placedBlock(Block wheat) {
-		return ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(blocks, wheat);
+	private static Criterion<?> placedBlock(Block block) {
+		return ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block);
 	}
 
 	protected static Criterion<?> usedItem(HolderGetter<Item> holderGetter, Item item) {
@@ -233,13 +223,14 @@ public class FDAdvancementGenerator extends AdvancementSubProvider {
 	}
 
 	protected static Advancement.Builder getAdvancement(AdvancementHolder parent, ItemLike display, String name, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
-		return Advancement.Builder.advancement().parent(parent).display(display.asItem(),
+		return Advancement.Builder.advancement().parent(parent).display(display,
 			TextUtils.advancement(name + ".title"),
 			TextUtils.advancement(name + ".description"),
-			frame, showToast, announceToChat, hidden);
+			null, frame, showToast, announceToChat, hidden);
 	}
 
-	private Identifier getNameId(String id) {
-		return FarmersDelight.id(id);
+	private static String getNameId(String id) {
+		return FarmersDelight.MODID + ":" + id;
 	}
+
 }

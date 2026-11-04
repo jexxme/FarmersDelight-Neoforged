@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:cooking/fish_stew"
+        "recipe": "farmersdelight:cooking/fish_stew"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

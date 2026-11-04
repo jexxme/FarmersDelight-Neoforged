@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:nether_salad"
+        "recipe": "farmersdelight:nether_salad"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "fd_apple_pie",
   "key": {
     "#": "#c:crops/wheat",

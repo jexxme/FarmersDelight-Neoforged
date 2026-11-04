@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:warped_cabinet"
+        "recipe": "farmersdelight:warped_cabinet"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

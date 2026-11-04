@@ -3,7 +3,7 @@ package vectorwing.farmersdelight.data;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.data.tags.KeyTagProvider;
 import net.minecraft.tags.VillagerTradeTags;
 import net.minecraft.world.item.trading.VillagerTrade;
 import vectorwing.farmersdelight.FarmersDelight;
@@ -11,9 +11,9 @@ import vectorwing.farmersdelight.FarmersDelight;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Adds the Farmer's Delight trades to the vanilla trade pools (data-driven since 26.3).
+ * Adds the Farmer's Delight trades to the vanilla trade pools (data-driven on 26.x).
  */
-public class VillagerTags extends TagsProvider<VillagerTrade>
+public class VillagerTags extends KeyTagProvider<VillagerTrade>
 {
 	public VillagerTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(output, Registries.VILLAGER_TRADE, lookupProvider, FarmersDelight.MODID);

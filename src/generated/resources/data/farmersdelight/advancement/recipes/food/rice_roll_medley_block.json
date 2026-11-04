@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:rice_roll_medley_block"
+        "recipe": "farmersdelight:rice_roll_medley_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

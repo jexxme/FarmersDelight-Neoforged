@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:gold_nugget_from_blasting_knife"
+        "recipe": "farmersdelight:gold_nugget_from_blasting_knife"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

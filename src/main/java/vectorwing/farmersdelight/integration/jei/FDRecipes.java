@@ -50,8 +50,9 @@ public class FDRecipes
 		List<RecipeHolder<CraftingRecipe>> recipes = Lists.newArrayList();
 
 		addValidatedSpecialRecipe(recipes, "wheat_dough_from_water", "fd_dough",
+				// First argument is the list's default element; an empty Ingredient is not allowed in 26.3.
 				NonNullList.of(
-						Ingredient.of(),
+						Ingredient.of(Items.WHEAT),
 						Ingredient.of(Items.WHEAT),
 						Ingredient.of(Items.WATER_BUCKET)
 				),

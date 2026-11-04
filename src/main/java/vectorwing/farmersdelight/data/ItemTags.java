@@ -40,8 +40,8 @@ public class ItemTags extends ItemTagsProvider
 			ModItems.WILD_TOMATOES.get(),
 			ModItems.WILD_ONIONS.get(),
 			ModItems.WILD_RICE.get());
-//		copy(BlockTags.SMALL_FLOWERS, net.minecraft.tags.BlockItemTags.SMALL_FLOWERS.item());
-		fdTag(net.minecraft.tags.BlockItemTags.SMALL_FLOWERS.item()).add(
+//		copy(BlockTags.SMALL_FLOWERS, net.minecraft.tags.ItemTags.SMALL_FLOWERS);
+		fdTag(net.minecraft.tags.ItemTags.SMALL_FLOWERS).add(
 			ModItems.WILD_CARROTS.get(),
 			ModItems.WILD_POTATOES.get(),
 			ModItems.WILD_BEETROOTS.get(),
@@ -60,7 +60,7 @@ public class ItemTags extends ItemTagsProvider
 	private void registerMinecraftTags() {
 		fdTag(Tags.Items.HIDDEN_FROM_RECIPE_VIEWERS).add(ModItems.DEBUG_PUMPKIN_PIE.get());
 		fdTag(net.minecraft.tags.ItemTags.BREAKS_DECORATED_POTS).addTag(ModTags.Items.KNIVES);
-		fdTag(net.minecraft.tags.BlockItemTags.FLOWERS.item()).add(ModItems.WILD_RICE.get());
+		fdTag(net.minecraft.tags.ItemTags.FLOWERS).add(ModItems.WILD_RICE.get());
 		fdTag(net.minecraft.tags.ItemTags.PIGLIN_LOVED).add(ModItems.GOLDEN_KNIFE.get());
 		fdTag(net.minecraft.tags.ItemTags.SIGNS).addTag(ModTags.Items.CANVAS_SIGNS);
 		fdTag(net.minecraft.tags.ItemTags.HANGING_SIGNS).addTag(ModTags.Items.HANGING_CANVAS_SIGNS);
@@ -290,8 +290,8 @@ public class ItemTags extends ItemTagsProvider
 			.addTag(CommonTags.Items.FOODS_PASTA)
 			.addTag(CommonTags.Items.FOODS_COOKED_EGG);
 
-		fdTag(net.minecraft.tags.BlockItemTags.FENCES.item()).add(ModItems.ROPE_FENCE.get());
-		fdTag(net.minecraft.tags.BlockItemTags.FENCE_GATES.item()).add(ModItems.ROPE_FENCE_GATE.get());
+		fdTag(net.minecraft.tags.ItemTags.FENCES).add(ModItems.ROPE_FENCE.get());
+		fdTag(net.minecraft.tags.ItemTags.FENCE_GATES).add(ModItems.ROPE_FENCE_GATE.get());
 		fdTag(Tags.Items.FENCES).add(ModItems.ROPE_FENCE.get());
 		fdTag(Tags.Items.FENCE_GATES).add(ModItems.ROPE_FENCE_GATE.get());
 

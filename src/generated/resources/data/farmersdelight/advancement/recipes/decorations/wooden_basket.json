@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:wooden_basket"
+        "recipe": "farmersdelight:wooden_basket"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

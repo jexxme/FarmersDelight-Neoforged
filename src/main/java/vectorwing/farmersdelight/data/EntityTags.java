@@ -6,7 +6,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
@@ -20,18 +19,18 @@ public class EntityTags extends EntityTypeTagsProvider
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		fdTag(ModTags.EntityTypes.DOG_FOOD_USERS).add(EntityTypes.WOLF);
+		fdTag(ModTags.EntityTypes.DOG_FOOD_USERS).add(EntityType.WOLF);
 		fdTag(ModTags.EntityTypes.HORSE_FEED_USERS).add(
-			EntityTypes.HORSE,
-			EntityTypes.SKELETON_HORSE,
-			EntityTypes.ZOMBIE_HORSE,
-			EntityTypes.DONKEY,
-			EntityTypes.MULE,
-			EntityTypes.LLAMA);
+			EntityType.HORSE,
+			EntityType.SKELETON_HORSE,
+			EntityType.ZOMBIE_HORSE,
+			EntityType.DONKEY,
+			EntityType.MULE,
+			EntityType.LLAMA);
 		fdTag(ModTags.EntityTypes.HORSE_FEED_TEMPTED).add(
-			EntityTypes.HORSE,
-			EntityTypes.DONKEY,
-			EntityTypes.MULE);
+			EntityType.HORSE,
+			EntityType.DONKEY,
+			EntityType.MULE);
 	}
 
 	private vectorwing.farmersdelight.data.tools.FDTagAppender<EntityType<?>> fdTag(net.minecraft.tags.TagKey<EntityType<?>> tag) {

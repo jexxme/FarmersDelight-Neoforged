@@ -1,13 +1,14 @@
 modLoader = "javafml"
 loaderVersion = "${loader_version_range}"
 # Farmer's Delight Neoforged: bug reports go to this project's own tracker, not to the original Farmer's Delight.
-# TODO: set issueTrackerURL / displayURL once the GitHub repository exists.
+issueTrackerURL = "https://github.com/jexxme/FarmersDelight-Neoforged/issues"
 license="${mod_license}"
 
 [[mods]]
 modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
+displayURL = "https://modrinth.com/mod/farmers-delight-neoforged"
 bannerFile = "banner.png"
 iconFile = "icon.png"
 logoBlur = false

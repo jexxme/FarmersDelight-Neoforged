@@ -1,15 +1,15 @@
 package vectorwing.farmersdelight.common.item;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.CookingFuel;
-import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
-import net.minecraft.world.level.storage.loot.providers.number.floats.ResolvableFloat;
-import net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.FuelValues;
+import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
+
+import javax.annotation.Nullable;
 
 /**
- * Deprecated - 26.3: fuel is defined by the {@link DataComponents#COOKING_FUEL} item component.
- * This class only remains for API compatibility and sets that component.
+ * Deprecated - Fuel is now defined in a NeoForge datamap: {@link NeoForgeDataMaps#FURNACE_FUELS}.
  */
 @Deprecated(forRemoval = true)
 public class FuelItem extends Item
@@ -17,11 +17,18 @@ public class FuelItem extends Item
 	public final int burnTime;
 
 	public FuelItem(Properties properties) {
-		this(properties, 100);
+		super(properties);
+		this.burnTime = 100;
 	}
 
 	public FuelItem(Properties properties, int burnTime) {
-		super(properties.component(DataComponents.COOKING_FUEL, new CookingFuel(new ResolvableInt.Constant(burnTime), ResolvableFloat.fromKey(ContextFloatProviders.COOKING_DEFAULT_SPEED_MULTIPLIER))));
+		super(properties);
 		this.burnTime = burnTime;
+	}
+
+	// TODO: Decide if this class is obsolete due to datamaps.
+	@Override
+	public int getBurnTime(ItemStack stack, @Nullable RecipeType<?> recipeType, FuelValues fuelValues) {
+		return this.burnTime;
 	}
 }

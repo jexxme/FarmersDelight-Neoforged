@@ -3,10 +3,12 @@
   "criteria": {
     "skillet": {
       "conditions": {
-        "location": {
-          "type": "minecraft:match_block",
-          "blocks": "farmersdelight:skillet"
-        }
+        "location": [
+          {
+            "block": "farmersdelight:skillet",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
       },
       "trigger": "minecraft:placed_block"
     }

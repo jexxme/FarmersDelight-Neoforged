@@ -2,102 +2,106 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "condition": {
-        "type": "minecraft:all_of",
-        "terms": [
-          {
-            "type": "minecraft:match_block",
-            "blocks": "farmersdelight:wild_rice",
-            "state": {
-              "half": "lower"
-            }
-          },
-          {
-            "type": "minecraft:location_check",
-            "offsetY": 1,
-            "predicate": {
-              "block": {
-                "blocks": "farmersdelight:wild_rice",
-                "state": {
-                  "half": "upper"
-                }
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "farmersdelight:wild_rice",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "half": "lower"
+          }
+        },
+        {
+          "condition": "minecraft:location_check",
+          "offsetY": 1,
+          "predicate": {
+            "block": {
+              "blocks": "farmersdelight:wild_rice",
+              "state": {
+                "half": "upper"
               }
             }
           }
-        ]
-      },
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "neoforge:can_item_perform_ability",
-                "ability": "shears_harvest"
-              },
+              "conditions": [
+                {
+                  "ability": "shears_harvest",
+                  "condition": "neoforge:can_item_perform_ability"
+                }
+              ],
               "name": "farmersdelight:wild_rice"
             },
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "minecraft:survives_explosion"
-              },
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
+              ],
               "name": "farmersdelight:rice"
             }
           ]
         }
       ],
-      "rolls": 1
+      "rolls": 1.0
     },
     {
-      "condition": {
-        "type": "minecraft:all_of",
-        "terms": [
-          {
-            "type": "minecraft:match_block",
-            "blocks": "farmersdelight:wild_rice",
-            "state": {
-              "half": "upper"
-            }
-          },
-          {
-            "type": "minecraft:location_check",
-            "offsetY": -1,
-            "predicate": {
-              "block": {
-                "blocks": "farmersdelight:wild_rice",
-                "state": {
-                  "half": "lower"
-                }
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "farmersdelight:wild_rice",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "half": "upper"
+          }
+        },
+        {
+          "condition": "minecraft:location_check",
+          "offsetY": -1,
+          "predicate": {
+            "block": {
+              "blocks": "farmersdelight:wild_rice",
+              "state": {
+                "half": "lower"
               }
             }
           }
-        ]
-      },
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "neoforge:can_item_perform_ability",
-                "ability": "shears_harvest"
-              },
+              "conditions": [
+                {
+                  "ability": "shears_harvest",
+                  "condition": "neoforge:can_item_perform_ability"
+                }
+              ],
               "name": "farmersdelight:wild_rice"
             },
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "minecraft:survives_explosion"
-              },
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
+              ],
               "name": "farmersdelight:rice"
             }
           ]
         }
       ],
-      "rolls": 1
+      "rolls": 1.0
     }
   ],
   "random_sequence": "farmersdelight:blocks/wild_rice"

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:honey_cookie"
+        "recipe": "farmersdelight:honey_cookie"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

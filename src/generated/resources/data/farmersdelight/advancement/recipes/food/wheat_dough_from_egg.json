@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipes": "farmersdelight:wheat_dough_from_egg"
+        "recipe": "farmersdelight:wheat_dough_from_egg"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

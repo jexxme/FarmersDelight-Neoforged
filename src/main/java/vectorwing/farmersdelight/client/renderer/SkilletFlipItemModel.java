@@ -112,12 +112,12 @@ public class SkilletFlipItemModel implements ItemModel {
                     float maxH = 0.4F;
                     poseStack.translate(0, maxH * Mth.sin(animation * Mth.PI), 0);
                     float rotationAnimation = argument.flipped ? animation + 1.0F : animation;
-                    poseStack.rotateDegrees(Axis.XP, 180 * rotationAnimation);
+                    poseStack.mulPose(Axis.XP.rotationDegrees(180 * rotationAnimation));
                 } else {
-                    poseStack.rotateDegrees(Axis.XP, argument.flipped ? 180 : 0);
+                    poseStack.mulPose(Axis.XP.rotationDegrees(argument.flipped ? 180 : 0));
                 }
 
-                poseStack.rotateDegrees(Axis.XP, 90);
+                poseStack.mulPose(Axis.XP.rotationDegrees(90));
                 poseStack.scale(0.5F, 0.5F, 0.5F);
 
                 argument.ingredient.submit(poseStack, submitNodeCollector, lightCoords, overlayCoords, outlineColor);
@@ -130,7 +130,7 @@ public class SkilletFlipItemModel implements ItemModel {
 
             if (animation != 0 && argument.displayContext.firstPerson()) {
                 poseStack.translate(0, 0, 1);
-                poseStack.rotateDegrees(Axis.XN, Mth.sin(animation * Mth.TWO_PI) * 15);
+                poseStack.mulPose(Axis.XN.rotationDegrees(Mth.sin(animation * Mth.TWO_PI) * 15));
                 poseStack.translate(0F, 0, -1);
                 poseStack.translate(0, 0, -Mth.sin(animation * Mth.PI) * 0.2);
             }

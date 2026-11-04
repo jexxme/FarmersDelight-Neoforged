@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     "farmersdelight:tree_bark",
     "farmersdelight:tree_bark",
