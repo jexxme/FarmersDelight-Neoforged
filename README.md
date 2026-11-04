@@ -6,7 +6,11 @@ by <b>vectorwing</b>, a cozy farming and cooking expansion for Minecraft: cookin
 cutting boards, new crops, rich soil, meals and feasts.
 </p>
 
-<p align="center"><b>Minecraft 26.1 – 26.3</b> · NeoForge · Java 25</p>
+<p align="center">
+<img src="https://img.shields.io/badge/Minecraft-26.1%20%E2%80%93%2026.3-62b47a?style=for-the-badge" alt="Minecraft 26.1 – 26.3">
+<img src="https://img.shields.io/badge/NeoForge-26.x-e68c37?style=for-the-badge" alt="NeoForge">
+<img src="https://img.shields.io/badge/Java-25-5382a1?style=for-the-badge" alt="Java 25">
+</p>
 
 > Independent project by **Jexxme**, not affiliated with or endorsed by vectorwing.
 > Please report bugs here, not on the original Farmer's Delight tracker or
@@ -14,10 +18,22 @@ cutting boards, new crops, rich soil, meals and feasts.
 
 ## Download
 
-Get it from the [releases](../../releases) and pick the file for your Minecraft version (it's in the file name).
+<p>
+<a href="https://modrinth.com/mod/farmers-delight-neoforged"><img src="https://img.shields.io/badge/Modrinth-download-00af5c?style=for-the-badge&logo=modrinth&logoColor=white" alt="Download on Modrinth"></a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged"><img src="https://img.shields.io/badge/CurseForge-download-f16436?style=for-the-badge&logo=curseforge&logoColor=white" alt="Download on CurseForge"></a>
+<a href="../../releases"><img src="https://img.shields.io/badge/GitHub-releases-24292f?style=for-the-badge&logo=github&logoColor=white" alt="GitHub releases"></a>
+</p>
 
-The mod ID stays `farmersdelight`, so existing worlds and add-ons keep working; don't install it next to another
-Farmer's Delight build. JEI is supported, EMI and CraftTweaker follow once they're on 26.x.
+| Minecraft | NeoForge |
+|---|---|
+| 26.3 | 26.3.0.101 or newer |
+| 26.2 | 26.2.0.93 or newer |
+| 26.1.2 | 26.1.2.126 or newer |
+| 26.1, 26.1.1 | 26.1.0.19-beta to 26.1.1 |
+
+Each Minecraft version has its own file; the version is in the file name. The mod ID stays `farmersdelight`, so
+existing worlds and add-ons keep working; don't install it next to another Farmer's Delight build. JEI is
+supported, EMI and CraftTweaker follow once they're on 26.x.
 
 ## Contributing
 
