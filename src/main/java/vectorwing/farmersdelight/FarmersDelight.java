@@ -62,9 +62,13 @@ public class FarmersDelight
 		ModConsumeEffectTypes.CONSUME_EFFECTS.register(modEventBus);
 		ModRecipeCategories.RECIPE_BOOK_CATEGORIES.register(modEventBus);
 
-		vectorwing.farmersdelight.gametest.FDGameTests.register(modEventBus);
-		vectorwing.farmersdelight.gametest.FDStressTests.register(modEventBus);
-		vectorwing.farmersdelight.gametest.FDConservationTests.register(modEventBus);
+		// GameTests only in the dev environment (or with -Dfarmersdelight.gametests=true), not in the released jar
+		if (!net.neoforged.fml.loading.FMLEnvironment.isProduction() || Boolean.getBoolean("farmersdelight.gametests")) {
+			vectorwing.farmersdelight.gametest.FDGameTests.register(modEventBus);
+			vectorwing.farmersdelight.gametest.FDStressTests.register(modEventBus);
+			vectorwing.farmersdelight.gametest.FDConservationTests.register(modEventBus);
+			vectorwing.farmersdelight.gametest.FDRegressionTests.register(modEventBus);
+		}
 
 		RegistryAliases.addRegistryAliases();
 
