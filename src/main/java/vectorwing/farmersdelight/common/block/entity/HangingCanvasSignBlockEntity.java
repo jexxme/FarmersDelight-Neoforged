@@ -28,10 +28,12 @@ public class HangingCanvasSignBlockEntity extends HangingSignBlockEntity
 		return this.getType().isValid(state);
 	}
 
+	@Override
 	public int getTextLineHeight() {
 		return 9;
 	}
 
+	@Override
 	public int getMaxTextLineWidth() {
 		return 60;
 	}

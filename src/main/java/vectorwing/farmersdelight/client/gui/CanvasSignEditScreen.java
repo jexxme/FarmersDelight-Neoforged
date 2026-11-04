@@ -45,6 +45,7 @@ public class CanvasSignEditScreen extends SignEditScreen
 		this.signModel = StandingSignRenderer.createSignModel(this.minecraft.getEntityModels(), WoodType.SPRUCE, attachment);
 	}
 
+	@Override
 	protected void extractSignBackground(GuiGraphicsExtractor graphics) {
 		if (this.signModel != null) {
 			int centerX = this.width / 2;
