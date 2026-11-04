@@ -31,9 +31,14 @@ cutting boards, new crops, rich soil, meals and feasts.
 | 26.1.2 | 26.1.2.126 or newer |
 | 26.1, 26.1.1 | 26.1.0.19-beta to 26.1.1 |
 
-Each Minecraft version has its own file; the version is in the file name. The mod ID stays `farmersdelight`, so
-existing worlds and add-ons keep working; don't install it next to another Farmer's Delight build. JEI is
-supported, EMI and CraftTweaker follow once they're on 26.x.
+## Install
+
+1. Install [NeoForge](https://neoforged.net/) for your Minecraft version (see the table above).
+2. Put the file for your Minecraft version into the `mods` folder. On a server, players need it too.
+3. Coming from the original Farmer's Delight? Remove it first. Worlds and add-ons keep working, because the mod ID
+   stays `farmersdelight`.
+
+Works with JEI and AppleSkin. EMI and CraftTweaker follow once they're on 26.x.
 
 ## Contributing
 
