@@ -5,6 +5,7 @@
   FD seeds are villager-compostable through the `can_villager_compost` flag), villager food uses
   `Villager.FOOD_POINTS`, rich soil tilling uses the NeoForge tool action, worldgen uses configured
   features, and `#farmersdelight:drops_straw` is checked by a small `farmersdelight:block_tag` loot condition.
+- Rich soil farmland never turns into plain dirt (restored `KeepRichSoilUntrampledMixin`; 26.3 uses the farmland revert block instead).
 - Poplar wood recipes are 26.3-only and not part of this build.
 
 ## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.3)

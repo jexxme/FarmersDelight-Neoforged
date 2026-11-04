@@ -5,6 +5,7 @@
   "mixins": [
     "CampfireBaleMixin",
     "CuttingBoardDispenserMixin",
+    "KeepRichSoilUntrampledMixin",
     "NourishmentAlwaysEatMixin",
     "PlacePumpkinPieMixin",
     "RopeFenceConnectionMixin",
