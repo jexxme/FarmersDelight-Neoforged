@@ -114,7 +114,10 @@ public final class FDGameTests
 		var recipe = stove.getCookingRecipe(beef);
 		helper.assertTrue(recipe.isPresent(), "Raw beef should have a stove (campfire) recipe");
 		helper.assertTrue(stove.placeFood(null, beef, recipe.get()), "Stove should accept raw beef");
-		helper.succeedWhen(() -> helper.assertItemEntityPresent(Items.COOKED_BEEF, stovePos.above(), 3.0));
+		helper.succeedWhen(() -> {
+			helper.assertItemEntityCountIs(Items.COOKED_BEEF, stovePos.above(), 3.0, 1);
+			helper.assertTrue(stove.isEmpty(), "The beef must leave the stove once cooked");
+		});
 	}
 
 	/** A skillet on a lit stove cooks raw beef. */
@@ -149,8 +152,13 @@ public final class FDGameTests
 		helper.setBlock(vine.below(), Blocks.DIRT);
 		helper.setBlock(top, ModBlocks.ROPE.get());
 		helper.setBlock(vine, ModBlocks.TOMATO_CROP_ON_ROPE.get());
-		helper.setBlock(vine, Blocks.AIR);
-		helper.succeedWhen(() -> helper.assertBlockPresent(ModBlocks.ROPE.get(), vine));
+		// A real break by a player, not just replacing the block
+		helper.getLevel().destroyBlock(helper.absolutePos(vine), true, helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL));
+		helper.succeedWhen(() -> {
+			helper.assertBlockPresent(ModBlocks.ROPE.get(), vine);
+			// The rope stays as a block, so it must not also drop as an item (that would be a rope dupe)
+			helper.assertItemEntityNotPresent(ModItems.ROPE.get(), vine, 2.0);
+		});
 	}
 
 	/** Fuel and compost come from NeoForge data maps, villager food from Villager.FOOD_POINTS; check they are applied. */

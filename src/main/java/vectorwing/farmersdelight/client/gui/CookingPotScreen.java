@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 import vectorwing.farmersdelight.common.utility.TextUtils;
@@ -41,6 +42,15 @@ public class CookingPotScreen extends AbstractRecipeBookScreen<CookingPotMenu>
 		super.init();
 		this.widthTooNarrow = this.width < 379;
 		this.titleLabelX = 28;
+		if (!Configuration.ENABLE_COOKING_POT_RECIPE_BOOK.get()) {
+			// Recipe book turned off in the config: hide it and remove its button
+			((CookingPotRecipeBookComponent) this.recipeBookComponent).forceHide();
+			this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
+			List.copyOf(this.children()).stream()
+					.filter(widget -> widget instanceof net.minecraft.client.gui.components.ImageButton || widget == this.recipeBookComponent)
+					.forEach(this::removeWidget);
+			return;
+		}
 		this.setInitialFocus(this.recipeBookComponent);
 	}
 

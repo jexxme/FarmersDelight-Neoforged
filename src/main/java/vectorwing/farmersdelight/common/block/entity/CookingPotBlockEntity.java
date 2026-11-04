@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import vectorwing.farmersdelight.common.block.entity.inventory.SafeItemStacksResourceHandler;
 import com.google.common.collect.Lists;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
@@ -194,6 +195,8 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	private void writeItems(ValueOutput output) {
 		super.saveAdditional(output);
 		output.storeNullable("Container", ItemStack.CODEC, mealContainerStack.isEmpty() ? null : mealContainerStack);
+		// Also synced, otherwise the client forgets a renamed pot's name on every update
+		output.storeNullable("CustomName", ComponentSerialization.CODEC, customName);
 		inventory.serialize(output.child("Inventory"));
 	}
 
@@ -567,7 +570,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	}
 
 	private ItemStacksResourceHandler createHandler() {
-		return new ItemStacksResourceHandler(INVENTORY_SIZE)
+		return new SafeItemStacksResourceHandler(INVENTORY_SIZE)
 		{
 			@Override
 			protected int getCapacity(int index, ItemResource resource) {
