@@ -31,8 +31,14 @@ Stop the server and run `update-jar.bat` first, so the server runs the jar you a
 - [ ] The playtest server runs the full server mod list (BOP, TerraBlender, Tectonic, Lithostitched, Storage Drawers, Traveler's Backpack, Easy Villagers, Easy Anvils/Magic, Puzzles Lib, JEI) and the client adds Sodium, Iris and Lithium: no crash, no `ERROR` from the mod
 - [ ] Create a new world: wild crops generate (BOP biomes included)
 
-## 4. Publish
+## 4. Every 26.x branch
 
+- [ ] Every fix made on `26.3` since the last release is ported to `26.2`, `26.1.2` and `26.1.1` (`git log 26.3` vs each branch), and CI is green on all four
+- [ ] Each backport jar got a client test too: join, signs, skillet model, JEI (sections 2 and 3, at least once per branch)
+
+## 5. Publish
+
+- [ ] All four jars share one version, so each upload gets exactly its own Minecraft versions: the `26.1.1` jar is for 26.1 and 26.1.1, the `26.1.2` jar only for 26.1.2, and so on
 - [ ] Bump `mod_version` in `gradle.properties` (`<upstream version>+neoforged.<n>`) and add an entry to `changelog.md`
 - [ ] Tag the commit (`v26.3-<mod_version>`) and attach the CI-built jar (`build/libs/FarmersDelight-Neoforged-*.jar`)
 - [ ] Modrinth/CurseForge page: says it is a continuation of vectorwing's Farmer's Delight under MIT, that it is **not** the official mod, and links the original
