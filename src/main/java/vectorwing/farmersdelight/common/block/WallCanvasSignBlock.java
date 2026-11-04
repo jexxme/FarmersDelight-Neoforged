@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import vectorwing.farmersdelight.common.block.state.CanvasSign;
+import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 
 import javax.annotation.Nullable;
 
@@ -22,5 +23,10 @@ public class WallCanvasSignBlock extends WallSignBlock implements CanvasSign
 	@Nullable
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
+	}
+
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return ModBlockEntityTypes.CANVAS_SIGN.get().create(pos, state);
 	}
 }

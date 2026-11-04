@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.util.LightCoordsUtil;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -71,7 +71,7 @@ public class DefaultStoveRenderer<T extends AbstractStoveBlockEntity> implements
 		state.direction = stove.getBlockState().getValue(StoveBlock.FACING).getOpposite();
 
 		// base extractRenderState gets the light coords for the stove's position, but we use the position above the stove
-		state.lightCoords = LightCoordsUtil.getLightCoords(stove.getLevel(), stove.getBlockPos().above());
+		state.lightCoords = LevelRenderer.getLightCoords(stove.getLevel(), stove.getBlockPos().above());
 
 		var items = stove.getItems();
 		state.slotCount = items.size();

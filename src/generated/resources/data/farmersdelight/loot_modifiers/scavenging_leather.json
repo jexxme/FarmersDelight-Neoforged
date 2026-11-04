@@ -5,7 +5,7 @@
       "condition": "minecraft:entity_properties",
       "entity": "attacker",
       "predicate": {
-        "minecraft:equipment": {
+        "equipment": {
           "mainhand": {
             "items": "#farmersdelight:tools/knives"
           }
@@ -19,49 +19,49 @@
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:cow"
+            "type": "minecraft:cow"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:mooshroom"
+            "type": "minecraft:mooshroom"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:horse"
+            "type": "minecraft:horse"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:donkey"
+            "type": "minecraft:donkey"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:mule"
+            "type": "minecraft:mule"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:llama"
+            "type": "minecraft:llama"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:trader_llama"
+            "type": "minecraft:trader_llama"
           }
         }
       ]

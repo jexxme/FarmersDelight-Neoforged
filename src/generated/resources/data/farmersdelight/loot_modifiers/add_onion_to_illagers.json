@@ -8,21 +8,21 @@
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:pillager"
+            "type": "minecraft:pillager"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:evoker"
+            "type": "minecraft:evoker"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:vindicator"
+            "type": "minecraft:vindicator"
           }
         }
       ]

@@ -1,3 +1,11 @@
+## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.1.2)
+
+- Backport of the 26.2/26.3 builds to Minecraft 26.1.2 / NeoForge 26.1.2.126: same content, fixes and GameTests.
+- 26.1 differences on top of the 26.2 notes below: Canvas Signs keep their own block entities, renderers
+  and sign atlases (vanilla 26.1 signs can't render model-based sign bodies), advancement classes live in
+  `net.minecraft.advancements(.criterion)`, and the old object-based tag appenders are used for datagen.
+- Rich soil farmland no longer turns into dirt when it dries out or is trampled (restored mixin, also in 26.2).
+
 ## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.2)
 
 - Backport of the 26.3 build to Minecraft 26.2 / NeoForge 26.2.0.93: same content, fixes and GameTests.

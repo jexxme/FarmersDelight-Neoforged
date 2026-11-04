@@ -360,22 +360,22 @@ public class BlockTags extends BlockTagsProvider
 		fdTag(ModTags.Blocks.MUSHROOM_COLONY_GROWABLE_ON).add(ModBlocks.RICH_SOIL.get());
 		fdTag(ModTags.Blocks.DROPS_CAKE_SLICE).add(
 			Blocks.CANDLE_CAKE,
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.WHITE),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.ORANGE),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.MAGENTA),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.LIGHT_BLUE),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.YELLOW),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.LIME),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.PINK),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.GRAY),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.LIGHT_GRAY),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.CYAN),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.PURPLE),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.BLUE),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.BROWN),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.GREEN),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.RED),
-			Blocks.DYED_CANDLE_CAKE.pick(net.minecraft.world.item.DyeColor.BLACK));
+			Blocks.WHITE_CANDLE_CAKE,
+			Blocks.ORANGE_CANDLE_CAKE,
+			Blocks.MAGENTA_CANDLE_CAKE,
+			Blocks.LIGHT_BLUE_CANDLE_CAKE,
+			Blocks.YELLOW_CANDLE_CAKE,
+			Blocks.LIME_CANDLE_CAKE,
+			Blocks.PINK_CANDLE_CAKE,
+			Blocks.GRAY_CANDLE_CAKE,
+			Blocks.LIGHT_GRAY_CANDLE_CAKE,
+			Blocks.CYAN_CANDLE_CAKE,
+			Blocks.PURPLE_CANDLE_CAKE,
+			Blocks.BLUE_CANDLE_CAKE,
+			Blocks.BROWN_CANDLE_CAKE,
+			Blocks.GREEN_CANDLE_CAKE,
+			Blocks.RED_CANDLE_CAKE,
+			Blocks.BLACK_CANDLE_CAKE);
 		fdTag(ModTags.Blocks.CAMPFIRE_SIGNAL_SMOKE).add(ModBlocks.STRAW_BALE.get()).add(ModBlocks.RICE_BALE.get());
 		fdTag(ModTags.Blocks.PLANTED_FROM_BELOW).add(Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT);
 	}

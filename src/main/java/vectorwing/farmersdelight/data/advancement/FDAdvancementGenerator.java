@@ -3,9 +3,8 @@ package vectorwing.farmersdelight.data.advancement;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 
 import net.minecraft.advancements.*;
-import net.minecraft.advancements.predicates.*;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
-import net.minecraft.advancements.triggers.*;
+import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;

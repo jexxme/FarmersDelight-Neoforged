@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": "farmersdelight:canvas",
     "b": "minecraft:bamboo"

@@ -8,21 +8,21 @@
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:zombie"
+            "type": "minecraft:zombie"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:husk"
+            "type": "minecraft:husk"
           }
         },
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "minecraft:zombie_villager"
+            "type": "minecraft:zombie_villager"
           }
         }
       ]

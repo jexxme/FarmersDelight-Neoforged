@@ -1,7 +1,7 @@
 package vectorwing.farmersdelight.data.builder;
 
 import java.util.Optional;
-import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;

@@ -10,13 +10,7 @@ import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.loading.DatagenModLoader;
-import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityTypes;
-import net.minecraft.world.level.block.CeilingHangingSignBlock;
-import net.minecraft.world.level.block.WallHangingSignBlock;
-import vectorwing.farmersdelight.common.block.state.CanvasSign;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.FoodValues;
@@ -40,20 +34,5 @@ public class CommonModBusEvents
 		if (Configuration.ENABLE_RABBIT_STEW_BUFF.get()) {
 			event.modify(Items.RABBIT_STEW, (builder, provider, item) -> builder.set(DataComponents.FOOD, FoodValues.RABBIT_STEW_BUFF));
 		}
-	}
-
-	/**
-	 * 26.x: Canvas Signs are plain vanilla signs now, so they need to be valid blocks for the vanilla sign block entity types.
-	 */
-	@SubscribeEvent
-	public static void onAddBlockEntityTypeBlocks(BlockEntityTypeAddBlocksEvent event) {
-		Block[] signs = BuiltInRegistries.BLOCK.stream()
-				.filter(block -> block instanceof CanvasSign && !(block instanceof CeilingHangingSignBlock || block instanceof WallHangingSignBlock))
-				.toArray(Block[]::new);
-		Block[] hangingSigns = BuiltInRegistries.BLOCK.stream()
-				.filter(block -> block instanceof CanvasSign && (block instanceof CeilingHangingSignBlock || block instanceof WallHangingSignBlock))
-				.toArray(Block[]::new);
-		event.modify(BlockEntityTypes.SIGN, signs);
-		event.modify(BlockEntityTypes.HANGING_SIGN, hangingSigns);
 	}
 }

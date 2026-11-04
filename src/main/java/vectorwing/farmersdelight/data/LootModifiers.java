@@ -1,17 +1,17 @@
 package vectorwing.farmersdelight.data;
 
-import net.minecraft.advancements.predicates.DataComponentMatchers;
-import net.minecraft.advancements.predicates.EnchantmentPredicate;
-import net.minecraft.advancements.predicates.MinMaxBounds;
+import net.minecraft.advancements.criterion.DataComponentMatchers;
+import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-import net.minecraft.advancements.predicates.ItemPredicate;
-import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
-import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.EntityEquipmentPredicate;
+import net.minecraft.advancements.criterion.EntityFlagsPredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -19,7 +19,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -81,19 +80,19 @@ public class LootModifiers extends GlobalLootModifierProvider
 		this.add("add_loot_village_taiga_house", this.addNewLootPool(BuiltInLootTables.VILLAGE_TAIGA_HOUSE, ModChestLootTables.VILLAGE_TAIGA_HOUSE));
 
 		// Entity Loot
-		this.add("add_onion_to_illagers", this.addItemOnPlayerKill(entityTypes, ModItems.ONION.get(), 0.02F, EntityTypes.PILLAGER, EntityTypes.EVOKER, EntityTypes.VINDICATOR));
-		this.add("add_onion_to_zombies", this.addItemOnPlayerKill(entityTypes, ModItems.ONION.get(), 0.02F, EntityTypes.ZOMBIE, EntityTypes.HUSK, EntityTypes.ZOMBIE_VILLAGER));
+		this.add("add_onion_to_illagers", this.addItemOnPlayerKill(entityTypes, ModItems.ONION.get(), 0.02F, EntityType.PILLAGER, EntityType.EVOKER, EntityType.VINDICATOR));
+		this.add("add_onion_to_zombies", this.addItemOnPlayerKill(entityTypes, ModItems.ONION.get(), 0.02F, EntityType.ZOMBIE, EntityType.HUSK, EntityType.ZOMBIE_VILLAGER));
 
 		// Knife Scavenging
-		this.add("scavenging_feather", this.addItemOnKnifeKill(items, entityTypes, Items.FEATHER, EntityTypes.CHICKEN));
-		this.add("scavenging_ham_from_hoglin", this.addItemOnKnifeKill(items, entityTypes, ModItems.HAM.get(), false, 1.0F, EntityTypes.HOGLIN));
-		this.add("scavenging_ham_from_pig", this.addItemOnKnifeKill(items, entityTypes, ModItems.HAM.get(), false, 0.5F, EntityTypes.PIG));
-		this.add("scavenging_leather", this.addItemOnKnifeKill(items, entityTypes, Items.LEATHER, EntityTypes.COW, EntityTypes.MOOSHROOM, EntityTypes.HORSE, EntityTypes.DONKEY, EntityTypes.MULE, EntityTypes.LLAMA, EntityTypes.TRADER_LLAMA));
-		this.add("scavenging_rabbit_hide", this.addItemOnKnifeKill(items, entityTypes, Items.RABBIT_HIDE, EntityTypes.RABBIT));
-		this.add("scavenging_shulker_shell", this.addItemOnKnifeKill(items, entityTypes, Items.SHULKER_SHELL, EntityTypes.SHULKER));
-		this.add("scavenging_smoked_ham_from_hoglin", this.addItemOnKnifeKill(items, entityTypes, ModItems.SMOKED_HAM.get(), true, 1.0F, EntityTypes.HOGLIN));
-		this.add("scavenging_smoked_ham_from_pig", this.addItemOnKnifeKill(items, entityTypes, ModItems.SMOKED_HAM.get(), true, 0.5F, EntityTypes.PIG));
-		this.add("scavenging_string", this.addItemOnKnifeKill(items, entityTypes, Items.STRING, EntityTypes.SPIDER, EntityTypes.CAVE_SPIDER));
+		this.add("scavenging_feather", this.addItemOnKnifeKill(items, entityTypes, Items.FEATHER, EntityType.CHICKEN));
+		this.add("scavenging_ham_from_hoglin", this.addItemOnKnifeKill(items, entityTypes, ModItems.HAM.get(), false, 1.0F, EntityType.HOGLIN));
+		this.add("scavenging_ham_from_pig", this.addItemOnKnifeKill(items, entityTypes, ModItems.HAM.get(), false, 0.5F, EntityType.PIG));
+		this.add("scavenging_leather", this.addItemOnKnifeKill(items, entityTypes, Items.LEATHER, EntityType.COW, EntityType.MOOSHROOM, EntityType.HORSE, EntityType.DONKEY, EntityType.MULE, EntityType.LLAMA, EntityType.TRADER_LLAMA));
+		this.add("scavenging_rabbit_hide", this.addItemOnKnifeKill(items, entityTypes, Items.RABBIT_HIDE, EntityType.RABBIT));
+		this.add("scavenging_shulker_shell", this.addItemOnKnifeKill(items, entityTypes, Items.SHULKER_SHELL, EntityType.SHULKER));
+		this.add("scavenging_smoked_ham_from_hoglin", this.addItemOnKnifeKill(items, entityTypes, ModItems.SMOKED_HAM.get(), true, 1.0F, EntityType.HOGLIN));
+		this.add("scavenging_smoked_ham_from_pig", this.addItemOnKnifeKill(items, entityTypes, ModItems.SMOKED_HAM.get(), true, 0.5F, EntityType.PIG));
+		this.add("scavenging_string", this.addItemOnKnifeKill(items, entityTypes, Items.STRING, EntityType.SPIDER, EntityType.CAVE_SPIDER));
 		this.add("scavenging_pumpkin", new ReplaceItemModifier(all(
 			LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.PUMPKIN),
 			MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ModTags.Items.KNIVES)),
@@ -163,7 +162,7 @@ public class LootModifiers extends GlobalLootModifierProvider
 		List<Block> cakes = new ArrayList<>();
 		cakes.add(Blocks.CANDLE_CAKE);
 		for (DyeColor color : DyeColor.values()) {
-			cakes.add(Blocks.DYED_CANDLE_CAKE.pick(color));
+			cakes.add(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(color.getName() + "_candle_cake")));
 		}
 		LootItemCondition.Builder[] conditions = cakes.stream().map(cake -> LootItemBlockStatePropertyCondition.hasBlockStateProperties(cake)).toArray(LootItemCondition.Builder[]::new);
 		return new AddItemModifier(all(
