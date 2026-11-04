@@ -23,8 +23,7 @@ public class HangingSignEditScreenMixin {
 	private Identifier texture;
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void fdrf$fixSignTextures(SignBlockEntity sign, boolean isFrontText,
- boolean shouldFilter, CallbackInfo ci) {
+	private void fdrf$fixSignTextures(SignBlockEntity sign, boolean isFrontText, boolean shouldFilter, CallbackInfo ci) {
 		if (sign.getBlockState().getBlock() instanceof CanvasSign canvas) {
 			texture = FarmersDelight.id("textures/gui/hanging_signs/canvas" + (canvas.getBackgroundColor() == null ? "" : "_" + canvas.getBackgroundColor().getName()) + ".png");
 		}
