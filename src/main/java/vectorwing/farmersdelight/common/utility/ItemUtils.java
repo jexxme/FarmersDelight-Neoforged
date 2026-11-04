@@ -41,9 +41,20 @@ public class ItemUtils
 		return isValidTool(stack, KnifeItem.KNIFE_HARVEST, ModTags.Items.KNIVES);
 	}
 
+	/** Drops every stack of the inventory into the world and removes it from the inventory. */
 	public static void dropItems(Level level, BlockPos pos, ResourceHandler<ItemResource> inventory) {
-		for (int slot = 0; slot < inventory.size(); slot++)
-			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), inventory.getResource(slot).toStack());
+		try (var transaction = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
+			for (int slot = 0; slot < inventory.size(); slot++) {
+				ItemResource resource = inventory.getResource(slot);
+				int amount = inventory.getAmountAsInt(slot);
+				if (resource.isEmpty() || amount <= 0) continue;
+				int removed = inventory.extract(slot, resource, amount, transaction);
+				if (removed > 0) {
+					Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), resource.toStack(removed));
+				}
+			}
+			transaction.commit();
+		}
 	}
 
 	public static void clearItems(ItemStacksResourceHandler inventory) {

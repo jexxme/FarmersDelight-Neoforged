@@ -89,10 +89,8 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof BasketBlockEntity basket) {
-			Containers.dropContents(level, pos, basket);
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		// Contents are dropped by the vanilla container hook (BlockEntity#preRemoveSideEffects)
+		level.updateNeighbourForOutputSignal(pos, this);
 
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
@@ -137,6 +135,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 			.setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
 	}
 
+	@Override
 	public boolean useShapeForLightOcclusion(BlockState state) {
 		return true;
 	}
@@ -173,6 +172,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level.isClientSide() ? null : createTickerHelper(blockEntityType, ModBlockEntityTypes.BASKET.get(), BasketBlockEntity::pushItemsTick);
 	}

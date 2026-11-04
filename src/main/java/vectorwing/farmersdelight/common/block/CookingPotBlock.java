@@ -72,7 +72,7 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 			BlockEntity tileEntity = level.getBlockEntity(pos);
 			if (tileEntity instanceof CookingPotBlockEntity cookingPot) {
 				ItemStack servingStack = cookingPot.useHeldItemOnMeal(heldStack);
-				if (servingStack != ItemStack.EMPTY) {
+				if (!servingStack.isEmpty()) {
 					if (!player.getInventory().add(servingStack)) {
 						player.drop(servingStack, false, Prediction.SERVER_ONLY);
 					}
@@ -149,11 +149,8 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof CookingPotBlockEntity cookingPot) {
-			Containers.dropContents(level, pos, cookingPot.getDroppableInventory());
-			cookingPot.getUsedRecipesAndPopExperience(level, Vec3.atCenterOf(pos));
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		// Contents are dropped by CookingPotBlockEntity#preRemoveSideEffects
+		level.updateNeighbourForOutputSignal(pos, this);
 
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
@@ -205,6 +202,7 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
 		return level instanceof ServerLevel serverLevel ? createTickerHelper(blockEntity, ModBlockEntityTypes.COOKING_POT.get(),
 			(commonLevel, blockPos, blockState, be) -> {

@@ -30,7 +30,7 @@ public class MathUtils
 
 			for (int j = 0; j < handler.size(); ++j) {
 				ItemResource resource = handler.getResource(j);
-				ItemStack stack = resource.toStack();
+				ItemStack stack = resource.toStack(handler.getAmountAsInt(j));
 				if (!stack.isEmpty()) {
 					f += (float) stack.getCount() / (float) Math.min(handler.getCapacityAsInt(j, resource), stack.getMaxStackSize());
 					++i;

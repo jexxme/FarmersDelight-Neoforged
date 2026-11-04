@@ -21,6 +21,7 @@ public class SparkleParticle extends SingleQuadParticle
 		return 15728880;
 	}
 
+	@Override
 	public void tick() {
 		this.xo = this.x;
 		this.yo = this.y;
@@ -45,6 +46,7 @@ public class SparkleParticle extends SingleQuadParticle
 			this.sprites = sprites;
 		}
 
+		@Override
 		public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
 			return new SparkleParticle(level, x, y, z, this.sprites, 0.0F);
 		}

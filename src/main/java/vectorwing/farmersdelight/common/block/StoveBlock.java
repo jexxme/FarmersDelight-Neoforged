@@ -25,11 +25,13 @@ public class StoveBlock extends AbstractStoveBlock
 		super(properties);
 	}
 
+	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new StoveBlockEntity(pos, state);
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		if (level.isClientSide() && state.getValue(LIT)) return createTickerHelper(blockEntityType, ModBlockEntityTypes.STOVE.get(), StoveBlockEntity::particleTick);
 		return createStoveTicker(level, blockEntityType, ModBlockEntityTypes.STOVE.get());

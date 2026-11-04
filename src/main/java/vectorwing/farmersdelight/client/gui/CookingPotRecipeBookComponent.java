@@ -75,4 +75,11 @@ public class CookingPotRecipeBookComponent extends RecipeBookComponent<CookingPo
 			}
 		}
 	}
+
+	/** Used when the recipe book is turned off in the config. */
+	public void forceHide() {
+		if (isVisible()) {
+			setVisible(false);
+		}
+	}
 }

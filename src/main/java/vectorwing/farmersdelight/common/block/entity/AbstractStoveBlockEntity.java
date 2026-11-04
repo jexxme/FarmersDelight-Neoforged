@@ -1,5 +1,6 @@
 package vectorwing.farmersdelight.common.block.entity;
 
+import vectorwing.farmersdelight.common.block.entity.inventory.SafeItemStacksResourceHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -92,18 +93,8 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-		CompoundTag tag = super.getUpdateTag(registries);
-
-		ProblemReporter.Collector reporter = new ProblemReporter.Collector(problemPath());
-		TagValueOutput valueOutput = TagValueOutput.createWithContext(reporter, registries);
-		items.serialize(valueOutput);
-		tag.put("inventory", valueOutput.buildResult());
-
-		if (!reporter.isEmpty()) {
-			FarmersDelight.LOGGER.warn("[{}] Serialization errors:\n{}", FarmersDelight.LOGGER.getName(), reporter.getTreeReport());
-		}
-
-		return tag;
+		// Same layout as the save data, so the client reads it with loadAdditional (which only knows the root "stacks").
+		return saveWithoutMetadata(registries);
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, AbstractStoveBlockEntity stoveEntity) {
@@ -234,17 +225,28 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 		this.setChanged();
 	}
 
+	@Override
 	public void clearContent() {
-		streamItems().forEach((stack) -> stack.setCount(0));
+		// streamItems() returns copies, so the old setCount(0) on them cleared nothing (/setblock still dropped the food)
+		ItemUtils.clearItems(items);
+		java.util.Arrays.fill(cookingProgress, 0);
 	}
 
 	private static ItemStacksResourceHandler createHandler(int slotCount) {
-		return new ItemStacksResourceHandler(slotCount)
+		return new SafeItemStacksResourceHandler(slotCount)
 		{
 			@Override
 			public int getCapacity(int slot, ItemResource resource) {
 				return 1;
 			}
 		};
+	}
+
+	// 26.x: the block entity is already gone in Block#affectNeighborsAfterRemoval, so contents are dropped here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null && !level.isClientSide()) {
+			ItemUtils.dropItems(level, pos, items);
+		}
 	}
 }

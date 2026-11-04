@@ -98,10 +98,7 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof SkilletBlockEntity skillet) {
-			ItemStacksResourceHandler inventory = skillet.getInventory();
-			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), inventory.getResource(0).toStack(inventory.getAmountAsInt(0)));
-		}
+		// Contents are dropped by SkilletBlockEntity#preRemoveSideEffects
 
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
@@ -178,6 +175,7 @@ public class SkilletBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
 		if (level.isClientSide()) {
 			return createTickerHelper(blockEntity, ModBlockEntityTypes.SKILLET.get(), SkilletBlockEntity::animationTick);

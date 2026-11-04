@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -130,11 +131,14 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 	protected InteractionResult tryToPlaceFoodItem(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (isStoveTopCovered(level, pos, state)) return InteractionResult.PASS;
 		if (!(level.getBlockEntity(pos) instanceof AbstractStoveBlockEntity stoveEntity)) return InteractionResult.PASS;
-		if (!(level instanceof ServerLevel)) return InteractionResult.PASS;
+		if (!(level instanceof ServerLevel)) {
+			// Recipes only exist on the server. The client decides with the synced campfire input set, so it consumes the
+			// click like the server does instead of passing it on to the item (which would eat the food).
+			return level.recipeAccess().propertySet(RecipePropertySet.CAMPFIRE_INPUT).test(heldStack) ? InteractionResult.CONSUME : InteractionResult.PASS;
+		}
 
 		var maybeRecipe = stoveEntity.getCookingRecipe(heldStack);
 		if (maybeRecipe.isEmpty()) return InteractionResult.PASS;
-		if (level.isClientSide()) return InteractionResult.CONSUME;
 		boolean placeFoodSuccess = stoveEntity.placeFood(player, player.getAbilities().instabuild ? heldStack.copy() : heldStack, maybeRecipe.get());
 		if (!placeFoodSuccess) return InteractionResult.CONSUME;
 		level.playSound(null, pos, SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 0.5F, 1.0F);
@@ -191,9 +195,7 @@ public abstract class AbstractStoveBlock extends BaseEntityBlock
 
 	@Override
 	public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof AbstractStoveBlockEntity stoveEntity) {
-			ItemUtils.dropItems(level, pos, stoveEntity.getItems());
-		}
+		// Contents are dropped by AbstractStoveBlockEntity#preRemoveSideEffects
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
 
