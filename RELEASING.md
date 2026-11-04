@@ -33,12 +33,22 @@ Stop the server and run `update-jar.bat` first, so the server runs the jar you a
 
 ## 4. Every 26.x branch
 
-- [ ] Every fix made on `26.3` since the last release is ported to `26.2`, `26.1.2` and `26.1.1` (`git log 26.3` vs each branch), and CI is green on all four
+- [ ] Every fix made on `26.3` since the last release is ported to `26.2`, `26.1.2` and `26.1` (`git log 26.3` vs each branch), and CI is green on all four
 - [ ] Each backport jar got a client test too: join, signs, skillet model, JEI (sections 2 and 3, at least once per branch)
 
 ## 5. Publish
 
-- [ ] All four jars share one version, so each upload gets exactly its own Minecraft versions: the `26.1.1` jar is for 26.1 and 26.1.1, the `26.1.2` jar only for 26.1.2, and so on
-- [ ] Bump `mod_version` in `gradle.properties` (`<upstream version>+neoforged.<n>`) and add an entry to `changelog.md`
-- [ ] Tag the commit (`v26.3-<mod_version>`) and attach the CI-built jar (`build/libs/FarmersDelight-Neoforged-*.jar`)
-- [ ] Modrinth/CurseForge page: says it is a continuation of vectorwing's Farmer's Delight under MIT, that it is **not** the official mod, and links the original
+The release workflow (`.github/workflows/release.yml`) does the uploading. On each branch:
+
+- [ ] Bump `mod_version` in `gradle.properties` (`<upstream version>+neoforged.<n>`, the same on every branch) and add
+      the entry at the top of `changelog.md`: that section becomes the release notes
+- [ ] `release_game_versions` lists exactly the Minecraft versions this jar runs on (`26.1` branch: `26.1,26.1.1`)
+- [ ] Tag and push: `git tag <minecraft_version>-<mod_version>` (e.g. `26.3-1.3.3+neoforged.1`), then `git push origin <tag>`.
+      The workflow refuses a tag that doesn't match `gradle.properties`, builds and tests again, then publishes
+
+Once, before the first release:
+
+- [ ] Create the Modrinth and CurseForge projects. Their pages say it is a continuation of vectorwing's Farmer's Delight
+      under MIT, that it is **not** the official mod, and link the original
+- [ ] In the GitHub repository settings, add the variables `MODRINTH_PROJECT_ID` and `CURSEFORGE_PROJECT_ID` and the
+      secrets `MODRINTH_TOKEN` and `CURSEFORGE_TOKEN`. Without them the workflow only makes the GitHub release
