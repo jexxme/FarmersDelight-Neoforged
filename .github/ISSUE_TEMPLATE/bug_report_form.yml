@@ -6,29 +6,29 @@ body:
       value: |
         Please fill out the form below to describe your issue.
         Keep in mind that this board is **only for issues**! If you have a **suggestion** (ideas, integration etc.), please use the **Discussions** tab instead.
+        This tracker is for **Farmer's Delight Neoforged** (Minecraft 26.x). For the original Farmer's Delight, use vectorwing's tracker.
   - type: input
     id: minecraft_version
     attributes:
       label: Minecraft version
       placeholder: | 
-        Example: 1.19
+        Example: 26.3
     validations:
       required: true
   - type: input
     id: fd_version
     attributes:
-      label: Farmer's Delight version
+      label: Farmer's Delight Neoforged version
       placeholder: | 
-        Example: 1.2
+        Example: 1.3.3+neoforged.1 (from the file name or the mod list)
     validations:
       required: true
   - type: input
     id: forge_version
     attributes:
       label: NeoForge version
-      description: "For issues regarding the Fabric port, go to: https://github.com/MehVahdJukaar/FarmersDelightRefabricated/issues"
       placeholder: | 
-        Example: 21.0.160
+        Example: 26.3.0.101
     validations:
       required: true
   - type: textarea
