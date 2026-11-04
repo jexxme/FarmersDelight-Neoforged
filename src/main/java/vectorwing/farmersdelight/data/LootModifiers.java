@@ -119,7 +119,7 @@ public class LootModifiers extends GlobalLootModifierProvider
 	}
 
 	private AddTableLootModifier addNewLootPool(ResourceKey<LootTable> lootToAddTo, ResourceKey<LootTable> newPool) {
-		return new AddTableLootModifier(all(LootTableIdCondition.builder(lootToAddTo.identifier())), IGlobalLootModifier.DEFAULT_PRIORITY, newPool);
+		return new AddTableLootModifier(all(LootTableIdCondition.builder(lootToAddTo.identifier())), newPool);
 	}
 
 	private LootItemCondition.Builder anyEntity(HolderGetter<EntityType<?>> entityTypes, EntityType<?>... entity) {

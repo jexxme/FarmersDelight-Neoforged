@@ -30,9 +30,8 @@ public class FDAddTableLootModifier extends AddTableLootModifier
 
 	private final ResourceKey<LootTable> lootTable;
 
-	protected FDAddTableLootModifier(LootItemCondition[] conditionsIn,
- int priority, ResourceKey<LootTable> lootTable) {
-		super(conditionsIn, priority, lootTable);
+	protected FDAddTableLootModifier(LootItemCondition[] conditionsIn, ResourceKey<LootTable> lootTable) {
+		super(conditionsIn, lootTable);
 		this.lootTable = lootTable;
 	}
 

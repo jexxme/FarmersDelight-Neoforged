@@ -38,7 +38,6 @@ public class ModBlockEntityTypes
 			ModBlocks.CHERRY_CABINET.get(),
 			ModBlocks.PALE_OAK_CABINET.get(),
 			ModBlocks.CRIMSON_CABINET.get(),
-
 			ModBlocks.WARPED_CABINET.get())
 	);
 	public static final Supplier<BlockEntityType<CanvasSignBlockEntity>> CANVAS_SIGN = TILES.register("canvas_sign",

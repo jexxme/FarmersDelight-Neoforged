@@ -35,16 +35,13 @@ public class ReplaceItemModifier extends LootModifier
 	/**
 	 * This loot modifier removes all instances of the specified item, replacing it by another specified addition.
 	 */
-	public ReplaceItemModifier(LootItemCondition[] conditions, int priority, Item removedItem, Item addedItem, int addedCount) {
-		super(conditions, priority);
+	public ReplaceItemModifier(LootItemCondition[] conditions, Item removedItem, Item addedItem, int addedCount) {
+		super(conditions);
 		this.removedItem = removedItem;
 		this.addedItem = addedItem;
 		this.addedCount = addedCount;
 	}
 
-	public ReplaceItemModifier(LootItemCondition[] conditions, Item removedItem, Item addedItem, int addedCount) {
-		this(conditions, IGlobalLootModifier.DEFAULT_PRIORITY, removedItem, addedItem, addedCount);
-	}
 
 	@Override
 	protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {

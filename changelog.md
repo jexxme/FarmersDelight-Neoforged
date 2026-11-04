@@ -1,3 +1,10 @@
+## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.1 and 26.1.1)
+
+- Build of the 26.1.2 backport for Minecraft 26.1 / 26.1.1 (NeoForge 26.1.0.x / 26.1.1.x, beta builds only).
+- These NeoForge versions have no loot modifier priority and no 3-argument `ModifyDefaultComponentsEvent#modify`,
+  and need the `neoforge:global_loot_modifiers` list, so the 26.1.2 jar can't run on them.
+- Compiled against 26.1.1; tested on 26.1.1 and, with the same classes, on 26.1.
+
 ## Farmer's Delight Neoforged 1.3.3+neoforged.1 (Minecraft 26.1.2)
 
 - Backport of the 26.2/26.3 builds to Minecraft 26.1.2 / NeoForge 26.1.2.126: same content, fixes and GameTests.

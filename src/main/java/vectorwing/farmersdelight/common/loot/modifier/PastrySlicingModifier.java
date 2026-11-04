@@ -38,14 +38,11 @@ public class PastrySlicingModifier extends LootModifier
 	 * If the block is a PieBlock, it drops up to 4 slices.
 	 * Otherwise, this does nothing.
 	 */
-	public PastrySlicingModifier(LootItemCondition[] conditions, int priority, Item pastrySlice) {
-		super(conditions, priority);
+	public PastrySlicingModifier(LootItemCondition[] conditions, Item pastrySlice) {
+		super(conditions);
 		this.pastrySlice = pastrySlice;
 	}
 
-	public PastrySlicingModifier(LootItemCondition[] conditions, Item pastrySlice) {
-		this(conditions, IGlobalLootModifier.DEFAULT_PRIORITY, pastrySlice);
-	}
 
 	@Nonnull
 	@Override
