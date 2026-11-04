@@ -15,15 +15,9 @@ cutting boards, new crops, rich soil, meals and feasts.
 | 26.1.2 | 26.1.2.126+ | `26.1.2` |
 | 26.1, 26.1.1 | 26.1.0.19-beta to 26.1.1 (betas) | `26.1.1` |
 
-Minecraft and NeoForge changed too many APIs within 26.x for one jar, so each row has its own branch and jar
-(`FarmersDelight-Neoforged-<minecraft>-<version>.jar`). All of them need Java 25 and carry the same version
-and fixes. Recipes and tags that use blocks only found in Minecraft 26.3 (poplar wood, shelf mushrooms, wool
-slabs and stairs) are only in the 26.3 build.
-
-Versions follow the Farmer's Delight content version plus a build number, and the mod ID stays
-`farmersdelight`, so existing worlds and add-ons keep working. It can't be installed alongside another
-Farmer's Delight build. JEI is supported. EMI and CraftTweaker support return once those mods are
-released for 26.x.
+One jar per row, Java 25. The mod ID stays `farmersdelight`, so existing worlds and add-ons keep working;
+don't install it next to another Farmer's Delight build. JEI is supported, EMI and CraftTweaker follow once
+they're on 26.x.
 
 ## Building
 
