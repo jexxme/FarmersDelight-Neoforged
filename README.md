@@ -1,33 +1,28 @@
-# Farmer's Delight Neoforged
+<p align="center"><img src="branding/banner.png" width="320" alt="Farmer's Delight Neoforged"></p>
 
-A maintained NeoForge continuation of [Farmer's Delight](https://www.curseforge.com/minecraft/mc-mods/farmers-delight)
-by **vectorwing**, a cozy farming and cooking expansion for Minecraft: cooking pots, stoves, skillets,
+<p align="center">
+A maintained NeoForge continuation of <a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight">Farmer's Delight</a>
+by <b>vectorwing</b>, a cozy farming and cooking expansion for Minecraft: cooking pots, stoves, skillets,
 cutting boards, new crops, rich soil, meals and feasts.
+</p>
+
+<p align="center"><b>Minecraft 26.1 – 26.3</b> · NeoForge · Java 25</p>
 
 > Independent project by **Jexxme**, not affiliated with or endorsed by vectorwing.
 > Please report bugs here, not on the original Farmer's Delight tracker or
 > [Discord](https://discord.gg/eFsz5SK).
 
-| Minecraft | NeoForge | Branch |
-|---|---|---|
-| 26.3 | 26.3.0.101+ | `26.3` |
-| 26.2 | 26.2.0.93+ | `26.2` |
-| 26.1.2 | 26.1.2.126+ | `26.1.2` |
-| 26.1, 26.1.1 | 26.1.0.19-beta to 26.1.1 (betas) | `26.1.1` |
+## Download
 
-One jar per row, Java 25. The mod ID stays `farmersdelight`, so existing worlds and add-ons keep working;
-don't install it next to another Farmer's Delight build. JEI is supported, EMI and CraftTweaker follow once
-they're on 26.x.
+Get it from the [releases](../../releases) and pick the file for your Minecraft version (it's in the file name).
 
-## Building
+The mod ID stays `farmersdelight`, so existing worlds and add-ons keep working; don't install it next to another
+Farmer's Delight build. JEI is supported, EMI and CraftTweaker follow once they're on 26.x.
 
-JDK 21+ for Gradle; a JDK 25 toolchain is downloaded automatically.
+## Contributing
 
-```bash
-./gradlew build             # jar in build/libs/
-./gradlew runData           # regenerate src/generated/resources
-./gradlew runGameTestServer # automated in-world tests
-```
+Bug reports and pull requests are welcome. Building, testing and how the Minecraft versions are maintained:
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Credits
 
