@@ -273,6 +273,7 @@ public class SkilletItem extends BlockItem
 		return Optional.empty();
 	}
 
+	@Override
 	public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {
 		if (!level.isClientSide() && state.getDestroySpeed(level, pos) != 0.0F) {
 			stack.hurtAndBreak(1, entity, EquipmentSlot.MAINHAND);

@@ -93,6 +93,7 @@ public class ItemAbilityIngredient implements ICustomIngredient
 		return itemAbility;
 	}
 
+	@Override
 	public IngredientType<?> getType() {
 		return ModIngredientTypes.ITEM_ABILITY_INGREDIENT.get();
 	}

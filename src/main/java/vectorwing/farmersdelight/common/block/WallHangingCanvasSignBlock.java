@@ -20,6 +20,7 @@ public class WallHangingCanvasSignBlock extends WallHangingSignBlock implements 
 	}
 
 	@Nullable
+	@Override
 	public DyeColor getBackgroundColor() {
 		return this.backgroundColor;
 	}

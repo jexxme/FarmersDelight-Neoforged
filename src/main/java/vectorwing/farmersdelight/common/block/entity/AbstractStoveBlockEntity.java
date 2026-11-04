@@ -234,6 +234,7 @@ public abstract class AbstractStoveBlockEntity extends BlockEntity implements Cl
 		this.setChanged();
 	}
 
+	@Override
 	public void clearContent() {
 		streamItems().forEach((stack) -> stack.setCount(0));
 	}

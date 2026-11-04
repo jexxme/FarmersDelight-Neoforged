@@ -135,6 +135,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 			.setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
 	}
 
+	@Override
 	public boolean useShapeForLightOcclusion(BlockState state) {
 		return true;
 	}
@@ -171,6 +172,7 @@ public class BasketBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 	}
 
 	@Nullable
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level.isClientSide() ? null : createTickerHelper(blockEntityType, ModBlockEntityTypes.BASKET.get(), BasketBlockEntity::pushItemsTick);
 	}
