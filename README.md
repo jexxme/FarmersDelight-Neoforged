@@ -40,7 +40,7 @@ cutting boards, new crops, rich soil, meals and feasts.
 3. Coming from the original Farmer's Delight? Remove it first. Worlds and add-ons keep working, because the mod ID
    stays `farmersdelight`.
 
-Works with JEI, REI and AppleSkin. EMI and CraftTweaker follow once they're on 26.x.
+Works with JEI, REI (Minecraft 26.1.2 and newer) and AppleSkin. EMI and CraftTweaker follow once they're on 26.x.
 
 ## Contributing
 
