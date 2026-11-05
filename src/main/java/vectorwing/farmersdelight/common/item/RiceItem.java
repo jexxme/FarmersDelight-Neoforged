@@ -24,7 +24,7 @@ public class RiceItem extends BlockItem
 		if (result.equals(InteractionResult.FAIL)) {
 			Player player = context.getPlayer();
 			BlockState targetState = context.getLevel().getBlockState(context.getClickedPos());
-			if (player != null && context.getClickedFace().equals(Direction.UP) && (targetState.is(BlockTags.DIRT) || targetState.getBlock() instanceof FarmlandBlock)) {
+			if (player != null && context.getClickedFace().equals(Direction.UP) && (targetState.is(BlockTags.SUBSTRATE_OVERWORLD) || targetState.getBlock() instanceof FarmlandBlock)) {
 				player.sendOverlayMessage(TextUtils.block("rice.invalid_placement"));
 			}
 		}
