@@ -87,7 +87,7 @@ public class RiceBlock extends BushBlock implements BonemealableBlock, LiquidBlo
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.DIRT);
+		return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.SUBSTRATE_OVERWORLD);
 	}
 
 	public IntegerProperty getAgeProperty() {
