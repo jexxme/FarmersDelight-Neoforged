@@ -2,7 +2,7 @@ package vectorwing.farmersdelight.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
+
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -13,7 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -123,20 +123,9 @@ public class PieBlock extends Block
 		if (!player.canEat(false)) {
 			return InteractionResult.PASS;
 		} else {
+			// Feeds the player and applies the slice's effects through its Consumable component (no separate eat()).
 			ItemStack sliceStack = this.getPieSliceItem();
-
-			FoodProperties sliceFood = sliceStack.get(DataComponents.FOOD);
-			if (sliceFood != null) {
-				player.getFoodData().eat(sliceFood);
-			}
-
-			// TODO: Seems you can just call this now. See if this is equivalent, now that we have two foodstuff components.
 			sliceStack.finishUsingItem(level, player);
-//			for (ConsumeEffect effect : sliceEffects.onConsumeEffects()) {
-//				if (!level.isClientSide() && level.getRandom().nextFloat() < effect.probability()) {
-//					player.addEffect(effect.effect());
-//				}
-//			}
 
 			int bites = state.getValue(BITES);
 			if (bites < getMaxBites() - 1) {
