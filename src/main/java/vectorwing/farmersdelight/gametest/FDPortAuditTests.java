@@ -25,6 +25,8 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
@@ -77,7 +79,9 @@ public final class FDPortAuditTests
 		test("wild_crop_features_generate_on_grass_and_sand", BIG_STRUCTURE, FDPortAuditTests::wildCropFeaturesGenerate);
 		test("rice_plants_on_overworld_substrates", BIG_STRUCTURE, FDPortAuditTests::ricePlantsOnOverworldSubstrates);
 		test("pie_slice_feeds_once", STRUCTURE, FDPortAuditTests::pieSliceFeedsOnce);
-		test("pistons_do_not_duplicate_food_blocks", BIG_STRUCTURE, FDPortAuditTests::pistonsDoNotDuplicateFoodBlocks);
+		test("pistons_pop_feasts_and_pies", BIG_STRUCTURE, FDPortAuditTests::pistonsPopFeastsAndPies);
+		test("pie_and_cake_slices_are_fast_food", STRUCTURE, FDPortAuditTests::pieAndCakeSlicesAreFastFood);
+		test("knives_and_skillet_lose_one_durability_per_hit", STRUCTURE, FDPortAuditTests::knivesAndSkilletLoseOneDurabilityPerHit);
 		test("chest_loot_respects_config", STRUCTURE, FDPortAuditTests::chestLootRespectsConfig);
 		test("knife_loot_needs_a_knife", STRUCTURE, FDPortAuditTests::knifeLootNeedsAKnife);
 		test("skillet_item_places_on_stove", STRUCTURE, FDPortAuditTests::skilletItemPlacesOnStove);
@@ -236,74 +240,109 @@ public final class FDPortAuditTests
 			FoodProperties food = slice.get(DataComponents.FOOD);
 			int expected = Math.min(20, 2 + (food == null ? 0 : food.nutrition()));
 			int actual = player.getFoodData().getFoodLevel();
+			Consumable consumable = slice.get(DataComponents.CONSUMABLE);
+			boolean hasEffects = consumable != null && !consumable.onConsumeEffects().isEmpty();
 			if (!result.consumesAction()) {
 				problems.add(name(pie) + ": eating a slice did nothing (" + result + ")");
 			} else if (actual != expected) {
 				problems.add(name(pie) + ": food went 2 -> " + actual + ", one slice should give " + expected);
+			} else if (hasEffects && player.getActiveEffects().isEmpty()) {
+				problems.add(name(pie) + ": eating a slice did not apply the slice's effects");
 			}
+			player.removeAllEffects();
 			x += 2;
 		}
 		finish(helper, problems);
 	}
 
-	// ------------------------------------------------------------------ piston dupe (upstream #1382, fixed in 1.3.4)
+	// ------------------------------------------------------------------ pistons (upstream #1382, fixed in 1.3.4)
 
 	/**
-	 * A sticky piston pushes and pulls every feast and pie back and forth, with full floor, floor only at the start and
-	 * floor only at the target. Afterwards each lane may hold at most one of the food (as block or dropped item).
+	 * Feasts and pies have to pop when a piston pushes them (upstream 1.3.4); moving them could duplicate food (#1382).
+	 * Each food gets its own lane, so afterwards the block has to be gone and at most one of it may lie around as an item.
 	 */
-	private static void pistonsDoNotDuplicateFoodBlocks(GameTestHelper helper) {
+	private static void pistonsPopFeastsAndPies(GameTestHelper helper) {
 		List<Block> foods = new ArrayList<>();
 		for (Block block : BuiltInRegistries.BLOCK) {
 			if ((block instanceof FeastBlock || block instanceof PieBlock) && BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(FarmersDelight.MODID)) {
 				foods.add(block);
 			}
 		}
-		record Lane(Block food, int x, int z, int floorMode) {
-		}
-		List<Lane> lanes = new ArrayList<>();
-		int i = 0;
-		for (Block food : foods) {
-			for (int floorMode = 0; floorMode < 3; floorMode++) {
-				int x = (i % 6) * 5;
-				int z = (i / 6) * 6;
-				lanes.add(new Lane(food, x, z, floorMode));
-				i++;
+		List<BlockPos> pistons = new ArrayList<>();
+		for (int i = 0; i < foods.size(); i++) {
+			BlockPos piston = new BlockPos((i % 7) * 4, 2, (i / 7) * 5);
+			for (int dz = 0; dz <= 2; dz++) {
+				helper.setBlock(piston.south(dz).below(), Blocks.STONE);
 			}
-		}
-		for (Lane lane : lanes) {
-			BlockPos piston = new BlockPos(lane.x(), 2, lane.z());
-			helper.setBlock(piston, Blocks.STICKY_PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.SOUTH));
-			helper.setBlock(piston.below(), Blocks.STONE);
-			// floor: 0 = under start and target, 1 = only under start, 2 = only under target
-			if (lane.floorMode() != 2) helper.setBlock(piston.south().below(), Blocks.STONE);
-			if (lane.floorMode() != 1) helper.setBlock(piston.south(2).below(), Blocks.STONE);
-			helper.setBlock(piston.south(), lane.food().defaultBlockState());
+			helper.setBlock(piston, Blocks.PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.SOUTH));
+			helper.setBlock(piston.south(), foods.get(i).defaultBlockState());
+			pistons.add(piston);
 		}
 		helper.startSequence()
-			.thenExecuteAfter(5, () -> lanes.forEach(l -> helper.setBlock(new BlockPos(l.x() + 1, 2, l.z()), Blocks.REDSTONE_BLOCK)))
-			.thenExecuteAfter(10, () -> lanes.forEach(l -> helper.setBlock(new BlockPos(l.x() + 1, 2, l.z()), Blocks.AIR)))
-			.thenExecuteAfter(10, () -> lanes.forEach(l -> helper.setBlock(new BlockPos(l.x() + 1, 2, l.z()), Blocks.REDSTONE_BLOCK)))
-			.thenExecuteAfter(10, () -> lanes.forEach(l -> helper.setBlock(new BlockPos(l.x() + 1, 2, l.z()), Blocks.AIR)))
+			.thenExecuteAfter(5, () -> pistons.forEach(piston -> helper.setBlock(piston.east(), Blocks.REDSTONE_BLOCK)))
 			.thenExecuteAfter(15, () -> {
 				List<String> problems = new ArrayList<>();
-				for (Lane lane : lanes) {
-					int count = 0;
-					for (int dz = 0; dz <= 4; dz++) {
-						if (helper.getBlockState(new BlockPos(lane.x(), 2, lane.z() + dz)).is(lane.food())) count++;
+				for (int i = 0; i < foods.size(); i++) {
+					Block food = foods.get(i);
+					BlockPos piston = pistons.get(i);
+					for (int dz = 1; dz <= 2; dz++) {
+						if (helper.getBlockState(piston.south(dz)).is(food)) {
+							problems.add(name(food) + " was " + (dz == 1 ? "not pushed" : "moved instead of popping"));
+						}
 					}
-					Item item = lane.food().asItem();
-					AABB box = new AABB(helper.absolutePos(new BlockPos(lane.x(), 0, lane.z()))).inflate(1.9, 3, 0).expandTowards(0, 0, 5);
-					for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, box)) {
-						if (entity.getItem().is(item)) count += entity.getItem().getCount();
+					int items = 0;
+					AABB lane = new AABB(helper.absolutePos(piston)).expandTowards(0, 0, 3).inflate(1.5, 2, 0.5);
+					for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, lane)) {
+						if (entity.getItem().is(food.asItem())) items += entity.getItem().getCount();
 					}
-					if (count > 1) {
-						problems.add(name(lane.food()) + " x" + count + " (floor mode " + lane.floorMode() + ")");
+					if (items > 1) {
+						problems.add(name(food) + " dropped " + items + " times");
 					}
 				}
 				helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(BlockPos.ZERO)).inflate(40)).forEach(ItemEntity::discard);
 				finish(helper, problems);
 			});
+	}
+
+	// ------------------------------------------------------------------ slices and weapons (adversarial review of this port)
+
+	/** Pie and cake slices are fast food (16 ticks) as in 1.21; a 26.x Consumable defaults to 32 ticks. */
+	private static void pieAndCakeSlicesAreFastFood(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+		List<Item> slices = new ArrayList<>(List.of(ModItems.CAKE_SLICE.get()));
+		for (Block pie : List.of(ModBlocks.APPLE_PIE.get(), ModBlocks.SWEET_BERRY_CHEESECAKE.get(), ModBlocks.CHOCOLATE_PIE.get(), ModBlocks.PUMPKIN_PIE.get())) {
+			slices.add(((PieBlock) pie).getPieSliceItem().getItem());
+		}
+		for (Item slice : slices) {
+			int ticks = new ItemStack(slice).getUseDuration(player);
+			if (ticks != 16) {
+				problems.add(BuiltInRegistries.ITEM.getKey(slice).getPath() + " takes " + ticks + " ticks to eat, expected 16");
+			}
+		}
+		finish(helper, problems);
+	}
+
+	/**
+	 * In 1.21 a hit cost a knife or the skillet 1 durability. On 26.x the Weapon component damages the item per hit
+	 * by itself, so an extra hurtAndBreak in postHurtEnemy made knives lose 3 and the skillet 2.
+	 */
+	private static void knivesAndSkilletLoseOneDurabilityPerHit(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		Player attacker = helper.makeMockPlayer(GameType.SURVIVAL);
+		Player target = helper.makeMockPlayer(GameType.SURVIVAL);
+		List<Item> weapons = List.of(ModItems.FLINT_KNIFE.get(), ModItems.COPPER_KNIFE.get(), ModItems.IRON_KNIFE.get(), ModItems.GOLDEN_KNIFE.get(),
+			ModItems.DIAMOND_KNIFE.get(), ModItems.NETHERITE_KNIFE.get(), ModItems.SKILLET.get(), Items.IRON_SWORD);
+		for (Item weapon : weapons) {
+			ItemStack stack = new ItemStack(weapon);
+			attacker.setItemInHand(InteractionHand.MAIN_HAND, stack);
+			stack.postHurtEnemy(target, attacker);
+			if (stack.getDamageValue() != 1) {
+				problems.add(BuiltInRegistries.ITEM.getKey(weapon).getPath() + " lost " + stack.getDamageValue() + " durability on one hit, expected 1");
+			}
+		}
+		attacker.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+		finish(helper, problems);
 	}
 
 	// ------------------------------------------------------------------ loot (upstream 1.3.4, BuaichiZY fix2)
