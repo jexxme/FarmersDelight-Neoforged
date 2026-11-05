@@ -103,7 +103,7 @@ public class ModItems
 					Tool.Rule.deniesDrops(holderGetter.getOrThrow(material.incorrectBlocksForDrops())),
 					Tool.Rule.minesAndDrops(holderGetter.getOrThrow(ModTags.Blocks.MINEABLE_WITH_KNIFE), material.speed())
 				), 1.0F, 1, false))
-			.component(DataComponents.WEAPON, new Weapon(2));
+			.component(DataComponents.WEAPON, new Weapon(1));
 	}
 
 	public static Item.Properties foodItem(FoodProperties food) {

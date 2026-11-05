@@ -281,7 +281,7 @@ public class BlockTags extends BlockTagsProvider
 			ModBlocks.PUMPKIN_PIE.get()
 		);
 		fdTag(ModTags.Blocks.TERRAIN)
-			.addTag(net.minecraft.tags.BlockTags.DIRT)
+			.addTag(net.minecraft.tags.BlockTags.SUBSTRATE_OVERWORLD)
 			.addTag(net.minecraft.tags.BlockTags.SAND);
 		fdTag(ModTags.Blocks.STRAW_BLOCKS).add(
 			ModBlocks.ROPE.get(),

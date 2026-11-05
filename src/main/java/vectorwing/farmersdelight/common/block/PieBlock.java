@@ -3,6 +3,7 @@ package vectorwing.farmersdelight.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -13,9 +14,11 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -123,20 +126,16 @@ public class PieBlock extends Block
 		if (!player.canEat(false)) {
 			return InteractionResult.PASS;
 		} else {
+			// Feeds the player once and applies the slice's effects (finishUsingItem would add item-eating sounds and a burp).
 			ItemStack sliceStack = this.getPieSliceItem();
-
 			FoodProperties sliceFood = sliceStack.get(DataComponents.FOOD);
 			if (sliceFood != null) {
 				player.getFoodData().eat(sliceFood);
 			}
-
-			// TODO: Seems you can just call this now. See if this is equivalent, now that we have two foodstuff components.
-			sliceStack.finishUsingItem(level, player);
-//			for (ConsumeEffect effect : sliceEffects.onConsumeEffects()) {
-//				if (!level.isClientSide() && level.getRandom().nextFloat() < effect.probability()) {
-//					player.addEffect(effect.effect());
-//				}
-//			}
+			Consumable sliceConsumable = sliceStack.get(DataComponents.CONSUMABLE);
+			if (sliceConsumable != null && !level.isClientSide()) {
+				sliceConsumable.onConsumeEffects().forEach(effect -> effect.apply(level, sliceStack, player));
+			}
 
 			int bites = state.getValue(BITES);
 			if (bites < getMaxBites() - 1) {

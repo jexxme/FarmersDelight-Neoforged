@@ -243,9 +243,11 @@ public class FoodValues
 			.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, 0)))
 			.build();
 		public static final Consumable CAKE_SLICE = Consumables.defaultFood()
+			.consumeSeconds(0.8F)
 			.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.SPEED, 400, 0, false, false), 1.0F))
 			.build();
 		public static final Consumable PIE_SLICE = Consumables.defaultFood()
+			.consumeSeconds(0.8F)
 			.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.SPEED, 600, 0, false, false), 1.0F))
 			.build();
 		public static final Consumable CHICKEN_CUTS = Consumables.defaultFood()
