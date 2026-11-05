@@ -67,8 +67,11 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 		ItemStack mainHandStack = player.getMainHandItem();
 
 		if (mainHandStack.isEmpty()) {
-			if (cuttingBoard.isEmpty() || level.isClientSide()) {
+			if (cuttingBoard.isEmpty()) {
 				return InteractionResult.CONSUME;
+			}
+			if (level.isClientSide()) {
+				return InteractionResult.SUCCESS; // swing the hand; the server takes the item
 			}
 			ItemStack removedStack = cuttingBoard.removeItem();
 			if (!player.isCreative()) {
@@ -80,7 +83,7 @@ public class CuttingBoardBlock extends BaseEntityBlock implements SimpleWaterlog
 		}
 		if (cuttingBoard.canAddItem(mainHandStack)) {
 			if (level.isClientSide()) {
-				return InteractionResult.CONSUME;
+				return InteractionResult.SUCCESS; // swing the hand; the server places the item
 			}
 			ItemStack remainderStack = cuttingBoard.addItem(player.getAbilities().instabuild ? mainHandStack.copy() : mainHandStack);
 			if (!player.isCreative()) {
