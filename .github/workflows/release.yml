@@ -91,6 +91,7 @@ jobs:
           game-version-filter: none
           dependencies: |
             jei(optional){modrinth:u6dRKJwZ}{curseforge:238222}
+            rei(optional){modrinth:nfn13YXA}{curseforge:310111}
             appleskin(optional){modrinth:EsAfCjCV}{curseforge:248787}
             farmers-delight-original(incompatible){modrinth:R2OftAxM}{curseforge:398521}
           java: 25
@@ -111,6 +112,7 @@ jobs:
           game-version-filter: none
           dependencies: |
             jei(optional){modrinth:u6dRKJwZ}{curseforge:238222}
+            rei(optional){modrinth:nfn13YXA}{curseforge:310111}
             appleskin(optional){modrinth:EsAfCjCV}{curseforge:248787}
             farmers-delight-original(incompatible){modrinth:R2OftAxM}{curseforge:398521}
           java: 25

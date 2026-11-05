@@ -40,7 +40,7 @@ cutting boards, new crops, rich soil, meals and feasts.
 3. Coming from the original Farmer's Delight? Remove it first. Worlds and add-ons keep working, because the mod ID
    stays `farmersdelight`.
 
-Works with JEI and AppleSkin. EMI and CraftTweaker follow once they're on 26.x.
+Works with JEI, REI and AppleSkin. EMI and CraftTweaker follow once they're on 26.x.
 
 ## Contributing
 
@@ -52,7 +52,7 @@ Bug reports and pull requests are welcome. Building, testing and how the Minecra
 - **vectorwing** and all [Farmer's Delight contributors](https://github.com/vectorwing/FarmersDelight/graphs/contributors):
   the original mod, its code, art, sounds and translations.
 - The [Farmer's Delight Refabricated](https://github.com/MehVahdJukaar/FarmersDelightRefabricated) team
-  (MehVahdJukaar, Cassian, AyOhEe and contributors) for the 26.x groundwork.
+  (MehVahdJukaar, Cassian, AyOhEe and contributors) for the 26.x groundwork and the REI integration this port adapts.
 - squeek502 (AppleSkin), the reference for the HUD overlay code.
 - Translation updates from open upstream pull requests: mpustovoi (ru_ru, [#1396](https://github.com/vectorwing/FarmersDelight/pull/1396)),
   mykhailolyzhechko (ry_ua, [#1395](https://github.com/vectorwing/FarmersDelight/pull/1395)),
