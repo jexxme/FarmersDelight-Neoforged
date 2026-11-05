@@ -7,7 +7,7 @@
 - The skillet shows the ingredient (with flip animation) in hand.
 - Fixes for open upstream issues (see docs/UPSTREAM_ISSUES.md):
   rope fences in vanilla fence item tags (#1412), tag-based straw drops `#farmersdelight:drops_straw` (#1411),
-  stoves lit by any fire starter (#1407), farmers compost FD seeds (#1404), `fd_add_table` accepts
+  stoves lit by any fire starter (#1407), farmers compost FD seeds (#1404), `farmersdelight:add_loot_table` accepts
   `lootTable` and `table` (#1391), quick-moving meals awards the crafted stat (#1384).
 - Fixed during the port, found by in-world tests: ingredients not consumed, item loss and duplication in the
   cooking pot, cutting board (tool carving) and skillet, contents lost when blocks break, hoppers, food on
