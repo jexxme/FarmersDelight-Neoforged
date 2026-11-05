@@ -83,8 +83,8 @@
           },
           "z": {
             "type": "minecraft:trapezoid",
-            "max": 3,
-            "min": -3,
+            "max": 6,
+            "min": -6,
             "plateau": 0
           }
         },
