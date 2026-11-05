@@ -201,11 +201,12 @@ public class SkilletItem extends BlockItem
 					//why does it need to play early? idk
 					//plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
 					level.playSound(player, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
-				} else if (level.isClientSide() && level.getRandom().nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
-					level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+				} else if (level.isClientSide() && (level.getRandom().nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3)) {
+					// Client side only: on the client, playSound only plays for the player passed in (null plays nothing).
+					level.playSound(player, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 				}
 			} else if (level.isClientSide() && level.getRandom().nextInt(50) == 0) {
-				level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+				level.playSound(player, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 			}
 		}
 	}
