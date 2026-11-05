@@ -12,6 +12,8 @@ cutting boards, new crops, rich soil, meals and feasts.
 <img src="https://img.shields.io/badge/Java-25-5382a1?style=for-the-badge" alt="Java 25">
 </p>
 
+<p align="center"><img src="https://raw.githubusercontent.com/jexxme/FarmersDelight-Neoforged/26.3/branding/screenshots/hero.jpg" width="720" alt="A cottage kitchen with a vegetable garden, a tomato trellis and a rice paddy at sunset"></p>
+
 > Independent project by **Jexxme**, not affiliated with or endorsed by vectorwing.
 > Please report bugs here, not on the original Farmer's Delight tracker or
 > [Discord](https://discord.gg/eFsz5SK).
