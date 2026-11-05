@@ -118,10 +118,6 @@ public class SkilletItem extends BlockItem
 //		return true;
 //	}
 
-	@Override
-	public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
-	}
 
 	private static boolean isPlayerNearHeatSource(Player player, LevelReader level) {
 		if (player.isOnFire()) {
@@ -199,12 +195,13 @@ public class SkilletItem extends BlockItem
 				} else if (level.isClientSide() && l == FLIP_TIME - 8) {
 					//why does it need to play early? idk
 					//plays instantly right before it lands & on client only so its instant. cant be done in statement above as that might not run fo player as stack is sent when updated
-					level.playSound(player, entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
-				} else if (level.isClientSide() && level.getRandom().nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3) {
-					level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+					level.playLocalSound(entity, ModSounds.BLOCK_SKILLET_ADD_FOOD.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+				} else if (level.isClientSide() && (level.getRandom().nextInt(50) == 0 && l < FLIP_TIME - 8 || l > FLIP_TIME - 3)) {
+					// Client side only, on every client: playLocalSound plays for any player using a skillet, not just the local one.
+					level.playLocalSound(entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 				}
 			} else if (level.isClientSide() && level.getRandom().nextInt(50) == 0) {
-				level.playSound(null, entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+				level.playLocalSound(entity, ModSounds.BLOCK_SKILLET_SIZZLE.get(), SoundSource.PLAYERS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 			}
 		}
 	}

@@ -40,14 +40,8 @@
                   "blocks": "minecraft:air"
                 },
                 {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:dirt",
-                    "minecraft:grass_block",
-                    "minecraft:coarse_dirt",
-                    "minecraft:sand",
-                    "minecraft:red_sand"
-                  ],
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "farmersdelight:terrain",
                   "offset": [
                     0,
                     -1,
@@ -97,14 +91,8 @@
                   "blocks": "minecraft:air"
                 },
                 {
-                  "type": "minecraft:matching_blocks",
-                  "blocks": [
-                    "minecraft:dirt",
-                    "minecraft:grass_block",
-                    "minecraft:coarse_dirt",
-                    "minecraft:sand",
-                    "minecraft:red_sand"
-                  ],
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "farmersdelight:terrain",
                   "offset": [
                     0,
                     -1,

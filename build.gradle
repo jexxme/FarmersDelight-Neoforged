@@ -35,6 +35,14 @@ repositories {
         // EMI
         url = "https://maven.terraformersmc.com/"
     }
+    maven {
+        // REI, Cloth Config and Architectury
+        url = "https://maven.shedaniel.me/"
+        content {
+            includeGroupByRegex(/me\.shedaniel.*/)
+            includeGroup("dev.architectury")
+        }
+    }
 }
 
 base {
@@ -124,10 +132,23 @@ dependencies {
     // Static analysis, see the "Guards" section at the end of this file
     errorprone "com.google.errorprone:error_prone_core:2.52.0"
 
-    // JEI
+    // JEI (in the dev client unless -Prei=true is set; JEI and REI don't share a screen nicely)
     compileOnly "mezz.jei:jei-${jei_minecraft}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${jei_minecraft}-neoforge-api:${jei_version}"
-    localRuntime "mezz.jei:jei-${jei_minecraft}-neoforge:${jei_version}"
+    if (!project.hasProperty('rei')) {
+        localRuntime "mezz.jei:jei-${jei_minecraft}-neoforge:${jei_version}"
+    }
+
+    // REI (optional integration). Run the dev client with -Prei=true to test it.
+    compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}") { transitive = false }
+    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${rei_version}") { transitive = false }
+    compileOnly "dev.architectury:architectury-neoforge:${architectury_version}"
+    compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+    if (project.hasProperty('rei')) {
+        localRuntime "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+        localRuntime "dev.architectury:architectury-neoforge:${architectury_version}"
+        localRuntime "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+    }
 
     // EMI
 //    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
