@@ -17,7 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -155,7 +155,7 @@ public final class FDPortAuditTests
 			new Case("wild_tomatoes", Blocks.GRASS_BLOCK, ModBlocks.WILD_TOMATOES.get()),
 			new Case("wild_cabbages", Blocks.SAND, ModBlocks.WILD_CABBAGES.get()),
 			new Case("wild_beetroots", Blocks.SAND, ModBlocks.WILD_BEETROOTS.get()));
-		var features = level.registryAccess().lookupOrThrow(Registries.FEATURE);
+		var features = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
 		BlockPos center = new BlockPos(16, 1, 16);
 		for (Case c : cases) {
 			// fresh field: ground at y=1, air above
@@ -167,12 +167,12 @@ public final class FDPortAuditTests
 					}
 				}
 			}
-			var holder = features.get(ResourceKey.create(Registries.FEATURE, FarmersDelight.id(c.feature())));
+			var holder = features.get(ResourceKey.create(Registries.CONFIGURED_FEATURE, FarmersDelight.id(c.feature())));
 			if (holder.isEmpty()) {
 				problems.add("feature " + c.feature() + " missing");
 				continue;
 			}
-			Feature feature = holder.get().value();
+			ConfiguredFeature<?, ?> feature = holder.get().value();
 			RandomSource random = RandomSource.create(42L);
 			for (int attempt = 0; attempt < 64; attempt++) { // the placed features run each patch with "count": 64
 				feature.place(level, level.getChunkSource().getGenerator(), random, helper.absolutePos(center.above()));
@@ -348,7 +348,7 @@ public final class FDPortAuditTests
 		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
 		Vec3 origin = Vec3.atCenterOf(helper.absolutePos(new BlockPos(2, 1, 2)));
 
-		LivingEntity pig = EntityTypes.PIG.create(level, EntitySpawnReason.TRIGGERED);
+		LivingEntity pig = EntityType.PIG.create(level, EntitySpawnReason.TRIGGERED);
 		pig.setPos(origin);
 		LootTable pigLoot = level.getServer().reloadableRegistries().getLootTable(pig.getLootTable().orElseThrow());
 		int hamWithKnife = 0;
