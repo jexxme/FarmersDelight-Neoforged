@@ -80,6 +80,9 @@ public final class FDPortAuditTests
 		test("pistons_do_not_duplicate_food_blocks", BIG_STRUCTURE, FDPortAuditTests::pistonsDoNotDuplicateFoodBlocks);
 		test("chest_loot_respects_config", STRUCTURE, FDPortAuditTests::chestLootRespectsConfig);
 		test("knife_loot_needs_a_knife", STRUCTURE, FDPortAuditTests::knifeLootNeedsAKnife);
+		test("skillet_item_places_on_stove", STRUCTURE, FDPortAuditTests::skilletItemPlacesOnStove);
+		test("every_fd_recipe_is_placeable", STRUCTURE, FDPortAuditTests::everyFdRecipeIsPlaceable);
+		test("mature_crops_drop_their_harvest", STRUCTURE, FDPortAuditTests::matureCropsDropTheirHarvest);
 	}
 
 	private FDPortAuditTests() {
@@ -171,7 +174,7 @@ public final class FDPortAuditTests
 			}
 			Feature feature = holder.get().value();
 			RandomSource random = RandomSource.create(42L);
-			for (int attempt = 0; attempt < 8; attempt++) {
+			for (int attempt = 0; attempt < 64; attempt++) { // the placed features run each patch with "count": 64
 				feature.place(level, level.getChunkSource().getGenerator(), random, helper.absolutePos(center.above()));
 			}
 			int placed = 0;
@@ -262,8 +265,8 @@ public final class FDPortAuditTests
 		int i = 0;
 		for (Block food : foods) {
 			for (int floorMode = 0; floorMode < 3; floorMode++) {
-				int x = (i % 10) * 3;
-				int z = (i / 10) * 6;
+				int x = (i % 6) * 5;
+				int z = (i / 6) * 6;
 				lanes.add(new Lane(food, x, z, floorMode));
 				i++;
 			}
@@ -290,7 +293,7 @@ public final class FDPortAuditTests
 						if (helper.getBlockState(new BlockPos(lane.x(), 2, lane.z() + dz)).is(lane.food())) count++;
 					}
 					Item item = lane.food().asItem();
-					AABB box = new AABB(helper.absolutePos(new BlockPos(lane.x(), 0, lane.z()))).inflate(1.2, 3, 0).expandTowards(0, 0, 5);
+					AABB box = new AABB(helper.absolutePos(new BlockPos(lane.x(), 0, lane.z()))).inflate(1.9, 3, 0).expandTowards(0, 0, 5);
 					for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, box)) {
 						if (entity.getItem().is(item)) count += entity.getItem().getCount();
 					}
@@ -374,6 +377,89 @@ public final class FDPortAuditTests
 		if (strawWithKnife == 0) problems.add("grass cut with a knife never dropped straw");
 		if (strawWithoutKnife > 0) problems.add("grass broken by hand dropped straw " + strawWithoutKnife + "x");
 		if (fdFromStone > 0) problems.add("stone mined with a knife dropped FD items " + fdFromStone + "x");
+		finish(helper, problems);
+	}
+
+	// ------------------------------------------------------------------ reports on KN_Yeon's port
+
+	/** "placing a skillet on a stove instantly crashed my game": the skillet item used on a lit stove. */
+	private static void skilletItemPlacesOnStove(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+		BlockPos stove = new BlockPos(2, 1, 2);
+		helper.setBlock(stove, ModBlocks.STOVE.get().defaultBlockState().setValue(vectorwing.farmersdelight.common.block.AbstractStoveBlock.LIT, true));
+		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.SKILLET.get()));
+		player.setShiftKeyDown(true); // skillets are placed while sneaking
+		BlockPos abs = helper.absolutePos(stove);
+		try {
+			ModItems.SKILLET.get().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(abs).add(0, 0.5, 0), Direction.UP, abs, false)));
+		} catch (RuntimeException e) {
+			problems.add("using the skillet on a stove threw " + e);
+		}
+		BlockState placed = helper.getBlockState(stove.above());
+		if (!placed.is(ModBlocks.SKILLET.get())) {
+			problems.add("the skillet was not placed on the stove (" + placed + ")");
+		} else if (placed.getValue(vectorwing.farmersdelight.common.block.SkilletBlock.SUPPORT)) {
+			problems.add("a skillet on a stove got a tray (only fire, lava and campfires give one, as in 1.21)");
+		}
+		// over a campfire it stands on a tray
+		BlockPos campfire = new BlockPos(0, 1, 0);
+		helper.setBlock(campfire, Blocks.CAMPFIRE);
+		BlockPos campAbs = helper.absolutePos(campfire);
+		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.SKILLET.get()));
+		ModItems.SKILLET.get().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(campAbs).add(0, 0.5, 0), Direction.UP, campAbs, false)));
+		BlockState overFire = helper.getBlockState(campfire.above());
+		if (!overFire.is(ModBlocks.SKILLET.get()) || !overFire.getValue(vectorwing.farmersdelight.common.block.SkilletBlock.SUPPORT)) {
+			problems.add("a skillet over a campfire should stand on a tray (" + overFire + ")");
+		}
+		finish(helper, problems);
+	}
+
+	/** "everything exists as items but cannot be crafted": every FD recipe must have ingredients that exist. */
+	private static void everyFdRecipeIsPlaceable(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		int checked = 0;
+		for (var holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
+			if (!holder.id().identifier().getNamespace().equals(FarmersDelight.MODID)) continue;
+			// cutting board recipes have no recipe book, so they are never "placeable"; check the crafting table and cooking pot ones
+			var type = holder.value().getType();
+			if (type != net.minecraft.world.item.crafting.RecipeType.CRAFTING && type != vectorwing.farmersdelight.common.registry.ModRecipeTypes.COOKING.get()) continue;
+			if (holder.value().isSpecial()) continue; // dynamic recipes (food serving, dough from water) have no fixed ingredients
+			checked++;
+			if (holder.value().placementInfo().isImpossibleToPlace()) {
+				problems.add(holder.id().identifier().getPath());
+			}
+		}
+		if (checked < 60) problems.add("only " + checked + " FD crafting/cooking recipes loaded");
+		finish(helper, problems);
+	}
+
+	/** "the crops do not drop when farming": mature crops drop their crop, young ones their seeds. */
+	private static void matureCropsDropTheirHarvest(GameTestHelper helper) {
+		ServerLevel level = helper.getLevel();
+		List<String> problems = new ArrayList<>();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+		Vec3 origin = Vec3.atCenterOf(helper.absolutePos(new BlockPos(2, 1, 2)));
+		record Case(BlockState state, Item expected) {
+		}
+		List<Case> cases = List.of(
+			new Case(ModBlocks.CABBAGE_CROP.get().defaultBlockState().setValue(net.minecraft.world.level.block.CropBlock.AGE, 7), ModItems.CABBAGE.get()),
+			new Case(ModBlocks.CABBAGE_CROP.get().defaultBlockState(), ModItems.CABBAGE_SEEDS.get()),
+			new Case(ModBlocks.ONION_CROP.get().defaultBlockState().setValue(net.minecraft.world.level.block.CropBlock.AGE, 7), ModItems.ONION.get()),
+			new Case(ModBlocks.TOMATO_CROP.get().defaultBlockState().setValue(vectorwing.farmersdelight.common.block.TomatoBlock.VINE_AGE, 3), ModItems.TOMATO.get()),
+			new Case(ModBlocks.RICE_CROP_PANICLES.get().defaultBlockState().setValue(vectorwing.farmersdelight.common.block.RicePaniclesBlock.RICE_AGE, 3), ModItems.RICE_PANICLE.get()),
+			new Case(ModBlocks.WILD_CABBAGES.get().defaultBlockState(), ModItems.CABBAGE_SEEDS.get()),
+			new Case(Blocks.WHEAT.defaultBlockState().setValue(net.minecraft.world.level.block.CropBlock.AGE, 7), net.minecraft.world.item.Items.WHEAT));
+		for (Case c : cases) {
+			LootTable table = level.getServer().reloadableRegistries().getLootTable(c.state().getBlock().getLootTable().orElseThrow());
+			int found = 0;
+			for (int i = 0; i < 20; i++) {
+				found += count(table.getRandomItems(blockParams(level, c.state(), ItemStack.EMPTY, player, origin)), c.expected());
+			}
+			if (found == 0) {
+				problems.add(c.state() + " never dropped " + BuiltInRegistries.ITEM.getKey(c.expected()).getPath());
+			}
+		}
 		finish(helper, problems);
 	}
 
