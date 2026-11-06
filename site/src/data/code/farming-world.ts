@@ -24,6 +24,7 @@ const GROUPS: [string, RegExp][] = [
 	['Coast & rivers', /beach|shore|river/],
 	['Swamps', /swamp/],
 	['Jungles', /jungle/],
+	['Mushroom fields', /mushroom/],
 	['Forests', /forest|grove|garden|taiga|woods/],
 	['Dry lands', /desert|badlands|savanna/],
 	['Mountains', /peaks|hills|meadow|slopes|windswept/],
@@ -36,7 +37,8 @@ export function biomeGroups(ids: string[]): [string, string[]][] {
 		const g = GROUPS.find(([, re]) => re.test(p))?.[0] ?? 'Other';
 		out.set(g, [...(out.get(g) ?? []), id]);
 	}
-	const order = [...GROUPS.map((g) => g[0]), 'Other'];
+	// Oceans and caves last: patches there hardly ever succeed.
+	const order = [...GROUPS.map((g) => g[0]).filter((g) => g !== 'Oceans' && g !== 'Underground'), 'Other', 'Oceans', 'Underground'];
 	return [...out.entries()]
 		.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]))
 		.map(([g, l]) => [g, l.sort((a, b) => (biomes[a]?.name ?? a).localeCompare(biomes[b]?.name ?? b))]);

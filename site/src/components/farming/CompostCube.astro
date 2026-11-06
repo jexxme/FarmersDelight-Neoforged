@@ -1,5 +1,5 @@
 ---
-// The 3x3x3 cube Organic Compost scans each random tick, drawn as three layers (OrganicCompostBlock.randomTick).
+// The 3x3x3 cube Organic Compost looks at each time it tries to compost, drawn as three layers.
 import { compost } from '../../data/code/farming';
 import { pct } from '../../lib/data';
 const r = compost.cube.value;
@@ -39,10 +39,10 @@ const H = n * C + 40;
 		}
 	</svg>
 	<figcaption>
-		<span class="key"><i class="k-on" /> the compost, which counts as an activator itself</span>
-		<span class="key"><i class="k-sun" /> sky light is read one block above each cell</span>
+		<span class="key"><i class="k-on" /> the compost block, which counts as an activator itself</span>
+		<span class="key"><i class="k-sun" /> sunlight is checked just above each cell</span>
 		<span>
-			All {n ** 3} cells count. Every activator adds {pct(compost.activator.value)}; one water cell anywhere adds {pct(compost.waterAdd.value)}; the highest sky light found decides between {pct(compost.skyBright.value)} and {pct(compost.skyDim.value)}.
+			All {n ** 3} blocks count. Each activator adds {pct(compost.activator.value)}, any water adds {pct(compost.waterAdd.value)} once, and sunlight adds {pct(compost.skyBright.value)} (only {pct(compost.skyDim.value)} in the shade).
 		</span>
 	</figcaption>
 </figure>

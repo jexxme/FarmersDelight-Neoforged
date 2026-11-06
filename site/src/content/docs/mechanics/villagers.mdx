@@ -1,115 +1,94 @@
 ---
 title: Villagers & villages
-description: Farmer and wandering trader trades, which Farmer's Delight crops villagers pick up and plant, compost heaps and FD crops in village farms.
+description: What farmers buy and the wandering trader sells, which Farmer's Delight crops villagers plant, and the compost heaps and crops you can find in villages.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
-import Src from '../../../components/mc/Src.astro';
-import Vanilla from '../../../components/farming/Vanilla.astro';
+import Shot from '../../../components/mc/Shot.astro';
 import Chips from '../../../components/farming/Chips.astro';
 import TradeCard from '../../../components/farming/TradeCard.astro';
-import { trades, tags, items, config, nameOf, pct } from '../../../lib/data';
-import { village, villageFarmOdds, vanillaFarmRules, vanillaHousePoolWeight, ruleProcessorSrc, randomMatchSrc, cite } from '../../../data/code/farming';
-import Shot from '../../../components/mc/Shot.astro';
+import { trades, tags, items, nameOf, pct } from '../../../lib/data';
+import { village, villageFarmOdds, vanillaHousePoolWeight } from '../../../data/code/farming';
+import dataMaps from '../../../data/gen/data-maps.json';
 
-export const cfg = (k) => config.find((x) => x.key === k).default;
 export const farmer = (lvl) => trades.filter((t) => t.trader === 'farmer' && t.level === lvl);
 export const wandering = trades.filter((t) => t.trader === 'wandering_trader');
 export const levelName = { 1: 'Novice', 2: 'Apprentice' };
-export const picks = tags.resolved.item['minecraft:villager_picks_up'];
-export const plants = tags.resolved.item['minecraft:villager_plantable_seeds'];
+export const fd = (list) => list.filter((i) => i.startsWith('farmersdelight:'));
+export const picks = fd(tags.resolved.item['minecraft:villager_picks_up']);
+export const plants = fd(tags.resolved.item['minecraft:villager_plantable_seeds']);
+
 export const fdFood = Object.values(items).filter((i) => i.villagerFood);
-export const farms = Object.entries(village.farms.value).flatMap(([kind, v]) => v.lists.map((l) => ({ kind, list: l, odds: villageFarmOdds(l, v.rules) })));
-export const fdCrops = ['cabbages', 'tomatoes', 'onions'];
-export const cropName = { cabbages: 'Cabbage', tomatoes: 'Tomato', onions: 'Onion' };
+export const compostable = Object.keys(dataMaps['neoforge:item/villager_compostables'].values);
+export const cropName = { cabbages: 'cabbages', tomatoes: 'tomatoes', onions: 'onions' };
+export const farmName = (l) => l.replace('farm_', '').replace(/^\w/, (c) => c.toUpperCase());
+export const farmCrops = Object.values(village.farms.value).flatMap((v) => v.lists.map((l) => {
+	const odds = villageFarmOdds(l, v.rules);
+		const intended = v.rules.map((r) => r[2]);
+		return { farm: farmName(l), crops: Object.keys(cropName).filter((c) => (odds[c] ?? 0) > 0).map((c) => cropName[c]), missing: Object.keys(cropName).filter((c) => intended.includes(c) && !(odds[c] > 0)).map((c) => cropName[c]) };
+}));
+export const missing = Object.keys(cropName).map((c) => ({ crop: cropName[c], farms: farmCrops.filter((f) => f.missing.includes(cropName[c])).map((f) => f.farm.toLowerCase()) })).filter((x) => x.farms.length);
+export const and =  (l) => (l.length > 1 ? `${l.slice(0, -1).join(', ')} and ${l[l.length - 1]}` : l[0] ?? '');
 
 <Render name="scenes/garden" size={220} float="right" caption="Crops a farmer might tend" />
 
-Villagers know Farmer's Delight crops. Farmers buy them, the wandering trader sells seeds, villagers pick the crops up and plant them, and villages can generate with compost heaps and cabbage, tomato and onion plots.
+Villagers know Farmer's Delight crops. Farmers buy them, the wandering trader sells the seeds, farmers plant them in their fields, and villages can come with a compost heap.
 
-<Shot src="mechanics/village-compost.jpg" caption="The plains compost pile, one of the houses villages can generate: organic compost and rich soil in a fenced pen beside a small shed." />
+## Trading
 
-## Trades
+### Farmers
 
-Trades are data files added to the vanilla trade tags. Each group can be switched off in the config; both are on by default.
-
-### Farmer
-
-Farmers **buy** crops for emeralds (`enableFarmerFDTrades`: {String(cfg('enableFarmerFDTrades'))}):
+Farmers **buy** Farmer's Delight crops for emeralds, a handy way to turn a surplus into money.
 
 {[1, 2].map((lvl) => (
 	<div>
-		<p class="fd-kicker" style="margin:1rem 0 0.2rem">{levelName[lvl]} (level {lvl})</p>
+		<p class="fd-kicker" style="margin:1rem 0 0.2rem">{levelName[lvl]} farmer</p>
 		{farmer(lvl).map((t) => <TradeCard id={t.id} />)}
 	</div>
 ))}
 
 ### Wandering trader
 
-The wandering trader **sells** seeds and plantables (`enableWanderingTraderFDTrades`: {String(cfg('enableWanderingTraderFDTrades'))}). Each offer can be used {wandering[0].maxUses} time{wandering[0].maxUses === 1 ? '' : 's'} before it locks:
+The wandering trader **sells** seeds, a good way to get your first ones. Each offer can be used {wandering[0].maxUses} time{wandering[0].maxUses === 1 ? '' : 's'}.
 
 {wandering.map((t) => <TradeCard id={t.id} />)}
 
-<Src path="src/generated/resources/data/minecraft/tags/villager_trade/farmer/level_1.json" label="farmer/level_1" /> <Src path="src/generated/resources/data/minecraft/tags/villager_trade/farmer/level_2.json" label="farmer/level_2" /> <Src path="src/generated/resources/data/minecraft/tags/villager_trade/wandering_trader/common.json" label="wandering_trader/common" />
+## Farmer villagers
 
-## Farming villagers
+Farmers treat Farmer's Delight crops like wheat:
 
-Farmers handle Farmer's Delight crops like wheat.
-
-- **Pick up** (`#minecraft:villager_picks_up`): <Chips ids={picks.filter((i) => i.startsWith('farmersdelight:'))} compact />
-- **Plant** (`#minecraft:villager_plantable_seeds`): <Chips ids={plants.filter((i) => i.startsWith('farmersdelight:'))} compact /> Rice and rice panicles are picked up but not planted.
-- **Food value** for villager breeding: {fdFood.map((i) => `${i.name} ${i.villagerFood}`).join(', ')} <Src {...cite(village.villagerFood)} />.
-- **Compost** at a composter: farmers may compost <Item id="cabbage_seeds" /> and <Item id="tomato_seeds" /> <Src path="src/generated/resources/data/neoforge/data_maps/item/villager_compostables.json" label="villager_compostables.json" />.
-- **Rich Soil Farmland** counts as farmland: farmers look for any farmland block as a work spot <Src {...cite(village.poi)} />, and it is in `#neoforge:villager_farmlands` <Chips tag="neoforge:villager_farmlands" compact />.
+- **They pick up** <Chips ids={picks} compact />
+- **They plant** <Chips ids={plants} compact /> {picks.includes('farmersdelight:rice') && !plants.includes('farmersdelight:rice') ? 'Rice is picked up but never planted.' : ''}
+- **They work Rich Soil Farmland** like normal farmland, so you can give your village farmers the good soil.
+- **They compost** <Chips ids={compostable} compact /> in a composter.
+- **Breeding.** Villagers share crops as food to breed: {fdFood.map((i) => `${i.name.toLowerCase()} counts as ${i.villagerFood}`).join(', ')}.
 
 ## Villages
 
 ### Compost heaps
 
-While `generateVillageCompostHeaps` is {String(cfg('generateVillageCompostHeaps'))}, a small compost-pile building joins the house pool of each village type <Src {...cite(village.heaps)} />. It holds [Organic Compost](/mechanics/organic-compost/).
+<Shot src="mechanics/village-compost.jpg" caption="The plains compost heap: Organic Compost and Rich Soil in a fenced pen beside a small shed." />
+
+Villages can generate a small compost heap among their houses, with [Organic Compost](/mechanics/organic-compost/) and Rich Soil to take home. How often a building is a compost heap:
 
 <table>
-<thead><tr><th>Village</th><th>Weight added</th><th>Share of the house pool</th></tr></thead>
+<thead><tr><th>Village</th><th>Share of buildings</th></tr></thead>
 <tbody>
 {village.heaps.value.map(([v, w]) => (
-	<tr><td style="text-transform:capitalize">{v}</td><td>{w}</td><td>{pct(w / (vanillaHousePoolWeight.value[v] + w))}</td></tr>
+	<tr><td style="text-transform:capitalize">{v}</td><td>about {pct(w / (vanillaHousePoolWeight.value[v] + w), 0)}</td></tr>
 ))}
 </tbody>
 </table>
 
-The share compares the added weight with the vanilla pool's total weight <Vanilla {...cite(vanillaHousePoolWeight)} />; each house slot of a village draws from that pool.
+### Crops on village farms
 
-### Crops in village farms
+Village farms can grow young Farmer's Delight crops in place of some wheat: {and(farmCrops.map((f) => `${and(f.crops)} in ${f.farm.toLowerCase()} villages`))}.
 
-While `generateFDCropsOnVillageFarms` is {String(cfg('generateFDCropsOnVillageFarms'))}, Farmer's Delight adds a rule processor to the vanilla farm processor lists <Src {...cite(village.farms)} />. It turns some wheat into young cabbages, tomatoes or onions (age 0).
+<Aside type="caution" title="Known issue in 1.3.4">Village farms get far fewer Farmer's Delight crops than intended{missing.length ? `, and ${and(missing.map((m) => `${and(m.farms)} farms never get ${m.crop}`))}` : ''}. Check the farms of several villages, or get seeds from the wandering trader instead.</Aside>
 
-<table>
-<thead><tr><th>Farm</th><th>FD rules (input, chance, crop)</th>{fdCrops.map((c) => <th>{cropName[c]}</th>)}<th>Still wheat</th></tr></thead>
-<tbody>
-{farms.map((f) => (
-	<tr>
-		<td><code>{f.list}</code></td>
-		<td>{village.farms.value[f.kind].rules.map(([i, p, o]) => `${i} ${pct(p, 0)} → ${o}`).join('; ')}</td>
-		{fdCrops.map((c) => <td><span class="fd-val">{pct(f.odds[c] ?? 0)}</span></td>)}
-		<td>{pct(f.odds.wheat ?? 0)}</td>
-	</tr>
-))}
-</tbody>
-</table>
+## Good to know
 
-The percentages are the share of a farm's wheat plots, worked out from the code. They are lower than the raw rule chances, and cabbages never appear in plains or taiga farms, because:
-
-1. The vanilla farm processor runs first and already turns some wheat into carrots, potatoes, beetroots, melons or pumpkins (for example plains: {vanillaFarmRules.value.farm_plains.map(([, p, o]) => `${pct(p, 0)} ${o}`).join(', ')}).
-2. Each rule processor seeds its random numbers from the block position <Vanilla {...cite(ruleProcessorSrc)} />, so the Farmer's Delight processor replays the **same** numbers the vanilla one used. A rule only draws a number when its input block matches, and the first rule that passes wins <Vanilla {...cite(randomMatchSrc)} />.
-3. Wheat that survived the vanilla rule "wheat → carrots, 30%" had a first number of at least 0.3, so the Farmer's Delight rule "wheat → cabbage, 30%", which reads the same first number, can never pass on it.
-
-<Aside type="note">
-This table is computed from the processor code and the vanilla processor lists, treating the position-seeded numbers as evenly spread. It has not been counted in generated villages.
-</Aside>
-
-## Details
-
-- The trade files carry a `farmersdelight:config_enabled` load condition on their config option, so the option decides whether the offer is loaded at all.
-- "Reputation discount" is the `reputation_discount` field of the trade file, used by vanilla's reputation pricing.
+- Server owners can switch off the farmer trades, the wandering trader offers, the compost heaps and the farm crops separately in the [config](/reference/config/). All are on by default.
+- Farmers' prices go up and down with your reputation and demand, like their vanilla trades.

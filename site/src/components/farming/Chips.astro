@@ -1,6 +1,7 @@
 ---
 // A wrap of small item/block chips (icon when one exists, else just the name). For resolved tag contents and lists.
 // <Chips ids={tags.resolved.block['minecraft:substrate_overworld']} />   or   <Chips tag="minecraft:substrate_overworld" />
+// Shows block and item names only; the ids stay out of the page.
 import { tags, nameOf, iconOf, pageOf } from '../../lib/data';
 interface Props {
 	ids?: string[];
@@ -24,7 +25,7 @@ const title = (id: string) => {
 			const href = pageOf(id);
 			const Tag = href ? 'a' : 'span';
 			return (
-				<Tag class="chip" href={href ?? undefined} title={id}>
+				<Tag class="chip" href={href ?? undefined}>
 					{ic && <img src={ic.src} alt="" width="20" height="20" loading="lazy" />}
 					{title(id)}
 				</Tag>

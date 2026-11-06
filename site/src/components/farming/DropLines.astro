@@ -1,0 +1,82 @@
+---
+// What a block drops when broken, as plain lines (no frame). Used inside BlockDrops and WorldgenPanel.
+// Each group is rolled on its own; inside a group with "otherwise" lines only the first one that fits drops.
+import Slot from '../mc/Slot.astro';
+import { nameOf } from '../../lib/data';
+import { dropGroups } from '../../data/code/farming-loot';
+import { blocks } from '../../lib/data';
+interface Props {
+	block: string;
+	pools?: number[];
+}
+const { block, pools } = Astro.props;
+const ages: string[] | undefined = blocks[`farmersdelight:${block}`]?.properties?.age;
+const maxAge = ages ? Math.max(...ages.map(Number)) : undefined;
+const groups = dropGroups(block, maxAge, pools);
+---
+<div class="fd-droplines">
+	{groups.length === 0 && <p class="none">Drops nothing.</p>}
+	{
+		groups.map((g) => (
+			<div class="grp">
+				{g.when && <div class="when">{g.when.charAt(0).toUpperCase() + g.when.slice(1)}:</div>}
+				{g.lines.map((l) => (
+					<div class="row">
+						{l.item ? <Slot id={l.item} count={/^\d+$/.test(l.count) ? +l.count : 1} scale={2} /> : <span class="blank" />}
+						<span class="what">
+							<span class="name">
+								{l.prefix && <span class="else">{l.prefix} </span>}
+								{l.item ? nameOf(l.item) : 'nothing'}
+								{l.item && <span class="num"> ×{l.count}</span>}
+							</span>
+							{l.notes.length > 0 && <span class="meta">{l.notes.join(' · ')}</span>}
+						</span>
+					</div>
+				))}
+			</div>
+		))
+	}
+</div>
+<style>
+	.grp + .grp {
+		border-top: 2px solid var(--fd-border);
+	}
+	.grp {
+		padding: 4px 0;
+	}
+	.when {
+		color: var(--sl-color-gray-3);
+		margin-bottom: 2px;
+	}
+	.row {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 2px 0;
+	}
+	.blank {
+		width: 36px;
+		height: 36px;
+		border: 2px dashed var(--fd-border);
+	}
+	.what {
+		display: flex;
+		flex-direction: column;
+	}
+	.name {
+		color: var(--sl-color-white);
+	}
+	.else {
+		color: var(--sl-color-gray-3);
+	}
+	.num {
+		color: var(--fd-gold);
+	}
+	.meta {
+		color: var(--sl-color-gray-3);
+	}
+	.none {
+		color: var(--sl-color-gray-3);
+		margin: 4px 0 0;
+	}
+</style>

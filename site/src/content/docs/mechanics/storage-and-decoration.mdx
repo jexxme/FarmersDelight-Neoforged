@@ -1,93 +1,84 @@
 ---
 title: Storage & decoration
-description: Cabinets, baskets and their pickup area, crop crates, canvas signs and their text colour, tatami and rugs in Farmer's Delight Neoforged.
+description: Cabinets, item-catching baskets, crop crates and canvas signs in Farmer's Delight Neoforged.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
-import Src from '../../../components/mc/Src.astro';
+import Shot from '../../../components/mc/Shot.astro';
 import RecipeList from '../../../components/recipes/RecipeList.astro';
-import Vanilla from '../../../components/farming/Vanilla.astro';
 import Chips from '../../../components/farming/Chips.astro';
 import BasketDiagram from '../../../components/farming/BasketDiagram.astro';
 import CanvasSigns from '../../../components/farming/CanvasSigns.astro';
 import { items, tags, config, recipes, seconds } from '../../../lib/data';
-import { storage, vanilla, cite } from '../../../data/code/farming';
-import Shot from '../../../components/mc/Shot.astro';
+import { storage } from '../../../data/code/farming';
 
 export const cfg = (k) => config.find((x) => x.key === k);
 export const cabinets = tags.resolved.item['farmersdelight:cabinets'];
 export const woodenFuel = items['farmersdelight:oak_cabinet'].fuel;
 export const noFuel = cabinets.filter((c) => !items[c].fuel);
 export const crateRecipes = recipes.filter((r) => /^farmersdelight:[a-z]+_crate$/.test(r.id)).map((r) => r.id.split(':')[1]);
-export const gated = recipes.filter((r) => /_crate$/.test(r.id) && JSON.stringify(r.conditions ?? '').includes('vanilla_crates')).map((r) => r.result.id);
+export const gated = recipes.filter((r) => /_crate$/.test(r.id) && JSON.stringify(r.conditions ?? '').includes('vanilla_crates')).map((r) => items[r.result.id]?.name).filter(Boolean);
+export const dark = cfg('canvasSignDarkBackgroundList').default.map((c) => c.replaceAll('_', ' '));
 
 <Render name="blocks/oak_cabinet" size={180} float="right" caption="Oak Cabinet" />
 
-Farmer's Delight adds kitchen furniture that also stores things: cabinets in every wood, baskets that catch items, and crates and bags for crops. For decoration there are canvas signs, tatami and rugs.
+Farmer's Delight adds kitchen furniture that also stores things: cabinets in every wood, baskets that catch items, and crates and bags for your harvest. For decoration there are canvas signs, and the straw blocks on [Straw, rope & nets](/mechanics/straw-and-rope/#tatami-and-canvas).
 
 <Shot src="mechanics/cabinets-baskets.jpg" caption="A kitchen storage corner with spruce cabinets, crates of carrots, potatoes, cabbages and onions, a rice bag and baskets." />
 
 ## Cabinets
 
-A cabinet is a {storage.cabinetSlots.value}-slot container with a chest-style menu <Src {...cite(storage.cabinetSlots)} /> <Src {...cite(storage.cabinetMenu)} />. It opens toward you, shows its doors open while someone is looking inside, and plays open and close sounds. There is one per wood:
+A cabinet holds {storage.cabinetSlots.value} stacks, like a single chest. It opens toward you and shows its doors open while someone is looking inside. There is one for every wood:
 
-<Chips ids={cabinets} />
+<Chips ids={cabinets} compact />
 
-- Hoppers and pipes reach it from every side <Src {...cite('common/block/entity/CabinetBlockEntity.java:71-78')} />, and a comparator reads it like a chest <Src {...cite('common/block/CabinetBlock.java:82-85')} />.
-- Opening one angers nearby piglins, like a chest <Src {...cite(storage.cabinetPiglins)} />.
-- Broken, it drops its contents and itself; a custom name is kept.
-- Wooden cabinets burn for {seconds(woodenFuel)}; {noFuel.map((c) => items[c].name).join(' and ')} do not burn.
+Hoppers can fill and empty it from any side, and a comparator reads it like a chest. Breaking it drops what's inside, and a renamed cabinet keeps its name.
 
 <RecipeList ids={['oak_cabinet', 'bamboo_cabinet', 'crimson_cabinet']} />
 
-The other woods follow the same pattern with their own slabs and trapdoors.
+The other woods follow the same recipe with their own slabs and trapdoors.
 
 ## Baskets
 
-<Item id="wooden_basket" /> and <Item id="bamboo_basket" /> hold {storage.basketSlots.value} slots <Src {...cite(storage.basketSlots)} /> and **pick up item entities** in front of their opening. The opening faces you when you place it, so a basket placed while looking down opens upward <Src {...cite(storage.basketFacing)} />.
+<Item id="wooden_basket" /> and <Item id="bamboo_basket" /> hold {storage.basketSlots.value} stacks and **pick up items lying in front of their opening**. The opening faces you when you place it, so a basket placed while you look down opens upward.
 
 <BasketDiagram />
 
-- **Pickup area:** the basket's own block plus one block in the direction it faces <Src {...cite(storage.basketArea)} />.
-- **Speed:** it checks every tick; after a successful pickup it waits {storage.basketCooldown.value} ticks ({seconds(storage.basketCooldown.value)}) <Src {...cite(storage.basketCooldown)} />. Each pickup takes one item entity, as much of the stack as fits <Src {...cite(storage.basketCollect)} />.
-- **Full:** when all slots are full stacks it stops collecting <Src {...cite(storage.basketFull)} />.
-- **Redstone turns it off.** A powered basket does not collect <Src {...cite(storage.basketRedstone)} />. It starts enabled: the `enabled` state is not set on placement and a boolean property's first value is `true` <Src {...cite(storage.basketDefault)} /> <Vanilla {...cite(vanilla.booleanDefault)} />.
-- **It never outputs.** A basket only collects; put a hopper under it to move items on. Hoppers can insert and extract on every side. Inserting into an empty basket also starts the {storage.basketInsert.value}-tick wait <Src {...cite(storage.basketInsert)} />.
-- Baskets are waterloggable, and a comparator reads them like a chest.
+- **What it catches:** items in its own block and in the one block its opening faces.
+- **How fast:** it grabs one dropped stack (as much as fits), then waits {seconds(storage.basketCooldown.value)} before the next.
+- **Off switch:** a redstone signal stops it collecting. A new basket starts switched on.
+- **It never pushes items out.** Put a hopper under it to send items on into a chest.
+- When it's full, it stops collecting. A comparator reads it like a chest.
 
 <RecipeList ids={['wooden_basket', 'bamboo_basket']} />
 
 <Aside type="tip" title="Auto-collecting farm">
-Put a basket facing up under a block where drops land, for example under a slab path where crops are broken, or face it sideways into a water stream's end. Add a hopper below it to pass items into a chest.
+Face a basket up under a spot where drops land, or face it sideways at the end of a water stream that carries your harvest. A hopper below it passes everything on into a chest.
 </Aside>
 
 ## Crates and bags
 
-Crates store nine crops as one block, and craft back into nine. <Item id="rice_bag" />, <Item id="rice_bale" /> and <Item id="straw_bale" /> do the same for rice, rice panicles and straw.
+A crate packs nine crops into one block and crafts back into nine. The <Item id="rice_bag" />, <Item id="rice_bale" /> and <Item id="straw_bale" /> do the same for rice, rice panicles and straw.
 
 <RecipeList ids={[...crateRecipes, 'rice_bag', 'rice_bale']} />
 
-The crates for vanilla crops ({gated.map((g) => items[g]?.name).filter(Boolean).join(', ') || 'carrot, potato and beetroot crates'}) are only craftable while `enableVanillaCropCrates` is {String(cfg('enableVanillaCropCrates').default)} (the default) <Src {...cite(storage.cratesCondition)} />.
+The {gated.slice(0, -1).join(', ')}{gated.length > 1 ? ' and ' : ''}{gated[gated.length - 1]} can be switched off in the [config](/reference/config/), but they're craftable by default.
 
 ## Canvas signs
 
-<Item id="canvas_sign" /> and <Item id="hanging_canvas_sign" /> are signs with a canvas face. Craft one with any dye to colour the background; there are {tags.resolved.item['farmersdelight:canvas_signs'].length} standing and {tags.resolved.item['farmersdelight:hanging_canvas_signs'].length} hanging variants.
+<Item id="canvas_sign" /> and <Item id="hanging_canvas_sign" /> are signs with a canvas face. Craft one with any dye to colour it; there are {tags.resolved.item['farmersdelight:canvas_signs'].length} versions of each, plain one included.
 
 <CanvasSigns />
 
-Signs with a dark background start with **white** text <Src {...cite(storage.signText)} />. Which colours count as dark is the setting `canvasSignDarkBackgroundList` (default {cfg('canvasSignDarkBackgroundList').default.join(', ')}) <Src {...cite(storage.signDark)} />.
+On a dark background ({dark.join(', ')}) the text starts out **white** so you can read it.
 
 <RecipeList ids={['canvas_sign', 'hanging_canvas_sign', 'red_canvas_sign']} />
 
-## Tatami and rugs
+## Good to know
 
-<Item id="tatami" />, the tatami mats and the <Item id="canvas_rug" /> are made from straw and canvas. How tatami pairs up and how mats are placed is on [Straw, rope & nets](/mechanics/straw-and-rope/#tatami).
-
-<RecipeList ids={['tatami', 'full_tatami_mat', 'canvas_rug']} />
-
-## Details
-
-- Baskets and cabinets keep a custom name when broken and support loot tables, so datapacks can fill them.
-- Knives mine the tatami blocks, rugs and the rice bag fast (`#farmersdelight:mineable/knife`).
+- Opening a cabinet angers nearby piglins, just like a chest.
+- Wooden cabinets burn in a furnace for {seconds(woodenFuel)}; {noFuel.map((c) => items[c].name).join(' and ')} don't burn.
+- Baskets can sit in water.
+- Knives break the rice bag quickly.

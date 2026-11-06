@@ -1,4 +1,5 @@
-// Loot tables for the farming pages: loot.json (generated) plus the details it does not carry yet.
+// Loot tables for the farming pages: loot.json (generated) plus the details it does not carry yet, and helpers that
+// put drops and conditions into words for players.
 // scripts/extract.mjs only reads entry-level `modifier`s, so pool-level set_count / apply_bonus (tomatoes, the allium of
 // wild onions) and the parameters of set_damage / enchant_* are taken here from the mod's own loot table files.
 // Once the extractor reads them, `withPoolModifiers` becomes a no-op.
@@ -67,13 +68,59 @@ export function lootTable(id: string): Table {
 	return { pools, type: t.type, source: `src/generated/resources/data/farmersdelight/loot_table/${id.split(':')[1]}.json` };
 }
 
-/** Plain-language version of the condition strings written by the extractor. */
-export function conditionText(c: string): string {
+/**
+ * Player-language version of one condition string written by the extractor ("age = 7 and with #...knives").
+ * `maxAge` turns "age = <max>" into "fully grown" and other ages into "stage N". Parts a player never has to think
+ * about (which half of a double plant, the legacy rope-vine flag) come back as an empty string.
+ */
+export function conditionText(c: string, maxAge?: number): string {
 	return c
-		.replace(/not \(neoforge:can_item_perform_ability\)/g, 'not with shears')
-		.replace(/neoforge:can_item_perform_ability/g, 'with shears')
-		.replace(/with #farmersdelight:tools\/knives/g, 'with a knife')
-		.replace(/half = (lower|upper) and location_check/g, (_m, h) => `${h} half, other half present`)
-		.replace(/ropelogged = false/g, 'not a legacy rope vine')
-		.replace(/\band\b/g, '·');
+		.split(/\s+and\s+/)
+		.map((part) => {
+			const age = part.match(/^age = (\d+)$/);
+			if (age) return maxAge !== undefined && +age[1] === maxAge ? 'fully grown' : `stage ${+age[1] + 1}`;
+			if (/^not \(neoforge:can_item_perform_ability\)$/.test(part)) return 'not with shears';
+			if (/^neoforge:can_item_perform_ability$/.test(part)) return 'with shears';
+			if (/^with #farmersdelight:(tools\/knives|straw_harvesters)$/.test(part)) return 'with a knife';
+			if (/^(half = (lower|upper)|location_check|ropelogged = false)$/.test(part)) return '';
+			return part;
+		})
+		.filter(Boolean)
+		.join(', ');
+}
+
+/** Fortune bonus of a drop, in words. */
+export function fortuneText(f: any): string {
+	if (!f) return '';
+	const pct = (x: number) => `${Math.round(x * 100)}%`;
+	if (f.formula === 'binomial_with_bonus_count') return `plus up to ${f.extra} more (${pct(f.probability)} each); Fortune adds one more try per level`;
+	if (f.formula === 'uniform_bonus_count') return `Fortune adds up to ${f.bonusMultiplier} more per level`;
+	if (f.formula === 'ore_drops') return 'more with Fortune';
+	return 'more with Fortune';
+}
+
+export type DropLine = { item: string | null; count: string; prefix: string | null; notes: string[] };
+export type DropGroup = { when: string | null; lines: DropLine[] };
+/**
+ * A block's drops as plain lines for players. Each group is one pool; inside a group with alternatives only the first
+ * matching line drops ("otherwise ..."). `pools` picks which pools to show (e.g. one half of a double plant).
+ */
+export function dropGroups(block: string, maxAge?: number, pools?: number[]): DropGroup[] {
+	const t = lootTable(`farmersdelight:blocks/${block}`);
+	const count = (c: { min: number; max: number }) => (c.min === c.max ? `${c.min}` : `${c.min}–${c.max}`);
+	return t.pools
+		.filter((_, i) => !pools || pools.includes(i))
+		.map((p) => {
+			const alt = p.entries.some((e) => e.conditions.includes('otherwise'));
+			const when = p.conditions.map((c) => conditionText(c, maxAge)).filter(Boolean).join(', ');
+			return {
+				when: when || null,
+				lines: p.entries.map((e, i) => ({
+					item: e.item ?? null,
+					count: count(e.count),
+					prefix: alt && i > 0 ? 'otherwise' : null,
+					notes: [...e.conditions.filter((c) => c !== 'otherwise').map((c) => conditionText(c, maxAge)), fortuneText(e.fortune), ...(e.details ?? [])].filter(Boolean),
+				})),
+			};
+		});
 }

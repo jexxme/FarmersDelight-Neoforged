@@ -1,6 +1,5 @@
 ---
-// Side view of a basket's pickup area: its own block plus one block in the direction its opening faces (Basket.java).
-// The area boxes are read from Basket.COLLECTION_AREA_SHAPES (in pixels, 16 per block).
+// Side view of a basket's pickup area: its own block plus one block in the direction its opening faces.
 import { renderOf } from '../../lib/data';
 const B = 64;
 const cases = [
@@ -51,7 +50,7 @@ const img = renderOf('blocks/wooden_basket');
 			</marker>
 		</defs>
 	</svg>
-	<figcaption>Shaded: the pickup area. Items lying anywhere in it are pulled in, one item entity at a time.</figcaption>
+	<figcaption>Shaded: the pickup area. Items lying anywhere in it are pulled in, one dropped stack at a time.</figcaption>
 </figure>
 <style>
 	.fd-bk {

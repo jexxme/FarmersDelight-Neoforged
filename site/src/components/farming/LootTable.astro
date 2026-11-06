@@ -1,9 +1,8 @@
 ---
-// One Farmer's Delight chest loot table from loot.json: pools, rolls, item slots, weights as chance bars, counts, item
-// modifiers, the vanilla chest it is injected into (modifiers.json) and the chance a chest has each item at all.
+// One Farmer's Delight chest addition drawn like a chest: each group of picks, item slots, the chance per pick as a bar,
+// counts, the vanilla chest it is added to, and the chance a chest has each item at all.
 // <LootTable id="farmersdelight:chests/fd_shipwreck_supply" />
 import Slot from '../mc/Slot.astro';
-import Src from '../mc/Src.astro';
 import { loot, modifiers, nameOf, pct } from '../../lib/data';
 import { chestName, chestChance } from '../../lib/describe';
 import { lootTable } from '../../data/code/farming-loot';
@@ -14,7 +13,7 @@ const { id } = Astro.props;
 const t = lootTable(id);
 const mod = modifiers.find((m) => m.table === id);
 const target = mod?.target as string | undefined;
-const rolls = (r: { min: number; max: number }) => (r.min === r.max ? `${r.min} roll${r.min === 1 ? '' : 's'}` : `${r.min}–${r.max} rolls`);
+const rolls = (r: { min: number; max: number }) => (r.min === r.max ? (r.min === 1 ? 'picks once' : `picks ${r.min} times`) : `picks ${r.min}–${r.max} times`);
 const count = (c: { min: number; max: number }) => (c.min === c.max ? `${c.min}` : `${c.min}–${c.max}`);
 const items = [...new Set(t.pools.flatMap((p) => p.entries.map((e) => e.item).filter(Boolean)))] as string[];
 const any = items.map((i) => ({ id: i, p: chestChance(loot.chests[id], i).chance }));
@@ -23,11 +22,7 @@ const slug = id.split('/').pop();
 <section class="fd-lt not-content" id={slug}>
 	<header>
 		<span class="name">{chestName(id)}</span>
-		<span class="into">
-			added to <code>{target}</code>
-			<Src path={`src/generated/resources/data/farmersdelight/loot_table/chests/${slug}.json`} label="table" />
-			{mod && <Src path={`src/generated/resources/data/farmersdelight/loot_modifiers/${mod.id.split(':')[1]}.json`} label="modifier" />}
-		</span>
+		{target && <span class="into">on top of the normal loot</span>}
 	</header>
 	<div class="mc-panel gui">
 	<div class="pools">
@@ -35,7 +30,7 @@ const slug = id.split('/').pop();
 			t.pools.map((p, i) => (
 				<div class="pool">
 					<div class="ph">
-						<span>pool {i + 1}</span>
+						<span>{t.pools.length > 1 ? `Group ${i + 1}` : 'Loot'}</span>
 						<span>{rolls(p.rolls)}</span>
 					</div>
 					{p.entries.map((e) => (
@@ -46,7 +41,7 @@ const slug = id.split('/').pop();
 								{e.item && <span class="cnt">×{count(e.count)}</span>}
 								{e.details && e.details.length > 0 && <span class="det">{e.details.join(' · ')}</span>}
 							</span>
-							<span class="bar" title={`weight ${e.weight}`}>
+							<span class="bar">
 								<span style={`width:${e.chance * 100}%`} />
 							</span>
 							<span class="pc">{pct(e.chance, 1)}</span>

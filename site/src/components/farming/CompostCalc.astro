@@ -1,9 +1,7 @@
 ---
-// Organic Compost calculator (island) with its constants from data/code/farming.ts and the source citations.
+// Organic Compost calculator (island) with its constants from data/code/farming.ts.
 import CompostCalc from '../islands/farming-compost';
-import Src from '../mc/Src.astro';
-import Vanilla from './Vanilla.astro';
-import { compost, vanilla, cite } from '../../data/code/farming';
+import { compost, vanilla } from '../../data/code/farming';
 const k = {
 	activator: compost.activator.value,
 	bright: compost.skyBright.value,
@@ -18,10 +16,7 @@ const k = {
 ---
 <figure class="fdc-wrap">
 	<CompostCalc client:visible k={k} />
-	<figcaption>
-		Chance: <Src {...cite(compost.activator)} /> <Src {...cite(compost.skyThreshold)} /> <Src {...cite(compost.waterAdd)} /> <Src {...cite(compost.roll)} />. Timing:
-		<Vanilla {...cite(vanilla.randomTickSpeed)} /> <Vanilla {...cite(vanilla.sectionTick)} />. Times are averages at 20 ticks per second; a single compost block can be much faster or slower.
-	</figcaption>
+	<figcaption>Times are averages. A single compost block can finish much sooner or much later than this; a big pile evens it out.</figcaption>
 </figure>
 <style is:global>
 	.fdc-wrap {

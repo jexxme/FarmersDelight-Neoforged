@@ -1,11 +1,11 @@
 ---
-// What one random tick of Rich Soil does, as three ordered cases (RichSoilBlock.randomTick).
+// What Rich Soil does each time it gets a turn, as three ordered cases.
 import { renderOf, config, pct } from '../../lib/data';
 const boost = config.find((c) => c.key === 'richSoilBoostChance').default as number;
 const steps = [
-	{ img: 'stages/brown_mushroom_colony-0', head: 'Mushroom above', text: 'A brown or red mushroom on top becomes a mushroom colony. Always, no roll, no light check. The tick ends here.' },
-	{ img: 'stages/cabbages-4', head: 'Plant above', text: `Otherwise, with chance ${pct(boost, 0)}: one bone meal growth for the plant on top, if it accepts bone meal right now.` },
-	{ img: 'blocks/rich_soil', head: 'Plant below', text: 'If nothing above was boosted: the same bone meal goes to cave vines hanging under the soil.' },
+	{ img: 'stages/brown_mushroom_colony-0', head: 'Mushroom above', text: 'A brown or red mushroom on top turns into a mushroom colony. Every time, in any light.' },
+	{ img: 'stages/cabbages-4', head: 'Plant above', text: `Otherwise, ${pct(boost, 0)} of the time: a free bone meal for the plant on top, if bone meal would work on it right now.` },
+	{ img: 'blocks/rich_soil', head: 'Plant below', text: 'If nothing on top got it: the same free bone meal goes to cave vines hanging underneath.' },
 ];
 ---
 <figure class="fd-rst not-content">

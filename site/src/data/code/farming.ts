@@ -1,6 +1,6 @@
 // Logic constants for the farming pages, read from the mod's Java (paths relative to vectorwing/farmersdelight) or,
-// where marked `vanilla`, from the decompiled Minecraft 26.3 sources. Each value carries its citation.
-// Use with <Src {...cite(x)} /> (mod code) or <Vanilla {...cite(x)} /> (vanilla code).
+// where marked `vanilla`, from the decompiled Minecraft 26.3 sources. Each value carries its citation for maintainers;
+// the player pages never show it. Plain-language helpers for the pages are at the bottom of each section.
 
 export type Cited<T = number> = { value: T; src: string; vanilla?: boolean };
 const c = <T,>(value: T, src: string, vanilla = false): Cited<T> => ({ value, src, vanilla });
@@ -13,7 +13,7 @@ export function cite(x: Cited<any> | string) {
 
 // ------------------------------------------------------------------ vanilla
 export const vanilla = {
-	/** Default random tick speed game rule: random ticks per 16x16x16 section per game tick. */
+	/** Default randomTickSpeed game rule: growth checks per 16x16x16 section per game tick. */
 	randomTickSpeed: c(3, 'net/minecraft/world/level/gamerules/GameRules.java:74', true),
 	/** Each of those ticks picks one random block position in the section (with replacement). */
 	sectionTick: c(16 * 16 * 16, 'net/minecraft/server/level/ServerLevel.java:546-552', true),
@@ -31,7 +31,7 @@ export const vanilla = {
 	useDispatch: c(null, 'net/minecraft/server/level/ServerPlayerGameMode.java:442-455', true),
 };
 
-/** Mean game ticks between two random ticks of one block at a given randomTickSpeed (vanilla math). */
+/** Mean game ticks between two growth checks ("randomTick" calls) of one block at a given randomTickSpeed (vanilla math). */
 export const ticksPerRandomTick = (speed = vanilla.randomTickSpeed.value) => vanilla.sectionTick.value / speed;
 
 // ------------------------------------------------------------------ organic compost
@@ -48,7 +48,7 @@ export const compost = {
 	comparator: c(null, 'common/block/OrganicCompostBlock.java:80-83'),
 	particles: c(10, 'common/block/OrganicCompostBlock.java:88-90'),
 };
-/** Chance per random tick, as computed in OrganicCompostBlock.randomTick. `activators` counts the whole 3x3x3 cube, the compost included. */
+/** Chance per growth check, as computed in OrganicCompostBlock.randomTick. `activators` counts the whole 3x3x3 cube, the compost included. */
 export function compostChance(activators: number, bright: boolean, water: boolean) {
 	return activators * compost.activator.value + (bright ? compost.skyBright.value : compost.skyDim.value) + (water ? compost.waterAdd.value : 0);
 }
@@ -244,12 +244,34 @@ export const village = {
 
 // ------------------------------------------------------------------ helpers for pages
 export const oneIn = (p: number) => `1 in ${+(1 / p).toFixed(1)}`;
-/** Mean real time (at 20 TPS) for `n` random ticks of one block at the default random tick speed. */
+/** Mean real time (at 20 TPS) for `n` growth checks of one block at the default randomTickSpeed. */
 export function randomTicksToTime(n: number) {
 	const s = (n * ticksPerRandomTick()) / 20;
 	if (s < 120) return `${Math.round(s)} s`;
 	if (s < 7200) return `${Math.round(s / 60)} min`;
 	return `${+(s / 3600).toFixed(1)} h`;
+}
+
+/** Alias with the player-facing name: average time for `n` growth checks. */
+export const checksToTime = randomTicksToTime;
+/** Average seconds between two growth checks of one block at the default game rule, e.g. 68.3. */
+export const checkSeconds = () => +(ticksPerRandomTick() / 20).toFixed(1);
+/** Labels for a stage strip: "1", "2", ... and `last` on the final stage. Extra labels override. */
+export function stageLabels(count: number, last = 'ripe', extra: Record<string, string> = {}) {
+	const out: Record<string, string> = {};
+	for (let i = 0; i < count; i++) out[String(i)] = i === count - 1 ? last : `${i + 1}`;
+	return { ...out, ...extra };
+}
+/**
+ * Stages added by one bone meal on a crop that divides vanilla's increase (uniform min..max) by `div` with integer
+ * division (TomatoBlock / RicePaniclesBlock getBonemealAgeIncrease). Returns each possible result with its chance.
+ */
+export function bonemealSplit(div: number) {
+	const { min, max } = vanilla.cropBonemeal.value;
+	const n = max - min + 1;
+	const out = new Map<number, number>();
+	for (let v = min; v <= max; v++) out.set(Math.floor(v / div), (out.get(Math.floor(v / div)) ?? 0) + 1 / n);
+	return [...out.entries()].sort((a, b) => a[0] - b[0]).map(([stages, chance]) => ({ stages, chance }));
 }
 
 /** Suspicious stew effect of each wild crop: [block, effect id, seconds] (FlowerBlock takes seconds, vanilla FlowerBlock.java:21-31). */
@@ -280,10 +302,10 @@ export const vanillaFarmRules = c(
 	true,
 );
 /**
- * Share of a farm's wheat plots that end up as each crop. Each RuleProcessor makes a fresh RandomSource seeded from the
- * block position (vanilla RuleProcessor.java:32), so the FD processor appended after the vanilla one replays the same
- * random numbers; a rule only draws when its input block matches (RandomBlockMatchTest.java:29-30), first match wins
- * (RuleProcessor.java:34-40). Computed exactly by splitting each draw at every threshold.
+ * Share of a farm's wheat plots that end up as each crop. Each rule processor makes a fresh random source seeded from
+ * the block position (see ruleProcessorSrc), so the FD processor appended after the vanilla one replays the same
+ * random numbers; a rule only draws when its input block matches (randomMatchSrc), first match wins.
+ * Computed exactly by splitting each draw at every threshold. The page only uses it to say which crops can appear.
  */
 export function villageFarmOdds(list: string, fd: [string, number, string][]) {
 	const van = vanillaFarmRules.value[list] ?? [];

@@ -1,5 +1,5 @@
 ---
-// Side view of a tomato vine climbing a rope column: the base crop plus at most `limit` rope segments (TomatoBlock.climbRopeAbove).
+// Side view of a tomato vine climbing a rope column: the base crop plus at most `limit` rope segments.
 import { crops } from '../../data/code/farming';
 const limit = crops.tomatoClimb.value; // loop stops when vineHeight reaches this; base + (limit) segments
 const segments = limit; // derived: base crop (height 1) + segments while the count below stays < limit
@@ -43,7 +43,7 @@ const cols = [col(40, 'planted', 0), col(200, 'on rope', 0), col(X3, 'climbed', 
 			<text x={X3 + B + 22} y={ground - (segments + 1.5) * B + 7} class="note dim">stays rope</text>
 		</g>
 	</svg>
-	<figcaption>The base crop counts as height 1; each random tick (light {crops.tomatoTick.value}+) the top vine tries to grow onto the rope above until {segments} rope blocks are covered.</figcaption>
+	<figcaption>Every so often (light level {crops.tomatoTick.value} or more) the top of the vine grows onto the rope above it, until it covers {segments} rope blocks. Rope higher up stays bare.</figcaption>
 </figure>
 <style>
 	.fd-climb {

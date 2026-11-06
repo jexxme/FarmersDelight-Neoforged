@@ -1,14 +1,12 @@
 ---
 // One villager / wandering trader offer from trades.json, drawn like a row of the vanilla merchant screen.
 import Slot from '../mc/Slot.astro';
-import Src from '../mc/Src.astro';
 import { trades, url, nameOf, pct } from '../../lib/data';
 interface Props {
 	id: string;
 }
 const t = trades.find((x) => x.id === Astro.props.id);
 if (!t) throw new Error(`No trade ${Astro.props.id}`);
-const file = `src/generated/resources/data/farmersdelight/villager_trade/${t.id.split(':')[1]}.json`;
 ---
 <div class="fd-trade not-content">
 	<div class="mc-panel row">
@@ -21,7 +19,7 @@ const file = `src/generated/resources/data/farmersdelight/villager_trade/${t.id.
 			{t.wants.count} {nameOf(t.wants.id)} → {t.gives.count} {nameOf(t.gives.id)}
 		</span>
 		<span class="meta">
-			{t.maxUses} use{t.maxUses === 1 ? '' : 's'} · {t.xp} XP · reputation discount {t.priceMultiplier} <Src path={file} label="json" />
+			{t.maxUses} in stock · {t.xp} villager XP
 		</span>
 	</div>
 </div>

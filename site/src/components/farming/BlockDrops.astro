@@ -1,66 +1,52 @@
 ---
-// What a block drops when broken, read from its loot table (loot.json + pool modifiers, see data/code/farming-loot.ts).
-// <BlockDrops block="cabbages" />  Each pool is one line group; alternatives read "first match wins".
-import Slot from '../mc/Slot.astro';
-import Src from '../mc/Src.astro';
-import { nameOf, pct } from '../../lib/data';
-import { lootTable, conditionText } from '../../data/code/farming-loot';
+// A crop or block card: its growth stages (optional) and what it drops when broken, in one frame.
+// <BlockDrops block="cabbages" title="Cabbage" stages />
+// <BlockDrops title="Tomato" parts={[{ block: 'budding_tomatoes', label: 'Bush', stages: true }, ...]} />
+import DropLines from './DropLines.astro';
+import { renders, url } from '../../lib/data';
+import { stageLabels } from '../../data/code/farming';
+type Part = { block: string; label?: string; stages?: boolean; labels?: Record<string, string>; last?: string; pools?: number[] };
 interface Props {
-	block: string;
+	block?: string;
 	title?: string;
-	src?: boolean;
+	stages?: boolean;
+	labels?: Record<string, string>;
+	last?: string;
+	pools?: number[];
+	parts?: Part[];
 }
-const { block, title, src = true } = Astro.props;
-const t = lootTable(`farmersdelight:blocks/${block}`);
-const fortune = (f: any) => {
-	if (!f) return '';
-	if (f.formula === 'binomial_with_bonus_count') return `Fortune: + binomial(${f.extra} + level, ${pct(f.probability, 1)})`;
-	if (f.formula === 'uniform_bonus_count') return `Fortune: + 0 to ${f.bonusMultiplier} × level`;
-	if (f.formula === 'ore_drops') return 'Fortune: ore formula';
-	return `Fortune: ${f.formula}`;
+const { block, title, stages = false, labels, last, pools, parts } = Astro.props;
+const list: Part[] = parts ?? (block ? [{ block, stages, labels, last, pools }] : []);
+const strip = (p: Part) => {
+	const keys = Object.keys(renders)
+		.filter((k) => k.startsWith(`stages/${p.block}-`))
+		.sort((a, b) => +a.split('-').pop()! - +b.split('-').pop()!);
+	const names = { ...stageLabels(keys.length, p.last ?? 'ripe'), ...(p.labels ?? {}) };
+	return keys.map((k) => ({ src: url(`/renders/${k}.png`), label: names[k.split('-').pop()!] }));
 };
-const count = (c: { min: number; max: number }) => (c.min === c.max ? `${c.min}` : `${c.min}–${c.max}`);
-const empty = t.pools.length === 0;
 ---
 <div class="fd-drops fd-board not-content">
-	<div class="head">
-		<span class="k">{title ?? 'Drops'}</span>
-		{src && <Src path={t.source} label={`${block}.json`} />}
-	</div>
-	{empty && <p class="none">Nothing. The loot table is empty.</p>}
+	<div class="head"><span class="k">{title ?? 'Drops'}</span></div>
 	{
-		t.pools.map((p) => {
-			const alt = p.entries.some((e) => e.conditions.includes('otherwise'));
-			return (
-				<div class="pool">
-					{(p.conditions.length > 0 || alt) && (
-						<div class="when">
-							{p.conditions.length > 0 && <span>only if {p.conditions.map(conditionText).join(' · ')}</span>}
-							{alt && <span class="alt">first match wins</span>}
-						</div>
-					)}
-					{p.entries.map((e, i) => {
-						const conds = e.conditions.filter((c) => c !== 'otherwise').map(conditionText);
-						return (
-							<div class="row">
-								{e.item ? <Slot id={e.item} count={e.count.min === e.count.max ? e.count.min : 1} scale={2} /> : <span class="blank" />}
-								<span class="what">
-									<span class="name">
-										{alt && i > 0 && <span class="else">else </span>}
-										{e.item ? nameOf(e.item) : 'nothing'}
-									</span>
-									<span class="meta">
-										{e.item && <span class="num">×{count(e.count)}</span>}
-										{conds.length > 0 && <span>{conds.join(' · ')}</span>}
-										{e.fortune && <span>{fortune(e.fortune)}</span>}
-									</span>
-								</span>
-							</div>
-						);
-					})}
+		list.map((p) => (
+			<div class="part">
+				{p.label && <div class="lbl">{p.label}</div>}
+				{p.stages && (
+					<ol class="strip">
+						{strip(p).map((s) => (
+							<li>
+								<img src={s.src} alt="" width="64" height="64" loading="lazy" />
+								<span>{s.label}</span>
+							</li>
+						))}
+					</ol>
+				)}
+				<div class="drops">
+					<span class="dk">When broken</span>
+					<DropLines block={p.block} pools={p.pools} />
 				</div>
-			);
-		})
+			</div>
+		))
 	}
 </div>
 <style>
@@ -71,10 +57,6 @@ const empty = t.pools.length === 0;
 		line-height: 24px;
 	}
 	.head {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		gap: 20px;
 		border-bottom: 3px solid var(--fd-frame);
 		margin: -8px -14px 6px;
 		padding: 6px 14px 4px;
@@ -83,57 +65,43 @@ const empty = t.pools.length === 0;
 	.k {
 		color: var(--fd-paper);
 	}
-	.head :global(.fd-src) {
-		color: var(--fd-paper);
+	.part + .part {
+		border-top: 3px solid var(--fd-frame);
+		margin-top: 8px;
+		padding-top: 8px;
 	}
-	.pool + .pool {
-		border-top: 2px solid var(--fd-border);
-	}
-	.pool {
-		padding: 6px 0;
-	}
-	.when {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0 20px;
-		color: var(--sl-color-gray-3);
+	.lbl {
+		color: var(--fd-heading-ink);
 		margin-bottom: 4px;
 	}
-	.alt {
-		color: var(--sl-color-text-accent);
-	}
-	.row {
+	.strip {
+		list-style: none;
+		margin: 0 0 6px;
+		padding: 0;
 		display: flex;
-		align-items: center;
-		gap: 12px;
-		padding: 2px 0;
+		gap: 4px;
+		overflow-x: auto;
 	}
-	.blank {
-		width: 36px;
-		height: 36px;
-		border: 2px dashed var(--fd-border);
-	}
-	.what {
+	.strip li {
+		margin: 0 !important;
+		flex: 0 0 auto;
+		width: 64px;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 	}
-	.name {
-		color: var(--sl-color-white);
+	.strip img {
+		width: 56px;
+		height: auto;
+		image-rendering: pixelated;
 	}
-	.else {
+	.strip span {
+		font-size: 16px;
+		line-height: 18px;
 		color: var(--sl-color-gray-3);
+		text-align: center;
 	}
-	.meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0 16px;
+	.dk {
 		color: var(--sl-color-gray-3);
-	}
-	.num {
-		color: var(--fd-gold);
-	}
-	.none {
-		color: var(--sl-color-gray-3);
-		margin: 4px 0 0;
 	}
 </style>

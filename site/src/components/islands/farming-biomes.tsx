@@ -30,7 +30,7 @@ export default function BiomeFilter({ biomes, plants, initial }: { biomes: Biome
 			<div class="fdb-main" aria-live="polite">
 				<div class="fdb-h">
 					<span class="fdb-name">{cur?.name}</span>
-					<span class="fdb-t">base temperature {cur?.temperature ?? '?'}</span>
+
 				</div>
 				{here.length === 0 ? (
 					<p class="fdb-none">No Farmer's Delight plant generates here.</p>
@@ -39,8 +39,8 @@ export default function BiomeFilter({ biomes, plants, initial }: { biomes: Biome
 						<thead>
 							<tr>
 								<th>Plant</th>
-								<th>Patch chance</th>
-								<th>Attempts</th>
+								<th>How common</th>
+								<th>Patch size</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,13 +53,13 @@ export default function BiomeFilter({ biomes, plants, initial }: { biomes: Biome
 										</a>
 									</td>
 									<td class="m">1 in {p.rarity} chunks</td>
-									<td class="m">{p.count}</td>
+									<td class="m">up to {p.count} plants</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
 				)}
-				<p class="fdb-foot">Counts on the left: plants allowed in that biome. Patches still need the right ground under open air, so cave and ocean biomes rarely see one.</p>
+				<p class="fdb-foot">The number next to each biome is how many wild plants can grow there. Patches need the right ground under open sky, so cave and ocean biomes hardly ever get one.</p>
 			</div>
 		</div>
 	);

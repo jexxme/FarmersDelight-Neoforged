@@ -1,10 +1,9 @@
 ---
-// A table of global loot modifiers (modifiers.json), read from each modifier's raw condition: what it adds, from which
-// mob or block, which tool, and the chance. <LootModifiers ids={['farmersdelight:straw_from_grass']} />  or  filter="scavenging_"
+// A table of the mod's extra mob and block drops (modifiers.json), read from each entry's condition: what it adds, from
+// which mob or block, what you need, and the chance. <LootModifiers ids={['farmersdelight:straw_from_grass']} />  or  filter="scavenging_"
 import Slot from '../mc/Slot.astro';
-import Src from '../mc/Src.astro';
 import Chips from './Chips.astro';
-import { modifiers, nameOf, pct, short } from '../../lib/data';
+import { modifiers, tags, nameOf, pct, short } from '../../lib/data';
 interface Props {
 	ids?: string[];
 	filter?: string;
@@ -44,8 +43,9 @@ function read(m: any): Info {
 	return i;
 }
 const rows = list.map((m) => ({ m, i: read(m), item: m.item ?? m.raw.added_item ?? m.raw.slice ?? null }));
-const tagName = (t: string) => (t.startsWith('#') ? `#${short(t.slice(1))}` : nameOf(t));
-const toolText = (t: string | null) => (!t ? null : /knives|straw_harvesters/.test(t) ? 'knife' : tagName(t));
+const toolText = (t: string | null) => (!t ? null : /knives|straw_harvesters/.test(t) ? 'knife' : t.startsWith('#') ? short(t.slice(1)).replaceAll('_', ' ') : nameOf(t));
+// Block tags are shown as the blocks in them.
+const blockIds = (list: string[]) => list.flatMap((b) => (b.startsWith('#') ? (tags.resolved.block[b.slice(1)] ?? []) : [b]));
 const ent = (e: string) => short(e).replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 const what = (r: (typeof rows)[number]) => {
 	const t = r.m.type.split(':')[1];
@@ -56,11 +56,10 @@ const what = (r: (typeof rows)[number]) => {
 const chance = (i: Info) => {
 	if (i.looting) {
 		const e = i.looting.ench;
-		return `${pct(i.looting.base)}; Looting: ${pct(e.base)} + ${pct(e.per_level_above_first)}/level above I`;
+		return `${pct(i.looting.base)}; with Looting ${pct(e.base)}, +${pct(e.per_level_above_first)} per level above I`;
 	}
 	return i.chance !== null ? pct(i.chance) : 'always';
 };
-const file = (id: string) => `src/generated/resources/data/farmersdelight/loot_modifiers/${id.split(':')[1]}.json`;
 ---
 <div class="fd-lm not-content">
 	{title && <div class="k">{title}</div>}
@@ -88,16 +87,15 @@ const file = (id: string) => `src/generated/resources/data/farmersdelight/loot_m
 							{r.i.entities.length > 0 && <span>{r.i.entities.map(ent).join(', ')}</span>}
 							{r.i.fire === true && <span class="sub"> on fire</span>}
 							{r.i.fire === false && <span class="sub"> not on fire</span>}
-							{r.i.blocks.length > 0 && r.i.blocks.length <= 5 && <Chips ids={r.i.blocks.filter((b) => !b.startsWith('#'))} compact />}
-							{r.i.blocks.length > 5 && <span title={r.i.blocks.join(', ')}>{r.i.blocks.length} blocks: {nameOf(r.i.blocks[0])}, {nameOf(r.i.blocks[1])}, …</span>}
-							{r.i.blocks.length <= 5 && r.i.blocks.filter((b) => b.startsWith('#')).map((b) => <code>{b}</code>)}
-							{r.i.state && <span class="sub"> {Object.entries(r.i.state).map(([k, v]) => `${k} ${v}`).join(', ')}</span>}
+							{blockIds(r.i.blocks).length > 0 && blockIds(r.i.blocks).length <= 5 && <Chips ids={blockIds(r.i.blocks)} compact />}
+							{blockIds(r.i.blocks).length > 5 && <span>{blockIds(r.i.blocks).length} kinds: {nameOf(blockIds(r.i.blocks)[0])}, {nameOf(blockIds(r.i.blocks)[1])} and the other colours</span>}
+							{r.i.state && 'age' in r.i.state && <span class="sub"> fully grown</span>}
 						</td>
 						<td class="sub">
 							{[toolText(r.i.attacker) && `killed with a ${toolText(r.i.attacker)}`, toolText(r.i.tool) && `broken with a ${toolText(r.i.tool)}`, r.i.byPlayer && 'killed by a player', r.i.noSilk && 'no Silk Touch'].filter(Boolean).join(', ') || '–'}
 						</td>
 						<td class="c">
-							{chance(r.i)} <Src path={file(r.m.id)} label="json" />
+							{chance(r.i)}
 						</td>
 					</tr>
 				))
