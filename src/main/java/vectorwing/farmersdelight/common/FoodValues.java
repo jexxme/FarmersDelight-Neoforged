@@ -144,6 +144,8 @@ public class FoodValues
 			.nutrition(12).saturationModifier(0.8f).build();
 	public static final FoodProperties FRIED_RICE = (new FoodProperties.Builder())
 			.nutrition(12).saturationModifier(0.8f).build();
+	public static final FoodProperties ONION_SOUP = (new FoodProperties.Builder())
+			.nutrition(12).saturationModifier(0.8f).build();
 	public static final FoodProperties PUMPKIN_SOUP = (new FoodProperties.Builder())
 		.nutrition(14).saturationModifier(0.75f).build();
 	public static final FoodProperties BAKED_COD_STEW = (new FoodProperties.Builder())
@@ -219,6 +221,8 @@ public class FoodValues
 		public static final Consumable NOURISHMENT_LONG_DURATION = Consumables.defaultFood()
 			.onConsume(new ApplyStatusEffectsConsumeEffect(nourishment(LONG_DURATION)))
 			.build();
+		/** Rabbit Stew with enableRabbitStewBuff: its FOOD is swapped too, and the buff includes Nourishment like in 1.21. */
+		public static final Consumable RABBIT_STEW_BUFF = NOURISHMENT_LONG_DURATION;
 
 		// Bone Broth counts as a drink in base FD.
 		public static final Consumable BONE_BROTH = Consumables.defaultDrink()
