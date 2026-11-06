@@ -10,6 +10,7 @@ cutting boards, new crops, rich soil, meals and feasts.
 <img src="https://img.shields.io/badge/Minecraft-26.1%20%E2%80%93%2026.3-62b47a?style=for-the-badge" alt="Minecraft 26.1 – 26.3">
 <img src="https://img.shields.io/badge/NeoForge-26.x-e68c37?style=for-the-badge" alt="NeoForge">
 <img src="https://img.shields.io/badge/Java-25-5382a1?style=for-the-badge" alt="Java 25">
+<a href="https://jexxme.github.io/FarmersDelight-Neoforged/"><img src="https://img.shields.io/badge/Guide-read%20the%20docs-c0703a?style=for-the-badge" alt="Read the guide"></a>
 </p>
 
 <p align="center"><img src="https://raw.githubusercontent.com/jexxme/FarmersDelight-Neoforged/26.3/branding/screenshots/hero.jpg" width="720" alt="A cottage kitchen with a vegetable garden, a tomato trellis and a rice paddy at sunset"></p>
@@ -17,6 +18,11 @@ cutting boards, new crops, rich soil, meals and feasts.
 > Independent project by **Jexxme**, not affiliated with or endorsed by vectorwing.
 > Please report bugs here, not on the original Farmer's Delight tracker or
 > [Discord](https://discord.gg/eFsz5SK).
+
+## Guide
+
+Every block, item, recipe and mechanic, explained with the real numbers from the mod: **[the Farmer's Delight Neoforged guide](https://jexxme.github.io/FarmersDelight-Neoforged/)**.
+Cooking pot and stove, feasts and pies, crops and rich soil, food values, config options and compatibility.
 
 ## Download
 
