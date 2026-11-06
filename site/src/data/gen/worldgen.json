@@ -1,0 +1,1481 @@
+[
+	{
+		"id": "farmersdelight:brown_mushroom_colony",
+		"placed": "farmersdelight:patch_brown_mushroom_colony",
+		"step": "vegetal_decoration",
+		"allowed": "#c:is_mushroom",
+		"denied": null,
+		"biomes": [
+			"minecraft:mushroom_fields"
+		],
+		"candidateBiomes": [
+			"minecraft:mushroom_fields"
+		],
+		"extra": {},
+		"rarity": 15,
+		"count": 64,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 15
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 64
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "MOTION_BLOCKING"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			}
+		],
+		"parts": [
+			{
+				"block": "farmersdelight:brown_mushroom_colony",
+				"randomProperty": {
+					"property": "age",
+					"min": 0,
+					"max": 3
+				},
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:mycelium",
+						"tag": null,
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "minecraft:brown_mushroom",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:mycelium",
+						"tag": null,
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			}
+		],
+		"feature": null
+	},
+	{
+		"id": "farmersdelight:red_mushroom_colony",
+		"placed": "farmersdelight:patch_red_mushroom_colony",
+		"step": "vegetal_decoration",
+		"allowed": "#c:is_mushroom",
+		"denied": null,
+		"biomes": [
+			"minecraft:mushroom_fields"
+		],
+		"candidateBiomes": [
+			"minecraft:mushroom_fields"
+		],
+		"extra": {},
+		"rarity": 15,
+		"count": 64,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 15
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 64
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "MOTION_BLOCKING"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			}
+		],
+		"parts": [
+			{
+				"block": "farmersdelight:red_mushroom_colony",
+				"randomProperty": {
+					"property": "age",
+					"min": 0,
+					"max": 3
+				},
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:mycelium",
+						"tag": null,
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "minecraft:red_mushroom",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:mycelium",
+						"tag": null,
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			}
+		],
+		"feature": null
+	},
+	{
+		"id": "farmersdelight:wild_beetroots",
+		"placed": "farmersdelight:patch_wild_beetroots",
+		"step": "vegetal_decoration",
+		"allowed": "#minecraft:is_beach",
+		"denied": null,
+		"biomes": [
+			"minecraft:beach",
+			"minecraft:snowy_beach"
+		],
+		"candidateBiomes": [
+			"minecraft:beach",
+			"minecraft:snowy_beach"
+		],
+		"extra": {},
+		"rarity": 30,
+		"count": 64,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 30
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 64
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "MOTION_BLOCKING"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			}
+		],
+		"parts": [
+			{
+				"block": "farmersdelight:wild_beetroots",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:sand",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "farmersdelight:sandy_shrub",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:sand",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			}
+		],
+		"feature": null
+	},
+	{
+		"id": "farmersdelight:wild_cabbages",
+		"placed": "farmersdelight:patch_wild_cabbages",
+		"step": "vegetal_decoration",
+		"allowed": "#minecraft:is_beach",
+		"denied": null,
+		"biomes": [
+			"minecraft:beach",
+			"minecraft:snowy_beach"
+		],
+		"candidateBiomes": [
+			"minecraft:beach",
+			"minecraft:snowy_beach"
+		],
+		"extra": {},
+		"rarity": 30,
+		"count": 64,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 30
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 64
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "MOTION_BLOCKING"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			}
+		],
+		"parts": [
+			{
+				"block": "farmersdelight:wild_cabbages",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:sand",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "farmersdelight:sandy_shrub",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:sand",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			}
+		],
+		"feature": null
+	},
+	{
+		"id": "farmersdelight:wild_carrots",
+		"placed": "farmersdelight:patch_wild_carrots",
+		"step": "vegetal_decoration",
+		"allowed": "#minecraft:is_overworld",
+		"denied": [
+			"minecraft:lush_caves",
+			"minecraft:mushroom_fields"
+		],
+		"biomes": [
+			"minecraft:beach",
+			"minecraft:birch_forest",
+			"minecraft:cherry_grove",
+			"minecraft:cold_ocean",
+			"minecraft:dappled_forest",
+			"minecraft:dark_forest",
+			"minecraft:deep_cold_ocean",
+			"minecraft:deep_dark",
+			"minecraft:deep_frozen_ocean",
+			"minecraft:deep_lukewarm_ocean",
+			"minecraft:deep_ocean",
+			"minecraft:dripstone_caves",
+			"minecraft:flower_forest",
+			"minecraft:forest",
+			"minecraft:lukewarm_ocean",
+			"minecraft:mangrove_swamp",
+			"minecraft:meadow",
+			"minecraft:ocean",
+			"minecraft:old_growth_birch_forest",
+			"minecraft:pale_garden",
+			"minecraft:plains",
+			"minecraft:river",
+			"minecraft:sulfur_caves",
+			"minecraft:sunflower_plains",
+			"minecraft:swamp",
+			"minecraft:warm_ocean"
+		],
+		"candidateBiomes": [
+			"minecraft:badlands",
+			"minecraft:bamboo_jungle",
+			"minecraft:beach",
+			"minecraft:birch_forest",
+			"minecraft:cherry_grove",
+			"minecraft:cold_ocean",
+			"minecraft:dappled_forest",
+			"minecraft:dark_forest",
+			"minecraft:deep_cold_ocean",
+			"minecraft:deep_dark",
+			"minecraft:deep_frozen_ocean",
+			"minecraft:deep_lukewarm_ocean",
+			"minecraft:deep_ocean",
+			"minecraft:desert",
+			"minecraft:dripstone_caves",
+			"minecraft:eroded_badlands",
+			"minecraft:flower_forest",
+			"minecraft:forest",
+			"minecraft:frozen_ocean",
+			"minecraft:frozen_peaks",
+			"minecraft:frozen_river",
+			"minecraft:grove",
+			"minecraft:ice_spikes",
+			"minecraft:jagged_peaks",
+			"minecraft:jungle",
+			"minecraft:lukewarm_ocean",
+			"minecraft:lush_caves",
+			"minecraft:mangrove_swamp",
+			"minecraft:meadow",
+			"minecraft:mushroom_fields",
+			"minecraft:ocean",
+			"minecraft:old_growth_birch_forest",
+			"minecraft:old_growth_pine_taiga",
+			"minecraft:old_growth_spruce_taiga",
+			"minecraft:pale_garden",
+			"minecraft:plains",
+			"minecraft:river",
+			"minecraft:savanna",
+			"minecraft:savanna_plateau",
+			"minecraft:snowy_beach",
+			"minecraft:snowy_plains",
+			"minecraft:snowy_slopes",
+			"minecraft:snowy_taiga",
+			"minecraft:sparse_jungle",
+			"minecraft:stony_peaks",
+			"minecraft:stony_shore",
+			"minecraft:sulfur_caves",
+			"minecraft:sunflower_plains",
+			"minecraft:swamp",
+			"minecraft:taiga",
+			"minecraft:warm_ocean",
+			"minecraft:windswept_forest",
+			"minecraft:windswept_gravelly_hills",
+			"minecraft:windswept_hills",
+			"minecraft:windswept_savanna",
+			"minecraft:wooded_badlands"
+		],
+		"extra": {
+			"max_temperature": 0.9,
+			"min_temperature": 0.4
+		},
+		"rarity": 120,
+		"count": 64,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 120
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 64
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "MOTION_BLOCKING"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			}
+		],
+		"parts": [
+			{
+				"block": "minecraft:coarse_dirt",
+				"randomProperty": null,
+				"spread": {
+					"x": 0,
+					"y": 1,
+					"z": 0
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "replaceable",
+						"blocks": null,
+						"tag": null,
+						"offset": [
+							0,
+							1,
+							0
+						],
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:substrate_overworld",
+						"offset": null,
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "farmersdelight:wild_carrots",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:substrate_overworld",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "minecraft:short_grass",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:substrate_overworld",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			}
+		],
+		"feature": null
+	},
+	{
+		"id": "farmersdelight:wild_onions",
+		"placed": "farmersdelight:patch_wild_onions",
+		"step": "vegetal_decoration",
+		"allowed": "#minecraft:is_overworld",
+		"denied": [
+			"minecraft:lush_caves",
+			"minecraft:mushroom_fields"
+		],
+		"biomes": [
+			"minecraft:beach",
+			"minecraft:birch_forest",
+			"minecraft:cherry_grove",
+			"minecraft:cold_ocean",
+			"minecraft:dappled_forest",
+			"minecraft:dark_forest",
+			"minecraft:deep_cold_ocean",
+			"minecraft:deep_dark",
+			"minecraft:deep_frozen_ocean",
+			"minecraft:deep_lukewarm_ocean",
+			"minecraft:deep_ocean",
+			"minecraft:dripstone_caves",
+			"minecraft:flower_forest",
+			"minecraft:forest",
+			"minecraft:lukewarm_ocean",
+			"minecraft:mangrove_swamp",
+			"minecraft:meadow",
+			"minecraft:ocean",
+			"minecraft:old_growth_birch_forest",
+			"minecraft:pale_garden",
+			"minecraft:plains",
+			"minecraft:river",
+			"minecraft:sulfur_caves",
+			"minecraft:sunflower_plains",
+			"minecraft:swamp",
+			"minecraft:warm_ocean"
+		],
+		"candidateBiomes": [
+			"minecraft:badlands",
+			"minecraft:bamboo_jungle",
+			"minecraft:beach",
+			"minecraft:birch_forest",
+			"minecraft:cherry_grove",
+			"minecraft:cold_ocean",
+			"minecraft:dappled_forest",
+			"minecraft:dark_forest",
+			"minecraft:deep_cold_ocean",
+			"minecraft:deep_dark",
+			"minecraft:deep_frozen_ocean",
+			"minecraft:deep_lukewarm_ocean",
+			"minecraft:deep_ocean",
+			"minecraft:desert",
+			"minecraft:dripstone_caves",
+			"minecraft:eroded_badlands",
+			"minecraft:flower_forest",
+			"minecraft:forest",
+			"minecraft:frozen_ocean",
+			"minecraft:frozen_peaks",
+			"minecraft:frozen_river",
+			"minecraft:grove",
+			"minecraft:ice_spikes",
+			"minecraft:jagged_peaks",
+			"minecraft:jungle",
+			"minecraft:lukewarm_ocean",
+			"minecraft:lush_caves",
+			"minecraft:mangrove_swamp",
+			"minecraft:meadow",
+			"minecraft:mushroom_fields",
+			"minecraft:ocean",
+			"minecraft:old_growth_birch_forest",
+			"minecraft:old_growth_pine_taiga",
+			"minecraft:old_growth_spruce_taiga",
+			"minecraft:pale_garden",
+			"minecraft:plains",
+			"minecraft:river",
+			"minecraft:savanna",
+			"minecraft:savanna_plateau",
+			"minecraft:snowy_beach",
+			"minecraft:snowy_plains",
+			"minecraft:snowy_slopes",
+			"minecraft:snowy_taiga",
+			"minecraft:sparse_jungle",
+			"minecraft:stony_peaks",
+			"minecraft:stony_shore",
+			"minecraft:sulfur_caves",
+			"minecraft:sunflower_plains",
+			"minecraft:swamp",
+			"minecraft:taiga",
+			"minecraft:warm_ocean",
+			"minecraft:windswept_forest",
+			"minecraft:windswept_gravelly_hills",
+			"minecraft:windswept_hills",
+			"minecraft:windswept_savanna",
+			"minecraft:wooded_badlands"
+		],
+		"extra": {
+			"max_temperature": 0.9,
+			"min_temperature": 0.4
+		},
+		"rarity": 120,
+		"count": 64,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 120
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 64
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "MOTION_BLOCKING"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			}
+		],
+		"parts": [
+			{
+				"block": "farmersdelight:wild_onions",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:substrate_overworld",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "minecraft:allium",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:substrate_overworld",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			}
+		],
+		"feature": null
+	},
+	{
+		"id": "farmersdelight:wild_potatoes",
+		"placed": "farmersdelight:patch_wild_potatoes",
+		"step": "vegetal_decoration",
+		"allowed": "#minecraft:is_overworld",
+		"denied": "#c:is_underground",
+		"biomes": [
+			"minecraft:old_growth_pine_taiga",
+			"minecraft:old_growth_spruce_taiga",
+			"minecraft:stony_shore",
+			"minecraft:taiga",
+			"minecraft:windswept_forest",
+			"minecraft:windswept_gravelly_hills",
+			"minecraft:windswept_hills"
+		],
+		"candidateBiomes": [
+			"minecraft:badlands",
+			"minecraft:bamboo_jungle",
+			"minecraft:beach",
+			"minecraft:birch_forest",
+			"minecraft:cherry_grove",
+			"minecraft:cold_ocean",
+			"minecraft:dappled_forest",
+			"minecraft:dark_forest",
+			"minecraft:deep_cold_ocean",
+			"minecraft:deep_dark",
+			"minecraft:deep_frozen_ocean",
+			"minecraft:deep_lukewarm_ocean",
+			"minecraft:deep_ocean",
+			"minecraft:desert",
+			"minecraft:dripstone_caves",
+			"minecraft:eroded_badlands",
+			"minecraft:flower_forest",
+			"minecraft:forest",
+			"minecraft:frozen_ocean",
+			"minecraft:frozen_peaks",
+			"minecraft:frozen_river",
+			"minecraft:grove",
+			"minecraft:ice_spikes",
+			"minecraft:jagged_peaks",
+			"minecraft:jungle",
+			"minecraft:lukewarm_ocean",
+			"minecraft:lush_caves",
+			"minecraft:mangrove_swamp",
+			"minecraft:meadow",
+			"minecraft:mushroom_fields",
+			"minecraft:ocean",
+			"minecraft:old_growth_birch_forest",
+			"minecraft:old_growth_pine_taiga",
+			"minecraft:old_growth_spruce_taiga",
+			"minecraft:pale_garden",
+			"minecraft:plains",
+			"minecraft:river",
+			"minecraft:savanna",
+			"minecraft:savanna_plateau",
+			"minecraft:snowy_beach",
+			"minecraft:snowy_plains",
+			"minecraft:snowy_slopes",
+			"minecraft:snowy_taiga",
+			"minecraft:sparse_jungle",
+			"minecraft:stony_peaks",
+			"minecraft:stony_shore",
+			"minecraft:sulfur_caves",
+			"minecraft:sunflower_plains",
+			"minecraft:swamp",
+			"minecraft:taiga",
+			"minecraft:warm_ocean",
+			"minecraft:windswept_forest",
+			"minecraft:windswept_gravelly_hills",
+			"minecraft:windswept_hills",
+			"minecraft:windswept_savanna",
+			"minecraft:wooded_badlands"
+		],
+		"extra": {
+			"max_temperature": 0.3,
+			"min_temperature": 0.1
+		},
+		"rarity": 100,
+		"count": 64,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 100
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 64
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "MOTION_BLOCKING"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			}
+		],
+		"parts": [
+			{
+				"block": "farmersdelight:wild_potatoes",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:substrate_overworld",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "minecraft:fern",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "minecraft:substrate_overworld",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			}
+		],
+		"feature": null
+	},
+	{
+		"id": "farmersdelight:wild_rice",
+		"placed": "farmersdelight:patch_wild_rice",
+		"step": "vegetal_decoration",
+		"allowed": "#c:is_wet/overworld",
+		"denied": "#c:is_underground",
+		"biomes": [
+			"minecraft:bamboo_jungle",
+			"minecraft:beach",
+			"minecraft:jungle",
+			"minecraft:mangrove_swamp",
+			"minecraft:sparse_jungle",
+			"minecraft:swamp"
+		],
+		"candidateBiomes": [
+			"minecraft:bamboo_jungle",
+			"minecraft:beach",
+			"minecraft:dripstone_caves",
+			"minecraft:jungle",
+			"minecraft:lush_caves",
+			"minecraft:mangrove_swamp",
+			"minecraft:sparse_jungle",
+			"minecraft:sulfur_caves",
+			"minecraft:swamp"
+		],
+		"extra": {},
+		"rarity": 20,
+		"count": 96,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 20
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 96
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "OCEAN_FLOOR_WG"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			},
+			{
+				"type": "offset",
+				"x": {
+					"type": "minecraft:trapezoid",
+					"max": 7,
+					"min": -7,
+					"plateau": 0
+				},
+				"y": {
+					"type": "minecraft:trapezoid",
+					"max": 3,
+					"min": -3,
+					"plateau": 0
+				},
+				"z": {
+					"type": "minecraft:trapezoid",
+					"max": 7,
+					"min": -7,
+					"plateau": 0
+				}
+			},
+			{
+				"type": "block_predicate_filter",
+				"predicate": {
+					"type": "minecraft:all_of",
+					"predicates": [
+						{
+							"type": "minecraft:matching_blocks",
+							"blocks": "minecraft:air",
+							"offset": [
+								0,
+								1,
+								0
+							]
+						},
+						{
+							"type": "minecraft:matching_blocks",
+							"blocks": "minecraft:water"
+						},
+						{
+							"type": "minecraft:matching_blocks",
+							"blocks": "#minecraft:substrate_overworld",
+							"offset": [
+								0,
+								-1,
+								0
+							]
+						}
+					]
+				}
+			}
+		],
+		"parts": [
+			{
+				"block": null,
+				"randomProperty": null,
+				"spread": null,
+				"tries": null,
+				"predicates": []
+			}
+		],
+		"feature": {
+			"type": "farmersdelight:wild_rice"
+		}
+	},
+	{
+		"id": "farmersdelight:wild_tomatoes",
+		"placed": "farmersdelight:patch_wild_tomatoes",
+		"step": "vegetal_decoration",
+		"allowed": "#c:is_hot/overworld",
+		"denied": "#c:is_wet",
+		"biomes": [
+			"minecraft:badlands",
+			"minecraft:desert",
+			"minecraft:eroded_badlands",
+			"minecraft:mushroom_fields",
+			"minecraft:savanna",
+			"minecraft:savanna_plateau",
+			"minecraft:stony_peaks",
+			"minecraft:warm_ocean",
+			"minecraft:windswept_savanna",
+			"minecraft:wooded_badlands"
+		],
+		"candidateBiomes": [
+			"minecraft:badlands",
+			"minecraft:bamboo_jungle",
+			"minecraft:desert",
+			"minecraft:eroded_badlands",
+			"minecraft:jungle",
+			"minecraft:mushroom_fields",
+			"minecraft:savanna",
+			"minecraft:savanna_plateau",
+			"minecraft:sparse_jungle",
+			"minecraft:stony_peaks",
+			"minecraft:warm_ocean",
+			"minecraft:windswept_savanna",
+			"minecraft:wooded_badlands"
+		],
+		"extra": {},
+		"rarity": 100,
+		"count": 64,
+		"placement": [
+			{
+				"type": "rarity_filter",
+				"chance": 100
+			},
+			{
+				"type": "in_square"
+			},
+			{
+				"type": "count",
+				"count": 64
+			},
+			{
+				"type": "heightmap",
+				"heightmap": "MOTION_BLOCKING"
+			},
+			{
+				"type": "biome"
+			},
+			{
+				"type": "farmersdelight:biome_tag",
+				"tag": "minecraft:is_overworld"
+			}
+		],
+		"parts": [
+			{
+				"block": "farmersdelight:wild_tomatoes",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 4,
+						"min": -4,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "farmersdelight:terrain",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			},
+			{
+				"block": "minecraft:dead_bush",
+				"randomProperty": null,
+				"spread": {
+					"x": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					},
+					"y": {
+						"type": "minecraft:trapezoid",
+						"max": 3,
+						"min": -3,
+						"plateau": 0
+					},
+					"z": {
+						"type": "minecraft:trapezoid",
+						"max": 6,
+						"min": -6,
+						"plateau": 0
+					}
+				},
+				"tries": null,
+				"predicates": [
+					{
+						"type": "matching_blocks",
+						"blocks": "minecraft:air",
+						"tag": null,
+						"offset": null,
+						"fluids": null
+					},
+					{
+						"type": "matching_block_tag",
+						"blocks": null,
+						"tag": "farmersdelight:terrain",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"fluids": null
+					}
+				]
+			}
+		],
+		"feature": null
+	}
+]

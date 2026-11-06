@@ -1,0 +1,337 @@
+{
+	"minecraft:badlands": {
+		"name": "Badlands",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:bamboo_jungle": {
+		"name": "Bamboo Jungle",
+		"temperature": 0.95,
+		"precipitation": true
+	},
+	"minecraft:basalt_deltas": {
+		"name": "Basalt Deltas",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:beach": {
+		"name": "Beach",
+		"temperature": 0.8,
+		"precipitation": true
+	},
+	"minecraft:birch_forest": {
+		"name": "Birch Forest",
+		"temperature": 0.6,
+		"precipitation": true
+	},
+	"minecraft:cherry_grove": {
+		"name": "Cherry Grove",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:cold_ocean": {
+		"name": "Cold Ocean",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:crimson_forest": {
+		"name": "Crimson Forest",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:dappled_forest": {
+		"name": "Dappled Forest",
+		"temperature": 0.6,
+		"precipitation": true
+	},
+	"minecraft:dark_forest": {
+		"name": "Dark Forest",
+		"temperature": 0.7,
+		"precipitation": true
+	},
+	"minecraft:deep_cold_ocean": {
+		"name": "Deep Cold Ocean",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:deep_dark": {
+		"name": "Deep Dark",
+		"temperature": 0.8,
+		"precipitation": true
+	},
+	"minecraft:deep_frozen_ocean": {
+		"name": "Deep Frozen Ocean",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:deep_lukewarm_ocean": {
+		"name": "Deep Lukewarm Ocean",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:deep_ocean": {
+		"name": "Deep Ocean",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:desert": {
+		"name": "Desert",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:dripstone_caves": {
+		"name": "Dripstone Caves",
+		"temperature": 0.8,
+		"precipitation": true
+	},
+	"minecraft:end_barrens": {
+		"name": "End Barrens",
+		"temperature": 0.5,
+		"precipitation": false
+	},
+	"minecraft:end_highlands": {
+		"name": "End Highlands",
+		"temperature": 0.5,
+		"precipitation": false
+	},
+	"minecraft:end_midlands": {
+		"name": "End Midlands",
+		"temperature": 0.5,
+		"precipitation": false
+	},
+	"minecraft:eroded_badlands": {
+		"name": "Eroded Badlands",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:flower_forest": {
+		"name": "Flower Forest",
+		"temperature": 0.7,
+		"precipitation": true
+	},
+	"minecraft:forest": {
+		"name": "Forest",
+		"temperature": 0.7,
+		"precipitation": true
+	},
+	"minecraft:frozen_ocean": {
+		"name": "Frozen Ocean",
+		"temperature": 0,
+		"precipitation": true
+	},
+	"minecraft:frozen_peaks": {
+		"name": "Frozen Peaks",
+		"temperature": -0.7,
+		"precipitation": true
+	},
+	"minecraft:frozen_river": {
+		"name": "Frozen River",
+		"temperature": 0,
+		"precipitation": true
+	},
+	"minecraft:grove": {
+		"name": "Grove",
+		"temperature": -0.2,
+		"precipitation": true
+	},
+	"minecraft:ice_spikes": {
+		"name": "Ice Spikes",
+		"temperature": 0,
+		"precipitation": true
+	},
+	"minecraft:jagged_peaks": {
+		"name": "Jagged Peaks",
+		"temperature": -0.7,
+		"precipitation": true
+	},
+	"minecraft:jungle": {
+		"name": "Jungle",
+		"temperature": 0.95,
+		"precipitation": true
+	},
+	"minecraft:lukewarm_ocean": {
+		"name": "Lukewarm Ocean",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:lush_caves": {
+		"name": "Lush Caves",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:mangrove_swamp": {
+		"name": "Mangrove Swamp",
+		"temperature": 0.8,
+		"precipitation": true
+	},
+	"minecraft:meadow": {
+		"name": "Meadow",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:mushroom_fields": {
+		"name": "Mushroom Fields",
+		"temperature": 0.9,
+		"precipitation": true
+	},
+	"minecraft:nether_wastes": {
+		"name": "Nether Wastes",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:ocean": {
+		"name": "Ocean",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:old_growth_birch_forest": {
+		"name": "Old Growth Birch Forest",
+		"temperature": 0.6,
+		"precipitation": true
+	},
+	"minecraft:old_growth_pine_taiga": {
+		"name": "Old Growth Pine Taiga",
+		"temperature": 0.3,
+		"precipitation": true
+	},
+	"minecraft:old_growth_spruce_taiga": {
+		"name": "Old Growth Spruce Taiga",
+		"temperature": 0.25,
+		"precipitation": true
+	},
+	"minecraft:pale_garden": {
+		"name": "Pale Garden",
+		"temperature": 0.7,
+		"precipitation": true
+	},
+	"minecraft:plains": {
+		"name": "Plains",
+		"temperature": 0.8,
+		"precipitation": true
+	},
+	"minecraft:river": {
+		"name": "River",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:savanna": {
+		"name": "Savanna",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:savanna_plateau": {
+		"name": "Savanna Plateau",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:small_end_islands": {
+		"name": "Small End Islands",
+		"temperature": 0.5,
+		"precipitation": false
+	},
+	"minecraft:snowy_beach": {
+		"name": "Snowy Beach",
+		"temperature": 0.05,
+		"precipitation": true
+	},
+	"minecraft:snowy_plains": {
+		"name": "Snowy Plains",
+		"temperature": 0,
+		"precipitation": true
+	},
+	"minecraft:snowy_slopes": {
+		"name": "Snowy Slopes",
+		"temperature": -0.3,
+		"precipitation": true
+	},
+	"minecraft:snowy_taiga": {
+		"name": "Snowy Taiga",
+		"temperature": -0.5,
+		"precipitation": true
+	},
+	"minecraft:soul_sand_valley": {
+		"name": "Soul Sand Valley",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:sparse_jungle": {
+		"name": "Sparse Jungle",
+		"temperature": 0.95,
+		"precipitation": true
+	},
+	"minecraft:stony_peaks": {
+		"name": "Stony Peaks",
+		"temperature": 1,
+		"precipitation": true
+	},
+	"minecraft:stony_shore": {
+		"name": "Stony Shore",
+		"temperature": 0.2,
+		"precipitation": true
+	},
+	"minecraft:sulfur_caves": {
+		"name": "Sulfur Caves",
+		"temperature": 0.8,
+		"precipitation": true
+	},
+	"minecraft:sunflower_plains": {
+		"name": "Sunflower Plains",
+		"temperature": 0.8,
+		"precipitation": true
+	},
+	"minecraft:swamp": {
+		"name": "Swamp",
+		"temperature": 0.8,
+		"precipitation": true
+	},
+	"minecraft:taiga": {
+		"name": "Taiga",
+		"temperature": 0.25,
+		"precipitation": true
+	},
+	"minecraft:the_end": {
+		"name": "The End",
+		"temperature": 0.5,
+		"precipitation": false
+	},
+	"minecraft:the_void": {
+		"name": "The Void",
+		"temperature": 0.5,
+		"precipitation": false
+	},
+	"minecraft:warm_ocean": {
+		"name": "Warm Ocean",
+		"temperature": 0.5,
+		"precipitation": true
+	},
+	"minecraft:warped_forest": {
+		"name": "Warped Forest",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:windswept_forest": {
+		"name": "Windswept Forest",
+		"temperature": 0.2,
+		"precipitation": true
+	},
+	"minecraft:windswept_gravelly_hills": {
+		"name": "Windswept Gravelly Hills",
+		"temperature": 0.2,
+		"precipitation": true
+	},
+	"minecraft:windswept_hills": {
+		"name": "Windswept Hills",
+		"temperature": 0.2,
+		"precipitation": true
+	},
+	"minecraft:windswept_savanna": {
+		"name": "Windswept Savanna",
+		"temperature": 2,
+		"precipitation": false
+	},
+	"minecraft:wooded_badlands": {
+		"name": "Wooded Badlands",
+		"temperature": 2,
+		"precipitation": false
+	}
+}

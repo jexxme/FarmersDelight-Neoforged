@@ -23,7 +23,7 @@ function findClientJar() {
 let vanilla;
 function vanillaFiles() {
 	if (!vanilla) {
-		const wanted = /^assets\/minecraft\/(models|textures\/(block|item|gui|mob_effect|entity\/signs)|items|blockstates|lang\/en_us\.json)/;
+		const wanted = /^assets\/minecraft\/(models|textures\/(block|item|gui|mob_effect|entity\/signs)|items|blockstates|lang\/en_us\.json)|^data\/minecraft\/context_(int|float)_provider\//;
 		vanilla = unzipSync(fs.readFileSync(findClientJar()), { filter: (f) => wanted.test(f.name) });
 	}
 	return vanilla;
@@ -52,4 +52,10 @@ export function idPath(id, kind, ext) {
 
 export function vanillaLang() {
 	return JSON.parse(Buffer.from(vanillaFiles()['assets/minecraft/lang/en_us.json']).toString('utf8'));
+}
+
+/** Vanilla data file (e.g. "data/minecraft/context_int_provider/compostable/low.json") as JSON, or null. */
+export function vanillaData(rel) {
+	const v = vanillaFiles()[rel];
+	return v ? JSON.parse(Buffer.from(v).toString('utf8')) : null;
 }

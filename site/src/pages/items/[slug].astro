@@ -1,0 +1,376 @@
+---
+// One page per Farmer's Delight item, generated from src/data/gen. Stable URL: /items/<item id path>/
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import Recipe from '../../components/recipes/Recipe.astro';
+import Slot from '../../components/mc/Slot.astro';
+import Item from '../../components/mc/Item.astro';
+import FoodStats from '../../components/data/FoodStats.astro';
+import EffectBadge from '../../components/data/EffectBadge.astro';
+import Stages from '../../components/data/Stages.astro';
+import {
+	items, itemList, iconOf, renderOf, recipesFor, recipesUsing, loot, modifiers, trades, worldgen, CATEGORIES,
+	seconds, pct, nameOf, url, short, blocks, type Item as ItemT,
+} from '../../lib/data';
+import { mechanicFor, describeModifier, chestName, chestChance } from '../../lib/describe';
+
+export function getStaticPaths() {
+	return itemList.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+const { item } = Astro.props as { item: ItemT };
+const icon = iconOf(item.id);
+const blockSlug = item.block?.id.split(':')[1];
+const hero = (blockSlug && renderOf(`blocks/${blockSlug}`)) || icon?.src;
+const heroIsRender = !!(blockSlug && renderOf(`blocks/${blockSlug}`));
+const made = recipesFor(item.id);
+const used = recipesUsing(item.id);
+const usedCooking = used.filter((r) => r.type === 'farmersdelight:cooking');
+const usedOther = used.filter((r) => r.type !== 'farmersdelight:cooking');
+const chests = (item.chests as string[]).map((c) => ({ table: c, ...chestChance(loot.chests[c], item.id) }));
+const mods = modifiers.filter((m) => (item.modifiers as string[]).includes(m.id));
+const myTrades = trades.filter((t) => (item.trades as string[]).includes(t.id));
+const gen = worldgen.filter((w) => (item.worldgen as string[]).includes(w.id));
+const mech = mechanicFor(item);
+const cat = CATEGORIES[item.category];
+const siblings = itemList.filter((i) => i.category === item.category);
+const c = item.consumable;
+const ticks = c ? Math.round(c.seconds * 20) : null;
+const fuelItems = item.fuel ? item.fuel / 200 : null;
+const mineable = (item.block?.tags as string[] | undefined)?.filter((t) => t.includes('mineable/')).map((t) => t.split('mineable/')[1]) ?? [];
+const blockProps = item.block ? Object.entries(item.block.properties as Record<string, string[]>) : [];
+const stats: [string, string][] = [];
+stats.push(['Stack size', String(item.stack)]);
+if (item.durability) stats.push(['Durability', `${item.durability} uses`]);
+if (item.attackDamage != null) stats.push(['Attack damage', `${+(1 + item.attackDamage).toFixed(2)}`]);
+if (item.attackSpeed != null) stats.push(['Attack speed', `${+(4 + item.attackSpeed).toFixed(2)}`]);
+if (item.attackKnockback) stats.push(['Attack knockback', `+${item.attackKnockback}`]);
+if (item.enchantability) stats.push(['Enchantability', String(item.enchantability)]);
+if (item.fireResistant) stats.push(['Fire resistant', 'Yes, survives lava and fire']);
+if (ticks) stats.push(['Time to eat', `${seconds(ticks)} (${ticks} ticks)${c!.animation === 'drink' ? ', drink' : ''}`]);
+if (item.remainder) stats.push(['Leaves behind', nameOf(item.remainder)]);
+if (item.food?.alwaysEdible) stats.push(['Always edible', 'Yes, even when full']);
+if (item.fuel) stats.push(['Furnace fuel', `${item.fuel} ticks (smelts ${+fuelItems!.toFixed(2)} items)`]);
+if (item.compost != null) stats.push(['Composter', `${pct(item.compost, 0)} chance to add a layer`]);
+if (item.villagerFood) stats.push(['Villager food value', String(item.villagerFood)]);
+if (item.block) {
+	stats.push(['Hardness', String(item.block.hardness)]);
+	stats.push(['Blast resistance', String(item.block.blastResistance)]);
+	if (mineable.length) stats.push(['Best tool', mineable.join(', ')]);
+	if (item.block.requiresTool) stats.push(['Needs a tool to drop', 'Yes']);
+	if (item.block.maxLight) stats.push(['Light level', `up to ${item.block.maxLight}`]);
+}
+const headings = [
+	{ depth: 2, slug: 'stats', text: 'Stats' },
+	...(made.length ? [{ depth: 2, slug: 'recipes', text: 'How to make it' }] : []),
+	...(chests.length || mods.length || myTrades.length || gen.length ? [{ depth: 2, slug: 'sources', text: 'Where to find it' }] : []),
+	...(used.length ? [{ depth: 2, slug: 'uses', text: 'Used in' }] : []),
+	{ depth: 2, slug: 'technical', text: 'Technical' },
+];
+const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Delight Neoforged.${item.food ? ` Restores ${item.food.nutrition} hunger and ${+item.food.saturation.toFixed(2)} saturation.` : ''}`;
+---
+<StarlightPage frontmatter={{ title: item.name, description, tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 } }} headings={headings}>
+	<div class="ip-hero fd-card">
+		<div class:list={['ip-art', { pixel: !heroIsRender }]}>
+			{hero && <img src={hero} alt={item.name} width={heroIsRender ? 200 : 128} height={heroIsRender ? 200 : 128} />}
+		</div>
+		<div class="ip-head">
+			<a class="ip-cat" href={url(`/items/#${item.category}`)}>{cat.label}</a>
+			{item.tooltip.map((t) => <p class="ip-tip">{t}</p>)}
+			{item.food && <FoodStats nutrition={item.food.nutrition} saturation={item.food.saturation} />}
+			{c && c.effects.length > 0 && (
+				<div class="ip-effects">
+					{c.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}
+				</div>
+			)}
+			{c && c.other.length > 0 && (
+				<ul class="ip-other">
+					{c.other.map((o) => (
+						<li>
+							{o.type === 'farmersdelight:remove_random_effects' && <>Clears one random {o.harmful_only ? 'harmful ' : ''}effect (except those in <code>#{o.excluded}</code>).</>}
+							{o.type === 'farmersdelight:heal' && <>Heals {o.amount} health ({o.amount / 2} heart{o.amount === 2 ? '' : 's'}) instantly.</>}
+							{o.type === 'farmersdelight:extinguish' && <>Puts out fire on you.</>}
+						</li>
+					))}
+				</ul>
+			)}
+			{mech && (
+				<a class="ip-mech" href={url(mech.href)}>
+					How {mech.label} works →
+				</a>
+			)}
+		</div>
+	</div>
+
+	<h2 id="stats">Stats</h2>
+	<dl class="ip-stats">
+		{stats.map(([k, v]) => (
+			<div>
+				<dt>{k}</dt>
+				<dd>{v}</dd>
+			</div>
+		))}
+	</dl>
+
+	{blockSlug && <Stages block={blockSlug} />}
+
+	{
+		made.length > 0 && (
+			<>
+				<h2 id="recipes">How to make it</h2>
+				<div class="ip-recipes">{made.map((r) => <Recipe recipe={r} />)}</div>
+			</>
+		)
+	}
+
+	{
+		(chests.length > 0 || mods.length > 0 || myTrades.length > 0 || gen.length > 0) && (
+			<>
+				<h2 id="sources">Where to find it</h2>
+				<ul class="ip-sources">
+					{gen.map((w) => (
+						<li>
+							<strong>Grows wild</strong> in {w.biomes.length} biome{w.biomes.length === 1 ? '' : 's'}, in about 1 of every {w.rarity} chunks. <a href={url('/mechanics/wild-crops/')}>See where</a>.
+						</li>
+					))}
+					{chests.map((ch) => (
+						<li>
+							<strong>{chestName(ch.table)}</strong>: {ch.text}
+						</li>
+					))}
+					{mods.map((m) => (
+						<li set:html={describeModifier(m)} />
+					))}
+					{myTrades.map((t) => (
+						<li>
+							<strong>{t.trader === 'farmer' ? `Farmer villager (level ${t.level})` : 'Wandering Trader'}</strong>: {t.gives.id === item.id ? `sells ${t.gives.count} for ${t.wants.count} ${nameOf(t.wants.id)}` : `buys ${t.wants.count} for ${t.gives.count} ${nameOf(t.gives.id)}`}, up to {t.maxUses} trade{t.maxUses === 1 ? '' : 's'}.
+						</li>
+					))}
+				</ul>
+			</>
+		)
+	}
+
+	{
+		used.length > 0 && (
+			<>
+				<h2 id="uses">Used in</h2>
+				<p class="ip-count">{used.length} recipe{used.length === 1 ? '' : 's'} use {item.name}.</p>
+				{usedCooking.length > 0 && (
+					<div class="ip-uses">
+						{usedCooking.map((r) => (
+							<a class="ip-use" href={url(`/items/${r.result!.id.split(':')[1]}/`)}>
+								<Slot id={r.result!.id} scale={2} />
+								<span>{nameOf(r.result!.id)}</span>
+							</a>
+						))}
+					</div>
+				)}
+				{usedOther.length > 0 && usedOther.length <= 12 && <div class="ip-recipes">{usedOther.map((r) => <Recipe recipe={r} />)}</div>}
+				{usedOther.length > 12 && (
+					<div class="ip-uses">
+						{usedOther.map((r) => {
+							const out = r.result?.id ?? r.results?.[0]?.id;
+							return out ? (
+								<span class="ip-use">
+									<Slot id={out} scale={2} />
+									<span>{nameOf(out)}</span>
+								</span>
+							) : null;
+						})}
+					</div>
+				)}
+			</>
+		)
+	}
+
+	<h2 id="technical">Technical</h2>
+	<dl class="ip-stats tech">
+		<div><dt>Item id</dt><dd><code>{item.id}</code></dd></div>
+		{item.block && <div><dt>Block id</dt><dd><code>{item.block.id}</code></dd></div>}
+		<div><dt>Java class</dt><dd><code>{item.class}</code>{item.block && <> · <code>{item.block.class}</code></>}</dd></div>
+		{blockProps.length > 0 && (
+			<div>
+				<dt>Block states</dt>
+				<dd>{blockProps.map(([k, v]) => <code class="prop">{k}: {v.join(' | ')}</code>)}</dd>
+			</div>
+		)}
+		<div>
+			<dt>Item tags</dt>
+			<dd>{(item.tags as string[]).length ? (item.tags as string[]).map((t) => <code class="prop">#{short(t)}</code>) : 'none'}</dd>
+		</div>
+		{item.block && (item.block.tags as string[]).length > 0 && (
+			<div>
+				<dt>Block tags</dt>
+				<dd>{(item.block.tags as string[]).map((t) => <code class="prop">#{short(t)}</code>)}</dd>
+			</div>
+		)}
+		<div><dt>Give command</dt><dd><code>/give @s {item.id}</code></dd></div>
+	</dl>
+
+	<nav class="ip-siblings" aria-label={`More ${cat.label}`}>
+		<p class="fd-kicker">More {cat.label.toLowerCase()}</p>
+		<div>
+			{siblings.map((s) => (
+				<a href={url(`/items/${s.slug}/`)} class:list={{ cur: s.id === item.id }} aria-current={s.id === item.id ? 'page' : undefined}>
+					<Slot id={s.id} scale={2} />
+				</a>
+			))}
+		</div>
+	</nav>
+</StarlightPage>
+
+<style>
+	.ip-hero {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 1.5rem;
+		padding: 1.25rem 1.5rem;
+		align-items: center;
+		background-image: var(--fd-hero-glow);
+	}
+	.ip-art {
+		width: 200px;
+		height: 200px;
+		display: grid;
+		place-items: center;
+		background: radial-gradient(closest-side, color-mix(in srgb, var(--sl-color-accent) 14%, transparent), transparent);
+	}
+	.ip-art img {
+		max-width: 100%;
+		height: auto;
+		filter: drop-shadow(0 14px 14px rgb(0 0 0 / 0.35));
+	}
+	.ip-art.pixel img {
+		image-rendering: pixelated;
+		width: 128px;
+	}
+	.ip-head {
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+		align-items: flex-start;
+	}
+	.ip-head > * {
+		margin: 0 !important;
+	}
+	.ip-cat {
+		font-size: var(--sl-text-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-weight: 700;
+		color: var(--sl-color-accent);
+		text-decoration: none;
+	}
+	.ip-tip {
+		color: #6f7bff;
+		font-family: var(--fd-font-pixel);
+	}
+	.ip-effects {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+	.ip-other {
+		padding-left: 1.1rem;
+		font-size: var(--sl-text-sm);
+	}
+	.ip-mech {
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.ip-stats {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(10rem, 45%), 1fr));
+		gap: 0.5rem;
+	}
+	.ip-stats > div {
+		background: var(--fd-surface);
+		border: 1px solid var(--fd-border);
+		border-radius: 0.6rem;
+		padding: 0.5rem 0.75rem;
+		margin: 0;
+	}
+	.ip-stats dt {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+	.ip-stats dd {
+		margin: 0.1rem 0 0;
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+	.ip-stats.tech {
+		grid-template-columns: 1fr;
+	}
+	.ip-stats.tech dd {
+		font-weight: 450;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.3rem;
+	}
+	.prop {
+		font-size: var(--sl-text-xs);
+	}
+	.ip-recipes {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem 2rem;
+		margin-top: 1rem;
+	}
+	.ip-sources li {
+		margin-bottom: 0.3rem;
+	}
+	.ip-uses {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+		gap: 0.4rem;
+		margin-top: 0.75rem;
+	}
+	.ip-use {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.3rem 0.5rem 0.3rem 0.3rem;
+		border-radius: 0.5rem;
+		text-decoration: none;
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-sm);
+		font-weight: 550;
+		margin: 0 !important;
+	}
+	a.ip-use:hover {
+		background: var(--fd-surface-2);
+	}
+	.ip-count {
+		color: var(--sl-color-gray-3);
+	}
+	.ip-siblings {
+		margin-top: 3rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--fd-border);
+	}
+	.ip-siblings > div {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+		margin-top: 0.5rem;
+	}
+	.ip-siblings a {
+		border-radius: 4px;
+	}
+	.ip-siblings a.cur {
+		outline: 3px solid var(--sl-color-accent);
+	}
+	@media (max-width: 40rem) {
+		.ip-hero {
+			grid-template-columns: 1fr;
+			justify-items: center;
+			text-align: center;
+		}
+		.ip-head {
+			align-items: center;
+		}
+	}
+</style>

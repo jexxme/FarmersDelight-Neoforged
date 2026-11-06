@@ -1,0 +1,187 @@
+/* Farmhouse kitchen theme: warm charcoal and cast iron at night, parchment and linen by day, tomato as the accent. */
+:root {
+	--sl-font: 'Inter Variable', system-ui, sans-serif;
+	--fd-font-display: 'Fraunces Variable', Georgia, serif;
+	--fd-font-pixel: 'Pixelify Sans', ui-monospace, monospace;
+
+	/* dark (Starlight's default theme) */
+	--sl-color-accent-low: #3d1c14;
+	--sl-color-accent: #f0704f;
+	--sl-color-accent-high: #ffd2c2;
+	--sl-color-white: #fbf5ea;
+	--sl-color-gray-1: #eee5d6;
+	--sl-color-gray-2: #cfc3b0;
+	--sl-color-gray-3: #a3967f;
+	--sl-color-gray-4: #6b604f;
+	--sl-color-gray-5: #463d31;
+	--sl-color-gray-6: #2c261f;
+	--sl-color-gray-7: #1f1b16;
+	--sl-color-black: #17140f;
+
+	--fd-green: #8bc35a;
+	--fd-green-low: #1f2d14;
+	--fd-gold: #f3b300;
+	--fd-gold-low: #3a2c05;
+	--fd-blue: #6cb4e8;
+	--fd-surface: #221d17;
+	--fd-surface-2: #2b251e;
+	--fd-border: #3d3428;
+	--fd-shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 10px 30px -12px rgb(0 0 0 / 0.6);
+	--fd-hero-glow: radial-gradient(60% 80% at 70% 20%, rgb(240 112 79 / 0.22), transparent 70%);
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #fbdcd1;
+	--sl-color-accent: #b8401f;
+	--sl-color-accent-high: #5c1d0c;
+	--sl-color-white: #1d1812;
+	--sl-color-gray-1: #2c251c;
+	--sl-color-gray-2: #463c2f;
+	--sl-color-gray-3: #6e6150;
+	--sl-color-gray-4: #9c8f7b;
+	--sl-color-gray-5: #cfc4b2;
+	--sl-color-gray-6: #ece4d5;
+	--sl-color-gray-7: #f6f1e7;
+	--sl-color-black: #fcf9f3;
+
+	--fd-green: #4f7f26;
+	--fd-green-low: #e3efd5;
+	--fd-gold: #a77a00;
+	--fd-gold-low: #fbefc8;
+	--fd-blue: #2d6fa3;
+	--fd-surface: #fffdf8;
+	--fd-surface-2: #f6f0e4;
+	--fd-border: #e2d7c4;
+	--fd-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 10px 24px -14px rgb(80 50 20 / 0.35);
+	--fd-hero-glow: radial-gradient(60% 80% at 70% 20%, rgb(184 64 31 / 0.14), transparent 70%);
+}
+
+:root[data-theme='light'] body {
+	background: linear-gradient(180deg, #fcf9f3, #f8f3ea 600px) fixed;
+}
+
+/* Headings in a warm serif */
+.sl-markdown-content :is(h1, h2, h3),
+h1#_top,
+.hero h1 {
+	font-family: var(--fd-font-display);
+	font-optical-sizing: auto;
+	letter-spacing: -0.01em;
+}
+h1#_top {
+	font-weight: 650;
+}
+.sl-markdown-content h2 {
+	font-weight: 620;
+	padding-top: 0.4rem;
+}
+.sl-markdown-content h3 {
+	font-weight: 600;
+}
+
+/* Site title */
+.site-title {
+	font-family: var(--fd-font-display);
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+.site-title img {
+	image-rendering: pixelated;
+}
+@media (max-width: 50rem) {
+	.site-title {
+		font-size: 1rem;
+		min-width: 0;
+	}
+	.site-title span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
+/* Tables: softer, zebra rows */
+.sl-markdown-content table {
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--fd-border);
+	border-radius: 0.6rem;
+	overflow: hidden;
+	display: table;
+	width: 100%;
+	font-size: var(--sl-text-sm);
+}
+.sl-markdown-content :is(th, td) {
+	border-bottom: 1px solid var(--fd-border);
+	border-inline: 0;
+	padding: 0.5rem 0.75rem;
+}
+.sl-markdown-content tr:last-child td {
+	border-bottom: 0;
+}
+.sl-markdown-content th {
+	background: var(--fd-surface-2);
+	font-weight: 600;
+}
+.sl-markdown-content tbody tr:nth-child(even) td {
+	background: color-mix(in srgb, var(--fd-surface-2) 45%, transparent);
+}
+@media (max-width: 50rem) {
+	.sl-markdown-content table {
+		display: block;
+		overflow-x: auto;
+	}
+}
+
+/* Asides tuned to the palette */
+.starlight-aside--tip {
+	--sl-color-asides-text-accent: var(--fd-green);
+	--sl-color-asides-border: var(--fd-green);
+	background-color: var(--fd-green-low);
+}
+
+/* Generic card surface used by components */
+.fd-card {
+	background: var(--fd-surface);
+	border: 1px solid var(--fd-border);
+	border-radius: 0.9rem;
+	box-shadow: var(--fd-shadow);
+}
+
+.fd-kicker {
+	font-size: var(--sl-text-xs);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--sl-color-gray-3);
+	font-weight: 600;
+}
+
+.fd-source {
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+}
+.fd-source code {
+	font-size: 0.95em;
+}
+
+/* Pixel art never smooths */
+img.pixel,
+.pixel img {
+	image-rendering: pixelated;
+}
+
+/* Number + unit chips, e.g. "200 ticks · 10 s" */
+.fd-val {
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+	color: var(--sl-color-white);
+	white-space: nowrap;
+}
+.fd-val small {
+	font-weight: 450;
+	color: var(--sl-color-gray-3);
+}
+
+.sl-markdown-content .fd-wide {
+	margin-inline: 0;
+}

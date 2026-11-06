@@ -1,0 +1,31 @@
+---
+// An in-game screenshot from public/shots, full width with a caption. <Shot src="kitchen.jpg" caption="…" />
+import { url } from '../../lib/data';
+interface Props {
+	src: string;
+	caption?: string;
+	alt?: string;
+}
+const { src, caption, alt } = Astro.props;
+---
+<figure class="fd-shot">
+	<img src={url(`/shots/${src}`)} alt={alt ?? caption ?? ''} loading="lazy" decoding="async" />
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
+<style>
+	.fd-shot {
+		margin: 1.5rem 0;
+	}
+	.fd-shot img {
+		width: 100%;
+		border-radius: 0.9rem;
+		border: 1px solid var(--fd-border);
+		box-shadow: var(--fd-shadow);
+		display: block;
+	}
+	figcaption {
+		margin-top: 0.4rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+</style>

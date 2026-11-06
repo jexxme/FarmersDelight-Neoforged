@@ -1,0 +1,112 @@
+---
+title: Getting started
+description: Install Farmer's Delight Neoforged, find your first crops, build a kitchen and cook your first meal.
+---
+
+import { Steps, Card, CardGrid, LinkCard, Aside } from '@astrojs/starlight/components';
+import Item from '../../components/mc/Item.astro';
+import Render from '../../components/mc/Render.astro';
+import Shot from '../../components/mc/Shot.astro';
+import RecipeList from '../../components/recipes/RecipeList.astro';
+import EffectBadge from '../../components/data/EffectBadge.astro';
+import { meta, items, worldgen, duration } from '../../lib/data';
+
+export const stew = items['farmersdelight:vegetable_soup'];
+export const nourish = Object.values(items).flatMap((i) => i.consumable?.effects ?? []).filter((e) => e.id === 'farmersdelight:nourishment').map((e) => e.duration);
+export const wildCount = worldgen.filter((w) => w.id.includes('wild_')).length;
+
+Farmer's Delight adds a kitchen to Minecraft. You grow four new crops, cook meals in a pot over a fire, cut ingredients
+on a board and set out feasts for your friends. The food is worth it: most meals grant <EffectBadge id="farmersdelight:nourishment" name="Nourishment" />,
+which stops your hunger bar from going down while it lasts.
+
+<Shot src="kitchen.jpg" caption="A Farmer's Delight kitchen: stoves, a cooking pot, cabinets and a cutting board." />
+
+## Install
+
+Farmer's Delight Neoforged needs [NeoForge](https://neoforged.net/) and nothing else. Install it on both the client and the server.
+Use the file that matches your Minecraft version:
+
+<table>
+	<thead>
+		<tr><th>Minecraft</th><th>NeoForge</th><th>Release</th></tr>
+	</thead>
+	<tbody>
+		{meta.versions.map((v) => (
+			<tr>
+				<td><strong>{v.gameVersions.replaceAll(',', ', ')}</strong></td>
+				<td>{v.neoforgeRange.endsWith(',)') ? `${v.neoforgeRange.slice(1, -2)} or newer` : v.neoforgeRange}</td>
+				<td><code>{v.tag}</code></td>
+			</tr>
+		))}
+	</tbody>
+</table>
+
+<CardGrid>
+	<LinkCard title="Modrinth" description="Download for every supported version." href="https://modrinth.com/mod/farmers-delight-neoforged" />
+	<LinkCard title="CurseForge" description="Also available on CurseForge." href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged" />
+</CardGrid>
+
+<Aside type="tip" title="Coming from the original Farmer's Delight?">
+	The mod id is still <code>farmersdelight</code> and recipe ids match Farmer's Delight 1.21, so your worlds' item names, datapacks
+	and add-on recipes keep working. See [Differences from upstream](/differences/).
+</Aside>
+
+## Your first hour
+
+<Steps>
+
+1. **Find wild crops.** There are {wildCount} kinds of wild crops in the overworld. Break them for seeds and produce:
+   <Item id="wild_cabbages" /> and <Item id="wild_beetroots" /> grow on beaches, <Item id="wild_onions" /> and <Item id="wild_carrots" /> in temperate biomes, <Item id="wild_potatoes" /> in cold ones,
+   <Item id="wild_tomatoes" /> in hot biomes and <Item id="wild_rice" /> in shallow water. The [wild crops page](/mechanics/wild-crops/) has the exact biomes.
+
+   <Render name="scenes/wild-crops" size={300} caption="Wild cabbages and beetroots on sand, wild onions, carrots and potatoes on grass." />
+
+2. **Make a knife.** A <Item id="flint_knife" /> is the cheapest. Knives cut ingredients on the Cutting Board, harvest straw from grass
+   and get extra drops from animals.
+
+   <RecipeList ids={['flint_knife']} />
+
+3. **Plant a garden.** Plant <Item id="cabbage_seeds" />, <Item id="tomato_seeds" /> and <Item id="onion" /> on farmland. Rice goes into a
+   one-block-deep water source. Put rope above your tomatoes and they climb it. Details are on the [crops page](/mechanics/crops/).
+
+4. **Build a kitchen.** Craft a <Item id="cooking_pot" /> and a <Item id="stove" />. The pot only cooks with heat below it. A lit
+   stove, a campfire or fire all work; the [heat sources page](/mechanics/heat-sources/) lists them all.
+
+   <RecipeList ids={['cooking_pot', 'stove', 'cutting_board']} />
+
+5. **Cook a meal.** Put the ingredients in the pot over heat and wait. Take the meal out with an empty <Item id="minecraft:bowl" /> in the
+   bowl slot. <Item id="vegetable_soup" /> is a good first meal. It restores {stew.food.nutrition} hunger and gives Nourishment.
+
+   <RecipeList ids={['cooking/vegetable_soup']} />
+
+</Steps>
+
+## Ideas worth knowing
+
+<CardGrid>
+	<Card title="Nourishment" icon="star">
+		Meals give Nourishment for {duration(Math.min(...nourish))} to {duration(Math.max(...nourish))} (minutes:seconds). While it lasts, your hunger bar doesn't go down.
+		[How it works](/mechanics/effects/)
+	</Card>
+	<Card title="Rich Soil" icon="seti:config">
+		Organic Compost slowly turns into Rich Soil, which gives crops a chance of a free bone meal growth now and then.
+		[Composting](/mechanics/organic-compost/)
+	</Card>
+	<Card title="Knives" icon="seti:pipeline">
+		Kill pigs with a knife for ham, cut grass for straw, and slice cakes and pies.
+		[Knives](/mechanics/knives/)
+	</Card>
+	<Card title="Feasts" icon="open-book">
+		Some meals are placed as a block and served into bowls, several servings each.
+		[Feasts](/mechanics/feasts/)
+	</Card>
+</CardGrid>
+
+## Where next
+
+<CardGrid>
+	<LinkCard title="Your first meal, step by step" href="/guides/first-meal/" />
+	<LinkCard title="Farming progression" href="/guides/farming-progression/" />
+	<LinkCard title="Food reference" description="Which food is best, sorted every way." href="/reference/food/" />
+	<LinkCard title="Recipe planner" description="Everything you need for a dish, down to the crops." href="/reference/recipe-planner/" />
+</CardGrid>

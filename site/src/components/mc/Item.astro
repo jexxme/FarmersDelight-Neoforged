@@ -1,0 +1,18 @@
+---
+// Inline item: icon + name, linked to its page when it is a Farmer's Delight item. <Item id="cabbage" />
+import { items, nameOf, iconOf, pageOf } from '../../lib/data';
+interface Props {
+	id: string;
+	count?: number;
+	label?: string;
+	plural?: boolean;
+}
+const { id: raw, count, label, plural } = Astro.props;
+const id = raw.includes(':') ? raw : items[`farmersdelight:${raw}`] ? `farmersdelight:${raw}` : `minecraft:${raw}`;
+const ic = iconOf(id);
+const href = pageOf(id);
+let text = label ?? nameOf(id);
+if (plural && !label && !/s$/.test(text)) text += 's';
+const Tag = href ? 'a' : 'span';
+---
+<Tag class="fd-item" href={href ?? undefined} data-tip-items={`${nameOf(id)}~${id}`}>{ic && <img src={ic.src} alt="" width="20" height="20" loading="lazy" />}{count ? `${count}× ` : ''}{text}</Tag>

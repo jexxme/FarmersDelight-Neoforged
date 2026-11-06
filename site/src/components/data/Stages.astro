@@ -1,0 +1,78 @@
+---
+// A strip of isometric renders, one per block state (growth age, servings, bites, composting...).
+// Renders come from scripts/render-scenes.mjs (public/renders/stages/<block>-<value>.png).
+import { renders, url, blocks } from '../../lib/data';
+interface Props {
+	block: string;
+	title?: string;
+	labels?: Record<string, string>;
+}
+const { block, title, labels = {} } = Astro.props;
+const keys = Object.keys(renders)
+	.filter((k) => k.startsWith(`stages/${block}-`))
+	.sort((a, b) => +a.split('-').pop()! - +b.split('-').pop()!);
+const b = blocks[`farmersdelight:${block}`];
+const prop = b ? Object.keys(b.properties).find((p) => ['age', 'servings', 'bites', 'composting', 'moisture'].includes(p)) : null;
+const propLabel: Record<string, string> = { age: 'Age', servings: 'Servings', bites: 'Bites taken', composting: 'Stage', moisture: 'Moisture' };
+---
+{
+	keys.length > 1 && (
+		<figure class="fd-stages fd-card">
+			<figcaption class="fd-kicker">{title ?? `${prop ? propLabel[prop] : 'States'} (${keys.length} states)`}</figcaption>
+			<ol>
+				{keys.map((k) => {
+					const v = k.split('-').pop()!;
+					return (
+						<li>
+							<img src={url(`/renders/${k}.png`)} alt={`${prop ?? 'state'} ${v}`} width="96" height="96" loading="lazy" />
+							<span>{labels[v] ?? `${prop ?? ''} ${v}`}</span>
+						</li>
+					);
+				})}
+			</ol>
+		</figure>
+	)
+}
+<style>
+	.fd-stages {
+		padding: 0.9rem 1rem 0.6rem;
+		margin: 1.5rem 0;
+	}
+	ol {
+		list-style: none;
+		padding: 0;
+		margin: 0.5rem 0 0;
+		display: flex;
+		gap: 0.25rem;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+	}
+	li {
+		flex: 1 0 5.5rem;
+		max-width: 7rem;
+		margin: 0 !important;
+		text-align: center;
+		scroll-snap-align: start;
+		position: relative;
+	}
+	li + li::before {
+		content: '›';
+		position: absolute;
+		left: -0.35rem;
+		top: 2.6rem;
+		color: var(--sl-color-gray-4);
+		font-size: 1.2rem;
+	}
+	img {
+		width: 100%;
+		height: auto;
+		max-width: 96px;
+		filter: drop-shadow(0 6px 6px rgb(0 0 0 / 0.3));
+	}
+	span {
+		display: block;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		font-variant-numeric: tabular-nums;
+	}
+</style>

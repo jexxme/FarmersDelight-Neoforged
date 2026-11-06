@@ -1,0 +1,43 @@
+---
+// A small "source" link to the exact code or data a fact comes from, on GitHub at the released tag.
+// <Src path="common/block/OrganicCompostBlock.java" lines="52-54" />  (Java paths are relative to vectorwing/farmersdelight)
+// <Src path="src/generated/resources/data/farmersdelight/tags/block/heat_sources.json" />  (any repo path)
+import { meta } from '../../lib/data';
+interface Props {
+	path: string;
+	lines?: string;
+	label?: string;
+}
+const { path, lines, label } = Astro.props;
+const full = path.startsWith('src/') || path.startsWith('docs/') || !path.endsWith('.java') ? path : `src/main/java/vectorwing/farmersdelight/${path}`;
+const tag = encodeURIComponent(`${meta.minecraft}-${meta.modVersion}`);
+const anchor = lines ? '#L' + lines.split('-').map((n) => n.trim()).join('-L') : '';
+const href = `https://github.com/jexxme/FarmersDelight-Neoforged/blob/${tag}/${full}${anchor}`;
+const file = full.split('/').pop();
+---
+<a class="fd-src" href={href} title={`Source: ${full}${lines ? ` lines ${lines}` : ''}`} target="_blank" rel="noopener">{label ?? `${file}${lines ? `:${lines}` : ''}`}</a>
+<style>
+	.fd-src {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-family: var(--__sl-font-mono, ui-monospace, monospace);
+		font-size: 0.72em;
+		padding: 0.05rem 0.4rem;
+		border-radius: 0.35rem;
+		border: 1px solid var(--fd-border);
+		color: var(--sl-color-gray-3);
+		text-decoration: none;
+		vertical-align: 0.1em;
+		white-space: nowrap;
+	}
+	.fd-src::before {
+		content: '</>';
+		font-size: 0.85em;
+		opacity: 0.7;
+	}
+	.fd-src:hover {
+		color: var(--sl-color-accent);
+		border-color: var(--sl-color-accent);
+	}
+</style>

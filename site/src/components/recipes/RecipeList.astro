@@ -1,0 +1,29 @@
+---
+// Several recipe cards in a responsive row. Pass ids, or `output` to show every recipe making an item,
+// or `type` (+ optional `filter` substring of the id) to show all recipes of a type.
+import Recipe from './Recipe.astro';
+import { playableRecipes, recipeById, recipesFor, type Recipe as R } from '../../lib/data';
+interface Props {
+	ids?: string[];
+	output?: string;
+	type?: string;
+	filter?: string;
+	limit?: number;
+}
+const { ids, output, type, filter, limit } = Astro.props;
+const norm = (id: string) => (id.includes(':') ? id : `farmersdelight:${id}`);
+let list: R[] = [];
+if (ids) list = ids.map((i) => recipeById.get(norm(i))).filter(Boolean) as R[];
+else if (output) list = recipesFor(norm(output));
+else if (type) list = playableRecipes.filter((r) => r.type === type && (!filter || r.id.includes(filter)));
+if (limit) list = list.slice(0, limit);
+---
+<div class="fd-recipes not-content">{list.map((r) => <Recipe recipe={r} />)}</div>
+<style>
+	.fd-recipes {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem 2rem;
+		margin: 1.25rem 0;
+	}
+</style>

@@ -1,0 +1,314 @@
+[
+	{
+		"id": "farmersdelight:main/craft_knife",
+		"parent": "farmersdelight:main/root",
+		"title": "Hunt and Gather",
+		"description": "Craft a Knife to scavenge extra goods from plants and animals",
+		"icon": "farmersdelight:flint_knife",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"copper_knife",
+			"diamond_knife",
+			"flint_knife",
+			"golden_knife",
+			"iron_knife",
+			"netherite_knife"
+		]
+	},
+	{
+		"id": "farmersdelight:main/eat_nourishing_food",
+		"parent": "farmersdelight:main/place_cooking_pot",
+		"title": "Nourishing!",
+		"description": "A balanced and diverse meal will keep you fed and healthy for a long time!",
+		"icon": "farmersdelight:steak_and_potatoes",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"nourishment"
+		]
+	},
+	{
+		"id": "farmersdelight:main/get_fd_seed",
+		"parent": "farmersdelight:main/root",
+		"title": "Crops of the Wild",
+		"description": "Four new crops may be found in the wild, across many climates... or maybe in a chest somewhere.",
+		"icon": "farmersdelight:wild_onions",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"cabbage_seeds",
+			"onion",
+			"rice",
+			"tomato_seeds"
+		]
+	},
+	{
+		"id": "farmersdelight:main/get_ham",
+		"parent": "farmersdelight:main/craft_knife",
+		"title": "Wild Butcher",
+		"description": "Use a Knife to extract Ham from Pigs or Hoglins",
+		"icon": "farmersdelight:ham",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"ham",
+			"smoked_ham"
+		]
+	},
+	{
+		"id": "farmersdelight:main/get_mushroom_colony",
+		"parent": "farmersdelight:main/get_fd_seed",
+		"title": "Fungus Among Us",
+		"description": "Shear a fully mature Mushroom Colony. To grow them like this, you'll need a very rich soil...",
+		"icon": "farmersdelight:red_mushroom_colony",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"brown_mushroom_colony",
+			"red_mushroom_colony"
+		]
+	},
+	{
+		"id": "farmersdelight:main/get_rich_soil",
+		"parent": "farmersdelight:main/place_organic_compost",
+		"title": "Plant Food",
+		"description": "Organic Compost slowly decays into Rich Soil, an upgrade for your farms!",
+		"icon": "farmersdelight:rich_soil",
+		"frame": "goal",
+		"hidden": false,
+		"criteria": [
+			"get_rich_soil"
+		]
+	},
+	{
+		"id": "farmersdelight:main/harvest_ropelogged_tomato",
+		"parent": "farmersdelight:main/get_fd_seed",
+		"title": "Tall-mato",
+		"description": "Hang some rope above a tomato crop to make it grow taller",
+		"icon": "farmersdelight:tomato",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"harvest_ropelogged_tomato"
+		]
+	},
+	{
+		"id": "farmersdelight:main/harvest_straw",
+		"parent": "farmersdelight:main/craft_knife",
+		"title": "Grasping at Straws",
+		"description": "Harvest grass, wheat or rice with a Knife to collect Straw",
+		"icon": "farmersdelight:straw",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"harvest_straw"
+		]
+	},
+	{
+		"id": "farmersdelight:main/hit_raider_with_rotten_tomato",
+		"parent": "farmersdelight:main/harvest_ropelogged_tomato",
+		"title": "Boo! Hiss!",
+		"description": "Throw a Rotten Tomato at one of these pesky raiders!",
+		"icon": "farmersdelight:rotten_tomato",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"hit_raider_with_rotten_tomato"
+		]
+	},
+	{
+		"id": "farmersdelight:main/master_chef",
+		"parent": "farmersdelight:main/place_feast",
+		"title": "Master Chef",
+		"description": "Eat a course of every meal available!",
+		"icon": "farmersdelight:honey_glazed_ham",
+		"frame": "challenge",
+		"hidden": false,
+		"criteria": [
+			"bacon_and_eggs",
+			"baked_cod_stew",
+			"beef_stew",
+			"bone_broth",
+			"chicken_soup",
+			"cooked_rice",
+			"fish_stew",
+			"fried_rice",
+			"gleaming_salad",
+			"grilled_salmon",
+			"honey_glazed_ham",
+			"mixed_salad",
+			"mushroom_rice",
+			"noodle_soup",
+			"onion_soup",
+			"pasta_with_meatballs",
+			"pasta_with_mutton_chop",
+			"pumpkin_soup",
+			"ratatouille",
+			"roast_chicken",
+			"roasted_mutton_chops",
+			"shepherds_pie",
+			"squid_ink_pasta",
+			"steak_and_potatoes",
+			"stuffed_pumpkin",
+			"vegetable_noodles",
+			"vegetable_soup"
+		]
+	},
+	{
+		"id": "farmersdelight:main/obtain_netherite_knife",
+		"parent": "farmersdelight:main/use_cutting_board",
+		"title": "If You Can't Take the Heat...",
+		"description": "Spend a whole Netherite Ingot to upgrade your knife! Or get out of the kitchen.",
+		"icon": "farmersdelight:netherite_knife",
+		"frame": "challenge",
+		"hidden": false,
+		"criteria": [
+			"obtain_netherite_knife"
+		]
+	},
+	{
+		"id": "farmersdelight:main/place_campfire",
+		"parent": "farmersdelight:main/root",
+		"title": "Bonfire Lit",
+		"description": "Place down a Campfire to cook some food",
+		"icon": "minecraft:campfire",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"campfire",
+			"soul_campfire"
+		]
+	},
+	{
+		"id": "farmersdelight:main/place_cooking_pot",
+		"parent": "farmersdelight:main/place_campfire",
+		"title": "Dinner's Served!",
+		"description": "Put down a Cooking Pot and start preparing meals!",
+		"icon": "farmersdelight:cooking_pot",
+		"frame": "goal",
+		"hidden": false,
+		"criteria": [
+			"cooking_pot"
+		]
+	},
+	{
+		"id": "farmersdelight:main/place_feast",
+		"parent": "farmersdelight:main/eat_nourishing_food",
+		"title": "A Glorious Feast",
+		"description": "Some meals are big enough to be placed down and shared with friends!",
+		"icon": "farmersdelight:roast_chicken_block",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"gleaming_salad",
+			"honey_glazed_ham",
+			"rice_roll_medley",
+			"roast_chicken",
+			"shepherds_pie",
+			"stuffed_pumpkin"
+		]
+	},
+	{
+		"id": "farmersdelight:main/place_organic_compost",
+		"parent": "farmersdelight:main/harvest_straw",
+		"title": "Advanced Composting",
+		"description": "Place down some Organic Compost. It composts better with sun, water and mushrooms!",
+		"icon": "farmersdelight:organic_compost",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"place_organic_compost"
+		]
+	},
+	{
+		"id": "farmersdelight:main/place_skillet",
+		"parent": "farmersdelight:main/use_skillet",
+		"title": "Sizzling Hot!",
+		"description": "Sneak to place your Skillet down as a block",
+		"icon": "farmersdelight:skillet",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"skillet"
+		]
+	},
+	{
+		"id": "farmersdelight:main/plant_all_crops",
+		"parent": "farmersdelight:main/plant_rice",
+		"title": "Crop Rotation",
+		"description": "Cultivate every food-related plant you can find, such as vegetables, fruits, fungi or roots!",
+		"icon": "farmersdelight:cabbage",
+		"frame": "challenge",
+		"hidden": false,
+		"criteria": [
+			"beetroot",
+			"brown_mushroom",
+			"cabbage",
+			"carrot",
+			"chorus_flower",
+			"cocoa",
+			"glow_berries",
+			"kelp",
+			"melon",
+			"nether_wart",
+			"onion",
+			"potato",
+			"pumpkin",
+			"red_mushroom",
+			"rice",
+			"sugar_cane",
+			"sweet_berries",
+			"tomato",
+			"wheat"
+		]
+	},
+	{
+		"id": "farmersdelight:main/plant_rice",
+		"parent": "farmersdelight:main/get_fd_seed",
+		"title": "Dipping Your Roots",
+		"description": "Plant grains of Rice in a shallow water puddle",
+		"icon": "farmersdelight:rice",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"plant_rice"
+		]
+	},
+	{
+		"id": "farmersdelight:main/root",
+		"parent": null,
+		"title": "Farmer's Delight",
+		"description": "A world of flavor awaits you!",
+		"icon": "farmersdelight:cooking_pot",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"seeds"
+		]
+	},
+	{
+		"id": "farmersdelight:main/use_cutting_board",
+		"parent": "farmersdelight:main/craft_knife",
+		"title": "Watch Your Fingers",
+		"description": "With a tool in hand, use a Cutting Board to break down an item",
+		"icon": "farmersdelight:cutting_board",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"cutting_board"
+		]
+	},
+	{
+		"id": "farmersdelight:main/use_skillet",
+		"parent": "farmersdelight:main/place_campfire",
+		"title": "Portable Cooking",
+		"description": "Skillets let you cook on the go. Stand near heat, then hold food in your other hand!",
+		"icon": "farmersdelight:skillet",
+		"frame": "task",
+		"hidden": false,
+		"criteria": [
+			"skillet"
+		]
+	}
+]

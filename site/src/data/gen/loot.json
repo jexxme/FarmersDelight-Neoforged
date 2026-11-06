@@ -1,0 +1,4254 @@
+{
+	"chests": {
+		"farmersdelight:chests/fd_abandoned_mineshaft": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cooking_pot",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.125
+						},
+						{
+							"item": "farmersdelight:skillet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"set_damage"
+							],
+							"chance": 0.125
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 6,
+							"chance": 0.75
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 4
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 2,
+							"chance": 0.4
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 3,
+						"max": 3
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 12
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.3333333333333333
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 2,
+							"chance": 0.6666666666666666
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_bastion_hoglin_stable": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:diamond_knife",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"set_damage",
+								"enchant_randomly"
+							],
+							"chance": 0.2
+						},
+						{
+							"item": "farmersdelight:golden_knife",
+							"weight": 2,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"enchant_randomly"
+							],
+							"chance": 0.4
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 2,
+							"chance": 0.4
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 2
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:ham",
+							"weight": 4,
+							"count": {
+								"min": 2,
+								"max": 5
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:smoked_ham",
+							"weight": 2,
+							"count": {
+								"min": 2,
+								"max": 5
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.25
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 2,
+							"chance": 0.25
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_bastion_treasure": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:diamond_knife",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"set_damage",
+								"enchant_randomly"
+							],
+							"chance": 0.125
+						},
+						{
+							"item": "farmersdelight:diamond_knife",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.125
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 6,
+							"chance": 0.75
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_end_city_treasure": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:diamond_knife",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"enchant_with_levels"
+							],
+							"chance": 0.125
+						},
+						{
+							"item": "farmersdelight:iron_knife",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"enchant_with_levels"
+							],
+							"chance": 0.125
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 6,
+							"chance": 0.75
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_pillager_outpost": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 2
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:onion",
+							"weight": 5,
+							"count": {
+								"min": 4,
+								"max": 12
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5555555555555556
+						},
+						{
+							"item": "farmersdelight:onion_crate",
+							"weight": 2,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.2222222222222222
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 2,
+							"chance": 0.2222222222222222
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_ruined_portal": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:golden_knife",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"enchant_randomly"
+							],
+							"chance": 0.25
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 3,
+							"chance": 0.75
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_shipwreck_supply": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 2
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 6,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.25
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 6,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.25
+						},
+						{
+							"item": "farmersdelight:onion",
+							"weight": 6,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.25
+						},
+						{
+							"item": "farmersdelight:rice",
+							"weight": 6,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.25
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 3
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope",
+							"weight": 2,
+							"count": {
+								"min": 4,
+								"max": 12
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.6666666666666666
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 1,
+							"chance": 0.3333333333333333
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_simple_dungeon": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 4
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.25
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.25
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 2,
+							"chance": 0.5
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 3,
+						"max": 3
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 12
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.3333333333333333
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 2,
+							"chance": 0.6666666666666666
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_village_butcher": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:flint_knife",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.3333333333333333
+						},
+						{
+							"item": "farmersdelight:iron_knife",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.3333333333333333
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 1,
+							"chance": 0.3333333333333333
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 2
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:ham",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.09090909090909091
+						},
+						{
+							"item": "farmersdelight:minced_beef",
+							"weight": 3,
+							"count": {
+								"min": 2,
+								"max": 6
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.2727272727272727
+						},
+						{
+							"item": "farmersdelight:bacon",
+							"weight": 3,
+							"count": {
+								"min": 2,
+								"max": 6
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.2727272727272727
+						},
+						{
+							"item": "farmersdelight:mutton_chops",
+							"weight": 3,
+							"count": {
+								"min": 2,
+								"max": 6
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.2727272727272727
+						},
+						{
+							"kind": "minecraft:empty",
+							"value": null,
+							"weight": 1,
+							"chance": 0.09090909090909091
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_village_desert_house": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 3
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_village_plains_house": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 3
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:onion",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_village_savanna_house": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 3
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_village_snowy_house": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 3
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:onion",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		},
+		"farmersdelight:chests/fd_village_taiga_house": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 3
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:chest"
+		}
+	},
+	"blocks": {
+		"farmersdelight:blocks/acacia_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:acacia_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/apple_pie": {
+			"pools": [],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/bamboo_basket": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:bamboo_basket",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/bamboo_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:bamboo_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/beetroot_crate": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:beetroot_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/birch_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:birch_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/black_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:black_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/black_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:black_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/blue_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:blue_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/blue_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:blue_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/brown_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:brown_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/brown_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:brown_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/brown_mushroom_colony": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "minecraft:brown_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 2
+							},
+							"fortune": null,
+							"conditions": [
+								"age = 0"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:brown_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 3,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 1"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:brown_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 4,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 2"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:brown_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 5,
+								"max": 5
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"not (neoforge:can_item_perform_ability) and age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "farmersdelight:brown_mushroom_colony",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"neoforge:can_item_perform_ability and age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/budding_tomatoes": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/cabbages": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"age = 7"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 7"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "binomial_with_bonus_count",
+								"extra": 3,
+								"probability": 0.5714286
+							},
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/cabbage_crate": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/canvas_rug": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:canvas_rug",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/carrot_crate": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:carrot_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/cherry_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cherry_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/chocolate_pie": {
+			"pools": [],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/cooking_pot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cooking_pot",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/crimson_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:crimson_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/cutting_board": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cutting_board",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/cyan_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cyan_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/cyan_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cyan_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/dark_oak_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:dark_oak_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/full_tatami_mat": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:full_tatami_mat",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"part = head"
+							],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/gleaming_salad_block": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:gleaming_salad_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/gray_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:gray_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/gray_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:gray_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/green_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:green_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/green_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:green_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/half_tatami_mat": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:half_tatami_mat",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/honey_glazed_ham_block": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:honey_glazed_ham_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bone",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/jungle_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:jungle_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/light_blue_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:light_blue_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/light_blue_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:light_blue_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/light_gray_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:light_gray_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/light_gray_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:light_gray_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/lime_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:lime_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/lime_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:lime_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/magenta_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:magenta_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/magenta_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:magenta_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/mangrove_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:mangrove_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/oak_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:oak_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/onions": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:onion",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 7"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:onion",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "binomial_with_bonus_count",
+								"extra": 3,
+								"probability": 0.5714286
+							},
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/onion_crate": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:onion_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/orange_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:orange_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/orange_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:orange_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/organic_compost": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:organic_compost",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/pale_oak_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:pale_oak_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/pink_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:pink_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/pink_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:pink_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/potato_crate": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:potato_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/pumpkin_pie": {
+			"pools": [],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/purple_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:purple_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/purple_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:purple_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/red_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:red_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/red_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:red_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/red_mushroom_colony": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "minecraft:red_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 2
+							},
+							"fortune": null,
+							"conditions": [
+								"age = 0"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:red_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 3,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 1"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:red_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 4,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 2"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:red_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 5,
+								"max": 5
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"not (neoforge:can_item_perform_ability) and age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "farmersdelight:red_mushroom_colony",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"neoforge:can_item_perform_ability and age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rice": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rice_bag": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rice_bag",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rice_bale": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rice_bale",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rice_panicles": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"age = 3 and with #farmersdelight:tools/knives"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:rice_panicle",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rice_roll_medley_block": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 8"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:rice_roll_medley_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 8)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rich_soil": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rich_soil",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rich_soil_farmland": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rich_soil",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/roast_chicken_block": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:roast_chicken_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bone_meal",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rope": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rope_fence": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope_fence",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/rope_fence_gate": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope_fence_gate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/safety_net": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:safety_net",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/sandy_shrub": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:sandy_shrub",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "minecraft:beetroot_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise",
+								"12.5% chance"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/shepherds_pie_block": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:shepherds_pie_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/skillet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:skillet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"farmersdelight:copy_skillet"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/spruce_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:spruce_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/stove": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:stove",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/straw_bale": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:straw_bale",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/stuffed_pumpkin_block": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:stuffed_pumpkin_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/sweet_berry_cheesecake": {
+			"pools": [],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/tatami": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tatami",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/tomatoes": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 3"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"ropelogged = false"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 3 and 5% chance"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:rotten_tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/tomatoes_on_rope": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 3"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 3 and 5% chance"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:rotten_tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/tomato_crate": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/warped_cabinet": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:warped_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/white_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:white_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/white_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:white_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/wild_beetroots": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"20% chance and not (neoforge:can_item_perform_ability)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:beetroot",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_beetroots",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "minecraft:beetroot_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/wild_cabbages": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"20% chance and not (neoforge:can_item_perform_ability)"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_cabbages",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/wild_carrots": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_carrots",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "minecraft:carrot",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/wild_onions": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_onions",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:onion",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (neoforge:can_item_perform_ability)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:allium",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/wild_potatoes": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_potatoes",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "minecraft:potato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/wild_rice": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"half = lower and location_check"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"half = upper and location_check"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/wild_tomatoes": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"20% chance and not (neoforge:can_item_perform_ability)"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_tomatoes",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/wooden_basket": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wooden_basket",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/yellow_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:yellow_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		},
+		"farmersdelight:blocks/yellow_hanging_canvas_sign": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:yellow_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	}
+}

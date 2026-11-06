@@ -1,0 +1,236 @@
+---
+// One recipe, drawn like the game shows it. Cooking Pot and Cutting Board use Farmer's Delight's own JEI textures
+// at the JEI slot positions (integration/jei/category/*.java); vanilla types use the same visual language.
+import Slot from '../mc/Slot.astro';
+import Sprite from '../mc/Sprite.astro';
+import { recipeById, recipeTypeName, seconds, items, url, type Recipe } from '../../lib/data';
+interface Props {
+	id?: string;
+	recipe?: Recipe;
+	caption?: boolean;
+	scale?: number;
+}
+const { id, caption = true, scale: s = 2 } = Astro.props;
+const r: Recipe | undefined = Astro.props.recipe ?? (id ? recipeById.get(id.includes(':') ? id : `farmersdelight:${id}`) : undefined);
+if (!r) throw new Error(`Unknown recipe ${id}`);
+const px = (n: number) => `${n * s}px`;
+const at = (x: number, y: number) => `position:absolute;left:${px(x)};top:${px(y)}`;
+const type = r.type;
+const resultName = r.result ? items[r.result.id]?.name : null;
+const xp = r.experience ?? 0;
+// Cutting board output layout (CuttingRecipeCategory.java: OUTPUT_GRID_X 76, OUTPUT_GRID_Y 10)
+const outs = r.results ?? [];
+const cx = outs.length > 1 ? 1 : 10;
+const cy = outs.length > 2 ? 1 : 10;
+const outPos = outs.map((_, i) => [76 + cx + (i % 2 === 0 ? 0 : 19), 10 + cy + Math.floor(i / 2) * 19]);
+const grid = r.grid ?? (r.ingredients && type.startsWith('crafting') ? [r.ingredients.slice(0, 3), r.ingredients.slice(3, 6), r.ingredients.slice(6, 9)] : null);
+const station: Record<string, string[]> = {
+	campfire_cooking: ['minecraft:campfire', 'farmersdelight:stove', 'farmersdelight:skillet'],
+	smelting: ['minecraft:furnace'],
+	smoking: ['minecraft:smoker'],
+	blasting: ['minecraft:blast_furnace'],
+};
+---
+<figure class="fd-recipe" data-type={type}>
+	{
+		type === 'farmersdelight:cooking' && (
+			<div class="stage" style={`width:${px(116)};height:${px(56)}`}>
+				<Sprite src="/gui/cooking_pot.png" x={0} y={0} w={116} h={56} scale={s} />
+				{r.ingredients!.map((ing, i) => (
+					<div style={at((i % 3) * 18 + 1, Math.floor(i / 3) * 18 + 1)}>
+						<Slot ingredient={ing} bare scale={s} />
+					</div>
+				))}
+				<div style={at(60, 9)} title={`${r.cookingtime} ticks`}>
+					<Sprite src="/gui/cooking_pot_gui.png" x={176} y={15} w={24} h={17} scale={s} class="fd-arrow" />
+				</div>
+				<div style={at(18, 39)} title="Needs heat from below">
+					<Sprite src="/gui/cooking_pot_gui.png" x={176} y={0} w={17} h={15} scale={s} />
+				</div>
+				<div style={at(64, 2)}>
+					<Sprite src="/gui/cooking_pot_gui.png" x={176} y={32} w={8} h={11} scale={s} />
+				</div>
+				{xp > 0 && (
+					<div style={at(63, 21)}>
+						<Sprite src="/gui/cooking_pot_gui.png" x={176} y={43} w={9} h={9} scale={s} />
+					</div>
+				)}
+				<div style={at(95, 10)}>
+					<Slot id={r.result!.id} count={r.result!.count} bare scale={s} />
+				</div>
+				{r.container && (
+					<div style={at(63, 39)}>
+						<Slot id={r.container.id} bare scale={s} note="Serving container" />
+					</div>
+				)}
+				<div style={at(95, 39)}>
+					<Slot id={r.result!.id} count={r.result!.count} bare scale={s} />
+				</div>
+			</div>
+		)
+	}
+	{
+		type === 'farmersdelight:cutting' && (
+			<div class="stage" style={`width:${px(117)};height:${px(57)}`}>
+				<Sprite src="/gui/cutting_board.png" x={0} y={0} w={117} h={57} scale={s} />
+				<div style={at(16, 8)}>
+					<Slot ingredient={r.tool} bare scale={s} note="Tool, loses 1 durability per cut" />
+				</div>
+				<div style={at(16, 27)}>
+					<Slot ingredient={r.ingredients![0]} bare scale={s} />
+				</div>
+				{outs.map((o, i) => (
+					<>
+						<div style={at(outPos[i][0] - 1, outPos[i][1] - 1)}>
+							<Sprite src="/gui/cutting_board.png" x={o.chance! < 1 ? 18 : 0} y={58} w={18} h={18} scale={s} />
+						</div>
+						<div style={at(outPos[i][0], outPos[i][1])}>
+							<Slot id={o.id} count={o.count} chance={o.chance} bare scale={s} />
+						</div>
+					</>
+				))}
+			</div>
+		)
+	}
+	{
+		grid && (
+			<div class="mc-panel row" style={`--s:${s}px`}>
+				<div class="grid3">
+					{[0, 1, 2].map((y) => [0, 1, 2].map((x) => <Slot ingredient={grid[y]?.[x] ?? null} scale={s} />))}
+				</div>
+				<Sprite src="/gui/mc/burn_progress.png" x={0} y={0} w={24} h={16} sheet={24} scale={s} class="fd-arrow-v" style={`background-size:${24 * s}px ${16 * s}px`} />
+				<Slot id={r.result!.id} count={r.result!.count} large scale={s} />
+			</div>
+		)
+	}
+	{
+		station[type] && (
+			<div class="mc-panel row" style={`--s:${s}px`}>
+				<div class="col">
+					<Slot ingredient={r.ingredients![0]} scale={s} />
+					<span class="flame" style={`width:${px(14)};height:${px(14)};background-image:url(${url('/gui/mc/lit_progress.png')});background-size:100% 100%`} />
+				</div>
+				<div class="col mid">
+					<span style={`width:${px(24)};height:${px(16)};background-image:url(${url('/gui/mc/burn_progress.png')});background-size:100% 100%;image-rendering:pixelated;display:block`} />
+				</div>
+				<Slot id={r.result!.id} count={r.result!.count} large scale={s} />
+				<div class="stations">
+					{station[type].map((st) => (
+						<Slot id={st} scale={s * 0.75} bare />
+					))}
+				</div>
+			</div>
+		)
+	}
+	{
+		type === 'smithing_transform' && (
+			<div class="mc-panel row" style={`--s:${s}px`}>
+				<Slot ingredient={r.template} scale={s} />
+				<Slot ingredient={r.base} scale={s} />
+				<Slot ingredient={r.addition} scale={s} />
+				<span style={`width:${px(24)};height:${px(16)};background-image:url(${url('/gui/mc/burn_progress.png')});background-size:100% 100%;image-rendering:pixelated;display:block`} />
+				<Slot id={r.result!.id} count={r.result!.count} large scale={s} />
+			</div>
+		)
+	}
+	{r.special && <div class="mc-panel special" style={`--s:${s}px`}>{recipeTypeName[type] ?? type}</div>}
+	{
+		caption && (
+			<figcaption>
+				<span class="kind">{recipeTypeName[type] ?? type}</span>
+				{r.cookingtime && <span class="stat" title={`${r.cookingtime} ticks`}>⏱ {seconds(r.cookingtime)}</span>}
+				{xp > 0 && <span class="stat xp">✦ {+xp.toFixed(2)} XP</span>}
+				{r.container && type === 'farmersdelight:cooking' && <span class="hint">served in a {r.container.id.split(':')[1].replaceAll('_', ' ')}</span>}
+				<code title="Recipe id (for datapacks and /recipe)">{r.id.replace('farmersdelight:', '')}</code>
+			</figcaption>
+		)
+	}
+</figure>
+
+<style>
+	.fd-recipe {
+		display: inline-flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		margin: 0;
+		vertical-align: top;
+		max-width: 100%;
+	}
+	.stage {
+		position: relative;
+		filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.35));
+		border-radius: 4px;
+		outline: 2px solid #000;
+		box-shadow: inset 2px 2px 0 #fff;
+	}
+	.row {
+		display: flex !important;
+		align-items: center;
+		gap: calc(6 * var(--s));
+		flex-wrap: wrap;
+	}
+	.grid3 {
+		display: grid;
+		grid-template-columns: repeat(3, auto);
+	}
+	.col {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: calc(2 * var(--s));
+	}
+	.flame {
+		display: block;
+		image-rendering: pixelated;
+	}
+	.stations {
+		display: flex;
+		gap: 2px;
+		margin-left: calc(2 * var(--s));
+		padding-left: calc(4 * var(--s));
+		border-left: 2px solid #8b8b8b;
+	}
+	.mc-label {
+		font-family: var(--fd-font-pixel);
+		font-size: 14px;
+		color: #404040;
+		white-space: nowrap;
+		line-height: 1;
+	}
+	.mc-label.xp {
+		color: #3f8a00;
+	}
+	.special {
+		font-family: var(--fd-font-pixel);
+		padding: 1rem;
+	}
+	figcaption {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.25rem 0.6rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		max-width: 18rem;
+	}
+	figcaption .stat {
+		font-variant-numeric: tabular-nums;
+		color: var(--sl-color-gray-2);
+	}
+	figcaption .xp {
+		color: var(--fd-green);
+	}
+	figcaption .kind {
+		font-weight: 600;
+		color: var(--sl-color-gray-2);
+	}
+	figcaption code {
+		font-size: 0.95em;
+		padding: 0 0.25rem;
+		background: var(--fd-surface-2);
+		border-radius: 0.25rem;
+	}
+	:global(.fd-arrow) {
+		animation: none;
+	}
+</style>

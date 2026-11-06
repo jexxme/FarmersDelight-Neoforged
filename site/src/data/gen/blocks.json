@@ -1,0 +1,7871 @@
+{
+	"farmersdelight:stove": {
+		"id": "farmersdelight:stove",
+		"name": "Stove",
+		"item": "farmersdelight:stove",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"lit": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"create:passive_boiler_heaters",
+			"farmersdelight:heat_sources",
+			"minecraft:mineable/pickaxe"
+		],
+		"class": "StoveBlock",
+		"hardness": 2,
+		"blastResistance": 6,
+		"maxLight": 13,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:stove",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:cooking_pot": {
+		"id": "farmersdelight:cooking_pot",
+		"name": "Cooking Pot",
+		"item": "farmersdelight:cooking_pot",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"support": [
+				"none",
+				"tray",
+				"handle"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:mineable/pickaxe"
+		],
+		"class": "CookingPotBlock",
+		"hardness": 0.5,
+		"blastResistance": 6,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cooking_pot",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:skillet": {
+		"id": "farmersdelight:skillet",
+		"name": "Skillet",
+		"item": "farmersdelight:skillet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"support": [
+				"true",
+				"false"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:mineable/pickaxe"
+		],
+		"class": "SkilletBlock",
+		"hardness": 0.5,
+		"blastResistance": 6,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:skillet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"farmersdelight:copy_skillet"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wooden_basket": {
+		"id": "farmersdelight:wooden_basket",
+		"name": "Basket",
+		"item": "farmersdelight:wooden_basket",
+		"properties": {
+			"enabled": [
+				"true",
+				"false"
+			],
+			"facing": [
+				"north",
+				"east",
+				"south",
+				"west",
+				"up",
+				"down"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "BasketBlock",
+		"hardness": 1.5,
+		"blastResistance": 1.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wooden_basket",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:bamboo_basket": {
+		"id": "farmersdelight:bamboo_basket",
+		"name": "Bamboo Basket",
+		"item": "farmersdelight:bamboo_basket",
+		"properties": {
+			"enabled": [
+				"true",
+				"false"
+			],
+			"facing": [
+				"north",
+				"east",
+				"south",
+				"west",
+				"up",
+				"down"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "BasketBlock",
+		"hardness": 1.5,
+		"blastResistance": 1.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:bamboo_basket",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:cutting_board": {
+		"id": "farmersdelight:cutting_board",
+		"name": "Cutting Board",
+		"item": "farmersdelight:cutting_board",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"minecraft:combination_step_sound_blocks",
+			"minecraft:mineable/axe",
+			"sable:super_light"
+		],
+		"class": "CuttingBoardBlock",
+		"hardness": 2,
+		"blastResistance": 2,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cutting_board",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:carrot_crate": {
+		"id": "farmersdelight:carrot_crate",
+		"name": "Carrot Crate",
+		"item": "farmersdelight:carrot_crate",
+		"properties": {},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/carrot",
+			"minecraft:mineable/axe"
+		],
+		"class": "Block",
+		"hardness": 2,
+		"blastResistance": 3,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:carrot_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:potato_crate": {
+		"id": "farmersdelight:potato_crate",
+		"name": "Potato Crate",
+		"item": "farmersdelight:potato_crate",
+		"properties": {},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/potato",
+			"minecraft:mineable/axe"
+		],
+		"class": "Block",
+		"hardness": 2,
+		"blastResistance": 3,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:potato_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:beetroot_crate": {
+		"id": "farmersdelight:beetroot_crate",
+		"name": "Beetroot Crate",
+		"item": "farmersdelight:beetroot_crate",
+		"properties": {},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/beetroot",
+			"minecraft:mineable/axe"
+		],
+		"class": "Block",
+		"hardness": 2,
+		"blastResistance": 3,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:beetroot_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:cabbage_crate": {
+		"id": "farmersdelight:cabbage_crate",
+		"name": "Cabbage Crate",
+		"item": "farmersdelight:cabbage_crate",
+		"properties": {},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/cabbage",
+			"minecraft:mineable/axe"
+		],
+		"class": "Block",
+		"hardness": 2,
+		"blastResistance": 3,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:tomato_crate": {
+		"id": "farmersdelight:tomato_crate",
+		"name": "Tomato Crate",
+		"item": "farmersdelight:tomato_crate",
+		"properties": {},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/tomato",
+			"minecraft:mineable/axe"
+		],
+		"class": "Block",
+		"hardness": 2,
+		"blastResistance": 3,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:onion_crate": {
+		"id": "farmersdelight:onion_crate",
+		"name": "Onion Crate",
+		"item": "farmersdelight:onion_crate",
+		"properties": {},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/onion",
+			"minecraft:mineable/axe"
+		],
+		"class": "Block",
+		"hardness": 2,
+		"blastResistance": 3,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:onion_crate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rice_bale": {
+		"id": "farmersdelight:rice_bale",
+		"name": "Rice Bale",
+		"item": "farmersdelight:rice_bale",
+		"properties": {
+			"facing": [
+				"north",
+				"east",
+				"south",
+				"west",
+				"up",
+				"down"
+			]
+		},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/rice_panicle",
+			"farmersdelight:campfire_signal_smoke",
+			"minecraft:mineable/hoe"
+		],
+		"class": "RiceBaleBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rice_bale",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rice_bag": {
+		"id": "farmersdelight:rice_bag",
+		"name": "Bag of Rice",
+		"item": "farmersdelight:rice_bag",
+		"properties": {},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/rice",
+			"farmersdelight:mineable/knife"
+		],
+		"class": "Block",
+		"hardness": 0.8,
+		"blastResistance": 0.8,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rice_bag",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:straw_bale": {
+		"id": "farmersdelight:straw_bale",
+		"name": "Straw Bale",
+		"item": "farmersdelight:straw_bale",
+		"properties": {
+			"axis": [
+				"x",
+				"y",
+				"z"
+			]
+		},
+		"tags": [
+			"c:storage_blocks",
+			"c:storage_blocks/straw",
+			"farmersdelight:campfire_signal_smoke",
+			"minecraft:mineable/hoe"
+		],
+		"class": "StrawBaleBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:straw_bale",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rope": {
+		"id": "farmersdelight:rope",
+		"name": "Rope",
+		"item": "farmersdelight:rope",
+		"properties": {
+			"east": [
+				"true",
+				"false"
+			],
+			"north": [
+				"true",
+				"false"
+			],
+			"south": [
+				"true",
+				"false"
+			],
+			"tied_to_bell": [
+				"true",
+				"false"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			],
+			"west": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"c:ropes",
+			"farmersdelight:mineable/knife",
+			"farmersdelight:ropes",
+			"farmersdelight:straw_blocks",
+			"minecraft:climbable",
+			"minecraft:fall_damage_resetting"
+		],
+		"class": "RopeBlock",
+		"hardness": 0.2,
+		"blastResistance": 0.2,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:safety_net": {
+		"id": "farmersdelight:safety_net",
+		"name": "Safety Net",
+		"item": "farmersdelight:safety_net",
+		"properties": {
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"create:fan_transparent",
+			"farmersdelight:mineable/knife",
+			"farmersdelight:straw_blocks",
+			"sable:super_light"
+		],
+		"class": "SafetyNetBlock",
+		"hardness": 0.2,
+		"blastResistance": 0.2,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:safety_net",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rope_fence": {
+		"id": "farmersdelight:rope_fence",
+		"name": "Rope Fence",
+		"item": "farmersdelight:rope_fence",
+		"properties": {
+			"east": [
+				"true",
+				"false"
+			],
+			"north": [
+				"true",
+				"false"
+			],
+			"south": [
+				"true",
+				"false"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			],
+			"west": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"c:fences",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:fences",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "RopeFenceBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope_fence",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rope_fence_gate": {
+		"id": "farmersdelight:rope_fence_gate",
+		"name": "Rope Fence Gate",
+		"item": "farmersdelight:rope_fence_gate",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"in_wall": [
+				"true",
+				"false"
+			],
+			"open": [
+				"true",
+				"false"
+			],
+			"powered": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"c:fence_gates",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:fence_gates",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:maintains_farmland",
+			"minecraft:mineable/axe",
+			"minecraft:unstable_bottom_center"
+		],
+		"class": "RopeFenceGateBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rope_fence_gate",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:oak_cabinet": {
+		"id": "farmersdelight:oak_cabinet",
+		"name": "Oak Cabinet",
+		"item": "farmersdelight:oak_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:oak_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:spruce_cabinet": {
+		"id": "farmersdelight:spruce_cabinet",
+		"name": "Spruce Cabinet",
+		"item": "farmersdelight:spruce_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:spruce_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:birch_cabinet": {
+		"id": "farmersdelight:birch_cabinet",
+		"name": "Birch Cabinet",
+		"item": "farmersdelight:birch_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:birch_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:jungle_cabinet": {
+		"id": "farmersdelight:jungle_cabinet",
+		"name": "Jungle Cabinet",
+		"item": "farmersdelight:jungle_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:jungle_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:acacia_cabinet": {
+		"id": "farmersdelight:acacia_cabinet",
+		"name": "Acacia Cabinet",
+		"item": "farmersdelight:acacia_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:acacia_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:dark_oak_cabinet": {
+		"id": "farmersdelight:dark_oak_cabinet",
+		"name": "Dark Oak Cabinet",
+		"item": "farmersdelight:dark_oak_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:dark_oak_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:mangrove_cabinet": {
+		"id": "farmersdelight:mangrove_cabinet",
+		"name": "Mangrove Cabinet",
+		"item": "farmersdelight:mangrove_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:mangrove_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:cherry_cabinet": {
+		"id": "farmersdelight:cherry_cabinet",
+		"name": "Cherry Cabinet",
+		"item": "farmersdelight:cherry_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cherry_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:bamboo_cabinet": {
+		"id": "farmersdelight:bamboo_cabinet",
+		"name": "Bamboo Cabinet",
+		"item": "farmersdelight:bamboo_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:bamboo_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:pale_oak_cabinet": {
+		"id": "farmersdelight:pale_oak_cabinet",
+		"name": "Pale Oak Cabinet",
+		"item": "farmersdelight:pale_oak_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:pale_oak_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:crimson_cabinet": {
+		"id": "farmersdelight:crimson_cabinet",
+		"name": "Crimson Cabinet",
+		"item": "farmersdelight:crimson_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:crimson_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:warped_cabinet": {
+		"id": "farmersdelight:warped_cabinet",
+		"name": "Warped Cabinet",
+		"item": "farmersdelight:warped_cabinet",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"open": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:cabinets",
+			"farmersdelight:cabinets/wooden",
+			"minecraft:mineable/axe",
+			"sable:light"
+		],
+		"class": "CabinetBlock",
+		"hardness": 2.5,
+		"blastResistance": 2.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:warped_cabinet",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [
+								"copy_components"
+							],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:canvas_rug": {
+		"id": "farmersdelight:canvas_rug",
+		"name": "Canvas Rug",
+		"item": "farmersdelight:canvas_rug",
+		"properties": {},
+		"tags": [
+			"farmersdelight:mineable/knife",
+			"farmersdelight:straw_blocks",
+			"minecraft:combination_step_sound_blocks",
+			"sable:super_light"
+		],
+		"class": "CanvasRugBlock",
+		"hardness": 0.2,
+		"blastResistance": 0.2,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:canvas_rug",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:tatami": {
+		"id": "farmersdelight:tatami",
+		"name": "Tatami Block",
+		"item": "farmersdelight:tatami",
+		"properties": {
+			"facing": [
+				"north",
+				"east",
+				"south",
+				"west",
+				"up",
+				"down"
+			],
+			"paired": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"farmersdelight:mineable/knife",
+			"farmersdelight:straw_blocks"
+		],
+		"class": "TatamiBlock",
+		"hardness": 0.8,
+		"blastResistance": 0.8,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tatami",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:full_tatami_mat": {
+		"id": "farmersdelight:full_tatami_mat",
+		"name": "Full Tatami Mat",
+		"item": "farmersdelight:full_tatami_mat",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"part": [
+				"head",
+				"foot"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:mineable/knife",
+			"farmersdelight:straw_blocks",
+			"minecraft:combination_step_sound_blocks",
+			"sable:super_light"
+		],
+		"class": "TatamiMatBlock",
+		"hardness": 0.3,
+		"blastResistance": 0.3,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:full_tatami_mat",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"part = head"
+							],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:half_tatami_mat": {
+		"id": "farmersdelight:half_tatami_mat",
+		"name": "Half Tatami Mat",
+		"item": "farmersdelight:half_tatami_mat",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:mineable/knife",
+			"farmersdelight:straw_blocks",
+			"minecraft:combination_step_sound_blocks",
+			"sable:super_light"
+		],
+		"class": "TatamiHalfMatBlock",
+		"hardness": 0.3,
+		"blastResistance": 0.3,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:half_tatami_mat",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:canvas_sign": {
+		"id": "farmersdelight:canvas_sign",
+		"name": "Canvas Sign",
+		"item": "farmersdelight:canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:white_canvas_sign": {
+		"id": "farmersdelight:white_canvas_sign",
+		"name": "White Canvas Sign",
+		"item": "farmersdelight:white_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:white_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:orange_canvas_sign": {
+		"id": "farmersdelight:orange_canvas_sign",
+		"name": "Orange Canvas Sign",
+		"item": "farmersdelight:orange_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:orange_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:magenta_canvas_sign": {
+		"id": "farmersdelight:magenta_canvas_sign",
+		"name": "Magenta Canvas Sign",
+		"item": "farmersdelight:magenta_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:magenta_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:light_blue_canvas_sign": {
+		"id": "farmersdelight:light_blue_canvas_sign",
+		"name": "Light Blue Canvas Sign",
+		"item": "farmersdelight:light_blue_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:light_blue_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:yellow_canvas_sign": {
+		"id": "farmersdelight:yellow_canvas_sign",
+		"name": "Yellow Canvas Sign",
+		"item": "farmersdelight:yellow_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:yellow_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:lime_canvas_sign": {
+		"id": "farmersdelight:lime_canvas_sign",
+		"name": "Lime Canvas Sign",
+		"item": "farmersdelight:lime_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:lime_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:pink_canvas_sign": {
+		"id": "farmersdelight:pink_canvas_sign",
+		"name": "Pink Canvas Sign",
+		"item": "farmersdelight:pink_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:pink_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:gray_canvas_sign": {
+		"id": "farmersdelight:gray_canvas_sign",
+		"name": "Gray Canvas Sign",
+		"item": "farmersdelight:gray_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:gray_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:light_gray_canvas_sign": {
+		"id": "farmersdelight:light_gray_canvas_sign",
+		"name": "Light Gray Canvas Sign",
+		"item": "farmersdelight:light_gray_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:light_gray_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:cyan_canvas_sign": {
+		"id": "farmersdelight:cyan_canvas_sign",
+		"name": "Cyan Canvas Sign",
+		"item": "farmersdelight:cyan_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cyan_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:purple_canvas_sign": {
+		"id": "farmersdelight:purple_canvas_sign",
+		"name": "Purple Canvas Sign",
+		"item": "farmersdelight:purple_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:purple_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:blue_canvas_sign": {
+		"id": "farmersdelight:blue_canvas_sign",
+		"name": "Blue Canvas Sign",
+		"item": "farmersdelight:blue_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:blue_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:brown_canvas_sign": {
+		"id": "farmersdelight:brown_canvas_sign",
+		"name": "Brown Canvas Sign",
+		"item": "farmersdelight:brown_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:brown_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:green_canvas_sign": {
+		"id": "farmersdelight:green_canvas_sign",
+		"name": "Green Canvas Sign",
+		"item": "farmersdelight:green_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:green_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:red_canvas_sign": {
+		"id": "farmersdelight:red_canvas_sign",
+		"name": "Red Canvas Sign",
+		"item": "farmersdelight:red_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:red_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:black_canvas_sign": {
+		"id": "farmersdelight:black_canvas_sign",
+		"name": "Black Canvas Sign",
+		"item": "farmersdelight:black_canvas_sign",
+		"properties": {
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:standing_signs",
+			"minecraft:wall_post_override"
+		],
+		"class": "StandingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:black_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:canvas_wall_sign": {
+		"id": "farmersdelight:canvas_wall_sign",
+		"name": "Canvas Wall Sign",
+		"item": "farmersdelight:canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:white_canvas_wall_sign": {
+		"id": "farmersdelight:white_canvas_wall_sign",
+		"name": "White Canvas Wall Sign",
+		"item": "farmersdelight:white_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:orange_canvas_wall_sign": {
+		"id": "farmersdelight:orange_canvas_wall_sign",
+		"name": "Orange Canvas Wall Sign",
+		"item": "farmersdelight:orange_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:magenta_canvas_wall_sign": {
+		"id": "farmersdelight:magenta_canvas_wall_sign",
+		"name": "Magenta Canvas Wall Sign",
+		"item": "farmersdelight:magenta_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:light_blue_canvas_wall_sign": {
+		"id": "farmersdelight:light_blue_canvas_wall_sign",
+		"name": "Light Blue Canvas Wall Sign",
+		"item": "farmersdelight:light_blue_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:yellow_canvas_wall_sign": {
+		"id": "farmersdelight:yellow_canvas_wall_sign",
+		"name": "Yellow Canvas Wall Sign",
+		"item": "farmersdelight:yellow_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:lime_canvas_wall_sign": {
+		"id": "farmersdelight:lime_canvas_wall_sign",
+		"name": "Lime Canvas Wall Sign",
+		"item": "farmersdelight:lime_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:pink_canvas_wall_sign": {
+		"id": "farmersdelight:pink_canvas_wall_sign",
+		"name": "Pink Canvas Wall Sign",
+		"item": "farmersdelight:pink_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:gray_canvas_wall_sign": {
+		"id": "farmersdelight:gray_canvas_wall_sign",
+		"name": "Gray Canvas Wall Sign",
+		"item": "farmersdelight:gray_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:light_gray_canvas_wall_sign": {
+		"id": "farmersdelight:light_gray_canvas_wall_sign",
+		"name": "Light Gray Canvas Wall Sign",
+		"item": "farmersdelight:light_gray_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:cyan_canvas_wall_sign": {
+		"id": "farmersdelight:cyan_canvas_wall_sign",
+		"name": "Cyan Canvas Wall Sign",
+		"item": "farmersdelight:cyan_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:purple_canvas_wall_sign": {
+		"id": "farmersdelight:purple_canvas_wall_sign",
+		"name": "Purple Canvas Wall Sign",
+		"item": "farmersdelight:purple_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:blue_canvas_wall_sign": {
+		"id": "farmersdelight:blue_canvas_wall_sign",
+		"name": "Blue Canvas Wall Sign",
+		"item": "farmersdelight:blue_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:brown_canvas_wall_sign": {
+		"id": "farmersdelight:brown_canvas_wall_sign",
+		"name": "Brown Canvas Wall Sign",
+		"item": "farmersdelight:brown_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:green_canvas_wall_sign": {
+		"id": "farmersdelight:green_canvas_wall_sign",
+		"name": "Green Canvas Wall Sign",
+		"item": "farmersdelight:green_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:red_canvas_wall_sign": {
+		"id": "farmersdelight:red_canvas_wall_sign",
+		"name": "Red Canvas Wall Sign",
+		"item": "farmersdelight:red_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:black_canvas_wall_sign": {
+		"id": "farmersdelight:black_canvas_wall_sign",
+		"name": "Black Canvas Wall Sign",
+		"item": "farmersdelight:black_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_signs",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:mineable/axe",
+			"minecraft:signs",
+			"minecraft:wall_post_override",
+			"minecraft:wall_signs"
+		],
+		"class": "WallCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:hanging_canvas_sign": {
+		"id": "farmersdelight:hanging_canvas_sign",
+		"name": "Hanging Canvas Sign",
+		"item": "farmersdelight:hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:white_hanging_canvas_sign": {
+		"id": "farmersdelight:white_hanging_canvas_sign",
+		"name": "White Hanging Canvas Sign",
+		"item": "farmersdelight:white_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:white_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:orange_hanging_canvas_sign": {
+		"id": "farmersdelight:orange_hanging_canvas_sign",
+		"name": "Orange Hanging Canvas Sign",
+		"item": "farmersdelight:orange_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:orange_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:magenta_hanging_canvas_sign": {
+		"id": "farmersdelight:magenta_hanging_canvas_sign",
+		"name": "Magenta Hanging Canvas Sign",
+		"item": "farmersdelight:magenta_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:magenta_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:light_blue_hanging_canvas_sign": {
+		"id": "farmersdelight:light_blue_hanging_canvas_sign",
+		"name": "Light Blue Hanging Canvas Sign",
+		"item": "farmersdelight:light_blue_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:light_blue_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:yellow_hanging_canvas_sign": {
+		"id": "farmersdelight:yellow_hanging_canvas_sign",
+		"name": "Yellow Hanging Canvas Sign",
+		"item": "farmersdelight:yellow_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:yellow_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:lime_hanging_canvas_sign": {
+		"id": "farmersdelight:lime_hanging_canvas_sign",
+		"name": "Lime Hanging Canvas Sign",
+		"item": "farmersdelight:lime_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:lime_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:pink_hanging_canvas_sign": {
+		"id": "farmersdelight:pink_hanging_canvas_sign",
+		"name": "Pink Hanging Canvas Sign",
+		"item": "farmersdelight:pink_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:pink_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:gray_hanging_canvas_sign": {
+		"id": "farmersdelight:gray_hanging_canvas_sign",
+		"name": "Gray Hanging Canvas Sign",
+		"item": "farmersdelight:gray_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:gray_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:light_gray_hanging_canvas_sign": {
+		"id": "farmersdelight:light_gray_hanging_canvas_sign",
+		"name": "Light Gray Hanging Canvas Sign",
+		"item": "farmersdelight:light_gray_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:light_gray_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:cyan_hanging_canvas_sign": {
+		"id": "farmersdelight:cyan_hanging_canvas_sign",
+		"name": "Cyan Hanging Canvas Sign",
+		"item": "farmersdelight:cyan_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cyan_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:purple_hanging_canvas_sign": {
+		"id": "farmersdelight:purple_hanging_canvas_sign",
+		"name": "Purple Hanging Canvas Sign",
+		"item": "farmersdelight:purple_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:purple_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:blue_hanging_canvas_sign": {
+		"id": "farmersdelight:blue_hanging_canvas_sign",
+		"name": "Blue Hanging Canvas Sign",
+		"item": "farmersdelight:blue_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:blue_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:brown_hanging_canvas_sign": {
+		"id": "farmersdelight:brown_hanging_canvas_sign",
+		"name": "Brown Hanging Canvas Sign",
+		"item": "farmersdelight:brown_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:brown_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:green_hanging_canvas_sign": {
+		"id": "farmersdelight:green_hanging_canvas_sign",
+		"name": "Green Hanging Canvas Sign",
+		"item": "farmersdelight:green_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:green_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:red_hanging_canvas_sign": {
+		"id": "farmersdelight:red_hanging_canvas_sign",
+		"name": "Red Hanging Canvas Sign",
+		"item": "farmersdelight:red_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:red_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:black_hanging_canvas_sign": {
+		"id": "farmersdelight:black_hanging_canvas_sign",
+		"name": "Black Hanging Canvas Sign",
+		"item": "farmersdelight:black_hanging_canvas_sign",
+		"properties": {
+			"attached": [
+				"true",
+				"false"
+			],
+			"rotation": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:ceiling_hanging_signs",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe"
+		],
+		"class": "CeilingHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:black_hanging_canvas_sign",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wall_hanging_canvas_sign": {
+		"id": "farmersdelight:wall_hanging_canvas_sign",
+		"name": "Wall Hanging Canvas Sign",
+		"item": "farmersdelight:hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:white_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:white_wall_hanging_canvas_sign",
+		"name": "White Wall Hanging Canvas Sign",
+		"item": "farmersdelight:white_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:orange_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:orange_wall_hanging_canvas_sign",
+		"name": "Orange Wall Hanging Canvas Sign",
+		"item": "farmersdelight:orange_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:magenta_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:magenta_wall_hanging_canvas_sign",
+		"name": "Magenta Wall Hanging Canvas Sign",
+		"item": "farmersdelight:magenta_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:light_blue_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:light_blue_wall_hanging_canvas_sign",
+		"name": "Light Blue Wall Hanging Canvas Sign",
+		"item": "farmersdelight:light_blue_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:yellow_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:yellow_wall_hanging_canvas_sign",
+		"name": "Yellow Wall Hanging Canvas Sign",
+		"item": "farmersdelight:yellow_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:lime_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:lime_wall_hanging_canvas_sign",
+		"name": "Lime Wall Hanging Canvas Sign",
+		"item": "farmersdelight:lime_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:pink_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:pink_wall_hanging_canvas_sign",
+		"name": "Pink Wall Hanging Canvas Sign",
+		"item": "farmersdelight:pink_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:gray_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:gray_wall_hanging_canvas_sign",
+		"name": "Gray Wall Hanging Canvas Sign",
+		"item": "farmersdelight:gray_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:light_gray_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:light_gray_wall_hanging_canvas_sign",
+		"name": "Light Gray Wall Hanging Canvas Sign",
+		"item": "farmersdelight:light_gray_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:cyan_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:cyan_wall_hanging_canvas_sign",
+		"name": "Cyan Wall Hanging Canvas Sign",
+		"item": "farmersdelight:cyan_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:purple_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:purple_wall_hanging_canvas_sign",
+		"name": "Purple Wall Hanging Canvas Sign",
+		"item": "farmersdelight:purple_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:blue_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:blue_wall_hanging_canvas_sign",
+		"name": "Blue Wall Hanging Canvas Sign",
+		"item": "farmersdelight:blue_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:brown_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:brown_wall_hanging_canvas_sign",
+		"name": "Brown Wall Hanging Canvas Sign",
+		"item": "farmersdelight:brown_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:green_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:green_wall_hanging_canvas_sign",
+		"name": "Green Wall Hanging Canvas Sign",
+		"item": "farmersdelight:green_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:red_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:red_wall_hanging_canvas_sign",
+		"name": "Red Wall Hanging Canvas Sign",
+		"item": "farmersdelight:red_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:black_wall_hanging_canvas_sign": {
+		"id": "farmersdelight:black_wall_hanging_canvas_sign",
+		"name": "Black Wall Hanging Canvas Sign",
+		"item": "farmersdelight:black_hanging_canvas_sign",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:all_hanging_signs",
+			"minecraft:all_signs",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:causes_suffocation",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:mineable/axe",
+			"minecraft:wall_hanging_signs"
+		],
+		"class": "WallHangingCanvasSignBlock",
+		"hardness": 1,
+		"blastResistance": 1,
+		"maxLight": 0,
+		"loot": null
+	},
+	"farmersdelight:brown_mushroom_colony": {
+		"id": "farmersdelight:brown_mushroom_colony",
+		"name": "Brown Mushroom Colony",
+		"item": "farmersdelight:brown_mushroom_colony",
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3"
+			]
+		},
+		"tags": [
+			"farmersdelight:compost_activators",
+			"farmersdelight:mushroom_colonies",
+			"farmersdelight:unaffected_by_rich_soil",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "MushroomColonyBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 1,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "minecraft:brown_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 2
+							},
+							"fortune": null,
+							"conditions": [
+								"age = 0"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:brown_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 3,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 1"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:brown_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 4,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 2"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:brown_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 5,
+								"max": 5
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"not (neoforge:can_item_perform_ability) and age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "farmersdelight:brown_mushroom_colony",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"neoforge:can_item_perform_ability and age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:red_mushroom_colony": {
+		"id": "farmersdelight:red_mushroom_colony",
+		"name": "Red Mushroom Colony",
+		"item": "farmersdelight:red_mushroom_colony",
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3"
+			]
+		},
+		"tags": [
+			"farmersdelight:compost_activators",
+			"farmersdelight:mushroom_colonies",
+			"farmersdelight:unaffected_by_rich_soil",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "MushroomColonyBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "minecraft:red_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 2,
+								"max": 2
+							},
+							"fortune": null,
+							"conditions": [
+								"age = 0"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:red_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 3,
+								"max": 3
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 1"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:red_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 4,
+								"max": 4
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 2"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "minecraft:red_mushroom",
+							"weight": 1,
+							"count": {
+								"min": 5,
+								"max": 5
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"not (neoforge:can_item_perform_ability) and age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						},
+						{
+							"item": "farmersdelight:red_mushroom_colony",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"neoforge:can_item_perform_ability and age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.2
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:organic_compost": {
+		"id": "farmersdelight:organic_compost",
+		"name": "Organic Compost",
+		"item": "farmersdelight:organic_compost",
+		"properties": {
+			"composting": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7"
+			]
+		},
+		"tags": [
+			"farmersdelight:compost_activators",
+			"minecraft:mineable/shovel",
+			"minecraft:overrides_mushroom_light_requirement"
+		],
+		"class": "OrganicCompostBlock",
+		"hardness": 1.2,
+		"blastResistance": 1.2,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:organic_compost",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rich_soil": {
+		"id": "farmersdelight:rich_soil",
+		"name": "Rich Soil",
+		"item": "farmersdelight:rich_soil",
+		"properties": {},
+		"tags": [
+			"farmersdelight:compost_activators",
+			"farmersdelight:mushroom_colony_growable_on",
+			"farmersdelight:terrain",
+			"minecraft:azalea_grows_on",
+			"minecraft:azalea_root_replaceable",
+			"minecraft:beneath_bamboo_podzol_replaceable",
+			"minecraft:beneath_tree_podzol_replaceable",
+			"minecraft:blocks_dolphin_jump",
+			"minecraft:blocks_fluid_flow",
+			"minecraft:blocks_lava_fire_spread",
+			"minecraft:blocks_motion",
+			"minecraft:blocks_motion_in_heightmap",
+			"minecraft:blocks_motion_in_heightmap_no_leaves",
+			"minecraft:blocks_motion_no_leaves",
+			"minecraft:cannot_replace_below_tree_trunk",
+			"minecraft:causes_suffocation",
+			"minecraft:dirt",
+			"minecraft:enderman_holdable",
+			"minecraft:entities_can_teleport_to",
+			"minecraft:forest_rock_can_place_on",
+			"minecraft:huge_brown_mushroom_can_place_on",
+			"minecraft:huge_red_mushroom_can_place_on",
+			"minecraft:ice_melts_when_destroyed_above",
+			"minecraft:ice_spike_replaceable",
+			"minecraft:lush_ground_replaceable",
+			"minecraft:mineable/shovel",
+			"minecraft:moss_replaceable",
+			"minecraft:overrides_mushroom_light_requirement",
+			"minecraft:sculk_replaceable",
+			"minecraft:sculk_replaceable_world_gen",
+			"minecraft:sniffer_diggable_block",
+			"minecraft:substrate_overworld",
+			"minecraft:supports_azalea",
+			"minecraft:supports_bamboo",
+			"minecraft:supports_big_dripleaf",
+			"minecraft:supports_crimson_fungus",
+			"minecraft:supports_crimson_roots",
+			"minecraft:supports_dry_vegetation",
+			"minecraft:supports_mangrove_propagule",
+			"minecraft:supports_melon_stem_fruit",
+			"minecraft:supports_nether_sprouts",
+			"minecraft:supports_pumpkin_stem_fruit",
+			"minecraft:supports_small_dripleaf",
+			"minecraft:supports_stem_fruit",
+			"minecraft:supports_sugar_cane",
+			"minecraft:supports_vegetation",
+			"minecraft:supports_warped_fungus",
+			"minecraft:supports_warped_roots",
+			"minecraft:supports_wither_rose"
+		],
+		"class": "RichSoilBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rich_soil",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rich_soil_farmland": {
+		"id": "farmersdelight:rich_soil_farmland",
+		"name": "Rich Soil Farmland",
+		"item": "farmersdelight:rich_soil_farmland",
+		"properties": {
+			"moisture": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7"
+			]
+		},
+		"tags": [
+			"farmersdelight:compost_activators",
+			"minecraft:grows_crops",
+			"minecraft:mineable/shovel",
+			"minecraft:support_override_cactus_flower",
+			"minecraft:supports_azalea",
+			"minecraft:supports_big_dripleaf",
+			"minecraft:supports_crimson_fungus",
+			"minecraft:supports_crimson_roots",
+			"minecraft:supports_crops",
+			"minecraft:supports_dry_vegetation",
+			"minecraft:supports_mangrove_propagule",
+			"minecraft:supports_melon_stem",
+			"minecraft:supports_melon_stem_fruit",
+			"minecraft:supports_nether_sprouts",
+			"minecraft:supports_pumpkin_stem",
+			"minecraft:supports_pumpkin_stem_fruit",
+			"minecraft:supports_stem_crops",
+			"minecraft:supports_stem_fruit",
+			"minecraft:supports_vegetation",
+			"minecraft:supports_warped_fungus",
+			"minecraft:supports_warped_roots",
+			"minecraft:supports_wither_rose",
+			"neoforge:villager_farmlands"
+		],
+		"class": "RichSoilFarmlandBlock",
+		"hardness": 0.6,
+		"blastResistance": 0.6,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rich_soil",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:apple_pie": {
+		"id": "farmersdelight:apple_pie",
+		"name": "Apple Pie",
+		"item": "farmersdelight:apple_pie",
+		"properties": {
+			"bites": [
+				"0",
+				"1",
+				"2",
+				"3"
+			],
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:mineable/knife",
+			"farmersdelight:pies"
+		],
+		"class": "PieBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:sweet_berry_cheesecake": {
+		"id": "farmersdelight:sweet_berry_cheesecake",
+		"name": "Sweet Berry Cheesecake",
+		"item": "farmersdelight:sweet_berry_cheesecake",
+		"properties": {
+			"bites": [
+				"0",
+				"1",
+				"2",
+				"3"
+			],
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:mineable/knife",
+			"farmersdelight:pies"
+		],
+		"class": "PieBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:chocolate_pie": {
+		"id": "farmersdelight:chocolate_pie",
+		"name": "Chocolate Pie",
+		"item": "farmersdelight:chocolate_pie",
+		"properties": {
+			"bites": [
+				"0",
+				"1",
+				"2",
+				"3"
+			],
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:mineable/knife",
+			"farmersdelight:pies"
+		],
+		"class": "PieBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:pumpkin_pie": {
+		"id": "farmersdelight:pumpkin_pie",
+		"name": "Pumpkin Pie",
+		"item": "farmersdelight:debug_pumpkin_pie",
+		"properties": {
+			"bites": [
+				"0",
+				"1",
+				"2",
+				"3"
+			],
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:mineable/knife",
+			"farmersdelight:pies"
+		],
+		"class": "PieBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:sandy_shrub": {
+		"id": "farmersdelight:sandy_shrub",
+		"name": "Sandy Shrub",
+		"item": "farmersdelight:sandy_shrub",
+		"properties": {},
+		"tags": [
+			"farmersdelight:unaffected_by_rich_soil",
+			"minecraft:enchantment_power_transmitter",
+			"minecraft:mineable/axe",
+			"minecraft:replaceable",
+			"minecraft:replaceable_by_trees",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "SandyShrubBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:sandy_shrub",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "minecraft:beetroot_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise",
+								"12.5% chance"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wild_cabbages": {
+		"id": "farmersdelight:wild_cabbages",
+		"name": "Wild Cabbage",
+		"item": "farmersdelight:wild_cabbages",
+		"properties": {},
+		"tags": [
+			"c:flowers",
+			"c:flowers/small",
+			"farmersdelight:unaffected_by_rich_soil",
+			"farmersdelight:wild_crops",
+			"minecraft:enderman_holdable",
+			"minecraft:flowers",
+			"minecraft:replaceable_by_mushrooms",
+			"minecraft:replaceable_by_trees",
+			"minecraft:small_flowers",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "WildCropBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"20% chance and not (neoforge:can_item_perform_ability)"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_cabbages",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wild_onions": {
+		"id": "farmersdelight:wild_onions",
+		"name": "Wild Onion",
+		"item": "farmersdelight:wild_onions",
+		"properties": {},
+		"tags": [
+			"c:flowers",
+			"c:flowers/small",
+			"farmersdelight:unaffected_by_rich_soil",
+			"farmersdelight:wild_crops",
+			"minecraft:enderman_holdable",
+			"minecraft:flowers",
+			"minecraft:replaceable_by_mushrooms",
+			"minecraft:replaceable_by_trees",
+			"minecraft:small_flowers",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "WildCropBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_onions",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:onion",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (neoforge:can_item_perform_ability)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:allium",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wild_tomatoes": {
+		"id": "farmersdelight:wild_tomatoes",
+		"name": "Tomato Shrub",
+		"item": "farmersdelight:wild_tomatoes",
+		"properties": {},
+		"tags": [
+			"c:flowers",
+			"c:flowers/small",
+			"farmersdelight:unaffected_by_rich_soil",
+			"farmersdelight:wild_crops",
+			"minecraft:enderman_holdable",
+			"minecraft:flowers",
+			"minecraft:replaceable_by_mushrooms",
+			"minecraft:replaceable_by_trees",
+			"minecraft:small_flowers",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "WildCropBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"20% chance and not (neoforge:can_item_perform_ability)"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_tomatoes",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wild_carrots": {
+		"id": "farmersdelight:wild_carrots",
+		"name": "Wild Carrot",
+		"item": "farmersdelight:wild_carrots",
+		"properties": {},
+		"tags": [
+			"c:flowers",
+			"c:flowers/small",
+			"farmersdelight:unaffected_by_rich_soil",
+			"farmersdelight:wild_crops",
+			"minecraft:enderman_holdable",
+			"minecraft:flowers",
+			"minecraft:replaceable_by_mushrooms",
+			"minecraft:replaceable_by_trees",
+			"minecraft:small_flowers",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "WildCropBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_carrots",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "minecraft:carrot",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wild_potatoes": {
+		"id": "farmersdelight:wild_potatoes",
+		"name": "Wild Potato",
+		"item": "farmersdelight:wild_potatoes",
+		"properties": {},
+		"tags": [
+			"c:flowers",
+			"c:flowers/small",
+			"farmersdelight:unaffected_by_rich_soil",
+			"farmersdelight:wild_crops",
+			"minecraft:enderman_holdable",
+			"minecraft:flowers",
+			"minecraft:replaceable_by_mushrooms",
+			"minecraft:replaceable_by_trees",
+			"minecraft:small_flowers",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "WildCropBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_potatoes",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "minecraft:potato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wild_beetroots": {
+		"id": "farmersdelight:wild_beetroots",
+		"name": "Sea Beet",
+		"item": "farmersdelight:wild_beetroots",
+		"properties": {},
+		"tags": [
+			"c:flowers",
+			"c:flowers/small",
+			"farmersdelight:unaffected_by_rich_soil",
+			"farmersdelight:wild_crops",
+			"minecraft:enderman_holdable",
+			"minecraft:flowers",
+			"minecraft:replaceable_by_mushrooms",
+			"minecraft:replaceable_by_trees",
+			"minecraft:small_flowers",
+			"minecraft:washed_away_by_fluids"
+		],
+		"class": "WildCropBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"20% chance and not (neoforge:can_item_perform_ability)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:beetroot",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_beetroots",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "minecraft:beetroot_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 2
+							},
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [
+								"explosion_decay"
+							],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:wild_rice": {
+		"id": "farmersdelight:wild_rice",
+		"name": "Wild Rice",
+		"item": "farmersdelight:wild_rice",
+		"properties": {
+			"half": [
+				"upper",
+				"lower"
+			],
+			"waterlogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"c:flowers",
+			"farmersdelight:unaffected_by_rich_soil",
+			"farmersdelight:wild_crops",
+			"minecraft:flowers"
+		],
+		"class": "WildRiceBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"half = lower and location_check"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"half = upper and location_check"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:wild_rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"neoforge:can_item_perform_ability"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:cabbages": {
+		"id": "farmersdelight:cabbages",
+		"name": "Cabbage",
+		"item": "farmersdelight:cabbage_seeds",
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7"
+			]
+		},
+		"tags": [
+			"minecraft:bee_growables",
+			"minecraft:crops",
+			"minecraft:maintains_farmland",
+			"minecraft:washed_away_by_fluids",
+			"sereneseasons:autumn_crops",
+			"sereneseasons:winter_crops"
+		],
+		"class": "CabbageBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"age = 7"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 7"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:cabbage_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "binomial_with_bonus_count",
+								"extra": 3,
+								"probability": 0.5714286
+							},
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:onions": {
+		"id": "farmersdelight:onions",
+		"name": "Onions",
+		"item": "farmersdelight:onion",
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7"
+			]
+		},
+		"tags": [
+			"minecraft:bee_growables",
+			"minecraft:crops",
+			"minecraft:maintains_farmland",
+			"minecraft:washed_away_by_fluids",
+			"sereneseasons:autumn_crops",
+			"sereneseasons:spring_crops",
+			"sereneseasons:unbreakable_infertile_crops"
+		],
+		"class": "OnionBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:onion",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 7"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:onion",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": {
+								"formula": "binomial_with_bonus_count",
+								"extra": 3,
+								"probability": 0.5714286
+							},
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:budding_tomatoes": {
+		"id": "farmersdelight:budding_tomatoes",
+		"name": "Budding Tomato Vine",
+		"item": "farmersdelight:tomato_seeds",
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4"
+			]
+		},
+		"tags": [
+			"minecraft:bee_growables",
+			"minecraft:crops",
+			"minecraft:maintains_farmland",
+			"minecraft:washed_away_by_fluids",
+			"sereneseasons:summer_crops"
+		],
+		"class": "BuddingTomatoBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:tomatoes": {
+		"id": "farmersdelight:tomatoes",
+		"name": "Tomato Vine",
+		"item": "farmersdelight:tomato_seeds",
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3"
+			],
+			"ropelogged": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:bee_growables",
+			"minecraft:crops",
+			"minecraft:maintains_farmland",
+			"minecraft:washed_away_by_fluids",
+			"sereneseasons:summer_crops"
+		],
+		"class": "TomatoBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 3"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"ropelogged = false"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato_seeds",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 3 and 5% chance"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:rotten_tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:tomatoes_on_rope": {
+		"id": "farmersdelight:tomatoes_on_rope",
+		"name": "Tomato Vine on Rope",
+		"item": null,
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3"
+			]
+		},
+		"tags": [
+			"minecraft:bee_growables",
+			"minecraft:climbable",
+			"minecraft:crops",
+			"minecraft:fall_damage_resetting",
+			"sereneseasons:summer_crops"
+		],
+		"class": "HangingTomatoBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 3"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"age = 3 and 5% chance"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:rotten_tomato",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rice": {
+		"id": "farmersdelight:rice",
+		"name": "Rice Crops",
+		"item": "farmersdelight:rice",
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3"
+			],
+			"supporting": [
+				"true",
+				"false"
+			]
+		},
+		"tags": [
+			"minecraft:maintains_farmland",
+			"sereneseasons:autumn_crops",
+			"sereneseasons:summer_crops"
+		],
+		"class": "RiceBlock",
+		"hardness": 0.2,
+		"blastResistance": 0.2,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rice_panicles": {
+		"id": "farmersdelight:rice_panicles",
+		"name": "Rice Panicles",
+		"item": null,
+		"properties": {
+			"age": [
+				"0",
+				"1",
+				"2",
+				"3"
+			]
+		},
+		"tags": [
+			"minecraft:bee_growables",
+			"minecraft:crops",
+			"minecraft:washed_away_by_fluids",
+			"sereneseasons:autumn_crops",
+			"sereneseasons:summer_crops"
+		],
+		"class": "RicePaniclesBlock",
+		"hardness": 0,
+		"blastResistance": 0,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [],
+					"entries": [
+						{
+							"item": "farmersdelight:rice",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"age = 3 and with #farmersdelight:tools/knives"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						},
+						{
+							"item": "farmersdelight:rice_panicle",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [
+								"otherwise",
+								"age = 3"
+							],
+							"modifiers": [],
+							"chance": 0.5
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:roast_chicken_block": {
+		"id": "farmersdelight:roast_chicken_block",
+		"name": "Roast Chicken",
+		"item": "farmersdelight:roast_chicken_block",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"servings": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:feasts",
+			"minecraft:mineable/axe"
+		],
+		"class": "RotatedFeastBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:roast_chicken_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bone_meal",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:stuffed_pumpkin_block": {
+		"id": "farmersdelight:stuffed_pumpkin_block",
+		"name": "Stuffed Pumpkin",
+		"item": "farmersdelight:stuffed_pumpkin_block",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"servings": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:feasts",
+			"minecraft:mineable/axe"
+		],
+		"class": "FeastBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:stuffed_pumpkin_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:honey_glazed_ham_block": {
+		"id": "farmersdelight:honey_glazed_ham_block",
+		"name": "Honey Glazed Ham",
+		"item": "farmersdelight:honey_glazed_ham_block",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"servings": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:feasts",
+			"minecraft:mineable/axe"
+		],
+		"class": "RotatedFeastBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:honey_glazed_ham_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bone",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:shepherds_pie_block": {
+		"id": "farmersdelight:shepherds_pie_block",
+		"name": "Shepherd's Pie",
+		"item": "farmersdelight:shepherds_pie_block",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"servings": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:feasts",
+			"minecraft:mineable/axe"
+		],
+		"class": "RotatedFeastBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:shepherds_pie_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:gleaming_salad_block": {
+		"id": "farmersdelight:gleaming_salad_block",
+		"name": "Gleaming Salad",
+		"item": "farmersdelight:gleaming_salad_block",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"servings": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:feasts",
+			"minecraft:mineable/axe"
+		],
+		"class": "GleamingSaladBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 12,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 4"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:gleaming_salad_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 4)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	},
+	"farmersdelight:rice_roll_medley_block": {
+		"id": "farmersdelight:rice_roll_medley_block",
+		"name": "Rice Roll Medley",
+		"item": "farmersdelight:rice_roll_medley_block",
+		"properties": {
+			"facing": [
+				"north",
+				"south",
+				"west",
+				"east"
+			],
+			"servings": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8"
+			]
+		},
+		"tags": [
+			"create:brittle",
+			"farmersdelight:feasts",
+			"minecraft:mineable/axe"
+		],
+		"class": "RiceRollMedleyBlock",
+		"hardness": 0.5,
+		"blastResistance": 0.5,
+		"maxLight": 0,
+		"loot": {
+			"pools": [
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"servings = 8"
+					],
+					"entries": [
+						{
+							"item": "farmersdelight:rice_roll_medley_block",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				},
+				{
+					"rolls": {
+						"min": 1,
+						"max": 1
+					},
+					"bonusRolls": 0,
+					"conditions": [
+						"not (servings = 8)"
+					],
+					"entries": [
+						{
+							"item": "minecraft:bowl",
+							"weight": 1,
+							"count": {
+								"min": 1,
+								"max": 1
+							},
+							"fortune": null,
+							"conditions": [],
+							"modifiers": [],
+							"chance": 1
+						}
+					]
+				}
+			],
+			"type": "minecraft:block"
+		}
+	}
+}

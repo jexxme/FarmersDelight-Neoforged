@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -100,6 +101,10 @@ public final class FDDocsExport
 			}
 			entry.add("components", components);
 			entry.addProperty("class", item.getClass().getName());
+			ItemStackTemplate remainder = item.getCraftingRemainder(stack);
+			if (remainder != null) {
+				entry.addProperty("craftingRemainder", remainder.item().unwrapKey().map(key -> key.identifier().toString()).orElse("?"));
+			}
 			JsonArray tags = new JsonArray();
 			item.builtInRegistryHolder().tags().map(tag -> tag.location().toString()).sorted().forEach(tags::add);
 			entry.add("tags", tags);
@@ -183,8 +188,13 @@ public final class FDDocsExport
 			.filter(id -> id.startsWith(FarmersDelight.MODID + ":")).sorted().forEach(recipes::add);
 		root.add("loadedRecipes", recipes);
 
-		JsonArray biomes = new JsonArray();
-		access.lookupOrThrow(Registries.BIOME).listElements().map(holder -> holder.key().identifier().toString()).sorted().forEach(biomes::add);
+		JsonObject biomes = new JsonObject();
+		access.lookupOrThrow(Registries.BIOME).listElements().sorted(Comparator.comparing(holder -> holder.key().identifier().toString())).forEach(holder -> {
+			JsonObject entry = new JsonObject();
+			entry.addProperty("temperature", holder.value().getBaseTemperature());
+			entry.addProperty("precipitation", holder.value().hasPrecipitation());
+			biomes.add(holder.key().identifier().toString(), entry);
+		});
 		root.add("biomes", biomes);
 
 		Path out = Path.of(System.getProperty(PROPERTY));

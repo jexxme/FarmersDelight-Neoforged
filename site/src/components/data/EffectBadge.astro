@@ -1,0 +1,56 @@
+---
+// A status effect with its real icon, duration and chance. Links to the effects page for FD effects.
+import { url, duration, roman } from '../../lib/data';
+interface Props {
+	id: string;
+	name?: string;
+	ticks?: number;
+	amplifier?: number;
+	probability?: number;
+}
+const { id, name, ticks, amplifier = 0, probability = 1 } = Astro.props;
+const [ns, p] = id.split(':');
+// Effect icons copied by scripts/copy-gui.mjs
+const AVAILABLE = new Set(["absorption", "comfort", "fire_resistance", "glowing", "hunger", "instant_health", "jump_boost", "mining_fatigue", "nausea", "nourishment", "poison", "regeneration", "resistance", "saturation", "speed", "strength", "water_breathing"]);
+const icon = AVAILABLE.has(p) ? url(`/gui/effect/${p}.png`) : null;
+const label = name ?? p.replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+const fd = ns === 'farmersdelight';
+const Tag = fd ? 'a' : 'span';
+---
+<Tag class:list={['fd-effect', { fd }]} href={fd ? url('/mechanics/effects/') : undefined}>
+	{icon && <img src={icon} alt="" width="18" height="18" />}
+	<span class="name">{label}{amplifier > 0 ? ` ${roman(amplifier)}` : ''}</span>
+	{ticks ? <span class="dur">{duration(ticks)}</span> : null}
+	{probability < 1 ? <span class="chance">{Math.round(probability * 100)}%</span> : null}
+</Tag>
+<style>
+	.fd-effect {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.15rem 0.55rem 0.15rem 0.3rem;
+		border-radius: 2rem;
+		background: var(--fd-surface-2);
+		border: 1px solid var(--fd-border);
+		font-size: var(--sl-text-sm);
+		text-decoration: none;
+		color: var(--sl-color-white);
+		white-space: nowrap;
+		line-height: 1.4;
+	}
+	.fd-effect.fd {
+		background: var(--fd-gold-low);
+		border-color: color-mix(in srgb, var(--fd-gold) 40%, transparent);
+	}
+	img {
+		image-rendering: pixelated;
+	}
+	.dur {
+		font-variant-numeric: tabular-nums;
+		color: var(--sl-color-gray-2);
+	}
+	.chance {
+		color: var(--fd-gold);
+		font-weight: 600;
+	}
+</style>
