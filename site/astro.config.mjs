@@ -54,7 +54,6 @@ export default defineConfig({
 					items: [
 						{ label: 'Getting started', slug: 'getting-started' },
 						{ label: 'Your first meal', slug: 'guides/first-meal' },
-						{ label: 'Farming progression', slug: 'guides/farming-progression' },
 					],
 				},
 				{
@@ -73,6 +72,7 @@ export default defineConfig({
 				{
 					label: 'Farming',
 					items: [
+						{ label: 'Farming guide', slug: 'guides/farming-progression' },
 						{ label: 'Crops', slug: 'mechanics/crops' },
 						{ label: 'Wild crops & worldgen', slug: 'mechanics/wild-crops' },
 						{ label: 'Rich Soil', slug: 'mechanics/rich-soil' },
