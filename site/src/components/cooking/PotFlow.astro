@@ -2,8 +2,8 @@
 // The Cooking Pot pipeline: ingredients -> heat -> cook time -> meal slot -> container -> output.
 // Laid out in HTML (pixel font at 20px) as a 3x2 snake on wide screens and a single column on phones.
 import Slot from '../mc/Slot.astro';
-import { recipeById, url, renderOf } from '../../lib/data';
-import { pot } from '../../data/code/cooking';
+import { recipeById, url, renderOf, nameOf } from '../../lib/data';
+import { pot, timesAsFast } from '../../data/code/cooking';
 interface Props {
 	recipe?: string;
 }
@@ -22,12 +22,12 @@ const hopper = renderOf('heat/minecraft-hopper');
 		<li class="s2 hot">
 			<span class="n">2</span>
 			<div class="vis"><img src={flame} alt="" width="42" height="42" class="px" />{hopper && <img src={hopper} alt="" width="48" height="48" />}</div>
-			<div class="txt"><b>Heat</b><span>a heat source below, or below a hopper</span></div>
+			<div class="txt"><b>Heat</b><span>something hot below, or below a hopper</span></div>
 		</li>
 		<li class="s3 hot">
 			<span class="n">3</span>
 			<div class="vis"><span class="bar"><span /></span></div>
-			<div class="txt"><b>Cook time</b><span>+{pot.cookStep.value} per tick heated, −{pot.decay.value} if not</span></div>
+			<div class="txt"><b>Cooking</b><span>fills while hot, drains {timesAsFast(pot.decay.value, pot.cookStep.value)} when not</span></div>
 		</li>
 		<li class="s4">
 			<span class="n">4</span>
@@ -37,7 +37,7 @@ const hopper = renderOf('heat/minecraft-hopper');
 		<li class="s5">
 			<span class="n">5</span>
 			<div class="vis">{r.container && <Slot id={r.container.id} scale={2} />}</div>
-			<div class="txt"><b>Container</b><span>1 per serving: bowl, bottle…</span></div>
+			<div class="txt"><b>Container</b><span>one per serving: bowl, bottle…</span></div>
 		</li>
 		<li class="s6">
 			<span class="n">6</span>
@@ -45,7 +45,7 @@ const hopper = renderOf('heat/minecraft-hopper');
 			<div class="txt"><b>Output</b><span>take it, or let a hopper pull it</span></div>
 		</li>
 	</ol>
-	<figcaption>No container needed? Step 5 is skipped and the meal goes straight to the output. Example: <code>{r.id.replace('farmersdelight:', '')}</code>.</figcaption>
+	<figcaption>Shown with {nameOf(r.result!.id)}. If a meal needs no container, step 5 is skipped and it goes straight to the output.</figcaption>
 </figure>
 <style>
 	.fd-potflow {

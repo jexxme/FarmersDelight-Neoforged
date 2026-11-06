@@ -1,6 +1,8 @@
 ---
 // Progress of one cook over time when the heat is lost for a while: +step per heated tick, -decay per tick otherwise.
-// Used for the Cooking Pot, Stove and placed Skillet (they share the +1 / -2 rule).
+// Used for the Cooking Pot, Stove and placed Skillet (they share the same rule). Inputs are in ticks; everything shown
+// to the reader is in seconds.
+import { timesAsFast, timeText } from '../../data/code/cooking';
 interface Props {
 	total: number;
 	step: number;
@@ -9,7 +11,7 @@ interface Props {
 	coldFor?: number;
 	label?: string;
 }
-const { total, step, decay, label = 'Cook progress' } = Astro.props;
+const { total, step, decay, label = 'Cooking' } = Astro.props;
 const heatedFor = Astro.props.heatedFor ?? Math.round(total * 0.6);
 const coldFor = Astro.props.coldFor ?? Math.round(total * 0.2);
 // simulate
@@ -29,9 +31,10 @@ while (p < total) {
 }
 pts.push([t, p]);
 const end = t;
+const sec = (ticks: number) => `${+(ticks / 20).toFixed(1)} s`;
 const W = 560;
 const H = 270;
-const L = 60;
+const L = 70;
 const R = 16;
 const T = 30;
 const B = 62;
@@ -41,25 +44,24 @@ const path = pts.map(([a, b], i) => `${i ? 'L' : 'M'}${X(a).toFixed(1)} ${Y(b).t
 const ideal = `M${X(0)} ${Y(0)} L${X(total / step)} ${Y(total)}`;
 ---
 <figure class="fd-decay not-content">
-	<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${label}: rises ${step} per heated tick, falls ${decay} per tick without heat`}>
+	<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${label}: progress builds while heated and drains ${timesAsFast(decay, step)} without heat`}>
 		<rect x={X(heatedFor)} y={T} width={X(coldEnd) - X(heatedFor)} height={H - T - B} class="cold" />
 		<text x={(X(heatedFor) + X(coldEnd)) / 2} y={T - 8} class="t c" text-anchor="middle">no heat</text>
 		<line x1={L} y1={Y(total)} x2={W - R} y2={Y(total)} class="grid" />
 		<line x1={L} y1={Y(0)} x2={W - R} y2={Y(0)} class="axis" />
 		<line x1={L} y1={T} x2={L} y2={Y(0)} class="axis" />
-		<text x={L - 6} y={Y(total) + 4} class="t" text-anchor="end">{total}</text>
-		<text x={L - 6} y={Y(0) + 4} class="t" text-anchor="end">0</text>
+		<text x={L - 6} y={Y(total) + 6} class="t" text-anchor="end">done</text>
+		<text x={L - 6} y={Y(0) + 6} class="t" text-anchor="end">0</text>
 		<path d={ideal} class="ideal" />
 		<path d={path} class="line" />
 		<rect x={X(end) - 4} y={Y(total) - 4} width="8" height="8" class="dot" />
-		<text x={X(heatedFor / 2) - 6} y={Y(atLoss / 2) - 6} class="t" text-anchor="end">+{step}</text>
-		<text x={X(coldEnd) + 8} y={Y(atReturn) + 24} class="t">−{decay}</text>
-		<text x={X(end)} y={Y(0) + 26} class="t" text-anchor="end">{end}</text>
-		<text x={X(total / step)} y={Y(0) + 26} class="t muted" text-anchor="middle">{total / step}</text>
-		<text x={L} y={H - 6} class="t muted">ticks</text>
+		<text x={X(end)} y={Y(0) + 26} class="t" text-anchor="end">{sec(end)}</text>
+		<text x={X(total / step)} y={Y(0) + 26} class="t muted" text-anchor="middle">{sec(total / step)}</text>
+		<text x={L} y={H - 6} class="t muted">time</text>
 	</svg>
 	<figcaption>
-		{label} with the heat gone for {coldFor} ticks (shaded): per tick +{step} heated, −{decay} cold. {atLoss} ticks of work drop to {atReturn}, so the meal finishes at tick {end} instead of {total / step} (dashed line).
+		{label} with the heat gone for {timeText(coldFor)} (shaded): {timeText(atLoss / step)} of cooking falls back to{' '}
+		{timeText(atReturn / step)}, so it is done after {timeText(end)} instead of {timeText(total / step)} (dashed line).
 	</figcaption>
 </figure>
 <style>

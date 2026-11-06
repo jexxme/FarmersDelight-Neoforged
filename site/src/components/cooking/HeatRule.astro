@@ -1,6 +1,6 @@
 ---
-// HeatableBlockEntity#isHeated as four block columns: direct source, source under a conductor, source under another
-// block, and an unlit source. Blocks are the site's real renders; labels are HTML.
+// The heat rule as four block columns: heat source right below, heat source under a hopper (heat conductor), heat
+// source under some other block, and an unlit source. Blocks are the site's real renders; labels are HTML.
 import { renderOf, iconOf, nameOf, tags } from '../../lib/data';
 const pot = renderOf('blocks/cooking_pot');
 const conductor = tags.resolved.block['farmersdelight:heat_conductors'][0];
@@ -10,13 +10,13 @@ const stove = renderOf('heat/farmersdelight-stove');
 const stone = iconOf('minecraft:stone')?.src;
 type Cell = { img: string | null | undefined; alt: string; off?: boolean };
 const cols: { title: string; ok: boolean; cells: Cell[]; note: string }[] = [
-	{ title: 'Directly on', ok: true, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: magma, alt: 'heat source' }], note: 'source below' },
-	{ title: 'Via a conductor', ok: true, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: hop, alt: nameOf(conductor) }, { img: magma, alt: 'heat source' }], note: 'source 2 below' },
-	{ title: 'Other block', ok: false, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: stone, alt: 'Stone' }, { img: magma, alt: 'heat source' }], note: 'not a conductor' },
-	{ title: 'Unlit source', ok: false, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: stove, alt: 'unlit Stove', off: true }], note: 'lit = false' },
+	{ title: 'Right on top', ok: true, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: magma, alt: 'heat source' }], note: 'heat right below' },
+	{ title: `Through a ${nameOf(conductor).toLowerCase()}`, ok: true, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: hop, alt: nameOf(conductor) }, { img: magma, alt: 'heat source' }], note: 'heat 2 blocks down' },
+	{ title: 'Through stone', ok: false, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: stone, alt: 'Stone' }, { img: magma, alt: 'heat source' }], note: 'stone blocks the heat' },
+	{ title: 'Unlit Stove', ok: false, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: stove, alt: 'unlit Stove', off: true }], note: 'must be lit' },
 ];
 ---
-<figure class="fd-heatrule not-content" aria-label="Heat rule">
+<figure class="fd-heatrule not-content" aria-label="What heats a Cooking Pot">
 	{
 		cols.map((c) => (
 			<div class="col">

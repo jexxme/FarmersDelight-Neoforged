@@ -1,67 +1,55 @@
 ---
 title: Cutting Board
-description: Placing and cutting items on the Cutting Board, which tool each recipe needs, chance results with a Fortune calculator, carving displays and dispenser automation.
+description: How to cut food and blocks on the Cutting Board, which tool each recipe needs, how Fortune helps (with a calculator), and how to automate it with a dispenser.
 ---
 
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
-import Src from '../../../components/mc/Src.astro';
+import Shot from '../../../components/mc/Shot.astro';
 import Recipe from '../../../components/recipes/Recipe.astro';
-import Cite from '../../../components/cooking/Cite.astro';
-import Stats from '../../../components/cooking/Stats.astro';
 import CutGroups from '../../../components/cooking/CutGroups.astro';
 import FortuneCalc from '../../../components/islands/cooking-fortune-calc.tsx';
-import { playableRecipes, items, config, tags, nameOf, iconOf, short } from '../../../lib/data';
+import { playableRecipes, items, config, tags, nameOf, iconOf, seconds, pct } from '../../../lib/data';
 import { board } from '../../../data/code/cooking';
-import Shot from '../../../components/mc/Shot.astro';
 
 export const cutting = playableRecipes.filter((r) => r.type === 'farmersdelight:cutting');
 export const fortune = config.find((c) => c.key === 'cuttingBoardFortuneBonus');
 export const dispenser = config.find((c) => c.key === 'enableCuttingBoardDispenserBehavior');
 export const knives = tags.resolved.item['c:tools/knife'];
 export const flat = tags.resolved.item['farmersdelight:flat_on_cutting_board'];
-export const chanceRows = cutting.filter((r) => r.results.some((o) => o.chance < 1)).map((r) => {
+export const inputName = (r) => {
 	const i = r.ingredients[0];
-	return {
-		id: r.id,
-		input: i.tag ? `#${short(i.tag)}` : i.items.length > 1 ? r.id.split('/').pop().replaceAll('_', ' ').replace(/^./, (c) => c.toUpperCase()) : nameOf(i.items[0]),
-		icon: iconOf(i.items[0])?.src ?? '',
-		outs: r.results.filter((o) => o.chance < 1).map((o) => ({ name: nameOf(o.id), icon: iconOf(o.id)?.src ?? '', count: o.count, chance: o.chance })),
-	};
-});
-export const withSound = cutting.filter((r) => r.sound).length;
+	if (i.tag) return i.items.length === 1 ? nameOf(i.items[0]) : `Any ${i.tag.split(/[:/]/).pop().replaceAll('_', ' ')}`;
+	return i.items.length > 1 ? r.id.split('/').pop().replaceAll('_', ' ').replace(/^./, (c) => c.toUpperCase()) : nameOf(i.items[0]);
+};
+export const chanceRows = cutting.filter((r) => r.results.some((o) => o.chance < 1)).map((r) => ({
+	id: r.id,
+	input: inputName(r),
+	icon: iconOf(r.ingredients[0].items[0])?.src ?? '',
+	outs: r.results.filter((o) => o.chance < 1).map((o) => ({ name: nameOf(o.id), icon: iconOf(o.id)?.src ?? '', count: o.count, chance: o.chance })),
+}));
+export const ex = chanceRows[0];
+export const exChance = ex.outs[0].chance;
 export const fuel = items['farmersdelight:cutting_board'].fuel;
 
 <Render name="blocks/cutting_board" float="right" size={190} caption="Cutting Board" />
 
 The <Item id="cutting_board" /> is where raw ingredients get cut up. Put an item on it, hit it with the right tool, and the
-pieces fall off the side. Knives do the kitchen work (cuts of meat, sliced fish, dough and pie slices), while axes,
-pickaxes, shovels, hoes and shears break down logs, stone, gravel and salvage. There are {cutting.length} recipes.
-
-<Stats
-	items={[
-		{ label: 'Recipes', value: cutting.length, sub: 'by tool, below' },
-		{ label: 'Items per cut', value: board.perCut.value, sub: 'from the stack on the board', src: board.perCut.src },
-		{ label: 'Results per recipe', value: `≤ ${board.maxResults.value}`, src: board.maxResults.src },
-		{ label: 'Fortune bonus', value: `+${fortune.default}`, sub: 'chance per level (config)', src: board.chance.src },
-	]}
-/>
+pieces fall off the side. Knives do the kitchen work: cuts of meat, fish slices, dough and pie slices. Axes, pickaxes,
+shovels, hoes and shears break down logs, stone, gravel and old gear. There are {cutting.length} recipes in all.
 
 <Shot src="mechanics/cutting-board.jpg" caption="Prep counter: a cabbage waiting on one cutting board, an iron knife on the next, spruce cabinets below." />
 
-## How it works
+## How to cut
 
-1. **Place.** Right-click the board with an item in your **main hand**: the whole stack goes onto it, as much as fits
-   <Cite f={board.use} />. Right-click again with an empty main hand to take it all back.
-2. **Cut.** Right-click with a tool in your main hand. The board looks for a `farmersdelight:cutting` recipe that matches
-   both the item on the board and the tool <Cite f={board.lookup} />. Each click:
-   - uses {board.perCut.value} item from the board <Cite f={board.perCut} />;
-   - rolls the results and throws them off the board's side;
-   - costs the tool {board.toolWear.value} durability and counts as a use of it <Cite f={board.toolWear} />;
-   - shows how many items are left on the board.
-3. **No match.** With the wrong tool, or an item that has no recipe, you get "invalid tool" and nothing happens.
+1. **Put it on.** Right-click the board with the item in your main hand. The whole stack goes on, and you can top it up
+   with more of the same item. Right-click with an empty hand to take it all back.
+2. **Cut.** Right-click with the right tool in your main hand. Each cut uses {board.perCut.value} item from the board,
+   drops the results to the side, and costs the tool {board.toolWear.value} durability.
+3. **Wrong tool?** You get an "invalid tool" message and nothing happens.
 
-The board needs a solid top face or a centre support below it, and pops off otherwise <Cite f={board.survive} />.
+Any knife works for food: {knives.map((id) => <Item id={id} label="" />)}. For blocks, any axe, pickaxe, shovel or hoe does
+the job, and shears (modded ones too) salvage leather goods.
 
 <div class="not-content" style="display:flex;flex-wrap:wrap;gap:1.25rem 2rem;margin:1.25rem 0">
 	<Recipe id="cutting/beef" />
@@ -69,65 +57,39 @@ The board needs a solid top face or a centre support below it, and pops off othe
 	<Recipe id="cutting/acacia_log" />
 </div>
 
-## Tools
+## Lucky drops and Fortune
 
-Recipes ask for a tool tag (or, for shears, the shearing ability). In this version:
-
-| Tool | Tag | Items |
-|---|---|---|
-| Knife | `#c:tools/knife` | {knives.map((id, i) => <>{i ? ' ' : ''}<Item id={id} label="" /></>)} the {knives.length} knives |
-| Axe | `#minecraft:axes` | any axe |
-| Pickaxe | `#minecraft:pickaxes` | any pickaxe |
-| Shovel | `#minecraft:shovels` | any shovel |
-| Hoe | `#minecraft:hoes` | any hoe |
-| Shears | shearing ability or `#c:tools/shear` | <Item id="minecraft:shears" /> and modded shears |
-
-## Chance results and Fortune
-
-Some results are not guaranteed. A result with a `chance` and a `count` rolls **each unit** separately, and keeps it when
-a random number is at most `chance + bonus × Fortune level` <Cite f={board.chance} />. `bonus` is the config option
-`cuttingBoardFortuneBonus`, **{fortune.default}** by default (range {fortune.range[0]}–{fortune.range[1]}; 0 turns it off).
-Fortune is read from the tool doing the cutting, so a Fortune knife or axe helps.
+Some drops only come sometimes; the percentage is shown in the corner of the slot. When a recipe gives two or more of a
+lucky drop, each one rolls on its own. A **Fortune** tool adds {pct(fortune.default)} to every one of these chances per
+level: the {pct(exChance)} {ex.outs[0].name} from {ex.input} becomes {pct(Math.min(1, exChance + 3 * fortune.default))}
+with Fortune III. Knives and axes can both take Fortune.
 
 <FortuneCalc client:visible rows={chanceRows} bonusDefault={fortune.default} range={fortune.range} />
 
-## Every recipe by tool
-
-Hover a slot to see the item. A percentage in the corner of a result is its base chance.
-
-<CutGroups />
-
-## Carving display
-
-Sneak and right-click the board with a **tool** (anything with a tool component), a trident or shears, and that single item
-is laid on the board as decoration <Cite f={board.carveEvent} /> <Cite f={board.carveRule} />. While a tool is displayed the
-board takes no other items and cannot cut <Cite f={board.carveBlocks} />; take it off with an empty hand. Items in
-`#farmersdelight:flat_on_cutting_board` ({flat.map((id, i) => <>{i ? ', ' : ''}<Item id={id} /></>)}) lie flat instead of
-standing up <Cite f={board.flat} />.
+The bonus per level can be changed in the [config](/reference/config/#cuttingBoardFortuneBonus); 0 turns it off.
 
 ## Automation
 
-- **Hoppers and pipes** see the board's single slot from every side, for inserting and extracting
-  <Cite f={board.capability} />. A hopper can also pull a displayed tool off.
-- **Dispensers.** With `enableCuttingBoardDispenserBehavior` on (default **{String(dispenser.default)}**), a dispenser
-  facing a Cutting Board uses the item it would dispense as the cutting tool on whatever is on the board. The tool stays in
-  the dispenser and only loses durability <Cite f={board.dispenserMixin} /> <Cite f={board.dispenser} />. While a board is in
-  front, the dispenser never shoots its item out normally, even when the board is empty or the item is no tool.
-- **Comparator.** Signal = <code>floor(count / max stack × {board.comparator.value}) + 1</code> while anything is on the board, 0 when
-  empty <Cite f={board.comparator} />.
+- **Dispenser slicer.** A dispenser facing a Cutting Board uses whatever it holds as the cutting tool on the item on the
+  board. The tool stays in the dispenser and only wears down. Put a hopper above the board to feed it and one below where
+  the pieces land, and you have a hands-free meat or fish slicer.
+- **Watch out:** while a board is in front of it, a dispenser never shoots its item out, even when the board is empty.
+  {dispenser.default ? 'You can switch this off in the config.' : 'This is off by default; switch it on in the config.'}
+- **Hoppers** can put items on the board and take them off from any side.
+- **Comparator.** A comparator reads how full the stack on the board is, from 1 up to {board.comparator.value + 1}.
 
-A dispenser of knives, a hopper feeding the board from above and a hopper under the drop point make a hands-free meat or
-fish slicer.
+## Every recipe by tool
 
-## Sounds
+Hover a slot to see the item.
 
-Each cut plays, in order of priority <Cite f={board.sounds} />: the recipe's own `sound` ({withSound} recipes set one,
-mostly axe stripping); the sheep-shearing sound for shears; the board's knife sound for knives; the break sound of the
-block being cut, when the item is a block; otherwise wood breaking.
+<CutGroups />
 
-## Details
+## Good to know
 
-- Breaking the board drops the stack on it and the board <Cite f={board.breakDrop} />.
-- The Cutting Board burns in a furnace for {fuel} ticks.
-- A recipe may have at most {board.maxResults.value} different results <Cite f={board.maxResults} />.
-- Each cut triggers the "use a cutting board" advancement criterion.
+- **Show off a tool.** Sneak and right-click the board with a tool, a trident or shears to lay it on the board as
+  decoration. {flat.map((id, i) => <>{i ? (i === flat.length - 1 ? ' and ' : ', ') : ''}<Item id={id} /></>)} lie flat;
+  everything else stands up. While a tool is on display the board can't cut; take it off with an empty hand.
+- **Mind the empty board.** Right-clicking an empty board with a knife puts the knife on it like any other item.
+- **Support.** The board needs a solid block under it, or something that holds up its middle like a fence, and pops off otherwise.
+- **Breaking it** drops the board and the stack on it.
+- **Fuel.** A Cutting Board burns in a furnace for {seconds(fuel)}.

@@ -1,14 +1,15 @@
 ---
-// Which Cooking Pot slots a hopper reaches from each face (CookingPotBlockEntity#registerCapabilities, CookingPotItemHandler).
+// Which Cooking Pot slots a hopper reaches from each face.
 // A column of real renders with HTML labels beside each block.
 import { renderOf } from '../../lib/data';
+import { pot } from '../../data/code/cooking';
 const potImg = renderOf('blocks/cooking_pot');
 const hopper = renderOf('heat/minecraft-hopper');
 const magma = renderOf('heat/minecraft-magma_block');
 const rows = [
-	{ img: hopper, side: null, cls: '', arrow: 'both', title: 'Top face', text: 'ingredients in and out (the six ingredient slots)' },
-	{ img: potImg, side: hopper, cls: 'pot', arrow: 'out', title: 'Cooking Pot', text: 'side faces: containers in, meals out. The meal slot is never reachable.' },
-	{ img: hopper, side: null, cls: '', arrow: 'none', title: 'Bottom face', text: 'meals out of the output slot' },
+	{ img: hopper, side: null, cls: '', arrow: 'both', title: 'Hopper on top', text: `feeds ingredients into the ${pot.slots.value.inputs.length} ingredient slots` },
+	{ img: potImg, side: hopper, cls: 'pot', arrow: 'out', title: 'Cooking Pot', text: 'a hopper on the side feeds containers in. Nothing can reach the meal slot.' },
+	{ img: hopper, side: null, cls: '', arrow: 'none', title: 'Hopper below', text: 'pulls finished meals out of the output slot' },
 	{ img: magma, side: null, cls: 'src', arrow: 'none', title: 'Heat source', text: 'the hopper passes its heat up to the pot' },
 ];
 ---

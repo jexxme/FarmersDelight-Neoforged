@@ -130,6 +130,19 @@ export const skillet = {
 	storedSkillet: at('common/block/entity/SkilletBlockEntity.java:165-179'),
 	playerBaseDamage: f(1, 'vanilla:Player.java:216'),
 	playerBaseSpeed: f(4, 'vanilla:Attributes.java:9'),
+	// Which vanilla enchantments each enchantable item tag opens up (supported_items of data/minecraft/enchantment/*.json).
+	enchantments: f(
+		{
+			'minecraft:enchantable/sharp_weapon': ['Sharpness'],
+			'minecraft:enchantable/weapon': ['Smite', 'Bane of Arthropods'],
+			'minecraft:enchantable/melee_weapon': ['Knockback', 'Looting'],
+			'minecraft:enchantable/fire_aspect': ['Fire Aspect'],
+			'minecraft:enchantable/durability': ['Unbreaking', 'Mending'],
+			'minecraft:enchantable/vanishing': ['Curse of Vanishing'],
+		} as Record<string, string[]>,
+		'vanilla:data/minecraft/enchantment/{sharpness,smite,bane_of_arthropods,knockback,looting,fire_aspect,unbreaking,mending,vanishing_curse}.json',
+	),
+	repairTag: f({ '#minecraft:iron_tool_materials': ['minecraft:iron_ingot'] } as Record<string, string[]>, 'vanilla:data/minecraft/tags/item/iron_tool_materials.json'),
 };
 
 const BOARD_B = 'common/block/CuttingBoardBlock.java';
@@ -259,4 +272,30 @@ export function skilletTicks(recipeTicks: number, fireAspect: number): number {
 	const result = Math.trunc(Math.fround(secs * factor)) * 20;
 	// Mth.clamp(value, min, max) = min(max(value, min), max) (vanilla Mth.java:94-96)
 	return Math.min(Math.max(result, skillet.minTime.value), recipeTicks);
+}
+
+// ---- Plain-language helpers for the player pages. They hold no facts of their own. ----
+
+/** How many times faster `rate` is than `base`, in words: 1 → "as fast", 2 → "twice as fast", 3 → "3 times as fast". */
+export function timesAsFast(rate: number, base = 1): string {
+	const n = +(rate / base).toFixed(2);
+	return n === 1 ? 'as fast' : n === 2 ? 'twice as fast' : `${n} times as fast`;
+}
+
+/** Game ticks as words: 10 → "0.5 seconds", 600 → "30 seconds", 1200 → "1 minute", 1800 → "1 minute 30 seconds". */
+export function timeText(ticks: number): string {
+	const s = +(ticks / 20).toFixed(2);
+	const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? '' : 's'}`;
+	if (s < 60) return plural(s, 'second');
+	const m = Math.floor(s / 60);
+	const rest = +(s - m * 60).toFixed(2);
+	return rest ? `${plural(m, 'minute')} ${plural(rest, 'second')}` : plural(m, 'minute');
+}
+
+/** Health points as hearts (2 health = 1 heart): 1 → "½ heart", 2 → "1 heart", 3 → "1½ hearts", 8 → "4 hearts". */
+export function hearts(hp: number): string {
+	const whole = Math.floor(hp / 2);
+	const half = hp % 2 >= 1;
+	const n = half ? (whole ? `${whole}½` : '½') : String(whole);
+	return `${n} heart${!half && whole === 1 ? '' : half && !whole ? '' : 's'}`;
 }

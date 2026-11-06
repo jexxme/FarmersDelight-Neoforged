@@ -1,6 +1,6 @@
 /** @jsxImportSource preact */
-// Cutting Board chance results with Fortune. Each unit of a result is kept when nextFloat() <= chance + bonus x Fortune
-// (ChanceResult#rollOutput); bonus is the cuttingBoardFortuneBonus config value (default passed in from config.json).
+// Cutting Board chance results with Fortune. Each unit of a result is kept with probability chance + bonus x Fortune level;
+// bonus is the cuttingBoardFortuneBonus config value (default passed in from config.json).
 import { useState } from 'preact/hooks';
 
 type Out = { name: string; icon: string; count: number; chance: number };
@@ -24,12 +24,12 @@ export default function FortuneCalc({ rows, bonusDefault, range }: { rows: Row[]
 					))}
 				</div>
 				<label class="bonus">
-					<span class="lbl">Bonus per level</span>
+					<span class="lbl">Bonus per level (config)</span>
 					<input type="range" min={range[0]} max={range[1]} step={0.05} value={bonus} onInput={(e) => setBonus(+(e.target as HTMLInputElement).value)} />
-					<span class="v">{bonus.toFixed(2)}</span>
+					<span class="v">+{pct(bonus)}</span>
 					{bonus !== bonusDefault && (
 						<button type="button" class="mc-button reset" onClick={() => setBonus(bonusDefault)}>
-							default {bonusDefault}
+							reset to +{pct(bonusDefault)}
 						</button>
 					)}
 				</label>
@@ -38,11 +38,11 @@ export default function FortuneCalc({ rows, bonusDefault, range }: { rows: Row[]
 				<table>
 					<thead>
 						<tr>
-							<th>Input</th>
-							<th>Result</th>
-							<th>Base</th>
-							<th>Per unit</th>
-							<th>Expected</th>
+							<th>Cut</th>
+							<th>Drop</th>
+							<th>Chance</th>
+							<th>With Fortune</th>
+							<th>Average per cut</th>
 							<th>At least one</th>
 						</tr>
 					</thead>

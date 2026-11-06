@@ -1,24 +1,22 @@
 ---
 title: Nourishment & Comfort
-description: Exactly what Nourishment does, its four duration tiers and which food gives which, the vanilla soup bonus and Rabbit Stew, and the retired Comfort effect.
+description: What Nourishment really does, how long each food gives it, the vanilla soup bonus, and the retired Comfort effect.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import EffectBadge from '../../../components/data/EffectBadge.astro';
 import FoodStats from '../../../components/data/FoodStats.astro';
-import Src from '../../../components/mc/Src.astro';
-import Cite from '../../../components/cooking/Cite.astro';
-import Stats from '../../../components/cooking/Stats.astro';
 import NourishTimeline from '../../../components/cooking/NourishTimeline.astro';
 import NourishTable from '../../../components/islands/cooking-nourish-table.tsx';
-import { effects, itemList, iconOf, url as siteUrl, config, soupEffects, vanillaFoods, nameOf, duration, CATEGORIES } from '../../../lib/data';
-import { effect } from '../../../data/code/cooking';
+import { effects, itemList, iconOf, url as siteUrl, config, soupEffects, vanillaFoods, duration, CATEGORIES } from '../../../lib/data';
+import { effect, timeText, hearts } from '../../../data/code/cooking';
 
 export const N = effects.find((e) => e.id === 'farmersdelight:nourishment');
 export const C = effects.find((e) => e.id === 'farmersdelight:comfort');
 export const tiers = Object.entries(effect.tiers.value).sort((a, b) => a[1] - b[1]);
-export const tierOf = (t) => tiers.find(([, v]) => v === t)?.[0] ?? `${t} t`;
+export const tierOf = (t) => tiers.find(([, v]) => v === t)?.[0] ?? '';
+export const tierName = (t) => t.charAt(0) + t.slice(1).toLowerCase();
 export const rows = itemList
 	.map((i) => ({ i, e: i.consumable?.effects.find((x) => x.id === N.id) }))
 	.filter((x) => x.e)
@@ -26,63 +24,47 @@ export const rows = itemList
 export const cfg = (k) => config.find((c) => c.key === k);
 export const soupCfg = cfg('enableVanillaSoupExtraEffects');
 export const rabbitCfg = cfg('enableRabbitStewBuff');
-export const overlay = cfg('enableNourishmentHungerOverlay');
-export const comfortOverlay = cfg('enableComfortHealthOverlay');
+export const stackCfg = cfg('enableStackableSoupItems');
 export const vf = (id) => vanillaFoods.find((v) => v.id === id);
+export const rabbit = soupEffects.find((s) => s.item === 'minecraft:rabbit_stew');
+export const rabbitOff = (s) => s.item === 'minecraft:rabbit_stew' && rabbitCfg.default;
 
-Farmer's Delight registers two status effects. **Nourishment** is the reward for a proper meal: while it lasts, your
-hunger bar does not go down. **Comfort** is retired: it still exists in the game, but nothing gives it.
-
-<Stats
-	items={[
-		{ label: 'Foods with Nourishment', value: rows.length, sub: 'plus vanilla soups' },
-		{ label: 'Shortest', value: duration(tiers[0][1]), sub: tiers[0][0].toLowerCase(), src: effect.tiers.src },
-		{ label: 'Longest', value: duration(tiers[tiers.length - 1][1]), sub: tiers[tiers.length - 1][0].toLowerCase(), src: effect.tiers.src },
-		{ label: 'Comfort sources', value: C.grantedBy.length, sub: 'retired' },
-	]}
-/>
+Farmer's Delight adds two effects. **Nourishment** is the reward for a proper meal: while it lasts, your hunger bar
+doesn't go down. **Comfort** is retired: it still exists, but nothing gives it any more.
 
 ## Nourishment
 
-<EffectBadge id={N.id} name={N.name} /> <span class="fd-source">“{N.description}” (in-game description)</span>
+<EffectBadge id={N.id} name={N.name} /> {rows.length} foods give it, for {timeText(tiers[0][1])} up to
+{timeText(tiers[tiers.length - 1][1])}.
 
-### Exactly what it does
-
-Every tick, for players only <Cite f={effect.nourishment} />:
-
-1. If the `naturalHealthRegeneration` game rule is on **and** you are hurt **and** you have saturation left, it does nothing
-   this tick. Your saturation can be spent on healing as usual <Cite f={effect.healingCheck} />.
-2. Otherwise it sets your **exhaustion to zero**. Exhaustion is what running, jumping, fighting and healing build up to
-   drain saturation and then hunger, so neither goes down.
-
-So hunger and saturation are frozen while you are at full health. When you are hurt, saturation is used for healing as in
-vanilla. Once saturation reaches zero, step 2 applies again: the hunger bar stays where it is, and natural healing keeps
-going for as long as the effect lasts, because its cost is wiped every tick.
+Running, jumping, fighting and healing all make you hungry. Nourishment wipes that out, so at full health your hunger
+and saturation stay exactly where they are. When you get hurt, your saturation is spent on healing as usual. Once the
+saturation is gone, your hunger bar still stays put and you keep healing for as long as the effect lasts.
 
 <NourishTimeline />
 
-- **Always edible.** While Nourished you can eat even with a full hunger bar <Cite f={effect.alwaysEat} />, so you can top
-  up a running Nourishment with another meal.
-- **Amplifier** is ignored. Foods give it as level I, with no particles and no icon in the inventory list
-  <Cite f={effect.hidden} />.
-- **Mobs** are not affected; it only works on players.
-- **HUD.** A gilded overlay covers the hunger bar while Nourished, controlled by the client option
-  `enableNourishmentHungerOverlay` (default {String(overlay.default)}) <Cite f={effect.hud} />.
+- **You can always eat.** While Nourished you can eat even with a full hunger bar, so you can top it up with another
+  meal before it runs out.
+- **Higher levels do nothing extra,** and food gives it without particles.
+- **Only players** are affected.
+- **Golden hunger bar.** A gilded overlay covers the hunger bar while you're Nourished. You can hide it in the client
+  [config](/reference/config/#enableNourishmentHungerOverlay).
+- **No natural regeneration?** If the natural regeneration game rule is off, Nourishment freezes your hunger even when
+  you are hurt.
 
-### Duration tiers
+## How long it lasts
 
-All Farmer's Delight foods use one of {tiers.length} fixed durations <Cite f={effect.tiers} />:
+Every Farmer's Delight food gives Nourishment for one of {tiers.length} set times. Bigger meals last longer:
 
 <table>
-	<thead><tr><th>Tier</th><th>Duration</th><th>Ticks</th><th>Foods</th></tr></thead>
+	<thead><tr><th>Length</th><th>Time</th><th>Foods</th></tr></thead>
 	<tbody>
 		{tiers.map(([t, ticks]) => {
 			const list = rows.filter((r) => r.ticks === ticks);
 			return (
 				<tr>
-					<td><code>{t}</code></td>
-					<td><span class="fd-val">{duration(ticks)}</span></td>
-					<td><span class="fd-val">{ticks}</span></td>
+					<td>{tierName(t)}</td>
+					<td>{duration(ticks)}</td>
 					<td>{list.length ? list.map((r, i) => <>{i ? ' ' : ''}<Item id={r.id} label="" /></>) : '—'} <small>{list.length}</small></td>
 				</tr>
 			);
@@ -90,56 +72,39 @@ All Farmer's Delight foods use one of {tiers.length} fixed durations <Cite f={ef
 	</tbody>
 </table>
 
-### Every food, sortable
-
-Click a column to sort; pick a tier to filter.
+Here is every one of them. Click a column to sort, or pick a length to filter:
 
 <NourishTable client:visible rows={rows} tiers={tiers} />
 
-### Vanilla soups and Rabbit Stew
+## Vanilla soups
 
-With `enableVanillaSoupExtraEffects` on (default **{String(soupCfg.default)}**), eating a vanilla soup also grants
-Nourishment <Cite f={effect.soups} /> <Cite f={effect.soupEvent} />:
+{soupCfg.default ? 'Vanilla soups give Nourishment too' : 'With the vanilla soup option switched on in the config, vanilla soups give Nourishment too'}{stackCfg.default ? ', and they stack to 16 like the mod\'s meals' : ''}:
 
 <table>
-	<thead><tr><th>Food</th><th>Nourishment</th><th>Food value</th><th>With the defaults</th></tr></thead>
+	<thead><tr><th>Soup</th><th>Nourishment</th><th>Food</th></tr></thead>
 	<tbody>
 		{soupEffects.map((s) => {
 			const v = vf(s.item);
-			const rabbit = s.item === 'minecraft:rabbit_stew';
 			return (
 				<tr>
 					<td><Item id={s.item} /></td>
-					<td><span class="fd-val">{duration(s.duration)}</span> <small>{tierOf(s.duration).toLowerCase()}</small></td>
+					<td>{rabbitOff(s) ? <em>none (see below)</em> : duration(s.duration)}</td>
 					<td>{v ? <FoodStats nutrition={v.nutrition} saturation={v.saturation} compact /> : '—'}</td>
-					<td>{rabbit ? <>no Nourishment: see below</> : 'Nourishment applied'}</td>
 				</tr>
 			);
 		})}
 	</tbody>
 </table>
 
-**Rabbit Stew.** With `enableRabbitStewBuff` on (default **{String(rabbitCfg.default)}**), Rabbit Stew gets stronger food
-values (shown above, read from the running game) <Cite f={effect.rabbitBuff} />. The same switch makes the soup handler skip
-Rabbit Stew entirely, so with both defaults on it grants **no** Nourishment <Cite f={effect.rabbitSkip} />. Its tooltip still
-lists the Nourishment line <Cite f={effect.rabbitTooltip} />. Turn the buff off to get the {duration(soupEffects.find((s) => s.item === 'minecraft:rabbit_stew').duration)} Nourishment
-back at vanilla food values.
-
-The vanilla soups also stack to 16 while `enableStackableSoupItems` is on (default
-**{String(cfg('enableStackableSoupItems').default)}**).
+{rabbitCfg.default ? (
+	<Aside type="caution" title="Known issue in 1.3.4">
+		<Item id="minecraft:rabbit_stew" /> gives no Nourishment with the default settings, even though its tooltip lists it. Turn off the Rabbit Stew buff in the [config](/reference/config/#enableRabbitStewBuff) to get {duration(rabbit.duration)} of Nourishment back, at vanilla food values.
+	</Aside>
+) : null}
 
 ## Comfort (retired)
 
-<EffectBadge id={C.id} name={C.name} /> <span class="fd-source">“{C.description}” (in-game description)</span>
-
-Comfort is still registered, so commands and other mods can apply it, but **no food or item in this version grants it**:
-the changelog for 1.3.0 says the foods that used to give it give Nourishment instead
-<Src path="changelog.md" lines="138-140" />. The item data agrees: no food lists Comfort. If you apply it yourself, every {effect.comfortInterval.value}
-ticks ({duration(effect.comfortInterval.value)}) it heals {effect.comfortHeal.value} health while you are hurt, but skips the
-heal if you have Regeneration or, for players, any saturation left <Cite f={effect.comfort} />. A scrolling overlay on the
-health bar shows when it is working (client option `enableComfortHealthOverlay`, default {String(comfortOverlay.default)})
-<Cite f={effect.comfortHud} />.
-
-<Aside type="note">
-Some older descriptions of the mod still say that warm soups give Comfort. In this version they give Nourishment.
-</Aside>
+<EffectBadge id={C.id} name={C.name} /> No food gives Comfort any more: the foods that used to give it give Nourishment
+now. You can still apply it with a command. While you're hurt it heals {hearts(effect.comfortHeal.value)} every
+{timeText(effect.comfortInterval.value)}, but not while you have Regeneration or any saturation left. A scrolling overlay
+on the health bar shows when it is working.

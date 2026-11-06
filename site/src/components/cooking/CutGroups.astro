@@ -1,7 +1,7 @@
 ---
 // Every playable Cutting Board recipe, grouped by the tool it needs. Compact rows of real inventory slots.
 import Slot from '../mc/Slot.astro';
-import { playableRecipes, nameOf, short, type Recipe } from '../../lib/data';
+import { playableRecipes, nameOf, type Recipe } from '../../lib/data';
 const cutting = playableRecipes.filter((r) => r.type === 'farmersdelight:cutting');
 const toolKey = (r: Recipe) => {
 	const t = r.tool!;
@@ -26,7 +26,8 @@ const ORDER: [string, string, string][] = [
 const groups = ORDER.map(([k, label, blurb]) => ({ k, label, blurb, list: cutting.filter((r) => toolKey(r) === k) })).filter((g) => g.list.length);
 const inputName = (r: Recipe) => {
 	const i = r.ingredients![0];
-	if (i.tag) return `#${short(i.tag)}`;
+	// Inputs that accept a group of items get a plain name: "Any dough" for a tag, the recipe name for a list.
+	if (i.tag) return i.items.length === 1 ? nameOf(i.items[0]) : `Any ${i.tag.split(/[:/]/).pop()!.replaceAll('_', ' ')}`;
 	return i.items.length > 1 ? r.id.split('/').pop()!.replaceAll('_', ' ').replace(/^./, (c) => c.toUpperCase()) : nameOf(i.items[0]);
 };
 ---
@@ -42,7 +43,7 @@ const inputName = (r: Recipe) => {
 				</header>
 				<ul>
 					{g.list.map((r) => (
-						<li title={r.id.replace('farmersdelight:', '')}>
+						<li>
 							<span class="slots">
 								<Slot ingredient={r.ingredients![0]} scale={1.5} />
 								<span class="arr">→</span>

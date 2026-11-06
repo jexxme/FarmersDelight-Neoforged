@@ -1,18 +1,15 @@
 ---
 title: Pies & cakes
-description: Placed pies and their four slices, cutting slices with a knife, eating from the block, slicing vanilla cakes and candle cakes, and what breaking them drops.
+description: Placing pies, cutting slices with a knife, slicing vanilla cakes and candle cakes, and why you should never break a pie with your fist.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
 import RecipeList from '../../../components/recipes/RecipeList.astro';
 import Stages from '../../../components/data/Stages.astro';
 import FoodStats from '../../../components/data/FoodStats.astro';
 import EffectBadge from '../../../components/data/EffectBadge.astro';
-import Src from '../../../components/mc/Src.astro';
-import Cite from '../../../components/cooking/Cite.astro';
-import Stats from '../../../components/cooking/Stats.astro';
 import { tags, items, modifiers, loot, config, nameOf, seconds, playableRecipes } from '../../../lib/data';
 import { pie } from '../../../data/code/cooking';
 
@@ -21,47 +18,42 @@ export const sliceOf = (block) => modifiers.find((m) => m.type === 'farmersdelig
 export const itemOf = (block) => (items[block] ? block : `minecraft:${block.split(':')[1]}`);
 export const cakeSlice = sliceOf('minecraft:cake');
 export const candle = modifiers.find((m) => m.id === 'farmersdelight:slicing_candle_cake');
-export const candleCakes = tags.resolved.block['farmersdelight:drops_cake_slice'];
 export const sneak = config.find((c) => c.key === 'enablePumpkinPieSneakToPlace');
 export const slices = [...pies.map(sliceOf), cakeSlice].map((id) => items[id]);
 export const emptyLoot = pies.every((b) => loot.blocks[b.replace('farmersdelight:', 'farmersdelight:blocks/')].pools.length === 0);
+export const biteLabels = Object.fromEntries(Array.from({ length: pie.bites.value }, (_, n) => [n, n === 0 ? 'whole' : `${pie.bites.value - n} left`]));
 
 <Render name="blocks/apple_pie" float="right" size={180} caption="Apple Pie, placed" />
 
-Pies are placed food. Set one down and it is a block with {pie.bites.value} slices that you cut off with a
-[knife](/mechanics/knives/). The mod has {pies.length} pies, and adds knife slicing to the vanilla
-<Item id="minecraft:cake" /> as well.
+Pies are food you place. Set one down and it becomes a block with {pie.bites.value} slices that you cut off with a
+[knife](/mechanics/knives/). The mod has {pies.length} pies, and it lets you slice the vanilla <Item id="minecraft:cake" />
+the same way: a whole cake gives {pie.pastry.value.cake} slices.
 
-<Stats
-	items={[
-		{ label: 'Slices per pie', value: pie.bites.value, src: pie.bites.src },
-		{ label: 'Slices per cake', value: pie.pastry.value.cake, src: pie.pastry.src },
-		{ label: 'Slice eat time', value: seconds(slices[0].consumable.seconds * 20), sub: 'every slice' },
-		{ label: 'Slice effect', value: slices[0].consumable.effects[0].name, sub: seconds(slices[0].consumable.effects[0].duration) },
-	]}
-/>
+## Cutting slices
 
-## How it works
+Place the pie on a solid block. Then right-click it holding any knife: one slice pops out toward you and the pie shows
+one bite more. The last slice removes the block. A vanilla <Item id="minecraft:pumpkin_pie" /> places as a pie block too
+{sneak.default ? <>when you sneak and right-click a block with it</> : <>when you right-click a block with it; aim at the air to eat it instead</>}.
 
-- **Placing.** Use a pie item on a block; it needs a rigid surface below <Cite f={pie.survive} />. The vanilla
-  <Item id="minecraft:pumpkin_pie" /> places the mod's pumpkin pie block too; with `enablePumpkinPieSneakToPlace` (default
-  **{String(sneak.default)}**) you have to sneak to place it, otherwise any use on a block places it <Cite f={pie.pumpkinPie} />.
-- **Cutting a slice.** Right-click the pie holding a knife (any item with the knife ability, or in
-  `#farmersdelight:tools/knives`) <Cite f={pie.isKnife} />. One slice item pops out toward you, you are not fed, and the pie
-  shows one bite more. The last slice removes the block <Cite f={pie.cutSlice} />.
-- **Eating from the block.** The pie has code to eat a slice straight from the block with an empty hand: it feeds you the
-  slice's food value once and applies the slice's effect, without the item eating sounds <Cite f={pie.consumeBite} />. In this
-  version the pie answers a right-click with no knife by passing, and Minecraft 26.3 only runs a block's empty-hand action
-  when the block asks for it, so an empty-hand right-click does not reach that code <Cite f={pie.knife} /> <Cite f={pie.dispatch} />.
-  Read from the code, not checked in game. Cut slices with a knife and eat those.
-- A comparator reads the slices left <Cite f={pie.comparator} />.
+<Aside type="caution" title="Known issue in 1.3.4">
+You can't eat a placed pie with an empty hand. Cut slices with a knife and eat those.
+</Aside>
 
-{pies.map((b) => <Stages block={b.split(':')[1]} title={`${nameOf(itemOf(b))}: bites taken`} labels={{ 0: 'whole', [pie.bites.value - 1]: 'last slice' }} />)}
+<Tabs>
+	{pies.map((b) => (
+		<TabItem label={nameOf(itemOf(b))}>
+			<Stages block={b.split(':')[1]} title={`${nameOf(itemOf(b))}: slices left`} labels={biteLabels} />
+		</TabItem>
+	))}
+</Tabs>
 
 ## Slices
 
+Each slice is a quick snack with a short burst of Speed. The Speed has no particles or icon, so don't be surprised when
+you can't see it. Slices also craft back into a whole pie.
+
 <table>
-	<thead><tr><th>Whole</th><th>Slice</th><th>Food</th><th>Effect</th><th>Eat time</th><th>Stack</th></tr></thead>
+	<thead><tr><th>Whole</th><th>Slice</th><th>Food</th><th>Effect</th><th>Eat time</th></tr></thead>
 	<tbody>
 		{[...pies, 'minecraft:cake'].map((b) => {
 			const s = items[b === 'minecraft:cake' ? cakeSlice : sliceOf(b)];
@@ -71,43 +63,42 @@ Pies are placed food. Set one down and it is a block with {pie.bites.value} slic
 					<td><Item id={s.id} /></td>
 					<td><FoodStats nutrition={s.food.nutrition} saturation={s.food.saturation} compact /></td>
 					<td>{s.consumable.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}</td>
-					<td><span class="fd-val">{seconds(s.consumable.seconds * 20)}</span></td>
-					<td>{s.stack}</td>
+					<td>{seconds(s.consumable.seconds * 20)}</td>
 				</tr>
 			);
 		})}
 	</tbody>
 </table>
 
-Slices are quick to eat, and their Speed effect is applied without particles or an icon <Src path="common/FoodValues.java" lines="245-252" />. Slices also craft back into a whole pie (recipes below).
+Slices stack to {slices[0].stack}.
 
 ## Breaking a pie
 
-The pie blocks have empty loot tables{emptyLoot ? '' : ' (not all)'}, so breaking one with anything but a knife drops
-**nothing** <Src path="src/generated/resources/data/farmersdelight/loot_table/blocks/apple_pie.json" />. Broken with a knife,
-a loot modifier drops one slice per slice left, {pie.pastry.value.pie} minus the bites taken <Cite f={pie.pastry} />.
-
-<Aside type="caution">
-Mine a placed pie with a knife, or cut it up first. A pickaxe or your fist destroys the whole pie.
-</Aside>
+Break a placed pie with a knife and you get one slice for every slice left on it. Break it with anything else, even your
+fist, and **nothing{emptyLoot ? '' : ' (for most pies)'}** drops: the pie is gone. So always pick up a pie with a knife,
+or cut it up first.
 
 ## Cakes and candle cakes
 
-With a knife in hand <Cite f={pie.knifeCake} />:
+With a knife in hand:
 
-- **Cake.** Right-click: one <Item id={cakeSlice} /> drops and the cake loses a bite; after {pie.knifeCake.value} bites the
-  next cut removes it, so a whole cake gives {pie.pastry.value.cake} slices. Breaking a cake with a knife drops
-  {pie.pastry.value.cake} minus its bites in slices <Cite f={pie.pastry} />.
-- **Candle cake** (any of the {candleCakes.length} in `#farmersdelight:drops_cake_slice`). Right-click: it turns into a cake
-  with one bite taken, drops its candle, and drops one slice. Breaking a candle cake with a knife adds
-  {candle.raw.count} slices to its normal drops <Src path="src/generated/resources/data/farmersdelight/loot_modifiers/slicing_candle_cake.json" />.
+- **Cake.** Right-click it and one <Item id={cakeSlice} /> drops while the cake loses a bite. Keep going and you get
+  {pie.pastry.value.cake} slices from a whole cake. Breaking a cake with a knife also gives you every slice that's
+  left on it.
+- **Candle cake.** Right-click it and it drops its candle and one slice, and turns into a cake with one bite taken.
+  Breaking a candle cake with a knife gives {candle.raw.count} slices on top of the candle.
 
 ## Recipes
 
-Whole pies, and whole pies from four slices:
+Whole pies, and whole pies from slices:
 
 <RecipeList ids={playableRecipes.filter((r) => r.type === 'crafting_shaped' && pies.map(itemOf).includes(r.result?.id)).map((r) => r.id)} />
 
-On a Cutting Board with a knife, a whole pie or cake turns into all its slices at once:
+On a [Cutting Board](/mechanics/cutting-board/) with a knife, a whole pie or cake turns into all its slices at once:
 
 <RecipeList ids={playableRecipes.filter((r) => r.type === 'farmersdelight:cutting' && r.results.some((o) => slices.some((s) => s.id === o.id))).map((r) => r.id)} />
+
+## Good to know
+
+- **Comparators** next to a pie read how many slices are left.
+- **Support.** A pie needs a solid block under it and pops off otherwise.

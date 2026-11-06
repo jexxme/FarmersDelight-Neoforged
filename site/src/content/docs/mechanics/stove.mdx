@@ -1,19 +1,16 @@
 ---
 title: Stove
-description: Grilling six items at once on the Stove, its campfire recipes and times, lighting and putting it out, burns, and the covered-top rule.
+description: Grilling six items at once on the Stove, lighting it and putting it out, keeping the top clear, and why it burns your feet.
 ---
 
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
-import Src from '../../../components/mc/Src.astro';
+import Shot from '../../../components/mc/Shot.astro';
 import RecipeList from '../../../components/recipes/RecipeList.astro';
-import Cite from '../../../components/cooking/Cite.astro';
-import Stats from '../../../components/cooking/Stats.astro';
 import StoveGrill from '../../../components/cooking/StoveGrill.astro';
 import CookDecay from '../../../components/cooking/CookDecay.astro';
 import { playableRecipes, blocks, tags, seconds } from '../../../lib/data';
-import { stove } from '../../../data/code/cooking';
-import Shot from '../../../components/mc/Shot.astro';
+import { stove, timeText, timesAsFast, hearts } from '../../../data/code/cooking';
 
 export const campfire = playableRecipes.filter((r) => r.type === 'campfire_cooking');
 export const times = [...new Set(campfire.map((r) => r.cookingtime))];
@@ -22,69 +19,43 @@ export const damageTags = tags.files.filter((f) => f.registry === 'damage_type' 
 
 <Render name="blocks/stove" float="right" size={200} caption="Stove, lit" />
 
-The <Item id="stove" /> is a brick cooker with two jobs. Its top is a grill that cooks {stove.slots.value} items at once
-with campfire recipes, and the whole block is a [heat source](/mechanics/heat-sources/) for a
-<Item id="cooking_pot" /> or <Item id="skillet" /> placed on it. It is placed already burning.
-
-<Stats
-	items={[
-		{ label: 'Grill slots', value: stove.slots.value, sub: `${stove.perSlot.value} item each`, src: stove.slots.src },
-		{ label: 'Light when lit', value: B.maxLight, sub: '0 when out' },
-		{ label: 'FD grill recipes', value: campfire.length, unit: times.map((t) => `${t} t`).join(', ') },
-		{ label: 'Burn damage', value: stove.burn.value.toFixed(1), sub: 'per hit, unless sneaking', src: stove.burn.src },
-	]}
-/>
+The <Item id="stove" /> is a brick cooker with two jobs. Its top is a grill that cooks {stove.slots.value} items at once,
+anything a campfire can cook. And the whole block is a [heat source](/mechanics/heat-sources/) for a
+<Item id="cooking_pot" /> or <Item id="skillet" /> set on top. It is placed already burning and gives light level
+{B.maxLight} while lit.
 
 <Shot src="mechanics/stove-grilling.jpg" caption="A lit stove grilling six raw cuts at once: beef, porkchop, chicken, mutton, salmon and cod." />
 
-## How it works
+## Grilling
+
+Right-click the Stove with raw food to lay one item on the grill. Do it again to fill the next spot, up to
+{stove.slots.value}. Each item has its own timer, and when it is done the cooked food pops up off the grill for you to
+pick up. Food that can't be grilled isn't placed; you just use it as normal.
 
 <StoveGrill />
 
-1. **Put food on.** Right-click the Stove holding an item that has a vanilla `campfire_cooking` recipe. One item goes onto
-   the first free grill slot <Cite f={stove.placeFood} /> <Cite f={stove.placeSlot} />. This works lit or unlit. Items
-   without a campfire recipe do nothing; the click passes on to the item (so food in hand is not eaten by accident when it
-   can be grilled).
-2. **Cooking.** Each slot has its own timer set to the recipe's `cookingtime`. While the Stove is lit, every slot gains
-   {stove.cook.value} per tick; when a slot is done, the cooked item pops up out of the grill and the slot is free again
-   <Cite f={stove.cook} />. The grill pays no experience.
-3. **Cooling.** While it is unlit, every slot loses {stove.cool.value} progress per tick instead, down to zero
-   <Cite f={stove.cool} />. The food stays on the grill.
-4. **Taking food back.** Raw food cannot be taken off by hand. Break the Stove, cover its top, or wait for it to cook.
-
-<CookDecay total={campfire[0].cookingtime} step={stove.cook.value} decay={stove.cool.value} label="One grill slot" />
+You can't take raw food back off by hand. Let it finish, break the Stove, or cover its top (below) to get it back. The
+grill gives no experience.
 
 ## Lighting and putting it out
 
-| While | Use | What it costs | |
-|---|---|---|---|
-| unlit | <Item id="minecraft:flint_and_steel" /> or any fire-starting tool | 1 durability (or the item, if it has none) | <Cite f={stove.ignite} /> |
-| unlit | fire charge | 1 item, not in creative | <Cite f={stove.ignite} /> |
-| lit | <Item id="minecraft:iron_shovel" label="any shovel" /> (tools that can douse) | 1 durability | <Cite f={stove.extinguish} /> |
-| lit | <Item id="minecraft:water_bucket" /> (any `#c:buckets/water`) | the bucket is emptied, not in creative | <Cite f={stove.extinguish} /> |
+| To | Use | Cost |
+|---|---|---|
+| light it | <Item id="minecraft:flint_and_steel" /> | 1 durability |
+| light it | <Item id="minecraft:fire_charge" /> | 1 fire charge |
+| put it out | <Item id="minecraft:iron_shovel" label="any shovel" /> | 1 durability |
+| put it out | <Item id="minecraft:water_bucket" /> | the bucket is emptied |
 
-A new Stove is always placed lit <Cite f={stove.placedLit} />. It gives light level {B.maxLight} only while lit (data:
-block `maxLight`).
+While the Stove is out, food stays on the grill but stops cooking. It loses progress
+{timesAsFast(stove.cool.value, stove.cook.value)} as it gained it, down to raw, and picks up again once you relight:
 
-## Burns
-
-A lit Stove hurts any living thing standing on its grill for {stove.burn.value.toFixed(1)} damage, as often as the game
-applies step damage. **Sneaking** walks on it safely <Cite f={stove.burn} />. The damage type
-`farmersdelight:stove_burn` is in {damageTags.map((t, i) => <>{i ? ', ' : ''}<code>#{t}</code></>)}
-<Src path="src/generated/resources/data/minecraft/tags/damage_type/is_fire.json" />, so Fire Resistance blocks it and it
-causes no knockback. Mobs path around a lit Stove as if it were fire <Cite f={stove.pathFire} />.
+<CookDecay total={campfire[0].cookingtime} step={stove.cook.value} decay={stove.cool.value} label="One item on the grill" />
 
 ## Keep the top clear
 
-The grill area is the box from {stove.grillArea.value.x[0]} to {stove.grillArea.value.x[1]} pixels across and
-{stove.grillArea.value.y[1]} pixel tall, just above the Stove <Cite f={stove.grillArea} />. If the block above has any shape
-inside that box, the top counts as **covered** <Cite f={stove.covered} />:
-
-- all food on the grill drops as items on the next tick <Cite f={stove.coveredDrop} />;
-- no new food can be put on.
-
-A Cooking Pot or Skillet on the Stove covers it, so a Stove can grill *or* heat a pot, not both. Carpets, slabs and other
-full-width blocks also cover it; thin blocks that stay out of the middle do not.
+Anything in the block above that reaches down to the grill covers it, and a covered grill drops all its food and takes no
+new food. That includes a Cooking Pot or Skillet on the Stove, so a Stove either grills **or** heats a pot, never both at
+once. Carpets and bottom slabs cover it too; thin blocks that stay clear of the middle of the grill don't.
 
 <div class="not-content" style="display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:flex-end;margin:1rem 0">
 	<Render name="scenes/pot-on-stove" size={170} caption="Heating a pot: the grill is covered" />
@@ -93,24 +64,28 @@ full-width blocks also cover it; thin blocks that stay out of the middle do not.
 
 ## Recipes
 
-The grill uses vanilla `campfire_cooking` recipes, so everything a campfire cooks works, plus the
-{campfire.length} the mod adds. The same recipes run in a placed or hand-held [Skillet](/mechanics/skillet/), much faster.
+The grill runs every campfire recipe in the game, including the {campfire.length} the mod adds.
+{times.length === 1 ? <>Each of them takes {timeText(times[0])} on the grill.</> : null} The same food cooks much faster in a
+[Skillet](/mechanics/skillet/).
 
 <RecipeList type="campfire_cooking" />
 
-<table>
-	<thead><tr><th>Recipe</th><th>Grill time</th></tr></thead>
-	<tbody>
-		{campfire.map((r) => (
-			<tr><td><Item id={r.ingredients[0].items[0]} /> → <Item id={r.result.id} /></td><td><span class="fd-val">{r.cookingtime} <small>ticks · {seconds(r.cookingtime)}</small></span></td></tr>
-		))}
-	</tbody>
-</table>
+{times.length > 1 ? (
+	<table>
+		<thead><tr><th>Food</th><th>Grill time</th></tr></thead>
+		<tbody>
+			{campfire.map((r) => (
+				<tr><td><Item id={r.ingredients[0].items[0]} /> → <Item id={r.result.id} /></td><td>{seconds(r.cookingtime)}</td></tr>
+			))}
+		</tbody>
+	</table>
+) : null}
 
-## Details
+## Good to know
 
-- Breaking the Stove drops whatever is on the grill, plus the Stove itself <Cite f={stove.breakDrop} />.
-- Hoppers cannot load or unload the grill: the Stove registers no item handler (only the Cooking Pot, Cutting Board,
-  baskets and cabinets do).
-- Each occupied slot puffs smoke with a {stove.smoke.value * 100}% chance per tick <Cite f={stove.smoke} />.
-- Hardness {B.hardness}, blast resistance {B.blastResistance}.
+- **Hot feet.** A lit Stove burns anything standing on it for {hearts(stove.burn.value)} at a time. Sneak to walk across
+  safely.{damageTags.includes('minecraft:is_fire') ? ' Fire Resistance protects you too.' : ''}{damageTags.includes('minecraft:no_knockback') ? ' The burn has no knockback.' : ''}
+- **Mobs avoid it.** Mobs walk around a lit Stove as if it were fire.
+- **Breaking it** drops the Stove and whatever is on the grill.
+- **No hoppers.** Hoppers can't load or unload the grill. For automatic cooking, put a Cooking Pot on the Stove instead.
+- **Any water bucket works,** modded ones included. In creative mode, lighting and putting out cost nothing.
