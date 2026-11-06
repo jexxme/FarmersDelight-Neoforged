@@ -55,7 +55,8 @@ public class ConsumableItem extends Item
 			this.affectConsumer(stack, level, consumer);
 		}
 
-		if (stack.get(DataComponents.FOOD) != null) {
+		if (stack.has(DataComponents.CONSUMABLE)) {
+			// Applies the Consumable's effects (and the food, if any), awards the stat and uses up one item.
 			super.finishUsingItem(stack, level, consumer);
 		} else {
 			Player player = consumer instanceof Player ? (Player) consumer : null;

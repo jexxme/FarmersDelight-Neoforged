@@ -114,10 +114,10 @@ public class FeastBlock extends Block
 
 		if (servings > 0) {
 			ItemStackTemplate container = serving.getCraftingRemainder();
-			if (container != null && ItemStack.isSameItem(heldStack, container.create())) {
+			if (container == null || ItemStack.isSameItem(heldStack, container.create())) {
 				level.setBlock(pos, state.setValue(getServingsProperty(), servings - 1), 3);
 				player.awardStat(Stats.ITEM_USED.get(heldStack.getItem()));
-				if (!player.getAbilities().instabuild) {
+				if (!player.getAbilities().instabuild && container != null) {
 					heldStack.shrink(1);
 				}
 				if (!player.getInventory().add(serving)) {

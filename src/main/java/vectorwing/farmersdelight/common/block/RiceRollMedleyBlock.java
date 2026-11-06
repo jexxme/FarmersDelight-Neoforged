@@ -31,19 +31,20 @@ public class RiceRollMedleyBlock extends FeastBlock
 			Block.box(3.0D, 0.0D, 2.0D, 5.0D, 2.0D, 14.0D),
 			Block.box(11.0D, 0.0D, 2.0D, 13.0D, 2.0D, 14.0D));
 
+	// Lambdas, not ModItems' fields: ModBlocks builds this block while ModItems is still initializing, so the fields can be null here.
 	public final List<Supplier<Item>> riceRollServings = Arrays.asList(
-			ModItems.COD_ROLL,
-			ModItems.COD_ROLL,
-			ModItems.SALMON_ROLL,
-			ModItems.SALMON_ROLL,
-			ModItems.SALMON_ROLL,
-			ModItems.KELP_ROLL_SLICE,
-			ModItems.KELP_ROLL_SLICE,
-			ModItems.KELP_ROLL_SLICE
+			() -> ModItems.COD_ROLL.get(),
+			() -> ModItems.COD_ROLL.get(),
+			() -> ModItems.SALMON_ROLL.get(),
+			() -> ModItems.SALMON_ROLL.get(),
+			() -> ModItems.SALMON_ROLL.get(),
+			() -> ModItems.KELP_ROLL_SLICE.get(),
+			() -> ModItems.KELP_ROLL_SLICE.get(),
+			() -> ModItems.KELP_ROLL_SLICE.get()
 	);
 
 	public RiceRollMedleyBlock(Properties properties) {
-		super(properties, ModItems.SALMON_ROLL, true, false);
+		super(properties, () -> ModItems.SALMON_ROLL.get(), true, false);
 	}
 
 	@Override

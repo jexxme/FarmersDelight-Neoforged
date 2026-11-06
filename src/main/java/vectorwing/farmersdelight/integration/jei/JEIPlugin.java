@@ -53,6 +53,7 @@ public class JEIPlugin implements IModPlugin
 		registration.addIngredientInfo(new ItemStack(ModItems.HAM.get()), VanillaTypes.ITEM_STACK, TextUtils.JEI("info.ham"));
 		registration.addIngredientInfo(new ItemStack(ModItems.SMOKED_HAM.get()), VanillaTypes.ITEM_STACK, TextUtils.JEI("info.ham"));
 		registration.addIngredientInfo(new ItemStack(ModItems.FLINT_KNIFE.get()), VanillaTypes.ITEM_STACK, TextUtils.JEI("info.knife"));
+		registration.addIngredientInfo(new ItemStack(ModItems.COPPER_KNIFE.get()), VanillaTypes.ITEM_STACK, TextUtils.JEI("info.knife"));
 		registration.addIngredientInfo(new ItemStack(ModItems.IRON_KNIFE.get()), VanillaTypes.ITEM_STACK, TextUtils.JEI("info.knife"));
 		registration.addIngredientInfo(new ItemStack(ModItems.DIAMOND_KNIFE.get()), VanillaTypes.ITEM_STACK, TextUtils.JEI("info.knife"));
 		registration.addIngredientInfo(new ItemStack(ModItems.NETHERITE_KNIFE.get()), VanillaTypes.ITEM_STACK, TextUtils.JEI("info.knife"));
