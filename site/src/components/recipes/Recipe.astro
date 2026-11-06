@@ -41,10 +41,10 @@ const station: Record<string, string[]> = {
 						<Slot ingredient={ing} bare scale={s} />
 					</div>
 				))}
-				<div style={at(60, 9)} title={`${r.cookingtime} ticks`}>
+				<div style={at(60, 9)}>
 					<Sprite src="/gui/cooking_pot_gui.png" x={176} y={15} w={24} h={17} scale={s} class="fd-arrow" />
 				</div>
-				<div style={at(18, 39)} title="Needs heat from below">
+				<div style={at(18, 39)} data-tip-items="Needs heat from below~" tabindex="0">
 					<Sprite src="/gui/cooking_pot_gui.png" x={176} y={0} w={17} h={15} scale={s} />
 				</div>
 				<div style={at(64, 2)}>
@@ -55,6 +55,14 @@ const station: Record<string, string[]> = {
 						<Sprite src="/gui/cooking_pot_gui.png" x={176} y={43} w={9} h={9} scale={s} />
 					</div>
 				)}
+				{/* Hover area over the clock, arrow and orb, as in JEI (CookingRecipeCategory: 61, 2, 22 x 28) */}
+				<div
+					class="hit"
+					style={`${at(61, 2)};width:${px(22)};height:${px(28)}`}
+					data-tip-items={`Cook time: ${seconds(r.cookingtime ?? 200)}~`}
+					data-tip-sub={xp > 0 ? `${+xp.toFixed(2)} XP` : undefined}
+					tabindex="0"
+				/>
 				<div style={at(95, 10)}>
 					<Slot id={r.result!.id} count={r.result!.count} bare scale={s} />
 				</div>
@@ -135,7 +143,7 @@ const station: Record<string, string[]> = {
 	}
 	{r.special && <div class="mc-panel special" style={`--s:${s}px`}>{recipeTypeName[type] ?? type}</div>}
 	{
-		caption && (
+		caption && type !== 'farmersdelight:cooking' && type !== 'farmersdelight:cutting' && (
 			<figcaption>
 				<span class="kind">{recipeTypeName[type] ?? type}</span>
 				{r.cookingtime && <span class="stat" title={`${r.cookingtime} ticks`}>{seconds(r.cookingtime)}</span>}
@@ -236,7 +244,21 @@ const station: Record<string, string[]> = {
 		background: none;
 		color: var(--sl-color-gray-4);
 	}
+	/* The arrow fills left to right over 10 s, pixel by pixel, like JEI's animated arrow (200 ticks) */
 	:global(.fd-arrow) {
-		animation: none;
+		animation: fd-cook 10s steps(24, end) infinite;
+	}
+	@keyframes fd-cook {
+		from {
+			width: 0;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		:global(.fd-arrow) {
+			animation: none;
+		}
+	}
+	.hit {
+		cursor: help;
 	}
 </style>

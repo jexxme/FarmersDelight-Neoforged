@@ -162,38 +162,41 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 					{usedOutputs.map((o) => (
 						<Slot id={o} scale={3} />
 					))}
-					{Array.from({ length: (9 - (usedOutputs.length % 9)) % 9 }).map(() => (
-						<Slot scale={3} />
-					))}
+				</div>
+			</>
+		)
+	}
+
+	{
+		siblings.length > 1 && (
+			<>
+				<h2 id="more">More {cat.label.toLowerCase()}</h2>
+				<p>
+					All {siblings.length} {cat.label.toLowerCase()} in the mod, in creative-tab order. <a href={url(`/items/#${item.category}`)}>Open them in the item list</a>.
+				</p>
+				<div class="ip-inv grid9 not-content">
+					{siblings.map((s) =>
+						s.id === item.id ? (
+							<span class="sib cur">
+								<Slot id={s.id} scale={3} />
+							</span>
+						) : (
+							<Slot id={s.id} scale={3} />
+						),
+					)}
 				</div>
 			</>
 		)
 	}
 
 	<footer class="ip-foot not-content">
-		<p>
-			<span class="lbl">Command</span> <code>/give @s {item.id}</code>
-		</p>
-		{
-			(blockProps.length > 0 || (item.tags as string[]).length > 0) && (
-				<details>
-					<summary>Tags and block states</summary>
-					{blockProps.length > 0 && <p><span class="lbl">Block states</span> {blockProps.map(([k, v]) => <code>{k}: {v.join(' | ')}</code>)}</p>}
-					{(item.tags as string[]).length > 0 && <p><span class="lbl">Item tags</span> {(item.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
-					{item.block && (item.block.tags as string[]).length > 0 && <p><span class="lbl">Block tags</span> {(item.block.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
-				</details>
-			)
-		}
-		<nav aria-label={`More ${cat.label}`}>
-			<p class="lbl">More {cat.label.toLowerCase()}</p>
-			<div class="ip-inv">
-				{siblings.map((s) => (
-					<span class:list={['sib', { cur: s.id === item.id }]}>
-						<Slot id={s.id} scale={2} />
-					</span>
-				))}
-			</div>
-		</nav>
+		<details>
+			<summary>{[ 'Command', (item.tags as string[]).length > 0 && 'tags', blockProps.length > 0 && 'block states'].filter(Boolean).join(', ').replace(/, ([^,]+)$/, ' and $1')}</summary>
+			<p><span class="lbl">Command</span> <code>/give @s {item.id}</code></p>
+			{blockProps.length > 0 && <p><span class="lbl">Block states</span> {blockProps.map(([k, v]) => <code>{k}: {v.join(' | ')}</code>)}</p>}
+			{(item.tags as string[]).length > 0 && <p><span class="lbl">Item tags</span> {(item.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
+			{item.block && (item.block.tags as string[]).length > 0 && <p><span class="lbl">Block tags</span> {(item.block.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
+		</details>
 	</footer>
 </StarlightPage>
 
@@ -343,18 +346,18 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		margin-left: 2px;
 	}
 
+	/* Up to 9 columns, fewer when the column is narrow; empty slots after the last item are a tiled background, so
+	   every row is full at any width */
 	.ip-inv.grid9 {
 		display: grid;
-		grid-template-columns: repeat(9, auto);
-	}
-	@media (max-width: 40rem) {
-		.ip-inv.grid9 {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		.ip-inv.grid9 > :global(.mc-slot:not([data-tip-items])) {
-			display: none;
-		}
+		grid-template-columns: repeat(auto-fill, 54px);
+		grid-auto-rows: 54px;
+		box-sizing: content-box;
+		width: min(486px, round(down, 100% - 20px, 54px));
+		max-width: none;
+		background:
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='54' shape-rendering='crispEdges'%3E%3Crect width='54' height='54' fill='%238b8b8b'/%3E%3Crect y='51' width='54' height='3' fill='%23fff'/%3E%3Crect x='51' width='3' height='54' fill='%23fff'/%3E%3Crect width='54' height='3' fill='%23373737'/%3E%3Crect width='3' height='54' fill='%23373737'/%3E%3C/svg%3E") 0 0 / 54px 54px repeat content-box,
+			#c6c6c6;
 	}
 
 	/* ---- the quiet footer: command, tags, related items ---- */
@@ -404,12 +407,10 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 	.ip-foot details p + p {
 		margin-top: 8px;
 	}
-	.ip-foot nav .lbl {
-		margin-bottom: 8px;
-	}
+	/* The item you're on, in its category's inventory */
 	.sib.cur :global(.mc-slot) {
-		outline: 2px solid #ffcf4d;
-		outline-offset: -2px;
+		outline: 3px solid #ffcf4d;
+		outline-offset: -3px;
 	}
 	@media (max-width: 34rem) {
 		.ip-slot {
