@@ -508,7 +508,7 @@ public class ModItems
 		bowlFoodItem(FoodValues.BEEF_STEW, FoodValues.ConsumableValues.NOURISHMENT_MEDIUM_DURATION));
 	public static final Supplier<Item> CHICKEN_SOUP = registerWithTab("chicken_soup",
 		properties -> new ConsumableItem(properties, true),
-		bowlFoodItem(FoodValues.CHICKEN_SOUP, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
+		bowlFoodItem(FoodValues.CHICKEN_SOUP, FoodValues.ConsumableValues.NOURISHMENT_MEDIUM_DURATION));
 	public static final Supplier<Item> VEGETABLE_SOUP = registerWithTab("vegetable_soup",
 		properties -> new ConsumableItem(properties, true),
 		bowlFoodItem(FoodValues.VEGETABLE_SOUP, FoodValues.ConsumableValues.NOURISHMENT_MEDIUM_DURATION));
@@ -517,7 +517,7 @@ public class ModItems
 		bowlFoodItem(FoodValues.FISH_STEW, FoodValues.ConsumableValues.NOURISHMENT_MEDIUM_DURATION));
 	public static final Supplier<Item> FRIED_RICE = registerWithTab("fried_rice",
 		properties -> new ConsumableItem(properties, true),
-		bowlFoodItem(FoodValues.FRIED_RICE, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
+		bowlFoodItem(FoodValues.FRIED_RICE, FoodValues.ConsumableValues.NOURISHMENT_MEDIUM_DURATION));
 	public static final Supplier<Item> PUMPKIN_SOUP = registerWithTab("pumpkin_soup",
 		properties -> new ConsumableItem(properties, true),
 		bowlFoodItem(FoodValues.PUMPKIN_SOUP, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
@@ -529,8 +529,7 @@ public class ModItems
 		bowlFoodItem(FoodValues.NOODLE_SOUP, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
 	public static final Supplier<Item> ONION_SOUP = registerWithTab("onion_soup",
 		properties -> new ConsumableItem(properties, true),
-		// TODO: Double check consumable...
-		bowlFoodItem(FoodValues.SHEPHERDS_PIE, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
+		bowlFoodItem(FoodValues.ONION_SOUP, FoodValues.ConsumableValues.NOURISHMENT_MEDIUM_DURATION));
 
 	// Plated Meals
 	public static final Supplier<Item> BACON_AND_EGGS = registerWithTab("bacon_and_eggs",
@@ -562,7 +561,7 @@ public class ModItems
 		bowlFoodItem(FoodValues.SQUID_INK_PASTA, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
 	public static final Supplier<Item> GRILLED_SALMON = registerWithTab("grilled_salmon",
 		properties -> new ConsumableItem(properties, true),
-		bowlFoodItem(FoodValues.GRILLED_SALMON, FoodValues.ConsumableValues.NOURISHMENT_LONG_DURATION));
+		bowlFoodItem(FoodValues.GRILLED_SALMON, FoodValues.ConsumableValues.NOURISHMENT_MEDIUM_DURATION));
 
 	// Feasts
 	public static final Supplier<Item> ROAST_CHICKEN_BLOCK = registerBlockWithTab("roast_chicken_block",

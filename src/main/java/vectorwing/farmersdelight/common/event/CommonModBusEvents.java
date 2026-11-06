@@ -36,7 +36,10 @@ public class CommonModBusEvents
 			});
 		}
 		if (Configuration.ENABLE_RABBIT_STEW_BUFF.get()) {
-			event.modify(Items.RABBIT_STEW, builder -> builder.set(DataComponents.FOOD, FoodValues.RABBIT_STEW_BUFF));
+			event.modify(Items.RABBIT_STEW, builder -> {
+				builder.set(DataComponents.FOOD, FoodValues.RABBIT_STEW_BUFF);
+				builder.set(DataComponents.CONSUMABLE, FoodValues.ConsumableValues.RABBIT_STEW_BUFF);
+			});
 		}
 	}
 }

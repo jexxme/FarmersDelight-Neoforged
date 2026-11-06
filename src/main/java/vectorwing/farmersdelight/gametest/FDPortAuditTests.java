@@ -41,6 +41,17 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.level.block.BellBlock;
+import net.minecraft.world.level.block.entity.BellBlockEntity;
+import net.minecraft.world.level.block.state.properties.BellAttachType;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.RegisterGameTestsEvent;
@@ -51,8 +62,14 @@ import vectorwing.farmersdelight.common.block.FeastBlock;
 import vectorwing.farmersdelight.common.block.PieBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.registry.ModEffects;
+import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
+import vectorwing.farmersdelight.common.block.TomatoBlock;
+import vectorwing.farmersdelight.common.block.RiceRollMedleyBlock;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -87,6 +104,12 @@ public final class FDPortAuditTests
 		test("skillet_item_places_on_stove", STRUCTURE, FDPortAuditTests::skilletItemPlacesOnStove);
 		test("every_fd_recipe_is_placeable", STRUCTURE, FDPortAuditTests::everyFdRecipeIsPlaceable);
 		test("mature_crops_drop_their_harvest", STRUCTURE, FDPortAuditTests::matureCropsDropTheirHarvest);
+		test("clicks_reach_pie_rope_and_tomato_actions", STRUCTURE, FDPortAuditTests::clicksReachPieRopeAndTomatoActions);
+		test("drinks_apply_their_effects", STRUCTURE, FDPortAuditTests::drinksApplyTheirEffects);
+		test("meals_match_1_21_food_values", STRUCTURE, FDPortAuditTests::mealsMatch121FoodValues);
+		test("rice_roll_medley_serves_rolls", STRUCTURE, FDPortAuditTests::riceRollMedleyServesRolls);
+		test("thrown_rotten_tomato_is_a_rotten_tomato", STRUCTURE, FDPortAuditTests::thrownRottenTomatoIsARottenTomato);
+		test("village_farms_grow_fd_crops", STRUCTURE, FDPortAuditTests::villageFarmsGrowFdCrops);
 	}
 
 	private FDPortAuditTests() {
@@ -529,6 +552,192 @@ public final class FDPortAuditTests
 			if (stack.is(item)) n += stack.getCount();
 		}
 		return n;
+	}
+
+	// ------------------------------------------------------------------ found while writing the docs (bug hand-over)
+
+	/**
+	 * On 26.x a block's useItemOn has to return TRY_WITH_EMPTY_HAND for useWithoutItem to run, and PASS to let the held
+	 * item act. The port returned PASS or SUCCESS, so pies could not be eaten by clicking, ropes did not reel or ring
+	 * bells, rope did not extend downward and bone meal did nothing on unripe tomatoes. These go through the same click
+	 * path as the server (GameTestHelper.useBlock).
+	 */
+	private static void clicksReachPieRopeAndTomatoActions(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+
+		// Pie, empty hand: eats a bite.
+		BlockPos pie = new BlockPos(0, 1, 0);
+		helper.setBlock(pie, ModBlocks.APPLE_PIE.get());
+		player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+		player.getFoodData().setFoodLevel(2);
+		helper.useBlock(pie, player);
+		if (player.getFoodData().getFoodLevel() <= 2) problems.add("clicking a pie with an empty hand did not eat a bite");
+
+		// Rope with rope in hand: extends the rope downward.
+		helper.setBlock(new BlockPos(2, 5, 0), Blocks.STONE);
+		for (int y = 2; y <= 4; y++) helper.setBlock(new BlockPos(2, y, 0), ModBlocks.ROPE.get());
+		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.ROPE.get(), 4));
+		helper.useBlock(new BlockPos(2, 4, 0), player);
+		if (!helper.getBlockState(new BlockPos(2, 1, 0)).is(ModBlocks.ROPE.get())) problems.add("clicking a rope with rope did not extend it downward");
+
+		// Rope, sneaking with an empty hand: reels in the bottom rope.
+		player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+		player.getInventory().clearContent();
+		player.setShiftKeyDown(true);
+		helper.useBlock(new BlockPos(2, 4, 0), player);
+		player.setShiftKeyDown(false);
+		if (helper.getBlockState(new BlockPos(2, 1, 0)).is(ModBlocks.ROPE.get())) problems.add("sneak-clicking a rope did not reel it in");
+		else if (!player.getInventory().contains(new ItemStack(ModItems.ROPE.get()))) problems.add("reeling did not give the rope back");
+
+		// Rope under a bell, empty hand: rings the bell.
+		helper.setBlock(new BlockPos(4, 5, 0), Blocks.STONE);
+		helper.setBlock(new BlockPos(4, 4, 0), Blocks.BELL.defaultBlockState().setValue(BellBlock.ATTACHMENT, BellAttachType.CEILING));
+		for (int y = 2; y <= 3; y++) helper.setBlock(new BlockPos(4, y, 0), ModBlocks.ROPE.get());
+		player.getInventory().clearContent(); // reeling put the rope into the empty hand
+		helper.useBlock(new BlockPos(4, 2, 0), player);
+
+		// Unripe tomato, bone meal in hand: grows.
+		BlockPos tomato = new BlockPos(0, 2, 3);
+		helper.setBlock(tomato.below(), Blocks.FARMLAND);
+		helper.setBlock(tomato, ModBlocks.TOMATO_CROP.get());
+		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BONE_MEAL, 8));
+		helper.useBlock(tomato, player);
+		BlockState grown = helper.getBlockState(tomato);
+		if (!(grown.getBlock() instanceof TomatoBlock tomatoBlock) || grown.getValue(tomatoBlock.getAgeProperty()) == 0) {
+			problems.add("bone meal on an unripe tomato did nothing");
+		}
+		// The bell starts shaking when its block event runs, later in the tick.
+		helper.runAfterDelay(2, () -> {
+			if (!helper.getBlockEntity(new BlockPos(4, 4, 0), BellBlockEntity.class).shaking) problems.add("clicking a rope under a bell did not ring it");
+			finish(helper, problems);
+		});
+	}
+
+	/** Milk Bottle, Hot Cocoa and Melon Juice have no FOOD; their Consumable effects were skipped. */
+	private static void drinksApplyTheirEffects(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+
+		player.addEffect(new MobEffectInstance(MobEffects.POISON, 600));
+		ItemStack milk = new ItemStack(ModItems.MILK_BOTTLE.get());
+		milk.finishUsingItem(helper.getLevel(), player);
+		if (player.hasEffect(MobEffects.POISON)) problems.add("milk bottle did not remove Poison");
+		if (!milk.isEmpty()) problems.add("milk bottle was not used up");
+
+		player.removeAllEffects();
+		player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 600));
+		new ItemStack(ModItems.HOT_COCOA.get()).finishUsingItem(helper.getLevel(), player);
+		if (player.hasEffect(MobEffects.SLOWNESS)) problems.add("hot cocoa did not remove Slowness");
+
+		player.setHealth(10.0F);
+		new ItemStack(ModItems.MELON_JUICE.get()).finishUsingItem(helper.getLevel(), player);
+		if (player.getHealth() < 11.9F) problems.add("melon juice healed " + (player.getHealth() - 10.0F) + ", expected 2");
+		finish(helper, problems);
+	}
+
+	/** Nutrition and Nourishment length of the meals the port had wrong, against Farmer's Delight 1.21. */
+	private static void mealsMatch121FoodValues(GameTestHelper helper) {
+		record Meal(Item item, int nutrition, int nourishment) {
+		}
+		List<String> problems = new ArrayList<>();
+		for (Meal meal : List.of(
+			new Meal(ModItems.ONION_SOUP.get(), 12, 3600), new Meal(ModItems.CHICKEN_SOUP.get(), 12, 3600),
+			new Meal(ModItems.FRIED_RICE.get(), 12, 3600), new Meal(ModItems.GRILLED_SALMON.get(), 14, 3600),
+			new Meal(ModItems.SHEPHERDS_PIE.get(), 14, 6000), new Meal(Items.RABBIT_STEW, 14, 6000))) {
+			ItemStack stack = new ItemStack(meal.item());
+			String name = BuiltInRegistries.ITEM.getKey(meal.item()).getPath();
+			FoodProperties food = stack.get(DataComponents.FOOD);
+			if (food == null || food.nutrition() != meal.nutrition()) {
+				problems.add(name + " nutrition " + (food == null ? "none" : food.nutrition()) + ", expected " + meal.nutrition());
+			}
+			int nourishment = 0;
+			Consumable consumable = stack.get(DataComponents.CONSUMABLE);
+			if (consumable != null) {
+				for (var effect : consumable.onConsumeEffects()) {
+					if (effect instanceof ApplyStatusEffectsConsumeEffect apply) {
+						for (MobEffectInstance instance : apply.effects()) {
+							if (instance.getEffect().equals(ModEffects.NOURISHMENT)) nourishment = instance.getDuration();
+						}
+					}
+				}
+			}
+			if (nourishment != meal.nourishment()) problems.add(name + " gives " + nourishment + " ticks of Nourishment, expected " + meal.nourishment());
+		}
+		finish(helper, problems);
+	}
+
+	/** The rolls have no container, so the medley never served them. */
+	private static void riceRollMedleyServesRolls(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+		BlockPos pos = new BlockPos(1, 1, 1);
+		helper.setBlock(pos, ModBlocks.RICE_ROLL_MEDLEY_BLOCK.get());
+		player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+		int before = helper.getBlockState(pos).getValue(RiceRollMedleyBlock.ROLL_SERVINGS);
+		helper.useBlock(pos, player);
+		BlockState after = helper.getBlockState(pos);
+		int taken = 0;
+		for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) taken += player.getInventory().getItem(slot).getCount();
+		if (!after.is(ModBlocks.RICE_ROLL_MEDLEY_BLOCK.get()) || after.getValue(RiceRollMedleyBlock.ROLL_SERVINGS) != before - 1) problems.add("the medley did not lose a serving");
+		if (taken != 1) problems.add("the player got " + taken + " items, expected one roll");
+		finish(helper, problems);
+	}
+
+	/** Thrown by a player, the rotten tomato was a vanilla Snowball. */
+	private static void thrownRottenTomatoIsARottenTomato(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+		Vec3 at = Vec3.atCenterOf(helper.absolutePos(new BlockPos(2, 2, 2)));
+		player.snapTo(at.x, at.y, at.z, 0.0F, -30.0F);
+		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.ROTTEN_TOMATO.get()));
+		ModItems.ROTTEN_TOMATO.get().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+		AABB around = new AABB(helper.absolutePos(BlockPos.ZERO)).inflate(12);
+		int tomatoes = helper.getLevel().getEntitiesOfClass(RottenTomatoEntity.class, around).size();
+		int snowballs = helper.getLevel().getEntitiesOfClass(Snowball.class, around).size();
+		helper.getLevel().getEntitiesOfClass(RottenTomatoEntity.class, around).forEach(RottenTomatoEntity::discard);
+		helper.getLevel().getEntitiesOfClass(Snowball.class, around).forEach(Snowball::discard);
+		if (tomatoes != 1 || snowballs != 0) problems.add(tomatoes + " rotten tomato and " + snowballs + " snowball projectiles, expected 1 and 0");
+		finish(helper, problems);
+	}
+
+	/**
+	 * Runs wheat through each village farm's processor list, as structure placement does, and counts the crops. FD's
+	 * rules reused vanilla's random numbers, so plains and taiga farms never got cabbages.
+	 */
+	private static void villageFarmsGrowFdCrops(GameTestHelper helper) {
+		List<String> problems = new ArrayList<>();
+		var processorLists = helper.getLevel().registryAccess().lookupOrThrow(Registries.PROCESSOR_LIST);
+		Map<String, List<Block>> expected = Map.of(
+			"farm_plains", List.of(ModBlocks.CABBAGE_CROP.get(), ModBlocks.TOMATO_CROP.get(), ModBlocks.ONION_CROP.get(), Blocks.CARROTS),
+			"farm_taiga", List.of(ModBlocks.CABBAGE_CROP.get(), ModBlocks.TOMATO_CROP.get(), ModBlocks.ONION_CROP.get(), Blocks.PUMPKIN_STEM),
+			"farm_snowy", List.of(ModBlocks.CABBAGE_CROP.get(), ModBlocks.ONION_CROP.get(), Blocks.POTATOES),
+			"farm_savanna", List.of(ModBlocks.CABBAGE_CROP.get(), ModBlocks.TOMATO_CROP.get(), Blocks.MELON_STEM),
+			"farm_desert", List.of(ModBlocks.CABBAGE_CROP.get(), ModBlocks.TOMATO_CROP.get(), Blocks.BEETROOTS));
+		int samples = 4000;
+		for (var entry : expected.entrySet()) {
+			StructureProcessorList list = processorLists.getValue(Identifier.withDefaultNamespace(entry.getKey()));
+			if (list == null) {
+				problems.add(entry.getKey() + " is missing");
+				continue;
+			}
+			Map<Block, Integer> counts = new HashMap<>();
+			for (int i = 0; i < samples; i++) {
+				BlockPos pos = new BlockPos(i * 7, 64, i * 13);
+				StructureTemplate.StructureBlockInfo original = new StructureTemplate.StructureBlockInfo(pos, Blocks.WHEAT.defaultBlockState(), null);
+				StructureTemplate.StructureBlockInfo info = original;
+				for (StructureProcessor processor : list.list()) {
+					info = processor.processBlock(helper.getLevel(), BlockPos.ZERO, BlockPos.ZERO, original, info, new StructurePlaceSettings());
+					if (info == null) break;
+				}
+				if (info != null) counts.merge(info.state().getBlock(), 1, Integer::sum);
+			}
+			for (Block crop : entry.getValue()) {
+				int share = counts.getOrDefault(crop, 0) * 100 / samples;
+				if (share < 3) problems.add(entry.getKey() + ": " + name(crop) + " on " + share + "% of the wheat");
+			}
+		}
+		finish(helper, problems);
 	}
 
 	private static String name(Block block) {
