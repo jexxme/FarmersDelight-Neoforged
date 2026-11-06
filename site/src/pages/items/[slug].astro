@@ -75,10 +75,10 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 ---
 <StarlightPage frontmatter={{ title: item.name, description, tableOfContents: headings.length > 1 ? { minHeadingLevel: 2, maxHeadingLevel: 2 } : false }} headings={headings}>
 	<section class="ip-hero not-content">
-		<div class="ip-slot">
-			{render ? <img src={render} alt={item.name} width="200" height="200" /> : icon && <img class="pixel" src={icon.src} alt={item.name} width="128" height="128" />}
-		</div>
-		<div class="ip-side">
+		<div class="ip-item">
+			<div class="ip-slot">
+				{render ? <img src={render} alt={item.name} width="200" height="200" /> : icon && <img class="pixel" src={icon.src} alt={item.name} width="128" height="128" />}
+			</div>
 			<div class="ip-tooltip">
 				<p class="t-name" data-pagefind-ignore>{item.name}</p>
 				{item.tooltip.map((t) => <p class="t-blue">{t}</p>)}
@@ -104,11 +104,11 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 				<p class="t-mod">Farmer's Delight</p>
 				<p class="t-id">{item.id}</p>
 			</div>
-			<p class="ip-links">
-				<a class="ip-cat" href={url(`/items/#${item.category}`)}>{cat.label}</a>
-				{mech && <a class="ip-mech" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>}
-			</p>
 		</div>
+		<p class="ip-links">
+			<a class="ip-cat" href={url(`/items/#${item.category}`)}>{cat.label}</a>
+			{mech && <a class="ip-mech" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>}
+		</p>
 	</section>
 
 	{blockSlug && <Stages block={blockSlug} />}
@@ -203,12 +203,18 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 
 <style>
 	/* ---- the item, as in the game ---- */
+	/* The slot with its tooltip hovering over the corner, the way the game shows a hovered item */
 	.ip-hero {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 24px 32px;
-		align-items: flex-start;
 		margin-top: 24px;
+	}
+	.ip-item {
+		display: flex;
+		align-items: flex-start;
+	}
+	.ip-item .ip-tooltip {
+		position: relative;
+		z-index: 1;
+		margin: 64px 0 0 -44px;
 	}
 	.ip-slot {
 		width: 216px;
@@ -228,16 +234,10 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		width: 128px;
 		image-rendering: pixelated;
 	}
-	.ip-side {
-		flex: 1 1 300px;
-		min-width: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 16px;
-	}
 	.ip-tooltip {
 		width: fit-content;
 		max-width: 100%;
+		box-sizing: border-box;
 		padding: 10px 14px 12px;
 		background: #100010;
 		box-shadow: inset 0 0 0 2px #100010, inset 0 0 0 4px #2d0a63, 0 0 0 2px #100010;
@@ -302,7 +302,7 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		flex-wrap: wrap;
 		gap: 8px 20px;
 		align-items: center;
-		margin: 0;
+		margin: 28px 0 0 6px;
 	}
 	.ip-cat {
 		display: inline-block;
@@ -417,6 +417,14 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		.ip-slot {
 			width: 168px;
 			height: 168px;
+		}
+		/* Too narrow for side by side: the tooltip hangs below the slot, still overlapping it */
+		.ip-item {
+			flex-direction: column;
+		}
+		.ip-item .ip-tooltip {
+			margin: -36px 0 0 36px;
+			max-width: calc(100% - 36px);
 		}
 	}
 </style>
