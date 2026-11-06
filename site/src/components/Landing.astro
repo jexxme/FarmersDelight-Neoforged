@@ -186,7 +186,7 @@ const chapters = [
 	}
 	.pair {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 		gap: 8px;
 		margin-top: 16px;
 	}
@@ -321,7 +321,11 @@ const chapters = [
 	}
 	@media (max-width: 40rem) {
 		.inv-grid {
-			grid-template-columns: repeat(6, 54px);
+			grid-template-columns: repeat(5, 54px);
+		}
+		.menu :global(.mc-button) {
+			white-space: normal;
+			padding-inline: 10px;
 		}
 	}
 	@media (max-width: 60rem) {

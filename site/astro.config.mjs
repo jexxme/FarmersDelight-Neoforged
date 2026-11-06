@@ -85,7 +85,7 @@ export default defineConfig({
 					label: 'Tools & effects',
 					items: [
 						{ label: 'Knives', slug: 'mechanics/knives' },
-						{ label: 'Nourishment & Comfort', slug: 'mechanics/effects' },
+						{ label: 'Nourishment', slug: 'mechanics/effects' },
 						{ label: 'Animal feed', slug: 'mechanics/animal-feed' },
 					],
 				},

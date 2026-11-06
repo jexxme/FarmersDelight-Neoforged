@@ -619,6 +619,8 @@ const blocks = Object.fromEntries(Object.entries(runtime.blocks).map(([id, b]) =
 for (const id of referenced) if (!items[id] && !others[id]) others[id] = { id, name: itemName(id), food: null, stack: null };
 
 write('items.json', items);
+// English names of every vanilla item and block, for names the site shows that aren't FD items
+write('names.json', Object.fromEntries(Object.entries(mcLang).filter(([k]) => /^(item|block)\.minecraft\.[a-z0-9_]+$/.test(k)).map(([k, v]) => ['minecraft:' + k.split('.')[2], v])));
 write('others.json', others);
 write('blocks.json', blocks);
 write('recipes.json', recipes);

@@ -349,7 +349,11 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 	}
 	@media (max-width: 40rem) {
 		.ip-inv.grid9 {
-			grid-template-columns: repeat(6, auto);
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.ip-inv.grid9 > :global(.mc-slot:not([data-tip-items])) {
+			display: none;
 		}
 	}
 
@@ -371,6 +375,7 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		align-items: baseline;
 	}
 	.ip-foot code {
+		overflow-wrap: anywhere;
 		font-family: var(--sl-font);
 		font-size: 20px;
 		background: var(--fd-surface-2);

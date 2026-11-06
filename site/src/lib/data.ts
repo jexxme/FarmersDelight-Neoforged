@@ -17,6 +17,8 @@ import tagsJson from '../data/gen/tags.json';
 import advancementsJson from '../data/gen/advancements.json';
 import vanillaFoodsJson from '../data/gen/vanilla-foods.json';
 import soupEffectsJson from '../data/gen/soup-effects.json';
+import namesJson from '../data/gen/names.json';
+const vanillaNames = namesJson as Record<string, string>;
 
 export type Ingredient = { items: string[]; tag?: string | null; label?: string | null; action?: string; any?: Ingredient[] };
 export type Stack = { id: string; count: number; chance?: number };
@@ -75,7 +77,7 @@ export const bySlug = new Map(itemList.map((i) => [i.slug, i]));
 
 /** Name of any item id (FD or vanilla), from the game's language files. */
 export function nameOf(id: string): string {
-	return items[id]?.name ?? others[id]?.name ?? id.split(':')[1].replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+	return items[id]?.name ?? others[id]?.name ?? vanillaNames[id] ?? id.split(':')[1].replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 export function iconOf(id: string): { src: string; flat: boolean } | null {
 	const kind = icons[id];

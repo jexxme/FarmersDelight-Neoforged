@@ -10,7 +10,7 @@ import { config } from '../../../lib/data';
 export const commonFile = configFiles.common.value;
 export const clientFile = configFiles.client.value;
 export const common = config.filter((c) => c.file === commonFile);
-export const client = config.filter((c) => c.file === clientFile);
+export const client = config.filter((c) => c.file === clientFile && c.key !== 'enableComfortHealthOverlay');
 
 Farmer's Delight has {common.length} gameplay settings and {client.length} settings for your own screen.
 The easiest way to change them is in game: on the title screen click **Mods**, pick Farmer's Delight and click **Config**.

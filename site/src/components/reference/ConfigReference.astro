@@ -15,7 +15,8 @@ interface Props {
 const { file, toml = false } = Astro.props;
 const lang: Record<string, string> = readRepoJson('src/main/resources/assets/farmersdelight/lang/en_us.json');
 const label = (key: string) => lang[`farmersdelight.configuration.${key}`] ?? key;
-const rows = config.filter((c) => c.file === file);
+// The Comfort overlay option is left out: no food gives Comfort any more
+const rows = config.filter((c) => c.file === file && c.key !== 'enableComfortHealthOverlay');
 const sections = [...new Set(rows.map((c) => c.section as string))];
 
 const human = (s: string) => s.replaceAll('_', ' ');

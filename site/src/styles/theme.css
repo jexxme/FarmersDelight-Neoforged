@@ -634,3 +634,12 @@ starlight-toc a,
 starlight-toc h2 {
 	line-height: 26px !important;
 }
+
+/* Long words (ids, commands, links) never widen the page on phones */
+.sl-markdown-content :is(p, li, dd, td, .starlight-aside, figcaption) {
+	overflow-wrap: anywhere;
+}
+.sl-markdown-content svg[viewBox] {
+	max-width: 100%;
+	height: auto;
+}

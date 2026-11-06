@@ -1,6 +1,6 @@
 ---
-title: Nourishment & Comfort
-description: What Nourishment really does, how long each food gives it, the vanilla soup bonus, and the retired Comfort effect.
+title: Nourishment
+description: What Nourishment really does, how long each food gives it, and the vanilla soup bonus.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
@@ -13,7 +13,6 @@ import { effects, itemList, iconOf, url as siteUrl, config, soupEffects, vanilla
 import { effect, timeText, hearts } from '../../../data/code/cooking';
 
 export const N = effects.find((e) => e.id === 'farmersdelight:nourishment');
-export const C = effects.find((e) => e.id === 'farmersdelight:comfort');
 export const tiers = Object.entries(effect.tiers.value).sort((a, b) => a[1] - b[1]);
 export const tierOf = (t) => tiers.find(([, v]) => v === t)?.[0] ?? '';
 export const tierName = (t) => t.charAt(0) + t.slice(1).toLowerCase();
@@ -29,8 +28,7 @@ export const vf = (id) => vanillaFoods.find((v) => v.id === id);
 export const rabbit = soupEffects.find((s) => s.item === 'minecraft:rabbit_stew');
 export const rabbitOff = (s) => s.item === 'minecraft:rabbit_stew' && rabbitCfg.default;
 
-Farmer's Delight adds two effects. **Nourishment** is the reward for a proper meal: while it lasts, your hunger bar
-doesn't go down. **Comfort** is retired: it still exists, but nothing gives it any more.
+**Nourishment** is the reward for a proper meal: while it lasts, your hunger bar doesn't go down.
 
 ## Nourishment
 
@@ -101,10 +99,3 @@ Here is every one of them. Click a column to sort, or pick a length to filter:
 		<Item id="minecraft:rabbit_stew" /> gives no Nourishment with the default settings, even though its tooltip lists it. Turn off the Rabbit Stew buff in the [config](/reference/config/#enableRabbitStewBuff) to get {duration(rabbit.duration)} of Nourishment back, at vanilla food values.
 	</Aside>
 ) : null}
-
-## Comfort (retired)
-
-<EffectBadge id={C.id} name={C.name} /> No food gives Comfort any more: the foods that used to give it give Nourishment
-now. You can still apply it with a command. While you're hurt it heals {hearts(effect.comfortHeal.value)} every
-{timeText(effect.comfortInterval.value)}, but not while you have Regeneration or any saturation left. A scrolling overlay
-on the health bar shows when it is working.

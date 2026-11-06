@@ -48,6 +48,8 @@ select.ref-field {
 	gap: 6px;
 }
 .ref-btn {
+	max-width: 100%;
+	white-space: normal;
 	font: inherit;
 	font-size: 20px;
 	line-height: 24px;

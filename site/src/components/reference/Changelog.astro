@@ -196,4 +196,15 @@ const upR = await Promise.all(upstream.map((s) => render(s, false)));
 			display: none;
 		}
 	}
+	@media (max-width: 50rem) {
+		.cl {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 20px;
+		}
+		.cl-index {
+			position: static;
+			max-height: none;
+			overflow: visible;
+		}
+	}
 </style>
