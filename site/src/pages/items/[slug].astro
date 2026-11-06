@@ -75,40 +75,36 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 ---
 <StarlightPage frontmatter={{ title: item.name, description, tableOfContents: headings.length > 1 ? { minHeadingLevel: 2, maxHeadingLevel: 2 } : false }} headings={headings}>
 	<section class="ip-hero not-content">
-		<div class="ip-item">
-			<div class="ip-slot">
-				{render ? <img src={render} alt={item.name} width="200" height="200" /> : icon && <img class="pixel" src={icon.src} alt={item.name} width="128" height="128" />}
-			</div>
-			<div class="ip-tooltip">
-				<p class="t-name" data-pagefind-ignore>{item.name}</p>
-				{item.tooltip.map((t) => <p class="t-blue">{t}</p>)}
-				{item.food && (
-					<p class="t-food">
-						<span class="shanks">{shanks.map((s) => <img src={url(`/gui/mc/${s}.png`)} alt="" width="18" height="18" />)}</span>
-						<span>{item.food.nutrition} hunger, {+item.food.saturation.toFixed(1)} saturation</span>
-					</p>
-				)}
-				{effectLines.length > 0 && (
-					<>
-						<p class="t-gray">When eaten:</p>
-						{effectLines.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
-					</>
-				)}
-				{weapon.length > 0 && (
-					<>
-						<p class="t-gray">When in Main Hand:</p>
-						{weapon.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
-					</>
-				)}
-				<div class="t-facts">{facts.map((l) => <p class="t-gray">{l.text}</p>)}</div>
-				<p class="t-mod">Farmer's Delight</p>
-				<p class="t-id">{item.id}</p>
-			</div>
+		<div class="ip-slot">
+			{render ? <img src={render} alt={item.name} width="200" height="200" /> : icon && <img class="pixel" src={icon.src} alt={item.name} width="128" height="128" />}
 		</div>
-		<p class="ip-links">
-			<a class="ip-cat" href={url(`/items/#${item.category}`)}>{cat.label}</a>
-			{mech && <a class="ip-mech" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>}
-		</p>
+		<div class="ip-info">
+			<p class="i-name" data-pagefind-ignore>{item.name}</p>
+			{item.tooltip.map((t) => <p class="t-blue">{t}</p>)}
+			{item.food && (
+				<p class="t-food">
+					<span class="shanks">{shanks.map((s) => <img src={url(`/gui/mc/${s}.png`)} alt="" width="18" height="18" />)}</span>
+					<span>{item.food.nutrition} hunger, {+item.food.saturation.toFixed(1)} saturation</span>
+				</p>
+			)}
+			{effectLines.length > 0 && (
+				<div class="i-group">
+					<p class="t-gray">When eaten:</p>
+					{effectLines.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
+				</div>
+			)}
+			{weapon.length > 0 && (
+				<div class="i-group">
+					<p class="t-gray">When in Main Hand:</p>
+					{weapon.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
+				</div>
+			)}
+			<ul class="i-facts">{facts.map((l) => <li>{l.text}</li>)}</ul>
+			<p class="ip-links">
+				<a class="ip-cat" href={url(`/items/#${item.category}`)}>{cat.label}</a>
+				{mech && <a class="ip-mech" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>}
+			</p>
+		</div>
 	</section>
 
 	{blockSlug && <Stages block={blockSlug} />}
@@ -203,28 +199,25 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 
 <style>
 	/* ---- the item, as in the game ---- */
-	/* The slot with its tooltip hovering over the corner, the way the game shows a hovered item */
+	/* The item as one Minecraft GUI panel across the column: the slot on the left, its info as GUI text on the right */
 	.ip-hero {
 		margin-top: 24px;
-	}
-	.ip-item {
-		display: flex;
-		align-items: flex-start;
-	}
-	.ip-item .ip-tooltip {
-		position: relative;
-		z-index: 1;
-		margin: 64px 0 0 -44px;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 20px 28px;
+		align-items: start;
+		padding: 16px;
+		background: #c6c6c6;
+		box-shadow: inset 4px 4px 0 #fff, inset -4px -4px 0 #555, 0 0 0 2px #000, 6px 6px 0 2px #000;
+		color: #404040;
 	}
 	.ip-slot {
-		width: 216px;
-		height: 216px;
-		flex: none;
+		width: 168px;
+		height: 168px;
 		display: grid;
 		place-items: center;
 		background: #8b8b8b;
-		box-shadow: inset 6px 6px 0 #373737, inset -6px -6px 0 #fff, 0 0 0 4px #c6c6c6, 0 0 0 6px #000;
-		margin: 6px;
+		box-shadow: inset 4px 4px 0 #373737, inset -4px -4px 0 #fff;
 	}
 	.ip-slot img {
 		max-width: 86%;
@@ -234,38 +227,31 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		width: 128px;
 		image-rendering: pixelated;
 	}
-	.ip-tooltip {
-		width: fit-content;
-		max-width: 100%;
-		box-sizing: border-box;
-		padding: 10px 14px 12px;
-		background: #100010;
-		box-shadow: inset 0 0 0 2px #100010, inset 0 0 0 4px #2d0a63, 0 0 0 2px #100010;
-		color: #fff;
-		text-shadow: 2px 2px 0 #3f3f3f;
-		line-height: 26px;
+	.ip-info {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		min-height: 168px;
 	}
-	.ip-tooltip p {
+	.ip-info p {
 		margin: 0;
 	}
-	.t-name {
-		color: #fff;
-		margin-bottom: 4px !important;
+	.i-name {
+		font-size: 30px;
+		line-height: 40px;
+		color: #303030;
 	}
 	.t-blue {
-		color: #5555ff;
-		text-shadow: 2px 2px 0 #15153f;
+		color: #2b2bc0;
 	}
 	.t-green {
-		color: #00aa00;
-		text-shadow: 2px 2px 0 #002a00;
+		color: #007a00;
 	}
 	.t-gray {
-		color: #aaaaaa;
-		text-shadow: 2px 2px 0 #2a2a2a;
+		color: #606060;
 	}
 	.t-gold {
-		color: #ffaa00;
+		color: #a05a00;
 	}
 	.indent {
 		padding-left: 12px;
@@ -275,34 +261,33 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 4px 10px;
-		margin: 2px 0 6px !important;
 	}
 	.shanks {
 		display: inline-flex;
-		gap: 0;
 	}
 	.shanks img {
 		image-rendering: pixelated;
 	}
-	.t-facts {
-		margin-top: 8px;
+	/* Facts flow into two columns when there's room */
+	.i-facts {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		columns: 2 14rem;
+		column-gap: 28px;
+		color: #606060;
 	}
-	.t-mod {
-		color: #5555ff;
-		font-style: italic;
-		margin-top: 8px !important;
-		text-shadow: 2px 2px 0 #15153f;
-	}
-	.t-id {
-		color: #555;
-		text-shadow: 2px 2px 0 #151515;
+	.i-facts li {
+		margin: 0;
+		break-inside: avoid;
 	}
 	.ip-links {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px 20px;
 		align-items: center;
-		margin: 28px 0 0 6px;
+		margin-top: auto !important;
+		padding-top: 6px;
 	}
 	.ip-cat {
 		display: inline-block;
@@ -318,10 +303,13 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		color: #000;
 	}
 	.ip-mech {
-		color: var(--sl-color-text-accent);
+		color: #303030;
 		text-decoration: underline;
 		text-decoration-thickness: 2px;
 		text-underline-offset: 4px;
+	}
+	.ip-mech:hover {
+		color: #000;
 	}
 	.ip-mech::after {
 		content: ' →';
@@ -413,18 +401,17 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		outline: 3px solid #ffcf4d;
 		outline-offset: -3px;
 	}
+	/* Phones: slot on top, info below */
 	@media (max-width: 34rem) {
+		.ip-hero {
+			grid-template-columns: minmax(0, 1fr);
+		}
 		.ip-slot {
-			width: 168px;
-			height: 168px;
+			width: 136px;
+			height: 136px;
 		}
-		/* Too narrow for side by side: the tooltip hangs below the slot, still overlapping it */
-		.ip-item {
-			flex-direction: column;
-		}
-		.ip-item .ip-tooltip {
-			margin: -36px 0 0 36px;
-			max-width: calc(100% - 36px);
+		.ip-info {
+			min-height: 0;
 		}
 	}
 </style>
