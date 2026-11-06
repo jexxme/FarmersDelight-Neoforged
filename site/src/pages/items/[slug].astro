@@ -69,6 +69,7 @@ const headings = [
 	...(made.length ? [{ depth: 2, slug: 'recipes', text: 'How to make it' }] : []),
 	...(hasSources ? [{ depth: 2, slug: 'sources', text: 'Where to find it' }] : []),
 	...(used.length ? [{ depth: 2, slug: 'uses', text: 'Used in' }] : []),
+	...(siblings.length > 1 ? [{ depth: 2, slug: 'more', text: `More ${cat.label.toLowerCase()}` }] : []),
 ];
 const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Delight Neoforged.${item.food ? ` Restores ${item.food.nutrition} hunger and ${+item.food.saturation.toFixed(2)} saturation.` : ''}`;
 ---
