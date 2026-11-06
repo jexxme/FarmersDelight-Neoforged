@@ -1,7 +1,7 @@
 ## Farmer's Delight Neoforged 1.3.4+neoforged.2
 
-- Documentation: a full guide to every block, item and mechanic, with recipes, food values and config options,
-  at the project's GitHub Pages site.
+- Documentation: a full guide to every block, item and mechanic, with recipes, food values and config options:
+  https://jexxme.github.io/FarmersDelight-Neoforged/
 - Fixes:
   - Pies can be eaten again by clicking the placed pie.
   - Ropes reel in when you sneak-click them, ring a bell above them, and extend downward when you click one
