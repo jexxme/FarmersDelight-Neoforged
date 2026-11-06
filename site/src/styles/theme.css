@@ -151,6 +151,12 @@ header.header {
 	width: auto !important;
 	max-width: none;
 }
+/* Phones: a little smaller so the search and menu buttons fit beside it */
+@media (max-width: 30rem) {
+	.site-title img {
+		height: 54px !important;
+	}
+}
 /* Search box and theme picker as Minecraft text fields */
 site-search > button,
 starlight-theme-select select {
@@ -177,6 +183,15 @@ header .social-icons a {
 }
 header starlight-theme-select svg {
 	color: #e0e0e0;
+}
+/* Search sits with the other controls on the right (as the creative search field does), not at the sidebar edge */
+header .header > :nth-child(2) {
+	justify-content: flex-end;
+}
+@media (min-width: 50rem) {
+	site-search > button {
+		width: 20rem;
+	}
 }
 /* Same height as the search field; a GitHub icon you can actually see */
 starlight-theme-select select {
