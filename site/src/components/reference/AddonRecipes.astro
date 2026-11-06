@@ -1,0 +1,28 @@
+---
+// The built-in recipes for other mods, one line per mod: the summary from data/code/reference.ts and the recipe
+// count from recipes.json. Create also gets potato-cannon ammo, listed from the mod's own data files.
+import { recipes, nameOf } from '../../lib/data';
+import { addonRecipes, modNames, potatoCannonDir } from '../../data/code/reference';
+import { listRepo, readRepoJson } from './repo';
+
+const integ = recipes.filter((r) => r.id.includes(':integration/'));
+const mods = [...new Set(integ.map((r) => r.id.split('/')[1]))];
+const count = (m: string) => integ.filter((r) => r.id.split('/')[1] === m).length;
+// One name per ammo file: the item for single-item files, the file's own name ("fd_pie" -> "pies") for groups
+const plural = (s: string) => (/o$/.test(s) ? s + 'es' : s + 's');
+const ammo = listRepo(potatoCannonDir).map((f) => {
+	const ids = (readRepoJson(`${potatoCannonDir}/${f}`).items ?? []) as string[];
+	return plural((ids.length === 1 ? nameOf(ids[0]) : f.replace(/\.json$/, '').replace(/^fd_/, '').replaceAll('_', ' ')).toLowerCase());
+});
+const list = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs.join(''));
+---
+<ul>
+	{
+		mods.map((m) => (
+			<li>
+				<strong>{addonRecipes[m]?.name ?? modNames[m] ?? m}</strong> ({count(m)} {count(m) === 1 ? 'recipe' : 'recipes'}): {addonRecipes[m]?.text}
+				{m === 'create' && ammo.length > 0 && <> Its Potato Cannon can also fire {list(ammo)}.</>}
+			</li>
+		))
+	}
+</ul>

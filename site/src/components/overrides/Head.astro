@@ -1,0 +1,13 @@
+---
+import Default from '@astrojs/starlight/components/Head.astro';
+import { url } from '../../lib/data';
+const og = Astro.site ? new URL(url('/shots/hero.jpg'), Astro.site).href : null;
+---
+<Default><slot /></Default>
+<meta name="theme-color" content="#17140f" />
+{og && <meta property="og:image" content={og} />}
+{og && <meta name="twitter:image" content={og} />}
+<meta name="twitter:card" content="summary_large_image" />
+<script>
+	import '../../scripts/mc.ts';
+</script>

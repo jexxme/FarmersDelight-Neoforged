@@ -1,0 +1,100 @@
+---
+// One feast's servings from full to empty (FeastBlock#takeServing): each step takes one container and gives one serving;
+// at 0 the leftovers stay until right-clicked (or the block vanishes when the feast has no leftovers).
+import Slot from '../mc/Slot.astro';
+import { renderOf, nameOf, blocks, items } from '../../lib/data';
+import { feast } from '../../data/code/cooking';
+interface Props {
+	block: string;
+}
+const id = `farmersdelight:${Astro.props.block}`;
+const max = Math.max(...blocks[id].properties.servings.map(Number));
+const serving = id.replace(/_block$/, '');
+const container = items[serving]?.remainder;
+const leftovers = feast.registrations.value[id];
+const steps = Array.from({ length: max + 1 }, (_, k) => max - k);
+---
+<figure class="fd-ladder not-content">
+	<ol>
+		{
+			steps.map((n, i) => {
+				const r = renderOf(`stages/${Astro.props.block}-${n}`);
+				const gone = n === 0 && !leftovers;
+				return (
+					<>
+						<li class:list={{ last: n === 0 }}>
+							<span class="img">{r && !gone ? <img src={r} alt="" width="96" height="96" /> : <span class="gone">gone</span>}</span>
+							<b>{n}</b>
+							<span>{n === max ? 'full' : n === 0 ? (leftovers ? 'leftovers' : 'removed') : 'left'}</span>
+						</li>
+						{i < steps.length - 1 && <li class="step" aria-label={`use 1 ${container ? nameOf(container) : 'container'}`}>{container && <Slot id={container} scale={1.5} />}</li>}
+					</>
+				);
+			})
+		}
+	</ol>
+	<figcaption>
+		{nameOf(id)}: each {container ? nameOf(container) : 'container'} takes one {nameOf(serving)}.
+		{leftovers ? ' At 0, right-click the leftovers to clear them.' : ' The last serving removes the block.'}
+	</figcaption>
+</figure>
+<style>
+	.fd-ladder {
+		margin: 30px 0;
+	}
+	ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px 4px;
+	}
+	li {
+		margin: 0 !important;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-size: 20px;
+		line-height: 30px;
+		color: var(--sl-color-gray-3);
+	}
+	li b {
+		color: var(--fd-heading-ink);
+	}
+	.img {
+		width: 100px;
+		height: 100px;
+		display: grid;
+		place-items: center;
+		border: 3px solid var(--fd-frame);
+		background: var(--fd-surface);
+		box-shadow: 4px 4px 0 #000;
+	}
+	.last .img {
+		border-style: dashed;
+	}
+	.gone {
+		color: var(--sl-color-gray-4);
+	}
+	.step {
+		padding-bottom: 60px;
+	}
+	figcaption {
+		margin-top: 12px;
+		font-size: 20px;
+		line-height: 30px;
+		color: var(--sl-color-gray-3);
+	}
+	@media (max-width: 36rem) {
+		.img {
+			width: 64px;
+			height: 64px;
+		}
+		.img img {
+			width: 60px;
+			height: 60px;
+		}
+	}
+</style>

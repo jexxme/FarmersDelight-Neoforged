@@ -1,0 +1,121 @@
+---
+title: Cooking Pot
+description: How to cook, serve and automate meals in the Cooking Pot, what it keeps when you break it, and the tricks worth knowing.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import PotFlow from '../../../components/cooking/PotFlow.astro';
+import PotGui from '../../../components/cooking/PotGui.astro';
+import HopperFaces from '../../../components/cooking/HopperFaces.astro';
+import CookDecay from '../../../components/cooking/CookDecay.astro';
+import { playableRecipes, items, tags, config, nameOf } from '../../../lib/data';
+import { pot, timeText, timesAsFast } from '../../../data/code/cooking';
+
+export const cooking = playableRecipes.filter((r) => r.type === 'farmersdelight:cooking');
+export const timeCounts = cooking.reduce((m, r) => { m[r.cookingtime] = (m[r.cookingtime] ?? 0) + 1; return m; }, {});
+export const times = Object.keys(timeCounts).map(Number).sort((a, b) => a - b);
+export const usual = times.reduce((a, b) => (timeCounts[b] > timeCounts[a] ? b : a));
+export const others = times.filter((t) => t !== usual);
+export const xps = cooking.map((r) => r.experience ?? pot.defaultXp.value);
+export const byContainer = Object.entries(cooking.reduce((m, r) => { const k = r.container?.id ?? ''; (m[k] ??= []).push(r); return m; }, {})).sort((a, b) => b[1].length - a[1].length);
+export const serving = tags.resolved.item['farmersdelight:serving_containers'];
+export const book = config.find((c) => c.key === 'enableCookingPotRecipeBook');
+export const giveBack = Object.entries(pot.remainderOverrides.value.reduce((m, [a, b]) => { (m[b] ??= []).push(a); return m; }, {}));
+export const slotCount = pot.slots.value.inputs.length + 3;
+
+<Render name="scenes/pot-on-stove" float="right" size={220} caption="A Cooking Pot on a lit Stove" />
+
+The <Item id="cooking_pot" /> is the heart of your kitchen. Put in up to {pot.maxIngredients.value} ingredients, set the
+pot on something hot, and it cooks them into a meal. The servings wait inside until you scoop them out, usually with a
+<Item id="minecraft:bowl" />. Most of the {cooking.length} pot recipes take {timeText(usual)}, and the pot holds up to
+{pot.mealCap.value} servings at once.
+
+<Shot src="mechanics/cooking-pot-gui.jpg" caption="Beef stew on the way: raw beef, a carrot and a potato in the Cooking Pot over a lit stove, with bowls waiting in the container slot." />
+
+## Cooking a meal
+
+1. **Fill it.** Right-click the pot to open it and put the ingredients in, in any order. Use exactly what the recipe
+   asks for: one extra item in a slot and nothing cooks.
+2. **Heat it.** The pot needs something hot right below it, like a lit campfire or a <Item id="stove" />, or two blocks
+   below with a <Item id="minecraft:hopper" /> in between. See [heat sources](/mechanics/heat-sources/).
+3. **Wait.** The arrow fills while the pot is hot. Most meals take {timeText(usual)}; a few take
+   {others.map((t) => +(t / 20).toFixed(2)).join(' or ')} seconds.
+4. **Serve it.** Each finished meal uses one of every ingredient and lands in the meal slot. Scoop it out with its
+   container (next section).
+
+<PotFlow />
+
+**If the heat goes out,** you don't lose the meal. The arrow drains back {timesAsFast(pot.decay.value, pot.cookStep.value)}
+as it filled, and picks up again as soon as the heat is back. A short gap only costs a few seconds:
+
+<CookDecay total={pot.defaultCookTime.value} step={pot.cookStep.value} decay={pot.decay.value} heatedFor={120} coldFor={40} label="A meal" />
+
+## Serving
+
+The easy way: hold the meal's container and right-click the pot. One serving goes straight into your inventory, no screen
+needed. You can also put a stack of containers in the container slot and take finished meals out of the output slot.
+
+<PotGui />
+
+Each meal needs its own container, usually the one you get back after eating it. Meals that need none go straight to the
+output slot.
+
+<table>
+	<thead><tr><th>Serve with</th><th>Meals</th></tr></thead>
+	<tbody>
+		{byContainer.map(([id, rs]) => (
+			<tr>
+				<td>{id ? <Item id={id} /> : <em>nothing</em>}</td>
+				<td>{rs.map((r, i) => <>{i ? ' ' : ''}<Item id={r.result.id} label="" /></>)} <small>{rs.length}</small></td>
+			</tr>
+		))}
+	</tbody>
+</table>
+
+The meal slot holds up to {pot.mealCap.value} servings, even of meals that only stack to 16. It holds one kind of meal at
+a time: to cook something else, empty it first.
+
+<Aside type="tip">
+Shift-click a stack of containers into the pot's screen. {serving.map((id, i) => <>{i ? (i === serving.length - 1 ? ' and ' : ', ') : ''}{nameOf(id)}s</>)} (and whatever the current meal needs) jump to the container slot by themselves, and the pot then fills
+the output slot one meal per container.
+</Aside>
+
+## Automation
+
+One column of heat source, hopper and pot is a complete automatic kitchen. The hopper under the pot passes the heat up and
+pulls finished meals out at the same time. Add a hopper on top to feed ingredients and one on the side to feed bowls.
+
+<HopperFaces />
+
+A comparator next to the pot reads how full it is: the more items in its {slotCount} slots, the stronger the signal, from 1
+up to {pot.comparator.value + 1}.
+
+## Recipes
+
+A few examples: a plain meal, a quick sauce, a bottled drink, a feast that needs a pumpkin, a snack with no container and
+a vanilla soup. Every recipe is in the [recipe reference](/reference/recipes/).
+
+<RecipeList ids={['cooking/beef_stew', 'cooking/tomato_sauce', 'cooking/hot_cocoa', 'cooking/stuffed_pumpkin_block', 'cooking/dumplings', 'cooking/beetroot_soup']} />
+
+## Good to know
+
+- **Breaking the pot keeps the meal.** The servings in the meal slot stay inside the pot item, so you can pick up a pot of
+  stew and set it down somewhere else. Everything in the other slots drops. An explosion can destroy the pot, servings
+  and all.
+- **Experience.** Each meal is worth {Math.min(...xps)} to {Math.max(...xps)} experience. You only collect it when you
+  take meals out of the output slot by hand, or when you break the pot. Scooping with a right-click or a hopper leaves it
+  stored in the pot until then.
+- **Containers come back.** Ingredients that leave something behind in a crafting table, such as a bucket of milk, give
+  it back here too, popped out of the side of the pot. The same goes for
+  {giveBack.map(([to, from], k) => <>{k ? '; ' : ''}{from.map((id) => <Item id={id} label="" />)} → <Item id={to} /></>)}.
+- **Serving from the item.** A pot item that holds a meal can be crafted with one matching container. You get one meal
+  and the pot back with one serving fewer.
+- **Hanging pot.** Place the pot against the underside of a block and it hangs by its handle. Sneak and right-click with
+  an empty hand to switch between hanging and standing. On fire, lava or a campfire it stands on a small tray instead.
+  Heat works the same either way.
+- **Recipe book.** The pot's screen has a recipe book{book.default ? '' : ' when you switch it on'}. You can turn it
+  {book.default ? 'off' : 'on'} in the [config](/reference/config/#enableCookingPotRecipeBook).

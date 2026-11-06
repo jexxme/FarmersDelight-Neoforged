@@ -1,0 +1,14 @@
+---
+title: All recipes
+description: Every Farmer's Delight recipe as it appears in game, filterable by station and searchable by result or ingredient.
+tableOfContents: false
+---
+import RecipeBrowser from '../../../components/reference/RecipeBrowser.astro';
+import { meta } from '../../../lib/data';
+
+All {meta.counts.recipes} recipes, drawn the way the game shows them: {meta.counts.cooking} for the [Cooking Pot](/mechanics/cooking-pot/), {meta.counts.cutting} for the [Cutting Board](/mechanics/cutting-board/), and the rest for the crafting table, furnaces, campfires and the smithing table.
+Search for a result or an ingredient, or pick a station. Hover a slot for the item's name; slots that flip through items accept any of them.
+
+To see what a dish takes all the way down to raw crops, use the [recipe planner](/reference/recipe-planner/). The {meta.counts.integrationRecipes} extra recipes for other mods are on [Compatibility](/compatibility/#recipes-for-other-mods).
+
+<RecipeBrowser />

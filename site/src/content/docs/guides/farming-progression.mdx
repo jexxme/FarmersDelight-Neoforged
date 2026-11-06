@@ -1,0 +1,88 @@
+---
+title: Farming progression
+description: A friendly path through Farmer's Delight farming, from the first wild cabbage to Rich Soil fields and mushroom colonies.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import { worldgen, config, pct } from '../../../lib/data';
+import { compost, colony, compostChance, checksToTime } from '../../../data/code/farming';
+import Shot from '../../../components/mc/Shot.astro';
+
+export const wg = (n) => worldgen.find((w) => w.id === `farmersdelight:${n}`);
+export const N = compost.stages.value + 1;
+export const boost = config.find((c) => c.key === 'richSoilBoostChance').default;
+export const sunny = compostChance(1, true, false);
+export const best = compostChance(9, true, true);
+
+Farmer's Delight farming grows in stages. You start with a handful of wild plants, turn them into fields, and end with soil that feeds your crops by itself. This guide walks the path in order; each step links to the page with all the details.
+
+<Shot src="mechanics/rice-paddy.jpg" caption="A rice paddy: young rice in the shallow water up front, mature plants with golden panicles behind." />
+
+## Find wild crops
+
+<Render name="scenes/wild-crops" size={220} float="right" caption="Wild crops" />
+
+Look for leafy tufts with small flowers:
+
+- **Beaches:** <Item id="wild_cabbages" /> and <Item id="wild_beetroots" />, often with <Item id="sandy_shrub" plural />.
+- **Temperate grass, forests and plains:** <Item id="wild_onions" /> and <Item id="wild_carrots" />.
+- **Cold taigas and windswept hills:** <Item id="wild_potatoes" />.
+- **Hot, dry biomes** (desert, savanna, badlands): <Item id="wild_tomatoes" />.
+- **Swamps, jungles and beaches, standing in water:** <Item id="wild_rice" />.
+
+They are rare: a wild onion patch spawns in about 1 in {wg('wild_onions').rarity} chunks, a beach cabbage patch in 1 in {wg('wild_cabbages').rarity}. When you find one, there are usually more nearby. Break them by hand for seeds, or with shears to take the plant itself.
+
+The [Wild crops](/mechanics/wild-crops/) page has a biome picker and every patch's details.
+
+<Aside type="tip" title="Short on seeds?">
+Bone meal on a wild crop can plant a copy next to it. The wandering trader also sells seeds, and shipwrecks and village houses often carry some.
+</Aside>
+
+## Plant a first field
+
+<Render name="scenes/garden" size={220} float="right" caption="A first garden" />
+
+Till dirt near water and plant:
+
+- <Item id="cabbage_seeds" /> and <Item id="onion" plural /> grow like wheat.
+- <Item id="tomato_seeds" /> grow into a bush, then a vine you can pick again and again. Hang <Item id="rope" /> above it and it climbs.
+- <Item id="rice" /> goes into shallow water, one block deep.
+
+Growing times, harvesting and drops: [Crops](/mechanics/crops/).
+
+## Get a knife
+
+A <Item id="flint_knife" /> is cheap and opens up a lot: <Item id="straw" /> from grass and wheat, extra leather and ham from animals, and the [Cutting Board](/mechanics/cutting-board/). Straw becomes rope, canvas and bales ([Straw, rope & nets](/mechanics/straw-and-rope/)).
+
+<RecipeList ids={['flint_knife', 'rope']} />
+
+## Make Organic Compost
+
+<Render name="scenes/compost-to-soil" size={220} float="right" caption="Compost and Rich Soil" />
+
+<Item id="organic_compost" /> is crafted from dirt, straw, rotten flesh or tree bark and bone meal. Place it and leave it: it slowly rots into Rich Soil on its own.
+
+Sunlight, water and other compost blocks next to it speed it up. One block alone under open sky takes about {checksToTime(N / sunny)}. A pile with water beside it goes much faster: about {checksToTime(N / best)} for the middle of a 3×3 layer next to water. Torches don't help; only sunlight counts.
+
+<RecipeList output="organic_compost" />
+
+The [Organic Compost](/mechanics/organic-compost/) page has a calculator for your setup.
+
+## Farm on Rich Soil
+
+<Item id="rich_soil" /> gives the plant on it a free bone meal now and then ({pct(boost, 0)} of the time it gets a turn). Till it into <Item id="rich_soil_farmland" /> for crops; it cannot be trampled. Saplings, berry bushes and rice planted on it get the boost too. See [Rich Soil](/mechanics/rich-soil/).
+
+## Grow mushroom colonies
+
+<Render name="scenes/colony-farm" size={220} float="right" caption="Mushroom colonies on Rich Soil" />
+
+Put a brown or red mushroom on Rich Soil and it soon turns into a <Item id="brown_mushroom_colony" />. Colonies grow only on Rich Soil, from smallest to full size in about {checksToTime(colony.maxAge.value * colony.growth.value)}. Harvest a full colony with a knife for {colony.maxAge.value} mushrooms at once, and it grows back. See [Mushroom colonies](/mechanics/mushroom-colonies/).
+
+## Where next
+
+- Cook what you grow: [Your first meal](/guides/first-meal/) and the [Cooking Pot](/mechanics/cooking-pot/).
+- Sell surplus to farmers: onions and tomatoes to novice farmers, cabbage and rice to apprentices ([Villagers](/mechanics/villagers/)).
+- Store crops in crates and baskets ([Storage & decoration](/mechanics/storage-and-decoration/)).

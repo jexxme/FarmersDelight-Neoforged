@@ -1,0 +1,210 @@
+---
+// One wild plant (or colony) as it generates: how common, which biomes, what ground, what grows with it and, with
+// `drops`, what it drops. Everything is read from worldgen.json / biomes.json / tags.json.
+// <WorldgenPanel id="farmersdelight:wild_carrots" drops="wild_carrots" />
+import Slot from '../mc/Slot.astro';
+import Chips from './Chips.astro';
+import DropLines from './DropLines.astro';
+import { worldgen, biomes, nameOf, short } from '../../lib/data';
+import { blockTag, biomeGroups } from '../../data/code/farming-world';
+interface Props {
+	id: string;
+	item?: string;
+	drops?: string;
+	dropPools?: number[];
+}
+const { id, drops, dropPools } = Astro.props;
+const w = worldgen.find((x) => x.id === id);
+if (!w) throw new Error(`No worldgen entry ${id}`);
+const item = Astro.props.item ?? w.parts?.find((p: any) => p.block?.startsWith('farmersdelight:'))?.block ?? id;
+const name = short(id).replace('farmersdelight:', '');
+const heightmap = w.placement.find((p: any) => p.type === 'heightmap')?.heightmap;
+const crop = w.parts?.find((p: any) => p.block === item);
+const others = (w.parts ?? []).filter((p: any) => p.block && p.block !== item);
+const ground = (p: any) => {
+	const below = p?.predicates?.find((q: any) => q.offset?.[1] === -1);
+	if (!below) return null;
+	if (below.tag) return blockTag(below.tag);
+	if (below.blocks) return [below.blocks];
+	return null;
+};
+const g = ground(crop);
+const groups = biomeGroups(w.biomes);
+const offsetStep = w.placement.find((p: any) => p.type === 'offset');
+const predicate = w.placement.find((p: any) => p.type === 'block_predicate_filter')?.predicate;
+const waterGround = predicate?.predicates?.find((q: any) => q.offset?.[1] === -1)?.blocks;
+const reach = crop?.spread?.x?.max ?? offsetStep?.x?.max;
+const underwater = heightmap === 'OCEAN_FLOOR_WG';
+const rnd = crop?.randomProperty;
+const patchText = [underwater ? 'on the bottom of shallow water' : 'in a clump', reach ? `within ${reach} blocks of the centre` : null, underwater ? null : 'thickest in the middle'].filter(Boolean).join(', ');
+---
+<section class="fd-wg fd-board not-content" id={`wg-${name}`}>
+	<header>
+		<Slot id={item} scale={2} />
+		<div class="title">
+			<span class="name">{nameOf(item)}</span>
+			<span class="rar">a patch in about <b>1 in {w.rarity}</b> chunks</span>
+		</div>
+	</header>
+	<dl>
+		<dt>Biomes <span class="n">{w.biomes.length}</span></dt>
+		<dd>
+			<div class="groups">
+				{
+					groups.map(([label, list]) => (
+						<div class="grp">
+							<span class="gl">{label}</span>
+							<span class="bl">{list.map((b) => biomes[b]?.name ?? short(b)).join(', ')}</span>
+						</div>
+					))
+				}
+			</div>
+		</dd>
+		<dt>Patch</dt>
+		<dd>
+			Up to <b>{w.count}</b> plants {patchText}. Only spots with the right ground get one.
+		</dd>
+		{
+			g && (
+				<>
+					<dt>Grows on</dt>
+					<dd>
+						<Chips ids={g} compact />
+					</dd>
+				</>
+			)
+		}
+		{
+			predicate && (
+				<>
+					<dt>Grows in</dt>
+					<dd>
+						Water one block deep, over <Chips ids={blockTag(waterGround ?? 'minecraft:substrate_overworld')} compact />
+					</dd>
+				</>
+			)
+		}
+		{
+			others.length > 0 && (
+				<>
+					<dt>With it</dt>
+					<dd>
+						{others.map((p: any) => (
+							<span class="comp">
+								<Chips ids={[p.block]} />
+								<span class="sub">{p.spread?.x ? 'scattered around the patch' : 'patches the ground'}</span>
+							</span>
+						))}
+					</dd>
+				</>
+			)
+		}
+		{
+			rnd && (
+				<>
+					<dt>Size</dt>
+					<dd>Any stage from {rnd.min + 1} to {rnd.max + 1}, at random</dd>
+				</>
+			)
+		}
+		{
+			drops && (
+				<>
+					<dt>Drops</dt>
+					<dd>
+						<DropLines block={drops} pools={dropPools} />
+					</dd>
+				</>
+			)
+		}
+	</dl>
+</section>
+<style>
+	.fd-wg {
+		margin: 20px 0;
+		padding: 12px 16px;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 6px;
+		font-size: 20px;
+		line-height: 26px;
+	}
+	header {
+		display: flex;
+		gap: 14px;
+		align-items: center;
+		border-bottom: 3px solid var(--fd-frame);
+		padding-bottom: 8px;
+	}
+	.title {
+		display: flex;
+		flex-direction: column;
+	}
+	.name {
+		font-family: var(--fd-font-display);
+		font-size: 20px;
+		color: var(--fd-heading-ink);
+		text-shadow: var(--fd-px) 0 0 currentColor;
+		letter-spacing: var(--fd-px);
+	}
+	.rar {
+		color: var(--sl-color-gray-3);
+	}
+	.rar b,
+	dd b {
+		color: var(--fd-gold);
+		font-weight: 400;
+	}
+	dl {
+		margin: 0;
+		display: grid;
+		grid-template-columns: 7rem minmax(0, 1fr);
+	}
+	dt,
+	dd {
+		min-width: 0;
+		overflow-wrap: anywhere;
+		margin: 0;
+		padding: 8px 0;
+		border-bottom: 2px solid var(--fd-border);
+	}
+	dt:last-of-type,
+	dd:last-of-type {
+		border-bottom: 0;
+	}
+	dt {
+		color: var(--sl-color-gray-3);
+	}
+	.n {
+		color: var(--fd-gold);
+	}
+	.groups {
+		display: grid;
+		gap: 4px;
+	}
+	@media (max-width: 40rem) {
+		dl {
+			grid-template-columns: 1fr;
+		}
+		dt {
+			border-bottom: 0;
+			padding-bottom: 0;
+		}
+	}
+	.gl {
+		color: var(--sl-color-gray-4);
+		margin-right: 10px;
+	}
+	.bl {
+		color: var(--sl-color-white);
+	}
+	.comp {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-right: 20px;
+	}
+	.sub {
+		color: var(--sl-color-gray-3);
+	}
+</style>

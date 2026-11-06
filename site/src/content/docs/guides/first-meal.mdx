@@ -1,0 +1,82 @@
+---
+title: Your first meal
+description: A step-by-step start with Farmer's Delight, from the first wild crops to a hot meal out of the Cooking Pot.
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Recipe from '../../../components/recipes/Recipe.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import FoodStats from '../../../components/data/FoodStats.astro';
+import { worldgen, biomes, items, recipeById } from '../../../lib/data';
+import { pot, stove, timeText } from '../../../data/code/cooking';
+
+export const wild = ['wild_cabbages', 'wild_onions', 'wild_tomatoes', 'wild_carrots', 'wild_potatoes', 'wild_beetroots', 'wild_rice'].map((k) => worldgen.find((w) => w.id === `farmersdelight:${k}`)).filter(Boolean);
+export const bnames = (w) => w.biomes.slice(0, 3).map((b) => biomes[b]?.name ?? b.split(':')[1].replaceAll('_', ' '));
+export const stew = items['farmersdelight:beef_stew'];
+export const stewRecipe = recipeById.get('farmersdelight:cooking/beef_stew');
+export const nour = stew.consumable.effects.find((e) => e.id === 'farmersdelight:nourishment');
+
+<Render name="scenes/kitchen" float="right" size={230} caption="Where this guide ends up" />
+
+This guide takes you from a fresh world to your first bowl of stew. You only need vanilla materials to start, and the
+mod's crops come in along the way. Each step links to a page with more detail.
+
+<Steps>
+
+1. **Find wild crops.** Farmer's Delight scatters wild plants across the world. Break them for seeds and crops; each one
+   grows in its own kind of place:
+
+   <table>
+   	<thead><tr><th>Plant</th><th>For example in</th></tr></thead>
+   	<tbody>
+   		{wild.map((w) => <tr><td><Item id={w.id} /></td><td>{bnames(w).join(', ')}{w.biomes.length > 3 ? ` and ${w.biomes.length - 3} more` : ''}</td></tr>)}
+   	</tbody>
+   </table>
+
+   The full list with chances is on [Wild crops & worldgen](/mechanics/wild-crops/). Plant what you find on farmland, as
+   described in [Crops](/mechanics/crops/).
+
+2. **Make a knife.** A <Item id="flint_knife" /> needs only flint and a stick. Knives cut food on the Cutting Board, slice
+   pies, and give extra drops from some animals; see [Knives](/mechanics/knives/).
+
+   <div class="not-content"><Recipe id="flint_knife" /></div>
+
+3. **Place a Cutting Board.** Put an item on it with a right-click, then right-click with the knife to cut it. Raw beef
+   becomes minced beef, fish becomes slices. More on the [Cutting Board](/mechanics/cutting-board/) page.
+
+   <div class="not-content" style="display:flex;flex-wrap:wrap;gap:30px 40px"><Recipe id="cutting_board" /><Recipe id="cutting/beef" /></div>
+
+4. **Build a Cooking Pot and something hot to put it on.** The <Item id="cooking_pot" /> needs heat from the block below:
+   a campfire works from day one, a <Item id="stove" /> is the tidy kitchen version. The rules are on
+   [Heat sources](/mechanics/heat-sources/).
+
+   <div class="not-content" style="display:flex;flex-wrap:wrap;gap:30px 40px"><Recipe id="cooking_pot" /><Recipe id="stove" /></div>
+
+5. **Cook.** Place the pot on the lit campfire or Stove and right-click it to open it. Put the ingredients in the
+   {pot.maxIngredients.value} slots in any order. Beef Stew needs only vanilla food: raw beef (or minced beef), a carrot
+   and a potato. The arrow fills while the pot is hot; this recipe takes {timeText(stewRecipe.cookingtime)}.
+
+   <div class="not-content"><Recipe id="cooking/beef_stew" /></div>
+
+6. **Serve it.** The finished stew waits in the pot. Put a <Item id="minecraft:bowl" /> in the container slot, or simply
+   right-click the pot holding a bowl, to get a bowl of stew. See [Cooking Pot](/mechanics/cooking-pot/#serving).
+
+7. **Eat.** <Item id="beef_stew" /> fills <FoodStats nutrition={stew.food.nutrition} saturation={stew.food.saturation} compact />
+   and gives <EffectBadge id={nour.id} name={nour.name} ticks={nour.duration} />: for {timeText(nour.duration)} your hunger
+   bar doesn't go down. You get the bowl back. More on [Nourishment](/mechanics/effects/).
+
+</Steps>
+
+<Aside type="tip">
+Put a hopper between the heat source and the pot: it still passes the heat up, and it pulls finished meals out of the pot
+for you. That is the first step to an automatic kitchen; see [Cooking Pot automation](/mechanics/cooking-pot/#automation).
+</Aside>
+
+## Where to go next
+
+- Grill meat and fish {stove.slots.value} at a time on the [Stove](/mechanics/stove/), or fry them in seconds with a [Skillet](/mechanics/skillet/).
+- Cook a [feast](/mechanics/feasts/) and share it out by the bowl.
+- Improve your farm with [Organic Compost](/mechanics/organic-compost/) and [Rich Soil](/mechanics/rich-soil/).
+- Browse every dish in the [food reference](/reference/food/).

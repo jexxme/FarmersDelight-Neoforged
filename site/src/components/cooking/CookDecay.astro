@@ -1,0 +1,118 @@
+---
+// Progress of one cook over time when the heat is lost for a while: +step per heated tick, -decay per tick otherwise.
+// Used for the Cooking Pot, Stove and placed Skillet (they share the same rule). Inputs are in ticks; everything shown
+// to the reader is in seconds.
+import { timesAsFast, timeText } from '../../data/code/cooking';
+interface Props {
+	total: number;
+	step: number;
+	decay: number;
+	heatedFor?: number;
+	coldFor?: number;
+	label?: string;
+}
+const { total, step, decay, label = 'Cooking' } = Astro.props;
+const heatedFor = Astro.props.heatedFor ?? Math.round(total * 0.6);
+const coldFor = Astro.props.coldFor ?? Math.round(total * 0.2);
+// simulate
+const pts: [number, number][] = [[0, 0]];
+let p = 0;
+let t = 0;
+for (; t < heatedFor; t++) p = Math.min(total, p + step);
+pts.push([t, p]);
+const atLoss = p;
+for (let k = 0; k < coldFor; k++, t++) p = Math.max(0, p - decay);
+pts.push([t, p]);
+const atReturn = p;
+const coldEnd = t;
+while (p < total) {
+	p += step;
+	t++;
+}
+pts.push([t, p]);
+const end = t;
+const sec = (ticks: number) => `${+(ticks / 20).toFixed(1)} s`;
+const W = 560;
+const H = 270;
+const L = 70;
+const R = 16;
+const T = 30;
+const B = 62;
+const X = (v: number) => L + (v / end) * (W - L - R);
+const Y = (v: number) => T + (1 - v / total) * (H - T - B);
+const path = pts.map(([a, b], i) => `${i ? 'L' : 'M'}${X(a).toFixed(1)} ${Y(b).toFixed(1)}`).join(' ');
+const ideal = `M${X(0)} ${Y(0)} L${X(total / step)} ${Y(total)}`;
+---
+<figure class="fd-decay not-content">
+	<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${label}: progress builds while heated and drains ${timesAsFast(decay, step)} without heat`}>
+		<rect x={X(heatedFor)} y={T} width={X(coldEnd) - X(heatedFor)} height={H - T - B} class="cold" />
+		<text x={(X(heatedFor) + X(coldEnd)) / 2} y={T - 8} class="t c" text-anchor="middle">no heat</text>
+		<line x1={L} y1={Y(total)} x2={W - R} y2={Y(total)} class="grid" />
+		<line x1={L} y1={Y(0)} x2={W - R} y2={Y(0)} class="axis" />
+		<line x1={L} y1={T} x2={L} y2={Y(0)} class="axis" />
+		<text x={L - 6} y={Y(total) + 6} class="t" text-anchor="end">done</text>
+		<text x={L - 6} y={Y(0) + 6} class="t" text-anchor="end">0</text>
+		<path d={ideal} class="ideal" />
+		<path d={path} class="line" />
+		<rect x={X(end) - 4} y={Y(total) - 4} width="8" height="8" class="dot" />
+		<text x={X(end)} y={Y(0) + 26} class="t" text-anchor="end">{sec(end)}</text>
+		<text x={X(total / step)} y={Y(0) + 26} class="t muted" text-anchor="middle">{sec(total / step)}</text>
+		<text x={L} y={H - 6} class="t muted">time</text>
+	</svg>
+	<figcaption>
+		{label} with the heat gone for {timeText(coldFor)} (shaded): {timeText(atLoss / step)} of cooking falls back to{' '}
+		{timeText(atReturn / step)}, so it is done after {timeText(end)} instead of {timeText(total / step)} (dashed line).
+	</figcaption>
+</figure>
+<style>
+	.fd-decay {
+		margin: 30px 0;
+		max-width: 560px;
+	}
+	svg {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+	.cold {
+		fill: var(--fd-surface-2);
+	}
+	.grid {
+		stroke: var(--fd-border);
+		stroke-dasharray: 3 4;
+	}
+	.axis {
+		stroke: var(--sl-color-gray-3);
+		stroke-width: 2;
+	}
+	.ideal {
+		fill: none;
+		stroke: var(--sl-color-gray-4);
+		stroke-dasharray: 6 6;
+		stroke-width: 2;
+	}
+	.line {
+		fill: none;
+		stroke: var(--sl-color-text-accent);
+		stroke-width: 4;
+	}
+	.dot {
+		fill: var(--sl-color-text-accent);
+	}
+	.t {
+		fill: var(--sl-color-gray-2);
+		font: 400 20px var(--fd-font-mono);
+	}
+	.t.c {
+		fill: var(--sl-color-gray-3);
+	}
+	.muted {
+		fill: var(--sl-color-gray-4);
+	}
+	figcaption {
+		font-size: 20px;
+		line-height: 30px;
+		color: var(--sl-color-gray-3);
+		margin-top: 8px;
+	}
+</style>

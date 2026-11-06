@@ -1,0 +1,301 @@
+[
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "settings",
+		"key": "enableFarmerFDTrades",
+		"field": "ENABLE_FARMERS_BUY_FD_CROPS",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, Novice and Apprentice Farmer villagers will have a chance to buy crops from this mod."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "settings",
+		"key": "enableWanderingTraderFDTrades",
+		"field": "ENABLE_WANDERING_TRADER_SELLS_FD_ITEMS",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, the Wandering Trader will have a chance to sell seeds and plantables from this mod."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "settings",
+		"key": "enableRopeReeling",
+		"field": "ENABLE_ROPE_REELING",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, players will be able to reel back rope, bottom to top, when sneak-using with an empty hand on them."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "settings",
+		"key": "canvasSignDarkBackgroundList",
+		"field": "CANVAS_SIGN_DARK_BACKGROUND_LIST",
+		"type": "list",
+		"default": [
+			"gray",
+			"purple",
+			"blue",
+			"brown",
+			"green",
+			"red",
+			"black"
+		],
+		"range": null,
+		"comment": [
+			"A list of dye colors that, when used as the background color of a Canvas Sign, should default to white text when placed.",
+			"Dyes: [\"white\", \"orange\", \"magenta\", \"light_blue\", \"yellow\", \"lime\", \"pink\", \"gray\", \"light_gray\", \"cyan\", \"purple\", \"blue\", \"brown\", \"green\", \"red\", \"black\"]"
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "farming",
+		"key": "richSoilBoostChance",
+		"field": "RICH_SOIL_BOOST_CHANCE",
+		"type": "decimal",
+		"default": 0.2,
+		"range": [
+			0,
+			1
+		],
+		"comment": [
+			"The chance (in decimal percentage) of Rich Soil providing a bone meal boost to a crop planted on it. Set to 0.0 to disable."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "farming",
+		"key": "enableTomatoVineClimbingTaggedRopes",
+		"field": "ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, tomato crops will be able to climb any rope tagged as farmersdelight:ropes. If disabled, this will be restricted to this mod's rope only.",
+			"Beware: this will convert these blocks into the block specified in defaultTomatoVineRope."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "farming",
+		"key": "defaultTomatoVineRope",
+		"field": "DEFAULT_TOMATO_VINE_ROPE",
+		"type": "string",
+		"default": "farmersdelight:rope",
+		"range": null,
+		"comment": [
+			"Which rope should Tomato Vines leave behind when broken?"
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "crafting",
+		"key": "enableCookingPotRecipeBook",
+		"field": "ENABLE_COOKING_POT_RECIPE_BOOK",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, the Cooking Pot will provide a Recipe Book on its interface, similar to the one on Crafting Tables and Furnaces."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "crafting",
+		"key": "enableVanillaCropCrates",
+		"field": "ENABLE_VANILLA_CROP_CRATES",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, storage crates (3x3) for vanilla crops (similar to Quark and Thermal Cultivation) will become craftable."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "crafting",
+		"key": "cuttingBoardFortuneBonus",
+		"field": "CUTTING_BOARD_FORTUNE_BONUS",
+		"type": "decimal",
+		"default": 0.1,
+		"range": [
+			0,
+			1
+		],
+		"comment": [
+			"How much (in decimal percentage) should each level of Fortune increase the odds of obtaining rare results on the Cutting Board? Set to 0.0 to disable."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "overrides",
+		"key": "enableVanillaSoupExtraEffects",
+		"field": "ENABLE_VANILLA_SOUP_EXTRA_EFFECTS",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, soups and stews from Minecraft will grant Nourishment when eaten, similar to meals from this mod."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "overrides",
+		"key": "enableRabbitStewBuff",
+		"field": "ENABLE_RABBIT_STEW_BUFF",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, Rabbit Stew will be given improved food stats, to match its crafting cost.",
+			"Changes item defaults at startup: the client and the server must use the same value."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "overrides",
+		"key": "enablePumpkinPieSneakToPlace",
+		"field": "ENABLE_PUMPKIN_PIE_SNEAK_TO_PLACE",
+		"type": "boolean",
+		"default": false,
+		"range": null,
+		"comment": [
+			"If enabled, Pumpkin Pie will require the user to sneak to place it down as a block."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "overrides",
+		"key": "enableCuttingBoardDispenserBehavior",
+		"field": "ENABLE_DISPENSER_TOOLS_CUTTING_BOARD",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, the Dispenser will be able to operate a Cutting Board in front of itself, using stored items as cutting tools."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "overrides.stack_size",
+		"key": "enableStackableSoupItems",
+		"field": "ENABLE_STACKABLE_SOUP_ITEMS",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, the items in the following list become stackable to 16, much like Farmer's Delight's meals.",
+			"Changes item defaults at startup: the client and the server must use the same value, or stacks desync."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "overrides.stack_size",
+		"key": "soupItemList",
+		"field": "SOUP_ITEM_LIST",
+		"type": "list",
+		"default": [
+			"minecraft:mushroom_stew",
+			"minecraft:beetroot_soup",
+			"minecraft:rabbit_stew"
+		],
+		"range": null,
+		"comment": [
+			"Item ids to make stackable. Defaults to vanilla soups and stews. Unknown or invalid ids are skipped with a warning."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "world",
+		"key": "generateFDChestLoot",
+		"field": "GENERATE_FD_CHEST_LOOT",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, new loot pools will be added to chest loot across the game, containing items from this mod (ropes, crops, tools etc)."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "world",
+		"key": "generateVillageCompostHeaps",
+		"field": "GENERATE_VILLAGE_COMPOST_HEAPS",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, Compost Heaps (structures containing Organic Compost piles) will sometimes generate across Villages."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "world",
+		"key": "generateFDCropsOnVillageFarms",
+		"field": "GENERATE_VILLAGE_FARM_FD_CROPS",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, crops from Farmer's Delight will sometimes replace standard crops in village farm plots."
+		]
+	},
+	{
+		"file": "farmersdelight-common.toml",
+		"section": "debug",
+		"key": "enableTomatoRopePermanence",
+		"field": "ENABLE_TOMATO_ROPE_PERMANENCE",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"Tomato crops hanging on rope will force-place a Rope block when broken. Due to technical limitations, this affects things such as commands, making them fail to 'setblock' at first.",
+			"Disable this if this block is preventing you from editing a region in creative or with commands. For normal gameplay, I recommend leaving this enabled."
+		]
+	},
+	{
+		"file": "farmersdelight-client.toml",
+		"section": "",
+		"key": "enableNourishmentHungerOverlay",
+		"field": "ENABLE_NOURISHMENT_HUNGER_OVERLAY",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, a gilded overlay will be shown over the food meter when the player has the Nourishment effect."
+		]
+	},
+	{
+		"file": "farmersdelight-client.toml",
+		"section": "",
+		"key": "enableComfortHealthOverlay",
+		"field": "ENABLE_COMFORT_HEALTH_OVERLAY",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, a scrolling overlay will be shown over the health meter when the player has the Comfort effect."
+		]
+	},
+	{
+		"file": "farmersdelight-client.toml",
+		"section": "",
+		"key": "enableFoodEffectTooltip",
+		"field": "ENABLE_FOOD_EFFECT_TOOLTIP",
+		"type": "boolean",
+		"default": true,
+		"range": null,
+		"comment": [
+			"If enabled, food items will display tooltips showing which effects they grant when eaten, if any. Applies to foods from both Minecraft and this mod."
+		]
+	}
+]

@@ -1,0 +1,80 @@
+---
+title: Animal feed
+description: Dog Food and Horse Feed, which animals take them, the healing and effects they give, and how to make them.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Recipe from '../../../components/recipes/Recipe.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import FoodStats from '../../../components/data/FoodStats.astro';
+import { items, tags, recipesFor } from '../../../lib/data';
+import { feed, timeText } from '../../../data/code/cooking';
+
+export const E = tags.resolved.entity_type;
+export const dogUsers = E['farmersdelight:dog_food_users'];
+export const horseUsers = E['farmersdelight:horse_feed_users'];
+export const tempted = tags.resolved.item['minecraft:horse_tempt_items'].filter((id) => id !== 'farmersdelight:horse_feed');
+export const ent = (id) => id.split(':')[1].replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+export const list = (ids) => ids.map((e, i) => <>{i ? (i === ids.length - 1 ? ' and ' : ', ') : ''}{ent(e)}</>);
+export const dog = items['farmersdelight:dog_food'];
+export const horse = items['farmersdelight:horse_feed'];
+
+Two items are made for your animals rather than for you. Right-click a tamed animal with one in your hand: it heals to
+full health and gets a set of buffs for {timeText(feed.dogEffects.value[0].ticks)}.
+
+<div class="not-content fd-feed">
+	<div class="fd-board feedcard">
+		<h3><Item id="dog_food" /></h3>
+		<dl>
+			<dt>Feed to</dt><dd>tamed {list(dogUsers)}</dd>
+			<dt>Heals</dt><dd>to full health</dd>
+			<dt>Buffs</dt><dd>{feed.dogEffects.value.map((e) => <EffectBadge id={e.id} ticks={e.ticks} amplifier={e.amplifier} />)}</dd>
+			<dt>Leaves</dt><dd><Item id={dog.remainder} /></dd>
+			<dt>Stacks to</dt><dd>{dog.stack}</dd>
+		</dl>
+	</div>
+	<div class="fd-board feedcard">
+		<h3><Item id="horse_feed" /></h3>
+		<dl>
+			<dt>Feed to</dt><dd>tamed {list(horseUsers)}</dd>
+			<dt>Heals</dt><dd>to full health</dd>
+			<dt>Buffs</dt><dd>{feed.horseEffects.value.map((e) => <EffectBadge id={e.id} ticks={e.ticks} amplifier={e.amplifier} />)}</dd>
+			<dt>Leaves</dt><dd>nothing</dd>
+			<dt>Stacks to</dt><dd>{horse.stack}</dd>
+		</dl>
+	</div>
+</div>
+
+## Feeding your animals
+
+**Dog Food** works on the tamed animals listed above. Each feeding uses one Dog Food and gives you the <Item id="minecraft:bowl" /> back.
+It's also a normal bowl of food, so if you eat it yourself it fills <FoodStats nutrition={dog.food.nutrition} saturation={dog.food.saturation} compact />.
+
+**Horse Feed** works on any tamed horse-like mount. Horses also follow you while you hold it, just like they do for
+{tempted.map((id, i) => <>{i ? (i === tempted.length - 1 ? ' and ' : ', ') : ''}<Item id={id} plural /></>)}. You can't eat it
+yourself.
+
+A heal plus buffs makes either one perfect right before a fight or a long ride. The items' tooltips also list what they
+do.
+
+## Recipes
+
+Dog Food cooks in the [Cooking Pot](/mechanics/cooking-pot/), so it needs heat and a bowl to serve. Horse Feed is crafted.
+
+<div class="not-content" style="display:flex;flex-wrap:wrap;gap:30px 40px;margin:20px 0">
+	{[...recipesFor('farmersdelight:dog_food'), ...recipesFor('farmersdelight:horse_feed')].map((r) => <Recipe recipe={r} />)}
+</div>
+
+## Good to know
+
+- **Not for breeding.** Feeding heals and buffs the animal, but it doesn't breed it or count as its normal food.
+- **Creative mode** doesn't use up the food.
+
+<style>{`
+.fd-feed { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 30px; margin: 30px 0; font-size: 20px; line-height: 30px; }
+.fd-feed .feedcard { padding: 12px 18px; }
+.fd-feed h3 { margin: 0 0 8px; font-size: 30px; line-height: 40px; font-weight: 400; color: var(--fd-heading-ink); }
+.fd-feed dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin: 0; }
+.fd-feed dt { color: var(--sl-color-gray-3); }
+.fd-feed dd { margin: 0; color: var(--sl-color-gray-2); display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+`}</style>

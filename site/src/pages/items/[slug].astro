@@ -1,0 +1,420 @@
+---
+// One page per Farmer's Delight item, generated from src/data/gen. Stable URL: /items/<item id path>/
+// Layout: the item as you see it in game (a big slot and its tooltip), then how to get it, then what it is used for.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import Recipe from '../../components/recipes/Recipe.astro';
+import Slot from '../../components/mc/Slot.astro';
+import Stages from '../../components/data/Stages.astro';
+import {
+	itemList, iconOf, renderOf, recipesFor, recipesUsing, loot, modifiers, trades, worldgen, CATEGORIES,
+	seconds, duration, roman, pct, nameOf, url, short, type Item as ItemT,
+} from '../../lib/data';
+import { mechanicFor, describeModifier, chestName, chestChance } from '../../lib/describe';
+
+export function getStaticPaths() {
+	return itemList.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+const { item } = Astro.props as { item: ItemT };
+const icon = iconOf(item.id);
+const blockSlug = item.block?.id.split(':')[1];
+const render = blockSlug ? renderOf(`blocks/${blockSlug}`) : null;
+const made = recipesFor(item.id);
+const used = recipesUsing(item.id);
+const usedOutputs = [...new Set(used.map((r) => r.result?.id ?? r.results?.[0]?.id).filter(Boolean))] as string[];
+const chests = (item.chests as string[]).map((c) => ({ table: c, ...chestChance(loot.chests[c], item.id) }));
+const mods = modifiers.filter((m) => (item.modifiers as string[]).includes(m.id));
+const myTrades = trades.filter((t) => (item.trades as string[]).includes(t.id));
+const gen = worldgen.filter((w) => (item.worldgen as string[]).includes(w.id));
+const mech = mechanicFor(item);
+const cat = CATEGORIES[item.category];
+const siblings = itemList.filter((i) => i.category === item.category);
+const c = item.consumable;
+const ticks = c ? Math.round(c.seconds * 20) : null;
+const mineable = (item.block?.tags as string[] | undefined)?.filter((t) => t.includes('mineable/')).map((t) => t.split('mineable/')[1]) ?? [];
+const blockProps = item.block ? Object.entries(item.block.properties as Record<string, string[]>) : [];
+const hasSources = chests.length > 0 || mods.length > 0 || myTrades.length > 0 || gen.length > 0;
+
+// Tooltip lines, coloured like the game: blue for effects, dark green for weapon stats, grey for everything else
+type Line = { text: string; tone: 'blue' | 'green' | 'gray' | 'gold' };
+const effectLines: Line[] = (c?.effects ?? []).map((e) => ({
+	text: `${e.name}${e.amplifier > 0 ? ` ${roman(e.amplifier)}` : ''} (${duration(e.duration)})${e.probability < 1 ? `, ${Math.round(e.probability * 100)}% chance` : ''}`,
+	tone: 'blue',
+}));
+for (const o of c?.other ?? []) {
+	if (o.type === 'farmersdelight:remove_random_effects') effectLines.push({ text: `Clears 1 ${o.harmful_only ? 'harmful ' : ''}effect`, tone: 'blue' });
+	if (o.type === 'farmersdelight:heal') effectLines.push({ text: `Heals ${o.amount / 2} heart${o.amount === 2 ? '' : 's'}`, tone: 'blue' });
+	if (o.type === 'farmersdelight:extinguish') effectLines.push({ text: 'Puts out fire', tone: 'blue' });
+}
+const weapon: Line[] = [];
+if (item.attackDamage != null) weapon.push({ text: `${+(1 + item.attackDamage).toFixed(2)} Attack Damage`, tone: 'green' });
+if (item.attackSpeed != null) weapon.push({ text: `${+(4 + item.attackSpeed).toFixed(2)} Attack Speed`, tone: 'green' });
+if (item.attackKnockback) weapon.push({ text: `+${item.attackKnockback} Attack Knockback`, tone: 'blue' });
+const facts: Line[] = [];
+const g = (text: string) => facts.push({ text, tone: 'gray' });
+if (ticks) g(`${c!.animation === 'drink' ? 'Drink' : 'Eat'} in ${seconds(ticks)}`);
+if (item.food?.alwaysEdible) g('Can be eaten when full');
+if (item.remainder) g(`Leaves a ${nameOf(item.remainder)}`);
+g(item.stack === 1 ? "Doesn't stack" : `Stacks to ${item.stack}`);
+if (item.durability) g(`Durability ${item.durability}`);
+if (item.enchantability) g(`Enchantability ${item.enchantability}`);
+if (item.fireResistant) g('Survives fire and lava');
+if (item.block?.maxLight) g(`Gives off light level ${item.block.maxLight}`);
+if (item.block) g(`Hardness ${item.block.hardness}${mineable.length ? `, mine with a ${mineable.join(' or ')}` : ''}`);
+if (item.fuel) g(`Fuel: smelts ${+(item.fuel / 200).toFixed(2)} item${item.fuel === 200 ? '' : 's'}`);
+if (item.compost != null) g(`Composter: ${pct(item.compost, 0)} chance`);
+const shanks = item.food ? [...Array(Math.floor(item.food.nutrition / 2)).fill('food_full'), ...Array(item.food.nutrition % 2).fill('food_half')] : [];
+
+const headings = [
+	...(blockSlug ? [] : []),
+	...(made.length ? [{ depth: 2, slug: 'recipes', text: 'How to make it' }] : []),
+	...(hasSources ? [{ depth: 2, slug: 'sources', text: 'Where to find it' }] : []),
+	...(used.length ? [{ depth: 2, slug: 'uses', text: 'Used in' }] : []),
+];
+const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Delight Neoforged.${item.food ? ` Restores ${item.food.nutrition} hunger and ${+item.food.saturation.toFixed(2)} saturation.` : ''}`;
+---
+<StarlightPage frontmatter={{ title: item.name, description, tableOfContents: headings.length > 1 ? { minHeadingLevel: 2, maxHeadingLevel: 2 } : false }} headings={headings}>
+	<section class="ip-hero not-content">
+		<div class="ip-slot">
+			{render ? <img src={render} alt={item.name} width="200" height="200" /> : icon && <img class="pixel" src={icon.src} alt={item.name} width="128" height="128" />}
+		</div>
+		<div class="ip-side">
+			<div class="ip-tooltip">
+				<p class="t-name">{item.name}</p>
+				{item.tooltip.map((t) => <p class="t-blue">{t}</p>)}
+				{item.food && (
+					<p class="t-food">
+						<span class="shanks">{shanks.map((s) => <img src={url(`/gui/mc/${s}.png`)} alt="" width="18" height="18" />)}</span>
+						<span>{item.food.nutrition} hunger, {+item.food.saturation.toFixed(1)} saturation</span>
+					</p>
+				)}
+				{effectLines.length > 0 && (
+					<>
+						<p class="t-gray">When eaten:</p>
+						{effectLines.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
+					</>
+				)}
+				{weapon.length > 0 && (
+					<>
+						<p class="t-gray">When in Main Hand:</p>
+						{weapon.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
+					</>
+				)}
+				<div class="t-facts">{facts.map((l) => <p class="t-gray">{l.text}</p>)}</div>
+				<p class="t-mod">Farmer's Delight</p>
+				<p class="t-id">{item.id}</p>
+			</div>
+			<p class="ip-links">
+				<a class="ip-cat" href={url(`/items/#${item.category}`)}>{cat.label}</a>
+				{mech && <a class="ip-mech" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>}
+			</p>
+		</div>
+	</section>
+
+	{blockSlug && <Stages block={blockSlug} />}
+
+	{
+		made.length > 0 && (
+			<>
+				<h2 id="recipes">How to make it</h2>
+				<div class="ip-recipes not-content">{made.map((r) => <Recipe recipe={r} />)}</div>
+			</>
+		)
+	}
+
+	{
+		hasSources && (
+			<>
+				<h2 id="sources">Where to find it</h2>
+				<ul class="ip-sources">
+					{gen.map((w) => (
+						<li>
+							<strong>Grows wild</strong> in {w.biomes.length} biome{w.biomes.length === 1 ? '' : 's'}. <a href={url('/mechanics/wild-crops/')}>Where to look</a>
+						</li>
+					))}
+					{myTrades.map((t) => (
+						<li>
+							<strong>{t.trader === 'farmer' ? `Farmer villagers` : 'Wandering Traders'}</strong>{' '}
+							{t.gives.id === item.id ? `sell ${t.gives.count} for ${t.wants.count} ${nameOf(t.wants.id)}` : `buy ${t.wants.count} for ${t.gives.count} ${nameOf(t.gives.id)}`}
+							{t.level ? ` (from level ${t.level})` : ''}.
+						</li>
+					))}
+					{mods.map((m) => (
+						<li set:html={describeModifier(m)} />
+					))}
+					{chests.map((ch) => (
+						<li>
+							<strong>{chestName(ch.table)}</strong> chests: {ch.text}
+						</li>
+					))}
+				</ul>
+			</>
+		)
+	}
+
+	{
+		used.length > 0 && (
+			<>
+				<h2 id="uses">Used in</h2>
+				<p>
+					{item.name} goes into {usedOutputs.length} recipe{usedOutputs.length === 1 ? '' : 's'}. Hover a slot for its name, click it to open it.
+				</p>
+				<div class="ip-inv grid9 not-content">
+					{usedOutputs.map((o) => (
+						<Slot id={o} scale={3} />
+					))}
+					{Array.from({ length: (9 - (usedOutputs.length % 9)) % 9 }).map(() => (
+						<Slot scale={3} />
+					))}
+				</div>
+			</>
+		)
+	}
+
+	<footer class="ip-foot not-content">
+		<p>
+			<span class="lbl">Command</span> <code>/give @s {item.id}</code>
+		</p>
+		{
+			(blockProps.length > 0 || (item.tags as string[]).length > 0) && (
+				<details>
+					<summary>Tags and block states</summary>
+					{blockProps.length > 0 && <p><span class="lbl">Block states</span> {blockProps.map(([k, v]) => <code>{k}: {v.join(' | ')}</code>)}</p>}
+					{(item.tags as string[]).length > 0 && <p><span class="lbl">Item tags</span> {(item.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
+					{item.block && (item.block.tags as string[]).length > 0 && <p><span class="lbl">Block tags</span> {(item.block.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
+				</details>
+			)
+		}
+		<nav aria-label={`More ${cat.label}`}>
+			<p class="lbl">More {cat.label.toLowerCase()}</p>
+			<div class="ip-inv">
+				{siblings.map((s) => (
+					<span class:list={['sib', { cur: s.id === item.id }]}>
+						<Slot id={s.id} scale={2} />
+					</span>
+				))}
+			</div>
+		</nav>
+	</footer>
+</StarlightPage>
+
+<style>
+	/* ---- the item, as in the game ---- */
+	.ip-hero {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px 32px;
+		align-items: flex-start;
+		margin-top: 24px;
+	}
+	.ip-slot {
+		width: 216px;
+		height: 216px;
+		flex: none;
+		display: grid;
+		place-items: center;
+		background: #8b8b8b;
+		box-shadow: inset 6px 6px 0 #373737, inset -6px -6px 0 #fff, 0 0 0 4px #c6c6c6, 0 0 0 6px #000;
+		margin: 6px;
+	}
+	.ip-slot img {
+		max-width: 86%;
+		height: auto;
+	}
+	.ip-slot img.pixel {
+		width: 128px;
+		image-rendering: pixelated;
+	}
+	.ip-side {
+		flex: 1 1 300px;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.ip-tooltip {
+		width: fit-content;
+		max-width: 100%;
+		padding: 10px 14px 12px;
+		background: #100010;
+		box-shadow: inset 0 0 0 2px #100010, inset 0 0 0 4px #2d0a63, 0 0 0 2px #100010;
+		color: #fff;
+		text-shadow: 2px 2px 0 #3f3f3f;
+		line-height: 26px;
+	}
+	.ip-tooltip p {
+		margin: 0;
+	}
+	.t-name {
+		color: #fff;
+		margin-bottom: 4px !important;
+	}
+	.t-blue {
+		color: #5555ff;
+		text-shadow: 2px 2px 0 #15153f;
+	}
+	.t-green {
+		color: #00aa00;
+		text-shadow: 2px 2px 0 #002a00;
+	}
+	.t-gray {
+		color: #aaaaaa;
+		text-shadow: 2px 2px 0 #2a2a2a;
+	}
+	.t-gold {
+		color: #ffaa00;
+	}
+	.indent {
+		padding-left: 12px;
+	}
+	.t-food {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 4px 10px;
+		margin: 2px 0 6px !important;
+	}
+	.shanks {
+		display: inline-flex;
+		gap: 0;
+	}
+	.shanks img {
+		image-rendering: pixelated;
+	}
+	.t-facts {
+		margin-top: 8px;
+	}
+	.t-mod {
+		color: #5555ff;
+		font-style: italic;
+		margin-top: 8px !important;
+		text-shadow: 2px 2px 0 #15153f;
+	}
+	.t-id {
+		color: #555;
+		text-shadow: 2px 2px 0 #151515;
+	}
+	.ip-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px 20px;
+		align-items: center;
+		margin: 0;
+	}
+	.ip-cat {
+		display: inline-block;
+		padding: 2px 12px 0;
+		color: #682c10;
+		text-decoration: none;
+		border-style: solid;
+		border-width: 4px 6px 6px 4px;
+		border-image: url('/FarmersDelight-Neoforged/ui/sign-orange.png') 2 3 3 2 fill / 4px 6px 6px 4px repeat;
+		image-rendering: pixelated;
+	}
+	.ip-cat:hover {
+		color: #000;
+	}
+	.ip-mech {
+		color: var(--sl-color-text-accent);
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+	}
+	.ip-mech::after {
+		content: ' →';
+	}
+
+	/* ---- sections ---- */
+	.ip-recipes {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px 32px;
+	}
+	.ip-sources li + li {
+		margin-top: 8px;
+	}
+	.ip-inv {
+		display: flex;
+		flex-wrap: wrap;
+		width: fit-content;
+		max-width: 100%;
+		padding: 8px;
+		background: #c6c6c6;
+		box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555, 0 0 0 2px #000;
+		margin-left: 2px;
+	}
+
+	.ip-inv.grid9 {
+		display: grid;
+		grid-template-columns: repeat(9, auto);
+	}
+	@media (max-width: 40rem) {
+		.ip-inv.grid9 {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.ip-inv.grid9 > :global(.mc-slot:not([data-tip-items])) {
+			display: none;
+		}
+	}
+
+	/* ---- the quiet footer: command, tags, related items ---- */
+	.ip-foot {
+		margin-top: 72px;
+		padding-top: 16px;
+		border-top: 4px solid var(--fd-border);
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		color: var(--sl-color-gray-3);
+	}
+	.ip-foot p {
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 12px;
+		align-items: baseline;
+	}
+	.ip-foot code {
+		overflow-wrap: anywhere;
+		font-family: var(--sl-font);
+		font-size: 20px;
+		background: var(--fd-surface-2);
+		color: var(--sl-color-white);
+		padding: 0 6px;
+	}
+	.lbl {
+		color: var(--sl-color-gray-3);
+		min-width: 8rem;
+	}
+	.ip-foot details {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.ip-foot summary {
+		cursor: pointer;
+		width: fit-content;
+	}
+	.ip-foot summary:hover {
+		color: var(--sl-color-text-accent);
+	}
+	.ip-foot details[open] summary {
+		margin-bottom: 8px;
+	}
+	.ip-foot details p + p {
+		margin-top: 8px;
+	}
+	.ip-foot nav .lbl {
+		margin-bottom: 8px;
+	}
+	.sib.cur :global(.mc-slot) {
+		outline: 2px solid #ffcf4d;
+		outline-offset: -2px;
+	}
+	@media (max-width: 34rem) {
+		.ip-slot {
+			width: 168px;
+			height: 168px;
+		}
+	}
+</style>

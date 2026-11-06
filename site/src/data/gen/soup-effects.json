@@ -1,0 +1,17 @@
+[
+	{
+		"item": "minecraft:mushroom_stew",
+		"effect": "farmersdelight:nourishment",
+		"duration": 3600
+	},
+	{
+		"item": "minecraft:beetroot_soup",
+		"effect": "farmersdelight:nourishment",
+		"duration": 3600
+	},
+	{
+		"item": "minecraft:rabbit_stew",
+		"effect": "farmersdelight:nourishment",
+		"duration": 6000
+	}
+]

@@ -1,0 +1,75 @@
+---
+title: Drinks
+description: Every Farmer's Delight drink, what it does when you drink it, the bottle or bowl you get back, and how to make it.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import FoodStats from '../../../components/data/FoodStats.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import { itemList, recipesFor, seconds } from '../../../lib/data';
+import { hearts } from '../../../data/code/cooking';
+
+export const drinks = itemList.filter((i) => i.consumable && (i.category === 'drinks' || i.consumable.animation === 'drink'));
+export const tab = drinks.filter((d) => d.category === 'drinks');
+export const noFood = drinks.filter((i) => !i.food && i.consumable.other.length);
+export const describe = (o) =>
+	o.type === 'farmersdelight:remove_random_effects'
+		? `Clears one random ${o.harmful_only ? 'harmful ' : ''}effect`
+		: o.type === 'farmersdelight:heal'
+			? `Heals ${hearts(o.amount)}`
+			: o.type === 'farmersdelight:extinguish'
+				? 'Puts out fire'
+				: o.type;
+export const stacks = [...new Set(drinks.map((d) => d.stack))];
+export const alwaysOk = drinks.filter((d) => !d.food || d.food.alwaysEdible);
+
+The mod has {tab.length} drinks, plus {drinks.length - tab.length} more foods that you drink rather than eat. You always
+get the container back, usually a <Item id="minecraft:glass_bottle" />, and every drink stacks to {stacks.join(' or ')}.
+
+## Every drink
+
+<table>
+	<thead><tr><th>Drink</th><th>What it does</th><th>Food</th><th>Gives back</th><th>Drink time</th></tr></thead>
+	<tbody>
+		{drinks.map((d) => (
+			<tr>
+				<td><Item id={d.id} /></td>
+				<td>
+					{d.consumable.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}
+					{d.consumable.other.map((o) => <div>{describe(o)}</div>)}
+				</td>
+				<td>{d.food && (d.food.nutrition || d.food.saturation) ? <FoodStats nutrition={d.food.nutrition} saturation={d.food.saturation} compact /> : '—'}</td>
+				<td><Item id={d.remainder} /></td>
+				<td>{seconds(d.consumable.seconds * 20)}</td>
+			</tr>
+		))}
+	</tbody>
+</table>
+
+## Remedies
+
+{noFood.map((d, i) => <>{i ? (i === noFood.length - 1 ? ' and ' : ', ') : ''}<Item id={d.id} /></>)} don't fill your
+hunger at all. They're remedies, and you can drink them whenever you like, even on a full hunger bar:
+
+<ul>
+	{noFood.map((d) => <li><Item id={d.id} />: {d.consumable.other.map((o) => describe(o).toLowerCase()).join(', ')}.</li>)}
+</ul>
+
+A Milk Bottle is a bite-sized milk bucket: one bottle takes away a single effect instead of all of them, so you can shake
+off Poison without losing your other buffs (if you're lucky with the pick). Hot Cocoa only ever touches harmful
+effects, so it never costs you a good one.
+
+## Recipes
+
+Most drinks are brewed in the [Cooking Pot](/mechanics/cooking-pot/) and served into glass bottles.
+
+<RecipeList ids={drinks.flatMap((d) => recipesFor(d.id).map((r) => r.id))} />
+
+## Good to know
+
+- **Drink when full.** {alwaysOk.map((d, i) => <>{i ? (i === alwaysOk.length - 1 ? ' and ' : ', ') : ''}<Item id={d.id} /></>)} can be drunk even with a full hunger bar.
+- **The bottle comes back** even when you drink from a stack: it goes into your inventory, or drops at your feet if
+  that's full.
+- **Clearing effects is random.** A drink that clears one effect picks any of your active effects at random (or any
+  harmful one), so it may not hit the one you wanted.

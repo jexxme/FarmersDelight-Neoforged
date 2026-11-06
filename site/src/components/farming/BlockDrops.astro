@@ -1,0 +1,107 @@
+---
+// A crop or block card: its growth stages (optional) and what it drops when broken, in one frame.
+// <BlockDrops block="cabbages" title="Cabbage" stages />
+// <BlockDrops title="Tomato" parts={[{ block: 'budding_tomatoes', label: 'Bush', stages: true }, ...]} />
+import DropLines from './DropLines.astro';
+import { renders, url } from '../../lib/data';
+import { stageLabels } from '../../data/code/farming';
+type Part = { block: string; label?: string; stages?: boolean; labels?: Record<string, string>; last?: string; pools?: number[] };
+interface Props {
+	block?: string;
+	title?: string;
+	stages?: boolean;
+	labels?: Record<string, string>;
+	last?: string;
+	pools?: number[];
+	parts?: Part[];
+}
+const { block, title, stages = false, labels, last, pools, parts } = Astro.props;
+const list: Part[] = parts ?? (block ? [{ block, stages, labels, last, pools }] : []);
+const strip = (p: Part) => {
+	const keys = Object.keys(renders)
+		.filter((k) => k.startsWith(`stages/${p.block}-`))
+		.sort((a, b) => +a.split('-').pop()! - +b.split('-').pop()!);
+	const names = { ...stageLabels(keys.length, p.last ?? 'ripe'), ...(p.labels ?? {}) };
+	return keys.map((k) => ({ src: url(`/renders/${k}.png`), label: names[k.split('-').pop()!] }));
+};
+---
+<div class="fd-drops fd-board not-content">
+	<div class="head"><span class="k">{title ?? 'Drops'}</span></div>
+	{
+		list.map((p) => (
+			<div class="part">
+				{p.label && <div class="lbl">{p.label}</div>}
+				{p.stages && (
+					<ol class="strip">
+						{strip(p).map((s) => (
+							<li>
+								<img src={s.src} alt="" width="64" height="64" loading="lazy" />
+								<span>{s.label}</span>
+							</li>
+						))}
+					</ol>
+				)}
+				<div class="drops">
+					<span class="dk">When broken</span>
+					<DropLines block={p.block} pools={p.pools} />
+				</div>
+			</div>
+		))
+	}
+</div>
+<style>
+	.fd-drops {
+		margin: 20px 0 30px;
+		padding: 8px 14px 10px;
+		font-size: 20px;
+		line-height: 24px;
+	}
+	.head {
+		border-bottom: 3px solid var(--fd-frame);
+		margin: -8px -14px 6px;
+		padding: 6px 14px 4px;
+		background: var(--fd-frame);
+	}
+	.k {
+		color: var(--fd-paper);
+	}
+	.part + .part {
+		border-top: 3px solid var(--fd-frame);
+		margin-top: 8px;
+		padding-top: 8px;
+	}
+	.lbl {
+		color: var(--fd-heading-ink);
+		margin-bottom: 4px;
+	}
+	.strip {
+		list-style: none;
+		margin: 0 0 6px;
+		padding: 0;
+		display: flex;
+		gap: 4px;
+		overflow-x: auto;
+	}
+	.strip li {
+		margin: 0 !important;
+		flex: 0 0 auto;
+		width: 64px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.strip img {
+		width: 56px;
+		height: auto;
+		image-rendering: pixelated;
+	}
+	.strip span {
+		font-size: 16px;
+		line-height: 18px;
+		color: var(--sl-color-gray-3);
+		text-align: center;
+	}
+	.dk {
+		color: var(--sl-color-gray-3);
+	}
+</style>

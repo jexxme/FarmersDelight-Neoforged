@@ -1,0 +1,669 @@
+[
+	{
+		"id": "minecraft:apple",
+		"name": "Apple",
+		"nutrition": 4,
+		"saturation": 2.4,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:mushroom_stew",
+		"name": "Mushroom Stew",
+		"nutrition": 6,
+		"saturation": 7.2000003,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 16
+	},
+	{
+		"id": "minecraft:bread",
+		"name": "Bread",
+		"nutrition": 5,
+		"saturation": 6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:porkchop",
+		"name": "Raw Porkchop",
+		"nutrition": 3,
+		"saturation": 1.8000001,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:cooked_porkchop",
+		"name": "Cooked Porkchop",
+		"nutrition": 8,
+		"saturation": 12.8,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:golden_apple",
+		"name": "Golden Apple",
+		"nutrition": 4,
+		"saturation": 9.6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [
+				{
+					"id": "minecraft:regeneration",
+					"name": "Regeneration",
+					"duration": 100,
+					"amplifier": 1,
+					"probability": 1
+				},
+				{
+					"id": "minecraft:absorption",
+					"name": "Absorption",
+					"duration": 2400,
+					"amplifier": 0,
+					"probability": 1
+				}
+			],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:enchanted_golden_apple",
+		"name": "Enchanted Golden Apple",
+		"nutrition": 4,
+		"saturation": 9.6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [
+				{
+					"id": "minecraft:regeneration",
+					"name": "Regeneration",
+					"duration": 400,
+					"amplifier": 1,
+					"probability": 1
+				},
+				{
+					"id": "minecraft:resistance",
+					"name": "Resistance",
+					"duration": 6000,
+					"amplifier": 0,
+					"probability": 1
+				},
+				{
+					"id": "minecraft:fire_resistance",
+					"name": "Fire Resistance",
+					"duration": 6000,
+					"amplifier": 0,
+					"probability": 1
+				},
+				{
+					"id": "minecraft:absorption",
+					"name": "Absorption",
+					"duration": 2400,
+					"amplifier": 3,
+					"probability": 1
+				}
+			],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:pufferfish_bucket",
+		"name": "Bucket of Pufferfish",
+		"nutrition": 1,
+		"saturation": 0.2,
+		"consumable": null,
+		"stack": 1
+	},
+	{
+		"id": "minecraft:salmon_bucket",
+		"name": "Bucket of Salmon",
+		"nutrition": 2,
+		"saturation": 0.4,
+		"consumable": null,
+		"stack": 1
+	},
+	{
+		"id": "minecraft:cod_bucket",
+		"name": "Bucket of Cod",
+		"nutrition": 2,
+		"saturation": 0.4,
+		"consumable": null,
+		"stack": 1
+	},
+	{
+		"id": "minecraft:tropical_fish_bucket",
+		"name": "Bucket of Tropical Fish",
+		"nutrition": 1,
+		"saturation": 0.2,
+		"consumable": null,
+		"stack": 1
+	},
+	{
+		"id": "minecraft:cod",
+		"name": "Raw Cod",
+		"nutrition": 2,
+		"saturation": 0.4,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:salmon",
+		"name": "Raw Salmon",
+		"nutrition": 2,
+		"saturation": 0.4,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:tropical_fish",
+		"name": "Tropical Fish",
+		"nutrition": 1,
+		"saturation": 0.2,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:pufferfish",
+		"name": "Pufferfish",
+		"nutrition": 1,
+		"saturation": 0.2,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [
+				{
+					"id": "minecraft:poison",
+					"name": "Poison",
+					"duration": 1200,
+					"amplifier": 1,
+					"probability": 1
+				},
+				{
+					"id": "minecraft:hunger",
+					"name": "Hunger",
+					"duration": 300,
+					"amplifier": 2,
+					"probability": 1
+				},
+				{
+					"id": "minecraft:nausea",
+					"name": "Nausea",
+					"duration": 300,
+					"amplifier": 0,
+					"probability": 1
+				}
+			],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:cooked_cod",
+		"name": "Cooked Cod",
+		"nutrition": 5,
+		"saturation": 6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:cooked_salmon",
+		"name": "Cooked Salmon",
+		"nutrition": 6,
+		"saturation": 9.6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:cookie",
+		"name": "Cookie",
+		"nutrition": 2,
+		"saturation": 0.4,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:melon_slice",
+		"name": "Melon Slice",
+		"nutrition": 2,
+		"saturation": 1.2,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:dried_kelp",
+		"name": "Dried Kelp",
+		"nutrition": 1,
+		"saturation": 0.6,
+		"consumable": {
+			"seconds": 0.8,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:beef",
+		"name": "Raw Beef",
+		"nutrition": 3,
+		"saturation": 1.8000001,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:cooked_beef",
+		"name": "Steak",
+		"nutrition": 8,
+		"saturation": 12.8,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:chicken",
+		"name": "Raw Chicken",
+		"nutrition": 2,
+		"saturation": 1.2,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [
+				{
+					"id": "minecraft:hunger",
+					"name": "Hunger",
+					"duration": 600,
+					"amplifier": 0,
+					"probability": 0.3
+				}
+			],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:cooked_chicken",
+		"name": "Cooked Chicken",
+		"nutrition": 6,
+		"saturation": 7.2000003,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:rotten_flesh",
+		"name": "Rotten Flesh",
+		"nutrition": 4,
+		"saturation": 0.8,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [
+				{
+					"id": "minecraft:hunger",
+					"name": "Hunger",
+					"duration": 600,
+					"amplifier": 0,
+					"probability": 0.8
+				}
+			],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:spider_eye",
+		"name": "Spider Eye",
+		"nutrition": 2,
+		"saturation": 3.2,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [
+				{
+					"id": "minecraft:poison",
+					"name": "Poison",
+					"duration": 100,
+					"amplifier": 0,
+					"probability": 1
+				}
+			],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:carrot",
+		"name": "Carrot",
+		"nutrition": 3,
+		"saturation": 3.6000001,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:potato",
+		"name": "Potato",
+		"nutrition": 1,
+		"saturation": 0.6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:baked_potato",
+		"name": "Baked Potato",
+		"nutrition": 5,
+		"saturation": 6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:poisonous_potato",
+		"name": "Poisonous Potato",
+		"nutrition": 2,
+		"saturation": 1.2,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [
+				{
+					"id": "minecraft:poison",
+					"name": "Poison",
+					"duration": 100,
+					"amplifier": 0,
+					"probability": 0.6
+				}
+			],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:golden_carrot",
+		"name": "Golden Carrot",
+		"nutrition": 6,
+		"saturation": 14.400001,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:pumpkin_pie",
+		"name": "Pumpkin Pie",
+		"nutrition": 8,
+		"saturation": 4.8,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:rabbit",
+		"name": "Raw Rabbit",
+		"nutrition": 3,
+		"saturation": 1.8000001,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:cooked_rabbit",
+		"name": "Cooked Rabbit",
+		"nutrition": 5,
+		"saturation": 6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:rabbit_stew",
+		"name": "Rabbit Stew",
+		"nutrition": 14,
+		"saturation": 21,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [
+				{
+					"id": "farmersdelight:nourishment",
+					"name": "Nourishment",
+					"duration": 6000,
+					"amplifier": 0,
+					"probability": 1
+				}
+			],
+			"other": []
+		},
+		"stack": 16
+	},
+	{
+		"id": "minecraft:mutton",
+		"name": "Raw Mutton",
+		"nutrition": 2,
+		"saturation": 1.2,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:cooked_mutton",
+		"name": "Cooked Mutton",
+		"nutrition": 6,
+		"saturation": 9.6,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:chorus_fruit",
+		"name": "Chorus Fruit",
+		"nutrition": 4,
+		"saturation": 2.4,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": [
+				{
+					"type": "minecraft:teleport_randomly"
+				}
+			]
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:beetroot",
+		"name": "Beetroot",
+		"nutrition": 1,
+		"saturation": 1.2,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:beetroot_soup",
+		"name": "Beetroot Soup",
+		"nutrition": 6,
+		"saturation": 7.2000003,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 16
+	},
+	{
+		"id": "minecraft:suspicious_stew",
+		"name": "Suspicious Stew",
+		"nutrition": 6,
+		"saturation": 7.2000003,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 1
+	},
+	{
+		"id": "minecraft:sweet_berries",
+		"name": "Sweet Berries",
+		"nutrition": 2,
+		"saturation": 0.4,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:glow_berries",
+		"name": "Glow Berries",
+		"nutrition": 2,
+		"saturation": 0.4,
+		"consumable": {
+			"seconds": 1.6,
+			"animation": "eat",
+			"effects": [],
+			"other": []
+		},
+		"stack": 64
+	},
+	{
+		"id": "minecraft:honey_bottle",
+		"name": "Honey Bottle",
+		"nutrition": 6,
+		"saturation": 1.2,
+		"consumable": {
+			"seconds": 2,
+			"animation": "drink",
+			"effects": [],
+			"other": [
+				{
+					"type": "minecraft:remove_effects",
+					"effects": "minecraft:poison"
+				}
+			]
+		},
+		"stack": 16
+	}
+]

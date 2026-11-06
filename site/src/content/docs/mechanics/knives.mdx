@@ -1,0 +1,94 @@
+---
+title: Knives
+description: Every Farmer's Delight knife with its damage, speed and durability, the extra drops a knife gets you, the Backstabbing enchantment, and what knives do to cakes, pies and pumpkins.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Slot from '../../../components/mc/Slot.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import LootModifiers from '../../../components/farming/LootModifiers.astro';
+import BackstabDiagram from '../../../components/farming/BackstabDiagram.astro';
+import { items, tags, nameOf } from '../../../lib/data';
+import { chestName } from '../../../lib/describe';
+import { knife, vanilla, colony } from '../../../data/code/farming';
+
+export const order = ['flint_knife', 'copper_knife', 'iron_knife', 'diamond_knife', 'netherite_knife', 'golden_knife'];
+export const knives = order.map((k) => items[`farmersdelight:${k}`]).filter((k) => tags.resolved.item['farmersdelight:tools/knives'].includes(k.id));
+export const mining = (k) => k.tool.rules.find((r) => r.blocks === '#farmersdelight:mineable/knife').speed;
+export const repair = (k) => k.repairWith.replace(/^#minecraft:/, '').replace(/_tool_materials$/, '').replace('gold', 'golden') + ' tools';
+export const bs = knife.backstab.value;
+export const mult = (l) => +(bs.base + bs.perLevel * (l - 1)).toFixed(2);
+export const ench = tags.resolved.enchantment;
+export const enchTags = items['farmersdelight:iron_knife'].tags.filter((t) => t.startsWith('minecraft:enchantable/')).map((t) => t.replace('minecraft:enchantable/', '').replaceAll('_', ' '));
+export const mineable = tags.resolved.block['farmersdelight:mineable/knife'];
+export const fdMineable = mineable.filter((b) => b.startsWith('farmersdelight:'));
+export const vanillaGroups = [
+	['wool blocks, slabs and stairs', mineable.filter((b) => /_wool(_slab|_stairs)?$/.test(b)).length],
+	['carpets', mineable.filter((b) => /_carpet$/.test(b)).length],
+	['cakes and candle cakes', mineable.filter((b) => /cake$/.test(b) && b.startsWith('minecraft:')).length],
+];
+export const vanillaOther = mineable.filter((b) => b.startsWith('minecraft:') && !/_wool(_slab|_stairs)?$|_carpet$|cake$/.test(b));
+export const fireproof = knives.filter((k) => k.fireResistant);
+export const piglin = knives.filter((k) => k.tags.includes('minecraft:piglin_loved'));
+export const chests = [...new Set(knives.flatMap((k) => k.chests ?? []))].map(chestName);
+export const getBs = [
+	ench['minecraft:in_enchanting_table']?.includes('farmersdelight:backstabbing') && 'the enchanting table',
+	ench['minecraft:tradeable']?.includes('farmersdelight:backstabbing') && 'librarian trades',
+	ench['minecraft:on_random_loot']?.includes('farmersdelight:backstabbing') && 'randomly enchanted loot',
+].filter(Boolean);
+export const behind = Math.round(180 - (Math.acos(knife.backstabAngle.value) * 180) / Math.PI);
+
+<div style="float:right;margin:0 0 1rem 1.5rem"><Slot id="farmersdelight:iron_knife" large scale={3} /></div>
+
+Knives are the kitchen tool of Farmer's Delight and a quick, light weapon. You need one for most [Cutting Board](/mechanics/cutting-board/) recipes, and with a knife in hand many kills and harvests give extra drops: ham from pigs, leather from cows, straw from grass, slices from cakes and pies.
+
+## Choosing a knife
+
+<table>
+<thead><tr><th>Knife</th><th>Damage</th><th>Attack speed</th><th>Durability</th><th>Mining speed</th></tr></thead>
+<tbody>
+{knives.map((k) => <tr><td><Item id={k.id} /></td><td>{vanilla.playerAttackDamage.value + k.attackDamage}</td><td>{vanilla.playerAttackSpeed.value + k.attackSpeed}</td><td>{k.durability}</td><td>{mining(k)}</td></tr>)}
+</tbody>
+</table>
+
+Knives hit fast but softly. Each hit or broken block costs 1 durability. Repair a knife in an anvil with the same material as the matching tools; the flint knife, the cheap starter, is repaired like {repair(items['farmersdelight:flint_knife'])}. {fireproof.map((k) => nameOf(k.id)).join(' and ')} {fireproof.length === 1 ? "doesn't" : "don't"} burn in lava or fire.
+
+<RecipeList ids={['flint_knife', 'copper_knife', 'iron_knife', 'golden_knife', 'diamond_knife', 'netherite_knife_smithing']} />
+
+## Extra drops with a knife
+
+Kill with a knife in your main hand, or break the block with one:
+
+<LootModifiers filter="scavenging_" title="Animals, mobs and pumpkins" />
+
+Knives also give [straw](/mechanics/straw-and-rope/#getting-straw) from grass and crops. Break a placed cake or pie with a knife and you get the slices that were left (a cake has {vanilla.cakeMaxBites.value + 1}, a Farmer's Delight pie {knife.pieSlices.value}). Without a knife, a pie drops nothing ([Pies & cakes](/mechanics/pies/)).
+
+## Right-click uses
+
+| On | Right-click with a knife |
+|---|---|
+| Cake | Cuts off one <Item id="cake_slice" />; the last slice takes the cake |
+| Candle cake | Drops the candle and a cake slice, and leaves the cake with one bite gone |
+| Pumpkin | Carves it like shears and drops {knife.pumpkin.value} <Item id="minecraft:pumpkin_seeds" /> |
+| [Mushroom colony](/mechanics/mushroom-colonies/) | Harvests every mushroom at once |
+| Placed pie | Gives you one slice instead of eating it |
+
+Ripe rice panicles broken with a knife drop rice grain and straw instead of the panicle ([Crops](/mechanics/crops/#rice)).
+
+## Backstabbing
+
+**Backstabbing** is a knife enchantment: hit a mob from behind and you deal more damage. It counts when you stand within about {behind}° of straight behind it.
+
+<BackstabDiagram />
+
+At level I it multiplies your damage by ×{mult(1)}, at II by ×{mult(2)}, at III by ×{mult(3)}. A backstab plays the critical-hit sound. It works for mobs holding an enchanted knife too, so watch your back. You can get it from {getBs.slice(0, -1).join(', ')}{getBs.length > 1 ? ' or ' : ''}{getBs[getBs.length - 1]}.
+
+On top of Backstabbing, knives take the enchantments of these groups: {enchTags.join(', ')}. Sweeping Edge doesn't go on a knife.
+
+## Good to know
+
+- Knives cut these quickly and drop them properly: <Chips ids={fdMineable} compact /> plus {vanillaGroups.map(([l, n]) => `${n} ${l}`).join(', ')}, and <Chips ids={vanillaOther} compact />
+- Knives knock mobs back a little less than a bare hand.
+- Knives break decorated pots{piglin.length ? `, and piglins love the ${piglin.map((k) => nameOf(k.id)).join(' and ')} like gold` : ''}.
+- You can find knives in chests: {chests.join(', ')} ([Loot](/mechanics/loot/)).

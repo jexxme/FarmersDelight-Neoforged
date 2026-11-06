@@ -1,0 +1,138 @@
+[
+	{
+		"id": "farmersdelight:wandering_trader/cabbage_emerald",
+		"trader": "wandering_trader",
+		"level": null,
+		"wants": {
+			"id": "minecraft:emerald",
+			"count": 1
+		},
+		"gives": {
+			"id": "farmersdelight:cabbage_seeds",
+			"count": 1
+		},
+		"maxUses": 1,
+		"xp": 12,
+		"priceMultiplier": 0.05,
+		"config": "enableWanderingTraderFDTrades"
+	},
+	{
+		"id": "farmersdelight:wandering_trader/onion_emerald",
+		"trader": "wandering_trader",
+		"level": null,
+		"wants": {
+			"id": "minecraft:emerald",
+			"count": 1
+		},
+		"gives": {
+			"id": "farmersdelight:onion",
+			"count": 1
+		},
+		"maxUses": 1,
+		"xp": 12,
+		"priceMultiplier": 0.05,
+		"config": "enableWanderingTraderFDTrades"
+	},
+	{
+		"id": "farmersdelight:wandering_trader/rice_emerald",
+		"trader": "wandering_trader",
+		"level": null,
+		"wants": {
+			"id": "minecraft:emerald",
+			"count": 1
+		},
+		"gives": {
+			"id": "farmersdelight:rice",
+			"count": 1
+		},
+		"maxUses": 1,
+		"xp": 12,
+		"priceMultiplier": 0.05,
+		"config": "enableWanderingTraderFDTrades"
+	},
+	{
+		"id": "farmersdelight:wandering_trader/tomato_emerald",
+		"trader": "wandering_trader",
+		"level": null,
+		"wants": {
+			"id": "minecraft:emerald",
+			"count": 1
+		},
+		"gives": {
+			"id": "farmersdelight:tomato_seeds",
+			"count": 1
+		},
+		"maxUses": 1,
+		"xp": 12,
+		"priceMultiplier": 0.05,
+		"config": "enableWanderingTraderFDTrades"
+	},
+	{
+		"id": "farmersdelight:farmer/1/onion_emerald",
+		"trader": "farmer",
+		"level": 1,
+		"wants": {
+			"id": "farmersdelight:onion",
+			"count": 26
+		},
+		"gives": {
+			"id": "minecraft:emerald",
+			"count": 1
+		},
+		"maxUses": 16,
+		"xp": 2,
+		"priceMultiplier": 0.05,
+		"config": "enableFarmerFDTrades"
+	},
+	{
+		"id": "farmersdelight:farmer/1/tomato_emerald",
+		"trader": "farmer",
+		"level": 1,
+		"wants": {
+			"id": "farmersdelight:tomato",
+			"count": 26
+		},
+		"gives": {
+			"id": "minecraft:emerald",
+			"count": 1
+		},
+		"maxUses": 16,
+		"xp": 2,
+		"priceMultiplier": 0.05,
+		"config": "enableFarmerFDTrades"
+	},
+	{
+		"id": "farmersdelight:farmer/2/cabbage_emerald",
+		"trader": "farmer",
+		"level": 2,
+		"wants": {
+			"id": "farmersdelight:cabbage",
+			"count": 16
+		},
+		"gives": {
+			"id": "minecraft:emerald",
+			"count": 1
+		},
+		"maxUses": 16,
+		"xp": 5,
+		"priceMultiplier": 0.05,
+		"config": "enableFarmerFDTrades"
+	},
+	{
+		"id": "farmersdelight:farmer/2/rice_emerald",
+		"trader": "farmer",
+		"level": 2,
+		"wants": {
+			"id": "farmersdelight:rice",
+			"count": 20
+		},
+		"gives": {
+			"id": "minecraft:emerald",
+			"count": 1
+		},
+		"maxUses": 16,
+		"xp": 5,
+		"priceMultiplier": 0.05,
+		"config": "enableFarmerFDTrades"
+	}
+]

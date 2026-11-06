@@ -1,0 +1,131 @@
+---
+title: Wild crops & worldgen
+description: Where to find wild cabbages, onions, tomatoes, carrots, potatoes, beetroots and rice, what they drop, and how to multiply them with bone meal.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import WorldgenPanel from '../../../components/farming/WorldgenPanel.astro';
+import BiomeFilter from '../../../components/farming/BiomeFilter.astro';
+import { worldgen, modifiers, pct } from '../../../lib/data';
+import { wild, wildStew, flowerSeconds } from '../../../data/code/farming';
+import { blockTag, biomeGroups } from '../../../data/code/farming-world';
+
+
+export const wg = (n) => worldgen.find((w) => w.id === `farmersdelight:${n}`);
+export const order = ['wild_cabbages', 'wild_beetroots', 'wild_onions', 'wild_carrots', 'wild_potatoes', 'wild_tomatoes', 'wild_rice'];
+export const where = (n) => biomeGroups(wg(n).biomes).map(([g]) => g).filter((g) => g !== 'Oceans' && g !== 'Underground').join(', ');
+export const shrubStraw = modifiers.find((m) => m.id === 'farmersdelight:straw_from_sandy_shrub').raw.condition.terms.find((t) => t.type.endsWith('random_chance')).chance;
+export const sameColonies = wg('brown_mushroom_colony').rarity === wg('red_mushroom_colony').rarity;
+export const ground = [...blockTag('minecraft:substrate_overworld'), ...blockTag('minecraft:sand')];
+
+<Render name="scenes/wild-crops" size={240} float="right" caption="Wild crops on grass and sand" />
+
+Wild crops are where every Farmer's Delight farm starts. They look like leafy tufts with a small flower on top and break as easily as tall grass. Break one by hand for its seeds or crop, and a single find is enough to start a field.
+
+Seven kinds grow in the world: <Item id="wild_cabbages" />, <Item id="wild_onions" />, <Item id="wild_tomatoes" />, <Item id="wild_carrots" />, <Item id="wild_potatoes" />, <Item id="wild_beetroots" /> and <Item id="wild_rice" />. Beach patches also bring <Item id="sandy_shrub" plural />.
+
+## Where to find them
+
+Wild crops grow in patches: a fitting chunk only rarely has one, but a patch holds many plants, so when you spot one, look around for more.
+
+<table>
+<thead><tr><th>Plant</th><th>A patch in about</th><th>Look in</th></tr></thead>
+<tbody>
+{order.map((n) => <tr><td><Item id={n} /></td><td>1 in {wg(n).rarity} chunks</td><td>{where(n)}</td></tr>)}
+</tbody>
+</table>
+
+Pick a biome to see what can grow there, and click a plant to jump to its details.
+
+<BiomeFilter />
+
+<Shot src="mechanics/wild-crops-beach.jpg" caption="Wild cabbages, wild beetroots and sandy shrubs growing on a sandy shore." />
+
+## The wild crops
+
+Each card shows the biomes, the ground the plant needs, what grows around it, and what it drops. Breaking with shears gives you the plant itself, to move it into your garden.
+
+### Cabbages
+
+Beaches, on sand, mixed with sandy shrubs. Breaking one by hand sometimes gives a whole cabbage on top of the seeds.
+
+<WorldgenPanel id="farmersdelight:wild_cabbages" drops="wild_cabbages" />
+
+### Sea beet
+
+Sea beet is the wild beetroot. It grows on the same beaches as cabbages, often on the same stretch of sand.
+
+<WorldgenPanel id="farmersdelight:wild_beetroots" drops="wild_beetroots" />
+
+### Onions
+
+One of the most widespread: mild grassland, forests and swamps. Wild onions grow among alliums and drop a few alliums too.
+
+<WorldgenPanel id="farmersdelight:wild_onions" drops="wild_onions" />
+
+### Carrots
+
+The same mild biomes as onions. Look for a patch of coarse dirt in the grass.
+
+<WorldgenPanel id="farmersdelight:wild_carrots" drops="wild_carrots" />
+
+### Potatoes
+
+Cold taigas and windswept hills, among ferns.
+
+<WorldgenPanel id="farmersdelight:wild_potatoes" drops="wild_potatoes" />
+
+### Tomato shrub
+
+The tomato shrub is the wild tomato: hot, dry biomes such as deserts, savannas and badlands, among dead bushes. They never grow in wet biomes like jungles, and they take sand as well as dirt.
+
+<WorldgenPanel id="farmersdelight:wild_tomatoes" drops="wild_tomatoes" />
+
+### Rice
+
+Wild rice is two blocks tall and stands in shallow water in swamps, jungles and on beaches.
+
+<WorldgenPanel id="farmersdelight:wild_rice" drops="wild_rice" dropPools={[0]} />
+
+### Mushroom colonies
+
+Brown and red [mushroom colonies](/mechanics/mushroom-colonies/) grow on mycelium in mushroom fields, at a random size. Out there they never grow any bigger: colonies only grow on Rich Soil. {sameColonies ? 'Red colonies generate exactly like brown ones.' : ''}
+
+<WorldgenPanel id="farmersdelight:brown_mushroom_colony" />
+
+## Spreading and replanting
+
+**Bone meal makes more.** On a wild cabbage, onion, tomato, carrot, potato or beetroot it works {pct(wild.bonemealChance.value, 0)} of the time and plants one copy a few blocks away. It stops once there are {wild.spreadLimit.value} of the same plant within {wild.spreadArea.value.xz} blocks. On wild rice it works {pct(wild.riceBonemeal.value, 0)} of the time and drops a <Item id="wild_rice" /> item instead of spreading.
+
+**Sandy shrubs** never generate alone; they only come with beach patches. They need sand below them. Bone meal always works on a shrub and puts a fresh ring of shrubs around it, and breaking one with a [knife](/mechanics/knives/) gives <Item id="straw" /> {pct(shrubStraw, 0)} of the time.
+
+**Replanting.** Wild crops go back down on <Chips ids={ground} compact />, so you can collect them with shears and plant a decorative patch at home.
+
+## Cutting and cooking
+
+A [Cutting Board](/mechanics/cutting-board/) and a knife turn wild crops into seeds or crops plus a dye.
+
+<RecipeList type="farmersdelight:cutting" filter="cutting/wild_" />
+
+Six of them count as small flowers, so they also work in suspicious stew:
+
+<table>
+<thead><tr><th>Wild crop</th><th>Stew effect</th></tr></thead>
+<tbody>
+{wildStew.value.map(([b, e, s]) => (
+	<tr><td><Item id={b} /></td><td><EffectBadge id={e} ticks={Math.floor(s * flowerSeconds.value)} /></td></tr>
+))}
+</tbody>
+</table>
+
+## Good to know
+
+- You can't place a block straight into a wild crop the way you can with grass. Break it first.
+- They burn, and fire runs through a patch quickly.
+- Oceans and caves show up in some biome lists, but a patch there needs dry ground under open sky, so you will hardly ever find one.
+- Rich Soil gives wild crops no free bone meal.

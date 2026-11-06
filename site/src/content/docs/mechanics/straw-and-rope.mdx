@@ -1,0 +1,81 @@
+---
+title: Straw, rope & nets
+description: Where to get straw in Farmer's Delight Neoforged, and how rope, rope fences, safety nets, bales, tatami, canvas and canvas rugs work.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import LootModifiers from '../../../components/farming/LootModifiers.astro';
+import { items, seconds } from '../../../lib/data';
+import { rope, net, bales, vanilla } from '../../../data/code/farming';
+
+export const fuelItems = ['straw', 'rope', 'safety_net', 'rope_fence', 'rope_fence_gate', 'straw_bale', 'canvas', 'canvas_rug', 'tatami', 'full_tatami_mat', 'half_tatami_mat'].map((k) => items[`farmersdelight:${k}`]).filter((i) => i.fuel);
+
+<Render name="blocks/rope" size={160} float="right" caption="Rope" />
+
+<Item id="straw" /> is the fibre of Farmer's Delight. You get it by cutting grass and crops with a [knife](/mechanics/knives/), and it becomes rope, canvas, bales and mats.
+
+## Getting straw
+
+Hold any knife and break grass, fully grown wheat, ripe rice panicles or sandy shrubs:
+
+<LootModifiers ids={['farmersdelight:straw_from_grass', 'farmersdelight:straw_from_sandy_shrub', 'farmersdelight:straw_from_mature_wheat', 'farmersdelight:straw_from_mature_rice']} />
+
+Unripe wheat and rice give no straw. The [Cutting Board](/mechanics/cutting-board/) turns rice panicles, wild rice and bamboo blocks into straw too, and it all goes into rope, canvas and the rest:
+
+<RecipeList ids={['cutting/rice_panicle', 'cutting/wild_rice', 'cutting/bamboo_block', 'rope', 'straw_bale', 'canvas', 'tatami', 'lead_from_straw', 'packed_mud_from_straw']} />
+
+## Rope
+
+<Item id="rope" /> is a thin column you can climb like a ladder, with nothing to bump into. It doesn't need support, so you can hang it from a ceiling or stretch it through mid-air.
+
+- **Placing.** Put against the side of a block, rope ties onto it; it also links up with walls, iron bars and other rope next to it.
+- **Hanging it down.** Right-click any rope in a column with more rope in your hand and the new piece goes on at the bottom, so you can lower a long rope from the top without climbing down. It extends through water, but not through lava.
+- **Pulling it up.** Sneak and right-click a rope with an empty hand to reel in the bottom piece; it goes straight into your inventory. Server owners can turn this off in the [config](/reference/config/).
+- **Bells.** Rope right under a bell gets tied to it. Right-click the column with an empty hand (without sneaking) to ring the bell at the top, up to {rope.bell.value} ropes above you. A bell pull for your village or base.
+- **Tomatoes.** [Tomato vines](/mechanics/crops/#climbing-rope) climb rope and give you a tall tomato wall.
+
+### Rope fence and gate
+
+<Item id="rope_fence" /> joins other rope fences, rope fence gates and solid blocks, but not wooden fences. Leads tie to it like to any fence. The <Item id="rope_fence_gate" /> blocks the way when closed and lets everything through when open.
+
+<RecipeList ids={['rope_fence', 'rope_fence_gate']} />
+
+## Safety nets and bales
+
+<Item id="safety_net" /> is a thin net ({net.shape.value.to - net.shape.value.from} pixels) halfway up its block. Land on it and you take **no fall damage**, and it bounces you back up, keeping {Math.round(net.bounce.value * 100)}% of your falling speed. Sneak as you land to stop the bounce, but then you take normal fall damage. Nets can sit in water.
+
+<RecipeList ids={['safety_net', 'rope_from_safety_net']} />
+
+**Bales soften falls too.** A <Item id="straw_bale" /> works like a hay bale and a <Item id="rice_bale" /> does the same: falling on {vanilla.hayFallFactor.value === bales.riceFall.value ? `either does only ${Math.round(bales.riceFall.value * 100)}% of the damage` : `a straw bale does ${Math.round(vanilla.hayFallFactor.value * 100)}% of the damage, on a rice bale ${Math.round(bales.riceFall.value * 100)}%`}. A campfire on top of either one sends up tall signal smoke, like on hay.
+
+<RecipeList ids={['straw_bale', 'rice_bale']} />
+
+## Tatami and canvas
+
+<Item id="tatami" /> is a woven block that pairs up. Place a tatami against an unpaired one and the two join into one long mat; sneak to place it on its own. Breaking one half unpairs the other.
+
+<Item id="full_tatami_mat" /> is a two-block floor mat you place like a bed, and <Item id="half_tatami_mat" /> covers one block. Both need a block under them.
+
+<RecipeList ids={['tatami', 'full_tatami_mat', 'half_tatami_mat', 'full_tatami_mat_from_halves', 'tatami_block_from_full']} />
+
+<Item id="canvas" /> goes into [canvas signs](/mechanics/storage-and-decoration/#canvas-signs), paintings, scaffolding and books. A <Item id="canvas_rug" /> is a paper-thin floor covering that lets sunlight through, handy on top of an [Organic Compost](/mechanics/organic-compost/) heap.
+
+<RecipeList ids={['canvas_rug', 'canvas_from_canvas_rug', 'painting_from_canvas', 'scaffolding_from_canvas', 'book_from_canvas']} />
+
+## Good to know
+
+Everything here burns in a furnace:
+
+<table>
+<thead><tr><th>Item</th><th>Burns for</th></tr></thead>
+<tbody>
+{fuelItems.map((i) => <tr><td><Item id={i.id} /></td><td>{seconds(i.fuel)}</td></tr>)}
+</tbody>
+</table>
+
+- Knives break these quickly: <Chips tag="farmersdelight:straw_blocks" compact />
+- You can climb rope and tomatoes on rope.
+- Only rope can go into a rope's spot; any other block won't replace it.

@@ -1,0 +1,186 @@
+---
+// The Cooking Pot pipeline: ingredients -> heat -> cook time -> meal slot -> container -> output.
+// Laid out in HTML (pixel font at 20px) as a 3x2 snake on wide screens and a single column on phones.
+import Slot from '../mc/Slot.astro';
+import { recipeById, url, renderOf, nameOf } from '../../lib/data';
+import { pot, timesAsFast } from '../../data/code/cooking';
+interface Props {
+	recipe?: string;
+}
+const r = recipeById.get(`farmersdelight:${Astro.props.recipe ?? 'cooking/beef_stew'}`)!;
+const ing = Array.from({ length: pot.maxIngredients.value }, (_, i) => r.ingredients![i] ?? null);
+const flame = url('/gui/mc/lit_progress.png');
+const hopper = renderOf('heat/minecraft-hopper');
+---
+<figure class="fd-potflow not-content">
+	<ol class="steps">
+		<li class="s1">
+			<span class="n">1</span>
+			<div class="vis grid">{ing.map((i) => <Slot ingredient={i} scale={1.5} />)}</div>
+			<div class="txt"><b>Ingredients</b><span>1 to {pot.maxIngredients.value} items, any order</span></div>
+		</li>
+		<li class="s2 hot">
+			<span class="n">2</span>
+			<div class="vis"><img src={flame} alt="" width="42" height="42" class="px" />{hopper && <img src={hopper} alt="" width="48" height="48" />}</div>
+			<div class="txt"><b>Heat</b><span>something hot below, or below a hopper</span></div>
+		</li>
+		<li class="s3 hot">
+			<span class="n">3</span>
+			<div class="vis"><span class="bar"><span /></span></div>
+			<div class="txt"><b>Cooking</b><span>fills while hot, drains {timesAsFast(pot.decay.value, pot.cookStep.value)} when not</span></div>
+		</li>
+		<li class="s4">
+			<span class="n">4</span>
+			<div class="vis"><Slot id={r.result!.id} count={pot.mealCap.value} scale={2} /></div>
+			<div class="txt"><b>Meal slot</b><span>up to {pot.mealCap.value} servings of one meal</span></div>
+		</li>
+		<li class="s5">
+			<span class="n">5</span>
+			<div class="vis">{r.container && <Slot id={r.container.id} scale={2} />}</div>
+			<div class="txt"><b>Container</b><span>one per serving: bowl, bottle…</span></div>
+		</li>
+		<li class="s6">
+			<span class="n">6</span>
+			<div class="vis"><Slot id={r.result!.id} scale={2} /></div>
+			<div class="txt"><b>Output</b><span>take it, or let a hopper pull it</span></div>
+		</li>
+	</ol>
+	<figcaption>Shown with {nameOf(r.result!.id)}. If a meal needs no container, step 5 is skipped and it goes straight to the output.</figcaption>
+</figure>
+<style>
+	.fd-potflow {
+		margin: 30px 0;
+	}
+	.steps {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-areas: 's1 s2 s3' 's6 s5 s4';
+		gap: 30px;
+	}
+	.s1 { grid-area: s1; }
+	.s2 { grid-area: s2; }
+	.s3 { grid-area: s3; }
+	.s4 { grid-area: s4; }
+	.s5 { grid-area: s5; }
+	.s6 { grid-area: s6; }
+	li {
+		position: relative;
+		margin: 0 !important;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		padding: 14px 14px 10px;
+		background: var(--fd-surface);
+		border: 3px solid var(--fd-frame);
+		box-shadow: 4px 4px 0 #000;
+		font-size: 20px;
+		line-height: 30px;
+	}
+	li.hot {
+		border-color: var(--fd-orange-frame);
+	}
+	/* arrows between steps: pixel triangles */
+	li::after {
+		content: '';
+		position: absolute;
+		width: 0;
+		height: 0;
+		border: 8px solid transparent;
+	}
+	.s1::after,
+	.s2::after {
+		right: -27px;
+		top: 50%;
+		border-left: 10px solid var(--sl-color-gray-3);
+		margin-top: -8px;
+	}
+	.s3::after {
+		bottom: -29px;
+		left: 50%;
+		border-top: 10px solid var(--sl-color-gray-3);
+		margin-left: -8px;
+	}
+	.s4::after,
+	.s5::after {
+		left: -27px;
+		top: 50%;
+		border-right: 10px solid var(--sl-color-gray-3);
+		margin-top: -8px;
+	}
+	.n {
+		position: absolute;
+		top: -3px;
+		left: -3px;
+		width: 30px;
+		height: 30px;
+		display: grid;
+		place-items: center;
+		background: var(--fd-orange-paper);
+		color: var(--fd-orange-ink);
+		box-shadow: inset 0 0 0 2px var(--fd-orange-frame);
+	}
+	.vis {
+		min-height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+	.vis.grid {
+		display: grid;
+		grid-template-columns: repeat(3, auto);
+		justify-content: center;
+		gap: 0;
+	}
+	.px {
+		image-rendering: pixelated;
+	}
+	.bar {
+		width: 120px;
+		height: 20px;
+		background: #000;
+		border: 2px solid var(--sl-color-gray-4);
+		display: block;
+	}
+	.bar span {
+		display: block;
+		width: 60%;
+		height: 100%;
+		background: var(--fd-orange);
+	}
+	.txt {
+		display: flex;
+		flex-direction: column;
+		color: var(--sl-color-gray-2);
+	}
+	.txt b {
+		color: var(--fd-heading-ink);
+	}
+	figcaption {
+		margin-top: 16px;
+		font-size: 20px;
+		color: var(--sl-color-gray-3);
+	}
+	@media (max-width: 50rem) {
+		.steps {
+			grid-template-columns: 1fr;
+			grid-template-areas: 's1' 's2' 's3' 's4' 's5' 's6';
+		}
+		.s1::after,
+		.s2::after,
+		.s3::after,
+		.s4::after,
+		.s5::after {
+			left: 50%;
+			right: auto;
+			top: auto;
+			bottom: -29px;
+			margin: 0 0 0 -8px;
+			border: 8px solid transparent;
+			border-top: 10px solid var(--sl-color-gray-3);
+		}
+	}
+</style>

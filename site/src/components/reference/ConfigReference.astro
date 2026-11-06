@@ -1,0 +1,155 @@
+---
+// The settings of one config file (config.json, read from the mod's config spec by extract.mjs), grouped by section,
+// with the in-game names from the mod's language file and a plain note on what each one does.
+// <ConfigReference file="farmersdelight-common.toml" />, or <ConfigReference file="…" toml /> for the default file.
+import { Code } from '@astrojs/starlight/components';
+import { config, url, nameOf, pct, vanillaFoods } from '../../lib/data';
+import { configNotes } from '../../data/code/reference-config';
+import { stackableSoups, timeText } from '../../data/code/reference';
+import { ticksPerRandomTick } from '../../data/code/farming';
+import { readRepoJson } from './repo';
+interface Props {
+	file: string;
+	toml?: boolean;
+}
+const { file, toml = false } = Astro.props;
+const lang: Record<string, string> = readRepoJson('src/main/resources/assets/farmersdelight/lang/en_us.json');
+const label = (key: string) => lang[`farmersdelight.configuration.${key}`] ?? key;
+// The heart overlay option is left out: nothing in the mod gives its effect any more.
+const rows = config.filter((c) => c.file === file && c.key !== 'enableComfortHealthOverlay');
+const sections = [...new Set(rows.map((c) => c.section as string))];
+
+const human = (s: string) => s.replaceAll('_', ' ');
+const list = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs.join(''));
+function shown(c: any): string {
+	const v = c.default;
+	if (c.type === 'boolean') return v ? 'On' : 'Off';
+	if (c.type === 'decimal' && c.range?.[1] === 1) return pct(v);
+	if (Array.isArray(v)) return list(v.map((x: string) => (x.includes(':') ? nameOf(x) : human(x))));
+	if (typeof v === 'string' && v.includes(':')) return nameOf(v);
+	return String(v);
+}
+function range(c: any): string | null {
+	if (!c.range) return null;
+	const [lo, hi] = c.range;
+	return c.type === 'decimal' && hi === 1 ? `${pct(lo)} to ${pct(hi)}` : `${lo} to ${hi}`;
+}
+const turnSeconds = Math.round(ticksPerRandomTick() / 20);
+const rabbit = vanillaFoods.find((v) => v.id === 'minecraft:rabbit_stew');
+/** Extra sentences built from data, per option. */
+const extra: Record<string, (c: any) => string> = {
+	richSoilBoostChance: () => `A block gets its turn on average every ${turnSeconds} seconds.`,
+	cuttingBoardFortuneBonus: (c) => `With the default, a Fortune III knife adds ${pct(c.default * 3)}.`,
+	enableRabbitStewBuff: () => {
+		if (!rabbit) return '';
+		const nour = rabbit.consumable?.effects?.find((e: any) => e.id === 'farmersdelight:nourishment')?.duration;
+		return `With it on, Rabbit Stew restores ${rabbit.nutrition} hunger and ${+rabbit.saturation.toFixed(1)} saturation${nour ? ` and gives ${timeText(nour)} of Nourishment` : ''}.`;
+	},
+	enableStackableSoupItems: () => `They stack to ${stackableSoups.value}.`,
+};
+const whenText = {
+	reload: 'A change applies the next time the world loads, or after /reload.',
+	restart: 'A change applies after a game restart. On a server, players need the same setting as the server.',
+	new: 'Only affects villages generated after the change.',
+};
+
+const fmt = (v: unknown): string => (Array.isArray(v) ? `[${v.map(fmt).join(', ')}]` : typeof v === 'string' ? `"${v}"` : String(v));
+function tomlOf() {
+	const out: string[] = [];
+	let section: string | null = null;
+	for (const c of rows) {
+		if (c.section !== section) {
+			section = c.section;
+			if (section) out.push((out.length ? '\n' : '') + `[${section}]`);
+		}
+		const ind = section ? '\t' : '';
+		for (const line of c.comment) out.push(`${ind}# ${line}`);
+		out.push(`${ind}${c.key} = ${fmt(c.default)}`);
+	}
+	return out.join('\n');
+}
+---
+{
+	toml ? (
+		<Code code={tomlOf()} lang="toml" title={file} />
+	) : (
+		sections.map((s) => (
+			<>
+				{s && <h3 id={`${file.replace('.toml', '')}-${s}`}>{label(s.split('.').pop()!)}</h3>}
+				<dl class="cfg">
+					{rows
+						.filter((c) => c.section === s)
+						.map((c) => {
+							const n = configNotes[c.key];
+							const r = range(c);
+							const more = extra[c.key]?.(c);
+							return (
+								<div class="cfg-row ref-target" id={c.key}>
+									<dt>
+										<strong>{label(c.key)}</strong> <code class="cfg-key">{c.key}</code>
+									</dt>
+									<dd>
+										<p>
+											{n?.text ?? c.comment.join(' ')} {more}
+										</p>
+										<p class="cfg-meta">
+											Default: <b>{shown(c)}</b>
+											{r && <>. Range {r}</>}.{n?.when && <> {whenText[n.when]}</>}
+											{n?.link && (
+												<>
+													{' '}
+													<a href={url(n.link)}>More</a>
+												</>
+											)}
+										</p>
+									</dd>
+								</div>
+							);
+						})}
+				</dl>
+			</>
+		))
+	)
+}
+<style>
+	.cfg {
+		margin: 10px 0 30px;
+	}
+	.cfg-row {
+		padding: 10px 0 12px;
+		border-bottom: 2px solid var(--fd-border);
+		scroll-margin-top: 6rem;
+	}
+	.cfg-row:last-child {
+		border-bottom: 0;
+	}
+	.cfg dt {
+		margin: 0;
+		font-weight: 400;
+	}
+	.cfg dt strong {
+		color: var(--fd-heading-ink);
+		font-weight: 400;
+	}
+	.cfg-key {
+		font-family: var(--sl-font);
+		font-size: 20px;
+		color: var(--sl-color-gray-3);
+		background: none;
+		padding: 0 0 0 8px;
+		overflow-wrap: anywhere;
+	}
+	.cfg dd {
+		margin: 2px 0 0;
+	}
+	.cfg dd p {
+		margin: 0;
+	}
+	.cfg-meta {
+		color: var(--sl-color-gray-3);
+	}
+	.cfg-meta b {
+		font-weight: 400;
+		color: var(--sl-color-white);
+	}
+</style>

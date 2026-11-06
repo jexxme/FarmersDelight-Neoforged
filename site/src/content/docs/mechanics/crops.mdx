@@ -1,0 +1,132 @@
+---
+title: Crops
+description: How to grow cabbages, onions, tomatoes and rice in Farmer's Delight Neoforged, how long they take, what they drop and how bone meal works on them.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import BlockDrops from '../../../components/farming/BlockDrops.astro';
+import TomatoClimb from '../../../components/farming/TomatoClimb.astro';
+import { blocks, trades, tags, nameOf, pct } from '../../../lib/data';
+import { crops, vanilla, cropRoll, oneIn, checksToTime, checkSeconds, bonemealSplit } from '../../../data/code/farming';
+
+export const ages = (b) => blocks[`farmersdelight:${b}`].properties.age.length;
+export const field = cropRoll(1 + 3 + 8 * (3 / 4)); // vanilla crop speed on moist farmland with moist farmland all around
+export const dense = cropRoll((1 + 3 + 8 * (3 / 4)) / 2);
+export const vine = cropRoll(crops.tomatoSpeed.value);
+export const rice = cropRoll(crops.riceChance.value);
+export const panicle = cropRoll(1);
+export const tomatoTime = (crops.budMaxAge.value + 1) / field + crops.tomatoMaxAge.value / vine;
+export const vineMeal = bonemealSplit(crops.tomatoBonemeal.value);
+export const panicleMeal = bonemealSplit(crops.paniclesBonemeal.value);
+export const panicleMiss = panicleMeal.find((x) => x.stages === 0)?.chance ?? 0;
+export const wandering = trades.filter((t) => t.trader === 'wandering_trader');
+export const planted = tags.resolved.item['minecraft:villager_plantable_seeds'].filter((i) => i.startsWith('farmersdelight:'));
+
+<Render name="scenes/garden" size={240} float="right" caption="A small Farmer's Delight garden" />
+
+Farmer's Delight adds four crops. <Item id="cabbage" /> and <Item id="onion" /> grow just like wheat. <Item id="tomato" label="Tomatoes" /> start as a bush, turn into a vine you can pick again and again, and climb rope. <Item id="rice" /> grows in shallow water and pushes up panicles on top.
+
+You can't buy these crops from farmers, so your first seeds come from [wild crops](/mechanics/wild-crops/), village farms, chests or the wandering trader (see [getting seeds](#getting-seeds)).
+
+## Planting and growing
+
+Each crop gets a chance to grow one stage every so often: on average every {checkSeconds()} seconds. In a normal field on moist farmland that chance is {oneIn(field)}. Crops need light to grow, and the times below are averages without bone meal or [Rich Soil](/mechanics/rich-soil/).
+
+| Crop | Plant it on | Light | Ready in about |
+|---|---|---|---|
+| <Item id="cabbage_seeds" /> | farmland | {vanilla.cropRandomTick.value}+ | {checksToTime((ages('cabbages') - 1) / field)} |
+| <Item id="onion" /> | farmland | {vanilla.cropRandomTick.value}+ | {checksToTime((ages('onions') - 1) / field)} |
+| <Item id="tomato_seeds" /> | farmland | {crops.budTick.value}+ | {checksToTime(tomatoTime)} to the first tomatoes |
+| <Item id="rice" /> | water, one block deep | {crops.riceTick.value}+ above the water | {checksToTime(ages('rice') / rice)} to the first panicles |
+| <Item id="rice_panicle" label="Rice panicles" /> | grow on top of rice | {vanilla.cropRandomTick.value}+ | {checksToTime((ages('rice_panicles') - 1) / panicle)} more |
+
+**Plant in rows, not solid blocks.** Like wheat, a crop grows half as fast ({oneIn(dense)}) when the same crop sits next to it on two sides at a right angle, or on a diagonal. Single rows with a different crop or a water channel in between stay at full speed.
+
+## Cabbages and onions
+
+Plant <Item id="cabbage_seeds" /> or an <Item id="onion" /> on farmland and wait. Both have {ages('cabbages')} stages. A ripe cabbage gives a head and seeds, often several seeds. An onion is its own seed, and even an unripe onion gives the onion back, so breaking one early costs you nothing.
+
+<BlockDrops
+	title="Cabbage and onion"
+	parts={[
+		{ block: 'cabbages', label: 'Cabbage', stages: true },
+		{ block: 'onions', label: 'Onion', stages: true },
+	]}
+/>
+
+## Tomatoes
+
+<Item id="tomato_seeds" /> grow into a small bush first. After {crops.budMaxAge.value + 1} stages the bush turns into a tomato vine, which needs {crops.tomatoMaxAge.value} more stages to fruit.
+
+**Pick ripe tomatoes with an empty hand.** Right-click a ripe vine to get {crops.tomatoHarvest.value.min} or {crops.tomatoHarvest.value.max} tomatoes, with a {pct(crops.tomatoHarvest.value.rotten, 0)} chance of an extra <Item id="rotten_tomato" />. The vine drops back to its first vine stage and grows new fruit, so you never replant. Breaking a ripe vine gives the tomatoes and a seed back, and the vine is gone.
+
+<BlockDrops
+	title="Tomato"
+	parts={[
+		{ block: 'budding_tomatoes', label: 'Tomato bush', stages: true, last: 'to vine' },
+		{ block: 'tomatoes', label: 'Tomato vine', stages: true },
+		{ block: 'tomatoes_on_rope', label: 'Tomatoes on rope', stages: true },
+	]}
+/>
+
+### Climbing rope
+
+Hang <Item id="rope" /> above a vine and it climbs. Every so often the top of the vine grows onto the rope above, ripe or not, until it covers {crops.tomatoClimb.value} rope blocks. Each rope block becomes its own vine that ripens and gets picked on its own, so one seed can give you {crops.tomatoClimb.value + 1} vines' worth of tomatoes.
+
+<TomatoClimb />
+
+Vines on rope need light {crops.tomatoSurvive.value}+ or a view of the sky to stay alive. Breaking one leaves the rope in place, ready for the vine below to climb again.
+
+<Shot src="mechanics/rich-soil-farm.jpg" caption="Rich Soil Farmland with cabbages and onions, and tomatoes climbing a rope trellis behind." />
+
+## Rice
+
+Plant <Item id="rice" /> in a **full water source block, one block deep**, standing on <Chips tag="minecraft:substrate_overworld" compact />. It won't go into flowing water, and clicking dry dirt or farmland with rice shows a hint instead. Rice checks the light **just above the water** ({crops.riceTick.value}+), not at the plant.
+
+After {ages('rice')} stages, mature rice grows <Item id="rice_panicle" label="Rice Panicles" /> on top if the space above is free. The panicles have {ages('rice_panicles')} stages of their own and need light {crops.paniclesSurvive.value}+ or open sky.
+
+**Harvest the panicles, not the rice.** Ripe panicles drop a <Item id="rice_panicle" />, or rice grain plus <Item id="straw" /> if you break them with a [knife](/mechanics/knives/). Unripe panicles drop nothing. Breaking the plant in the water gives back one grain and takes the panicles with it.
+
+<BlockDrops
+	title="Rice"
+	parts={[
+		{ block: 'rice', label: 'Rice (in the water)', stages: true, last: 'mature' },
+		{ block: 'rice_panicles', label: 'Rice panicles (on top)', stages: true },
+	]}
+/>
+
+**Speed up the panicles.** They grow slowly on their own ({oneIn(panicle)} each time, about {checksToTime((ages('rice_panicles') - 1) / panicle)} from first to ripe). Put [Rich Soil](/mechanics/rich-soil/) under the rice: its free bone meal goes to the rice, and mature rice passes it on to the panicles.
+
+## Bone meal
+
+| Plant | One bone meal does |
+|---|---|
+| Cabbage, onion | +{vanilla.cropBonemeal.value.min} to {vanilla.cropBonemeal.value.max} stages, like wheat |
+| Tomato bush | Always works: +{crops.budBonemeal.value.min} to {crops.budBonemeal.value.max} stages; growth past the bush carries over into the vine |
+| Tomato vine | +{vineMeal.map((x) => x.stages).join(' or ')} stages, with a {pct(crops.tomatoBonemealClimb.value, 0)} chance to also climb the rope above. On a ripe vine it climbs, or feeds the vine above |
+| Rice | Always works: +{crops.riceBonemeal.value.min} to {crops.riceBonemeal.value.max} stages; extra growth goes into the panicles. Not once the panicles are ripe |
+| Rice panicles | +1 stage, but {pct(panicleMiss, 0)} of the time nothing happens |
+
+Bone meal works the same by hand, from a dispenser or from [Rich Soil](/mechanics/rich-soil/). One exception: right-clicking a *ripe* tomato vine with bone meal picks the tomatoes, as with an empty hand, and keeps your bone meal. To push a ripe vine up its rope, use a dispenser.
+
+## Getting seeds
+
+- **Wild crops.** Break <Item id="wild_cabbages" />, <Item id="wild_tomatoes" />, <Item id="wild_onions" /> or <Item id="wild_rice" /> for seeds, or cut them on a [Cutting Board](/mechanics/cutting-board/). [Wild crops](/mechanics/wild-crops/) shows where they grow.
+- **Village farms.** Every kind of village grows some Farmer's Delight crops on its farms ([Villagers](/mechanics/villagers/#crops-on-village-farms)). Break a few and you have seeds.
+- **Chests.** Shipwrecks, mineshafts, dungeons and village houses carry seeds and crops ([Loot](/mechanics/loot/)).
+- **Wandering trader.** Sells {wandering.map((t) => nameOf(t.gives.id)).join(', ')} for {wandering[0].wants.count} emerald each ([Villagers](/mechanics/villagers/)).
+- **Your own crops.** Tomatoes and rotten tomatoes craft into seeds, and rice panicles give rice grain.
+
+<RecipeList ids={['cutting/wild_cabbages', 'cutting/wild_tomatoes', 'cutting/wild_onions', 'cutting/wild_rice', 'tomato_seeds', 'rice', 'cutting/rice_panicle']} />
+
+## Good to know
+
+- A tomato vine keeps trying to climb after it ripens, so you can add rope at any time.
+- [Rich Soil Farmland](/mechanics/rich-soil/) can't be trampled and accepts every crop that grows on farmland, other mods' crops included.
+- Rotten tomatoes only come from ripe vines, whether you pick or break them.
+- **Throw rotten tomatoes.** Right-click to throw one, or load them into a dispenser. It does no damage, but it splats on whatever it hits with a juicy squelch: perfect for pranks.
+- Farmer villagers plant {planted.map((i) => nameOf(i)).join(', ')}{planted.includes('farmersdelight:rice') ? '' : ', but not rice'} ([Villagers](/mechanics/villagers/)).

@@ -1,0 +1,79 @@
+---
+title: Mushroom colonies
+description: How to start a mushroom farm with mushroom colonies on Rich Soil, how fast they grow, and how to harvest them with shears or a knife.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import Stages from '../../../components/data/Stages.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import { worldgen, items, pct } from '../../../lib/data';
+import { colony, checksToTime, stageLabels } from '../../../data/code/farming';
+import { lootTable } from '../../../data/code/farming-loot';
+
+export const max = colony.maxAge.value;
+export const growth = 1 / colony.growth.value;
+export const wg = worldgen.find((w) => w.id === 'farmersdelight:brown_mushroom_colony');
+export const breakDrops = lootTable('farmersdelight:blocks/brown_mushroom_colony').pools[0].entries.filter((e) => e.item === 'minecraft:brown_mushroom').map((e) => e.count.min);
+
+<Render name="scenes/colony-farm" size={260} float="right" caption="Colonies on Rich Soil" />
+
+A <Item id="brown_mushroom_colony" /> or <Item id="red_mushroom_colony" /> is a cluster of mushrooms that keeps growing back after you harvest it, like a tomato vine. Colonies only grow on [Rich Soil](/mechanics/rich-soil/), so they're the last step of the compost chain: compost becomes Rich Soil, Rich Soil turns a mushroom into a colony, and the colony gives you mushrooms forever.
+
+<Shot src="mechanics/mushroom-colonies.jpg" caption="Brown and red mushroom colonies at different sizes on a bed of Rich Soil." />
+
+## Starting a mushroom farm
+
+<Steps>
+
+1. Make some [Rich Soil](/mechanics/rich-soil/) from [Organic Compost](/mechanics/organic-compost/).
+
+2. Place a brown or red mushroom on it. The next time the soil gets a turn, the mushroom becomes a small colony. This happens in any light, even in full daylight.
+
+3. Wait for it to grow, then harvest with shears or a knife. The colony stays and grows back.
+
+</Steps>
+
+You can also find colonies on mycelium in mushroom fields (a patch in about 1 in {wg.rarity} chunks, see [Wild crops](/mechanics/wild-crops/#wg-brown_mushroom_colony)). They don't grow there, so take them home: break a full-size one with shears to get the colony itself, and put it on Rich Soil.
+
+## Growing
+
+A colony has {max + 1} sizes. Every so often it gets a {pct(growth, 0)} chance to grow one size, so from the smallest to full size takes about {checksToTime(max / growth)} on average.
+
+<Stages block="brown_mushroom_colony" title="Brown mushroom colony" labels={stageLabels(max + 1, 'full size')} />
+
+**Only on Rich Soil.** A colony on mycelium, podzol or anything else keeps its size forever. Rich Soil Farmland doesn't work either; it has to be plain Rich Soil.
+
+**Bone meal** always works while the colony is below full size and adds {colony.bonemeal.value.min} or {colony.bonemeal.value.max} sizes. It works on any floor, so you can push a wild colony to full size before you take it.
+
+## Harvesting
+
+Right-click a colony that has grown at least once:
+
+- **Shears** take **1** mushroom and shrink the colony by one size. Good for a steady trickle.
+- **A [knife](/mechanics/knives/)** takes **every mushroom it has grown** at once, {max} from a full colony, and puts it back to the smallest size.
+
+Either way the tool loses 1 durability and the colony stays. **Breaking** a colony gives more at once ({breakDrops.join(', ')} mushrooms from smallest to full size), but then it's gone.
+
+## Where colonies survive
+
+A colony stays put on these blocks in any light: <Chips tag="minecraft:overrides_mushroom_light_requirement" compact />
+
+On any other solid block it needs the light to stay below {colony.survive.value}, like a plain mushroom.
+
+## Recipes
+
+A colony on a [Cutting Board](/mechanics/cutting-board/) splits back into mushrooms.
+
+<RecipeList ids={['cutting/brown_mushroom_colony', 'cutting/red_mushroom_colony']} />
+
+## Good to know
+
+- The red colony works exactly like the brown one, with red mushrooms.
+- Colonies speed up nearby [Organic Compost](/mechanics/organic-compost/), like other mushrooms.
+- Rich Soil gives colonies no free bone meal; their own growth is all they get.
+- In a composter a colony always adds a layer ({pct(items['farmersdelight:brown_mushroom_colony'].compost, 0)} chance).
+- Pick-block (middle click) on a colony gives you the plain mushroom.

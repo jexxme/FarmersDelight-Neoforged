@@ -1,0 +1,46 @@
+---
+title: Differences from the original
+description: Coming from vectorwing's Farmer's Delight? What stays the same, and what's new or fixed.
+---
+import Item from '../../components/mc/Item.astro';
+import { meta } from '../../lib/data';
+
+Farmer's Delight Neoforged is vectorwing's Farmer's Delight, brought to Minecraft 26.x on NeoForge. It has the content of Farmer's Delight {meta.modVersion.split('+')[0]}, so if you know the original, you already know this mod. This page covers the few places where it's different.
+
+## What stays the same
+
+The crops, meals, blocks and recipes are the same, with the same names. Switching over is safe:
+
+- Remove the original Farmer's Delight and add this one. Your worlds keep their kitchens, farms and chests.
+- Datapacks, add-on recipes and scripts made for Farmer's Delight keep working, because every item and recipe keeps its name.
+- <Item id="canvas_sign" plural /> from older worlds keep their text, and old Baskets load as <Item id="bamboo_basket" plural />.
+- Your old config file is still read, under the same name.
+
+## What's new or fixed
+
+- **REI support** on Minecraft 26.1.2 and newer, next to JEI. See [Compatibility](/compatibility/).
+- **Fixes for problems the original still has**, from its [issue tracker](https://github.com/vectorwing/FarmersDelight/issues):
+  - <Item id="rope_fence" plural /> and <Item id="rope_fence_gate" plural /> count as fences and fence gates, so recipes and mods that want "any fence" take them.
+  - The <Item id="stove" /> can be lit with any fire starter, including Fire Charges and other mods' flint and steel.
+  - Farmer villagers can compost <Item id="cabbage_seeds" /> and <Item id="tomato_seeds" />.
+  - Shift-clicking meals out of the <Item id="cooking_pot" /> counts toward your crafting statistics.
+  - Modpacks can make their own grasses drop <Item id="straw" /> by adding them to one tag.
+  - Updated translations: Russian, Rusyn, Mexican Spanish, Indonesian, Turkish, Ukrainian and Brazilian Portuguese.
+
+- **Village farms** in every kind of village grow Farmer's Delight crops ([Villagers](/mechanics/villagers/#crops-on-village-farms)). In the original, plains and taiga farms never get cabbages and the other crops are rare.
+
+Everything else that changed, release by release, is in the [changelog](/changelog/).
+
+## Fixed in this release
+
+{meta.modVersion} fixes these problems from the first Neoforged release:
+
+- Placed pies can be eaten with an empty hand ([Pies](/mechanics/pies/#eating-from-the-pie)).
+- <Item id="milk_bottle" />, <Item id="hot_cocoa" /> and <Item id="melon_juice" /> do what they say ([Drinks](/mechanics/drinks/#remedies)).
+- The <Item id="rice_roll_medley_block" /> can be served ([Feasts](/mechanics/feasts/#rice-roll-medley)).
+- <Item id="minecraft:rabbit_stew" /> gives Nourishment with the Rabbit Stew buff on ([Nourishment](/mechanics/effects/#vanilla-soups)).
+- <Item id="onion_soup" />, <Item id="chicken_soup" />, <Item id="fried_rice" /> and <Item id="grilled_salmon" /> have their original food values and Nourishment again.
+- A thrown <Item id="rotten_tomato" /> splats like it should.
+- Rope extends downward, reels back in and rings bells ([Rope](/mechanics/straw-and-rope/#rope)).
+- Bone meal used by hand grows unripe tomato vines.
+- JEI shows the knife info page for the <Item id="copper_knife" /> too.

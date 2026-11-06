@@ -1,0 +1,23 @@
+---
+title: Food reference
+description: Every Farmer's Delight food with hunger, saturation, eating time, effects and stack size, sortable and comparable with vanilla food.
+tableOfContents: false
+---
+import FoodReference from '../../../components/reference/FoodReference.astro';
+import Item from '../../../components/mc/Item.astro';
+import { nourishmentTiers, timeText } from '../../../data/code/reference';
+import { config, itemList, vanillaFoods, soupEffects } from '../../../lib/data';
+
+export const on = (key) => config.find((c) => c.key === key)?.default === true;
+export const rabbit = vanillaFoods.find((v) => v.id === 'minecraft:rabbit_stew');
+export const rabbitSoup = soupEffects.find((s) => s.item === 'minecraft:rabbit_stew');
+export const rabbitNour = rabbit.consumable?.effects.find((e) => e.id === 'farmersdelight:nourishment')?.duration ?? rabbitSoup.duration;
+
+All {itemList.filter((i) => i.food || i.consumable).length} things you can eat or drink, with their real values from the game. The quick answers first, then the full table: sort by any column, pick a kind of food, or tick **Vanilla food too** to compare with Minecraft's own.
+
+<FoodReference />
+
+**Hunger** is what a food fills on your hunger bar; one shank is 2. **Saturation** keeps you full before the bar starts dropping, but you can never have more saturation than hunger, so high-saturation food pays off most when you eat it hungry.
+[Nourishment](/mechanics/effects/) stops your hunger bar from draining and comes in {nourishmentTiers.value.length} lengths: {nourishmentTiers.value.map(([, t]) => timeText(t)).join(', ')}. Bowls and bottles come back when you finish a meal or drink, even from a full stack.
+
+{on('enableVanillaSoupExtraEffects') && <>With the default settings, <Item id="minecraft:mushroom_stew" /> and <Item id="minecraft:beetroot_soup" /> give Nourishment too{on('enableRabbitStewBuff') ? <>, and <Item id="minecraft:rabbit_stew" /> gets better food values, {rabbit.nutrition} hunger and {+rabbit.saturation.toFixed(1)} saturation, plus {timeText(rabbitNour)} of Nourishment</> : <>, and so does <Item id="minecraft:rabbit_stew" /></>}.</>}

@@ -1,0 +1,78 @@
+---
+// "Best food" callouts plus the sortable food table (islands/ref-food.tsx). All values come from items.json,
+// vanilla-foods.json and soup-effects.json.
+import FoodTable from '../islands/ref-food';
+import { foodRows, categoryLabels, best } from './food';
+import { url } from '../../lib/data';
+import { timeText } from '../../data/code/reference';
+import './ref.css';
+import type { FoodRow } from '../islands/ref-food';
+
+const rows = foodRows();
+const fd = rows.filter((r) => !r.vanilla && r.nutrition > 0);
+const maxS = Math.max(...rows.map((r) => r.saturation));
+const fastest = Math.min(...fd.map((r) => r.seconds));
+const quick = fd.filter((r) => r.seconds === fastest);
+const counts = new Map<number, number>();
+for (const r of fd) counts.set(r.seconds, (counts.get(r.seconds) ?? 0) + 1);
+const normal = [...counts].sort((a, b) => b[1] - a[1])[0][0];
+const mealStack = Math.max(...fd.filter((r) => r.category === 'meals').map((r) => r.stack));
+const callouts: { title: string; value: string; note: string; rows: FoodRow[] }[] = [
+	(() => {
+		const b = best(fd, (r) => r.saturation);
+		const n = b.rows[0].nutrition;
+		return { title: 'Most filling', value: `${+b.value.toFixed(1)} saturation`, note: b.rows.length > 1 ? `${b.rows.length} foods tie, all with ${n} hunger; ${b.rows.filter((r) => r.nourishment > 0).length} of them also give Nourishment.` : `It also restores ${n} hunger.`, rows: b.rows };
+	})(),
+	(() => {
+		const b = best(fd, (r) => r.nutrition * r.stack);
+		const r = b.rows[0];
+		return { title: 'Most hunger per stack', value: `${b.value} hunger`, note: `${r.nutrition} per item × stacks of ${r.stack}. Bowl meals stack to ${mealStack}, so handheld food wins on inventory space.`, rows: b.rows };
+	})(),
+	(() => {
+		const b = best(rows.filter((r) => !r.vanilla), (r) => r.nourishment);
+		return { title: 'Longest Nourishment', value: timeText(b.value), note: b.rows.length > 1 ? `${b.rows.length} foods stop your hunger bar from draining that long.` : '', rows: b.rows };
+	})(),
+	(() => {
+		const b = best(quick, (r) => r.nutrition);
+		return { title: 'Best quick bite', value: `${b.value} hunger in ${fastest} s`, note: `Highest hunger among the ${quick.length} foods you eat in ${fastest} s (most foods take ${normal} s).`, rows: b.rows };
+	})(),
+];
+---
+<ul class="fd-best">
+	{
+		callouts.map((c) => (
+			<li>
+				<strong>{c.title}:</strong> {c.value}
+				{c.rows.length <= 3 ? <>, from {c.rows.map((r) => r.name).join(', ')}.</> : '.'} {c.note}{' '}
+				<span class="icons">
+					{c.rows.slice(0, 10).map((r) => (
+						<a href={r.href ?? undefined} data-tip-items={`${r.name}~${r.id}`}>
+							{r.icon && <img src={r.icon} alt={r.name} width="24" height="24" loading="lazy" />}
+						</a>
+					))}
+					{c.rows.length > 10 && <span class="more">+{c.rows.length - 10}</span>}
+				</span>
+			</li>
+		))
+	}
+</ul>
+<FoodTable client:visible rows={rows} cats={categoryLabels} maxS={maxS} shank={{ full: url('/gui/mc/food_full.png'), half: url('/gui/mc/food_half.png') }} />
+<style>
+	.icons {
+		display: inline-flex;
+		flex-wrap: wrap;
+		gap: 2px;
+		vertical-align: -5px;
+	}
+	.icons img {
+		display: block;
+		image-rendering: pixelated;
+	}
+	.icons a:hover img {
+		outline: 2px solid #fff;
+	}
+	.more {
+		color: var(--sl-color-gray-3);
+		margin-left: 4px;
+	}
+</style>

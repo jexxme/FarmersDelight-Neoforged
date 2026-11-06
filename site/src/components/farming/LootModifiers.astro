@@ -1,0 +1,155 @@
+---
+// A table of the mod's extra mob and block drops (modifiers.json), read from each entry's condition: what it adds, from
+// which mob or block, what you need, and the chance. <LootModifiers ids={['farmersdelight:straw_from_grass']} />  or  filter="scavenging_"
+import Slot from '../mc/Slot.astro';
+import Chips from './Chips.astro';
+import { modifiers, tags, nameOf, pct, short } from '../../lib/data';
+interface Props {
+	ids?: string[];
+	filter?: string;
+	title?: string;
+}
+const { ids, filter, title } = Astro.props;
+const list = ids ? (ids.map((i) => modifiers.find((m) => m.id === i)).filter(Boolean) as any[]) : modifiers.filter((m) => !filter || m.id.includes(filter));
+
+type Info = { entities: string[]; blocks: string[]; state: Record<string, string> | null; tool: string | null; attacker: string | null; chance: number | null; looting: any; fire: boolean | null; byPlayer: boolean; noSilk: boolean };
+function read(m: any): Info {
+	const i: Info = { entities: [], blocks: [], state: null, tool: null, attacker: null, chance: null, looting: null, fire: null, byPlayer: false, noSilk: false };
+	const walk = (c: any, negated = false) => {
+		if (!c) return;
+		if (Array.isArray(c)) return c.forEach((x) => walk(x, negated));
+		const t = String(c.type ?? c).replace('minecraft:', '');
+		if (t === 'all_of' || t === 'any_of') return walk(c.terms, negated);
+		if (t === 'inverted') {
+			if (String(c.term).includes('silk_touch')) i.noSilk = true;
+			return walk(c.term, true);
+		}
+		if (t === 'entity_properties') {
+			const p = c.predicate ?? {};
+			if (c.entity === 'this' && p['minecraft:entity_type']) i.entities.push(p['minecraft:entity_type']);
+			if (c.entity === 'this' && p['minecraft:flags']?.is_on_fire !== undefined) i.fire = p['minecraft:flags'].is_on_fire;
+			if (c.entity === 'attacker' && p['minecraft:equipment']?.mainhand?.items) i.attacker = p['minecraft:equipment'].mainhand.items;
+		}
+		if (t === 'match_block') {
+			i.blocks.push(...(Array.isArray(c.blocks) ? c.blocks : [c.blocks]));
+			if (c.state) i.state = c.state;
+		}
+		if (t === 'match_tool' && c.predicate?.items) i.tool = c.predicate.items;
+		if (t === 'random_chance') i.chance = c.chance;
+		if (t === 'random_chance_with_enchanted_bonus') i.looting = { base: c.unenchanted_chance, ench: c.enchanted_chance };
+		if (t === 'killed_by_player') i.byPlayer = true;
+	};
+	walk(m.raw.condition ?? m.raw.conditions);
+	return i;
+}
+const rows = list.map((m) => ({ m, i: read(m), item: m.item ?? m.raw.added_item ?? m.raw.slice ?? null }));
+const toolText = (t: string | null) => (!t ? null : /knives|straw_harvesters/.test(t) ? 'knife' : t.startsWith('#') ? short(t.slice(1)).replaceAll('_', ' ') : nameOf(t));
+// Block tags are shown as the blocks in them.
+const blockIds = (list: string[]) => list.flatMap((b) => (b.startsWith('#') ? (tags.resolved.block[b.slice(1)] ?? []) : [b]));
+const ent = (e: string) => short(e).replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+const what = (r: (typeof rows)[number]) => {
+	const t = r.m.type.split(':')[1];
+	if (t === 'pastry_slicing') return 'remaining slices';
+	if (t === 'replace_item') return `${r.m.raw.count ?? 1}× instead of the ${nameOf(r.m.raw.removed_item)}`;
+	return `${r.m.raw.count ?? 1}×`;
+};
+const chance = (i: Info) => {
+	if (i.looting) {
+		const e = i.looting.ench;
+		return `${pct(i.looting.base)}; with Looting ${pct(e.base)}, +${pct(e.per_level_above_first)} per level above I`;
+	}
+	return i.chance !== null ? pct(i.chance) : 'always';
+};
+---
+<div class="fd-lm not-content">
+	{title && <div class="k">{title}</div>}
+	<table>
+		<thead>
+			<tr>
+				<th>Drop</th>
+				<th>From</th>
+				<th>Needs</th>
+				<th>Chance</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				rows.map((r) => (
+					<tr>
+						<td class="d">
+							{r.item && <Slot id={r.item} scale={2} count={r.m.raw.count ?? 1} />}
+							<span>
+								<span class="nm">{r.item ? nameOf(r.item) : r.m.id}</span>
+								<span class="sub">{what(r)}</span>
+							</span>
+						</td>
+						<td>
+							{r.i.entities.length > 0 && <span>{r.i.entities.map(ent).join(', ')}</span>}
+							{r.i.fire === true && <span class="sub"> on fire</span>}
+							{r.i.fire === false && <span class="sub"> not on fire</span>}
+							{blockIds(r.i.blocks).length > 0 && blockIds(r.i.blocks).length <= 5 && <Chips ids={blockIds(r.i.blocks)} compact />}
+							{blockIds(r.i.blocks).length > 5 && <span>{blockIds(r.i.blocks).length} kinds: {nameOf(blockIds(r.i.blocks)[0])}, {nameOf(blockIds(r.i.blocks)[1])} and the other colours</span>}
+							{r.i.state && 'age' in r.i.state && <span class="sub"> fully grown</span>}
+						</td>
+						<td class="sub">
+							{[toolText(r.i.attacker) && `killed with a ${toolText(r.i.attacker)}`, toolText(r.i.tool) && `broken with a ${toolText(r.i.tool)}`, r.i.byPlayer && 'killed by a player', r.i.noSilk && 'no Silk Touch'].filter(Boolean).join(', ') || '–'}
+						</td>
+						<td class="c">
+							{chance(r.i)}
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+</div>
+<style>
+	.fd-lm {
+		margin: 20px 0 30px;
+		overflow-x: auto;
+		font-size: 20px;
+		line-height: 24px;
+	}
+	.k {
+		color: var(--fd-heading-ink);
+		margin-bottom: 6px;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		border: 3px solid var(--fd-frame);
+		box-shadow: var(--fd-shadow);
+		background: var(--fd-surface);
+	}
+	th {
+		text-align: left;
+		font-weight: 400;
+		background: var(--fd-frame);
+		color: var(--fd-paper);
+		padding: 6px 12px;
+	}
+	td {
+		border-bottom: 2px solid var(--fd-border);
+		padding: 6px 12px;
+		vertical-align: middle;
+	}
+	.d {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		min-width: 13rem;
+	}
+	.d > span {
+		display: flex;
+		flex-direction: column;
+	}
+	.nm {
+		color: var(--sl-color-white);
+	}
+	.sub {
+		color: var(--sl-color-gray-3);
+	}
+	.c {
+		color: var(--fd-gold);
+	}
+</style>

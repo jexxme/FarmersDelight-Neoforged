@@ -1,0 +1,144 @@
+---
+title: Feasts
+description: Placing and sharing feasts, which container each one needs, leftovers, what breaking a feast gives back, and the Rice Roll Medley.
+---
+
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Stages from '../../../components/data/Stages.astro';
+import FoodStats from '../../../components/data/FoodStats.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import ServingLadder from '../../../components/cooking/ServingLadder.astro';
+import { tags, blocks, items, loot, nameOf, recipesFor } from '../../../lib/data';
+import { feast } from '../../../data/code/cooking';
+
+export const feasts = tags.resolved.block['farmersdelight:feasts'];
+export const maxOf = (id) => Math.max(...blocks[id].properties.servings.map(Number));
+export const servingOf = (id) => id.replace(/_block$/, '');
+export const lootOf = (id) => {
+	const t = loot.blocks[id.replace('farmersdelight:', 'farmersdelight:blocks/')];
+	const max = maxOf(id);
+	const full = t.pools.filter((p) => p.conditions.includes(`servings = ${max}`)).flatMap((p) => p.entries.map((e) => e.item));
+	const part = t.pools.filter((p) => p.conditions.includes(`not (servings = ${max})`)).flatMap((p) => p.entries.map((e) => e.item));
+	return { full, part };
+};
+export const medley = 'farmersdelight:rice_roll_medley_block';
+export const fourServing = feasts.filter((id) => id !== medley);
+export const noLeftovers = feasts.filter((id) => !feast.registrations.value[id]);
+export const salad = 'farmersdelight:gleaming_salad_block';
+export const servingKey = (id) => { const s = items[servingOf(id)]; return JSON.stringify([s.food, s.consumable.effects]); };
+export const sameServing = new Set(fourServing.map(servingKey)).size === 1;
+export const firstServing = items[servingOf(fourServing[0])];
+export const ladderLabels = (id) => Object.fromEntries(Array.from({ length: maxOf(id) + 1 }, (_, n) => [n, n === maxOf(id) ? 'full' : n === 0 ? (feast.registrations.value[id] ? 'leftovers' : 'gone') : `${n} left`]));
+export const medleyRuns = [...feast.medleyOrder.value].reverse().reduce((runs, id) => {
+	const last = runs[runs.length - 1];
+	if (last && last.id === id) last.n++;
+	else runs.push({ id, n: 1 });
+	return runs;
+}, []);
+
+<Render name="scenes/feast-table" float="right" size={230} caption="Feasts set out on a table" />
+
+Feasts are big meals you place as a block and share. Each one holds several servings, and anyone can take one by
+right-clicking it with the right container, usually a <Item id="minecraft:bowl" />. There are {feasts.length} feasts.
+You cook or craft each one as a single item that stacks to {items['farmersdelight:roast_chicken_block'].stack}.
+
+<Shot src="mechanics/feast-table.jpg" caption="A feast table: roast chicken, honey glazed ham, stuffed pumpkin, shepherd's pie, rice roll medley and gleaming salad, some already served, next to pies with slices taken." />
+
+## Serving
+
+Place the feast on a solid block, then right-click it holding the serving's container. You use up one container and get
+one serving, and the feast shows one serving less. Holding the wrong thing shows a hint that names the container.
+
+<ServingLadder block="roast_chicken_block" />
+
+When the last serving is gone, most feasts leave a plate of leftovers. Right-click it to clear it away and get back what
+is left, such as a bone or a bowl. {noLeftovers.map((id) => <Item id={id} />)} {noLeftovers.length === 1 ? 'is the exception: it disappears' : 'are the exceptions: they disappear'} with the last serving.
+
+## The feasts
+
+<table>
+	<thead><tr><th>Feast</th><th>Servings</th><th>Each serving</th><th>Serve with</th></tr></thead>
+	<tbody>
+		{feasts.map((id) => {
+			const s = id === medley ? null : items[servingOf(id)];
+			return (
+				<tr>
+					<td><Item id={id} /></td>
+					<td>{maxOf(id)}</td>
+					<td>{s ? <Item id={s.id} /> : <a href="#rice-roll-medley">three kinds of roll</a>}</td>
+					<td>{s?.remainder ? <Item id={s.remainder} /> : 'empty hand'}</td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+
+{sameServing ? (
+	<p>
+		Every serving from these {fourServing.length} feasts is worth the same: <FoodStats nutrition={firstServing.food.nutrition} saturation={firstServing.food.saturation} compact />{' '}
+		{firstServing.consumable.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}. Pick one to see how it looks as you serve it:
+	</p>
+) : <p>Pick a feast to see how it looks as you serve it, and what each serving gives you:</p>}
+
+<Tabs>
+	{fourServing.map((id) => {
+		const s = items[servingOf(id)];
+		return (
+			<TabItem label={nameOf(id)}>
+				<Stages block={id.replace('farmersdelight:', '')} title={`${nameOf(id)}: servings left`} labels={ladderLabels(id)} />
+				{sameServing ? null : <p>Each <Item id={s.id} />: <FoodStats nutrition={s.food.nutrition} saturation={s.food.saturation} compact /> {s.consumable.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}</p>}
+			</TabItem>
+		);
+	})}
+</Tabs>
+
+## Breaking a feast
+
+Break a **full** feast and you get it back as an item, ready to place again. Break it after even one serving and the
+servings left on it are lost: you only get the leftovers.
+
+<table>
+	<thead><tr><th>Feast</th><th>Broken while full</th><th>Broken after serving</th></tr></thead>
+	<tbody>
+		{feasts.map((id) => {
+			const l = lootOf(id);
+			return (
+				<tr>
+					<td><Item id={id} /></td>
+					<td>{l.full.map((x, i) => <>{i ? ', ' : ''}<Item id={x} /></>)}</td>
+					<td>{l.part.length ? l.part.map((x, i) => <>{i ? ', ' : ''}<Item id={x} /></>) : <em>nothing</em>}</td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+
+<Aside type="caution">
+Serve every portion before you break a feast. A roast chicken with three servings left breaks into leftovers, not
+three meals.
+</Aside>
+
+## Rice Roll Medley
+
+The <Item id={medley} /> is the finger food of feasts: it holds {feast.medleyServings.value} rolls, and you take them
+with an empty hand, no bowl needed. Each right-click hands you the next roll, in this order:
+{medleyRuns.map((r, i) => <>{i ? ', then ' : ''}{r.n} <Item id={r.id} plural /></>)}. When the last roll is gone, the
+empty plate stays; right-click it to clear it away and get the bowl back.
+
+<Stages block="rice_roll_medley_block" title="Rice Roll Medley: servings left" labels={ladderLabels(medley)} />
+
+## Recipes
+
+<RecipeList ids={feasts.flatMap((id) => recipesFor(id).map((r) => r.id))} />
+
+## Good to know
+
+- **Gleaming Salad glows.** The <Item id={salad} /> gives off light level {feast.saladLightPerServing.value} per serving
+  left, so {blocks[salad].maxLight} when full, and it sparkles.
+- **Comparators** next to a feast read how many servings are left.
+- **Pistons** break a feast instead of pushing it.
+- **Mobs** walk around feasts instead of over them.

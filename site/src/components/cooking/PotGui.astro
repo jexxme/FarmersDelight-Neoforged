@@ -1,0 +1,83 @@
+---
+// The top of the Cooking Pot screen (the mod's own GUI texture) with each slot labelled, at the menu's slot positions.
+import { url } from '../../lib/data';
+import { pot } from '../../data/code/cooking';
+const m = pot.menu.value;
+const PW = 176;
+const PH = 80;
+type Mark = { x: number; y: number; n: string; cls: string };
+const marks: Mark[] = [
+	...[0, 1, 2, 3, 4, 5].map((i) => ({ x: m.inputs[0] + (i % 3) * m.step, y: m.inputs[1] + Math.floor(i / 3) * m.step, n: 'A', cls: 'in' })),
+	{ x: m.meal[0], y: m.meal[1], n: 'B', cls: 'meal' },
+	{ x: m.container[0], y: m.container[1], n: 'C', cls: 'cont' },
+	{ x: m.output[0], y: m.output[1], n: 'D', cls: 'out' },
+];
+const pct = (v: number, of: number) => `${(v / of) * 100}%`;
+---
+<div class="fd-potgui not-content">
+	<div class="gui" style={`background-image:url(${url('/gui/cooking_pot_gui.png')});background-size:${(256 / PW) * 100}% auto;aspect-ratio:${PW}/${PH}`} role="img" aria-label="Cooking Pot screen with slots labelled">
+		{marks.map((k) => <span class:list={['mk', k.cls]} style={`left:${pct(k.x - 1, PW)};top:${pct(k.y - 1, PH)};width:${pct(18, PW)};height:${pct(18, PH)}`}>{k.n}</span>)}
+	</div>
+	<dl class="legend">
+		<dt>A</dt><dd>Ingredient slots ({pot.slots.value.inputs.length})</dd>
+		<dt>B</dt><dd>Meal slot: finished servings wait here, up to {pot.mealCap.value}</dd>
+		<dt>C</dt><dd>Container slot: bowls, bottles or the recipe's container</dd>
+		<dt>D</dt><dd>Output slot: served meals, ready to take</dd>
+	</dl>
+</div>
+<style>
+	.fd-potgui {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px 30px;
+		align-items: center;
+		margin: 30px 0;
+	}
+	.gui {
+		position: relative;
+		width: min(100%, 352px);
+		background-repeat: no-repeat;
+		background-position: 0 0;
+		image-rendering: pixelated;
+		outline: 2px solid #000;
+	}
+	.mk {
+		position: absolute;
+		display: grid;
+		place-items: center;
+		font-size: 20px;
+		line-height: 20px;
+		color: #fff;
+		background: rgb(0 0 0 / 0.45);
+		outline: 2px solid var(--c);
+		outline-offset: -2px;
+	}
+	.in {
+		--c: #8bc35a;
+	}
+	.meal {
+		--c: #f3b300;
+	}
+	.cont {
+		--c: #6cb4e8;
+	}
+	.out {
+		--c: #f0704f;
+	}
+	.legend {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0 14px;
+		margin: 0;
+		font-size: 20px;
+		line-height: 30px;
+		flex: 1 1 16rem;
+	}
+	.legend dt {
+		color: var(--fd-heading-ink);
+	}
+	.legend dd {
+		margin: 0;
+		color: var(--sl-color-gray-2);
+	}
+</style>

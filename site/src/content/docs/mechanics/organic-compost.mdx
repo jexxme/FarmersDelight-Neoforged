@@ -1,0 +1,79 @@
+---
+title: Organic Compost
+description: How to set up an Organic Compost heap that turns into Rich Soil, what speeds it up, and how long it takes, with a calculator.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import Stages from '../../../components/data/Stages.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import CompostCalc from '../../../components/farming/CompostCalc.astro';
+import CompostCube from '../../../components/farming/CompostCube.astro';
+import { loot, nameOf, pct } from '../../../lib/data';
+import { compost, compostChance, checksToTime, checkSeconds, stageLabels } from '../../../data/code/farming';
+
+export const N = compost.stages.value + 1;
+export const side = 2 * compost.cube.value + 1;
+export const ex = [
+	['One block in the shade, no water', compostChance(1, false, false)],
+	['One block under open sky', compostChance(1, true, false)],
+	['Open sky, next to water', compostChance(1, true, true)],
+	['Middle of a 3×3 layer of compost, open sky, water beside it', compostChance(9, true, true)],
+	[`Middle of a solid ${side}×${side}×${side} pile, open sky, water`, compostChance(side ** 3, true, true)],
+];
+export const drop = loot.blocks['farmersdelight:blocks/organic_compost'].pools[0].entries[0].item;
+
+<Render name="scenes/compost-to-soil" size={260} float="right" caption="Organic Compost next to the Rich Soil it becomes" />
+
+<Item id="organic_compost" /> slowly rots into <Item id="rich_soil" />, the best soil in the mod. You don't feed it or use it: place it, leave it, come back later. Sunlight, water and certain blocks around it make it go faster.
+
+<Shot src="mechanics/compost-heap.jpg" caption="An Organic Compost heap beside a pond, with mushrooms and Rich Soil around it to speed it up." />
+
+## Setting up a heap
+
+Every so often (on average every {checkSeconds()} seconds) each compost block gets a chance to rot one step further. After {N} steps it turns into Rich Soil. Its chance each time adds up from what's around it, in the {side}×{side}×{side} space centred on the block:
+
+- **Activators: +{pct(compost.activator.value)} each.** Other compost, Rich Soil, mushrooms and mycelium all count, and the block counts itself: <Chips tag="farmersdelight:compost_activators" compact />
+- **Sunlight: +{pct(compost.skyBright.value)}**, or only +{pct(compost.skyDim.value)} in the shade. Open sky above the heap or right next to it is enough.
+- **Water: +{pct(compost.waterAdd.value)}** if there's any water in that space, even one waterlogged block.
+
+<CompostCube />
+
+So the best heap is a big pile of compost outdoors, with water running beside it. The block in the middle of a solid {side}-wide pile counts {side ** 3} activators: {pct((side ** 3) * compost.activator.value)} before sunlight and water.
+
+<Aside type="tip" title="Torches don't help">
+Only sunlight counts, and night counts as sunlight too. A torch-lit cellar always gets the shade bonus, while a heap under a glass roof still sees the sky.
+</Aside>
+
+## How long it takes
+
+<table>
+<thead><tr><th>Setup</th><th>Chance each time</th><th>Rich Soil in about</th></tr></thead>
+<tbody>
+{ex.map(([l, p]) => <tr><td>{l}</td><td>{pct(p)}</td><td>{checksToTime(N / p)}</td></tr>)}
+</tbody>
+</table>
+
+These are averages: a single block can finish much sooner or later. Try your own heap here:
+
+<CompostCalc />
+
+## Stages
+
+<Stages block="organic_compost" title="From fresh compost to Rich Soil" labels={stageLabels(N, String(N))} />
+
+The block changes look as it rots. A comparator next to it reads {N} from fresh compost and one less per step, so you can check a buried heap.
+
+## Recipes
+
+<RecipeList output="organic_compost" />
+
+## Good to know
+
+- Breaking compost gives back {nameOf(drop)}, but its progress is lost: it starts again from step 1.
+- Mushrooms survive on compost in any light, but [mushroom colonies](/mechanics/mushroom-colonies/) only grow on Rich Soil.
+- Some villages come with a compost heap you can raid ([Villagers](/mechanics/villagers/)).
+- A [canvas rug](/mechanics/straw-and-rope/#canvas-and-canvas-rug) on top lets sunlight through, so you can cover a heap and keep the bonus.

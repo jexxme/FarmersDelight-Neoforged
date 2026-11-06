@@ -1,0 +1,98 @@
+---
+title: Nourishment
+description: What Nourishment really does, how long each food gives it, and the vanilla soup bonus.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import FoodStats from '../../../components/data/FoodStats.astro';
+import NourishTable from '../../../components/islands/cooking-nourish-table.tsx';
+import { effects, itemList, iconOf, url as siteUrl, config, soupEffects, vanillaFoods, duration, CATEGORIES } from '../../../lib/data';
+import { effect, timeText, hearts } from '../../../data/code/cooking';
+
+export const N = effects.find((e) => e.id === 'farmersdelight:nourishment');
+export const tiers = Object.entries(effect.tiers.value).sort((a, b) => a[1] - b[1]);
+export const tierOf = (t) => tiers.find(([, v]) => v === t)?.[0] ?? '';
+export const tierName = (t) => t.charAt(0) + t.slice(1).toLowerCase();
+export const rows = itemList
+	.map((i) => ({ i, e: i.consumable?.effects.find((x) => x.id === N.id) }))
+	.filter((x) => x.e)
+	.map(({ i, e }) => ({ id: i.id, name: i.name, icon: iconOf(i.id)?.src ?? '', href: siteUrl(`/items/${i.slug}/`), ticks: e.duration, tier: tierOf(e.duration), nutrition: i.food?.nutrition ?? 0, saturation: i.food?.saturation ?? 0, category: CATEGORIES[i.category]?.label ?? i.category }));
+export const cfg = (k) => config.find((c) => c.key === k);
+export const soupCfg = cfg('enableVanillaSoupExtraEffects');
+export const rabbitCfg = cfg('enableRabbitStewBuff');
+export const stackCfg = cfg('enableStackableSoupItems');
+export const vf = (id) => vanillaFoods.find((v) => v.id === id);
+export const rabbit = soupEffects.find((s) => s.item === 'minecraft:rabbit_stew');
+// With the Rabbit Stew buff on, the stew's own food gives Nourishment; show that length.
+export const nourishOf = (s) => (s.item === 'minecraft:rabbit_stew' && rabbitCfg.default ? vf(s.item)?.consumable?.effects.find((e) => e.id === N.id)?.duration ?? s.duration : s.duration);
+
+**Nourishment** is the reward for a proper meal: while it lasts, your hunger bar doesn't go down.
+
+## What it does
+
+<EffectBadge id={N.id} name={N.name} /> {rows.length} foods give it, for {timeText(tiers[0][1])} up to
+{timeText(tiers[tiers.length - 1][1])}.
+
+While you have Nourishment, your hunger bar doesn't go down, however much you run, jump or fight. If you're hurt, the
+game still spends your saturation on healing you as usual. Once that's gone, your hunger stays where it is and you keep
+healing until the effect runs out (as long as your hunger bar is full enough to heal at all, as in vanilla).
+
+- **You can always eat.** While Nourished you can eat even with a full hunger bar, so you can top it up with another
+  meal before it runs out.
+- **Golden hunger bar.** A gilded overlay covers the hunger bar while you're Nourished. You can hide it in the client
+  [config](/reference/config/#enableNourishmentHungerOverlay).
+- **No natural regeneration?** If the natural regeneration game rule is off, Nourishment freezes your hunger even when
+  you are hurt.
+
+## How long it lasts
+
+Every Farmer's Delight food gives Nourishment for one of {tiers.length} set times. Bigger meals last longer:
+
+<table>
+	<thead><tr><th>Length</th><th>Time</th><th>Foods</th></tr></thead>
+	<tbody>
+		{tiers.map(([t, ticks]) => {
+			const list = rows.filter((r) => r.ticks === ticks);
+			return (
+				<tr>
+					<td>{tierName(t)}</td>
+					<td>{duration(ticks)}</td>
+					<td>{list.length ? list.map((r, i) => <>{i ? ' ' : ''}<Item id={r.id} label="" /></>) : '—'} <small>{list.length}</small></td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+
+Here is every one of them. Click a column to sort, or pick a length to filter:
+
+<NourishTable client:visible rows={rows} tiers={tiers} />
+
+## Vanilla soups
+
+{soupCfg.default ? 'Vanilla soups give Nourishment too' : 'With the vanilla soup option switched on in the config, vanilla soups give Nourishment too'}{stackCfg.default ? ', and they stack to 16 like the mod\'s meals' : ''}:
+
+<table>
+	<thead><tr><th>Soup</th><th>Nourishment</th><th>Food</th></tr></thead>
+	<tbody>
+		{soupEffects.map((s) => {
+			const v = vf(s.item);
+			return (
+				<tr>
+					<td><Item id={s.item} /></td>
+					<td>{duration(nourishOf(s))}</td>
+					<td>{v ? <FoodStats nutrition={v.nutrition} saturation={v.saturation} compact /> : '—'}</td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+
+{rabbitCfg.default ? (
+	<p>
+		<Item id="minecraft:rabbit_stew" /> is special: the Rabbit Stew buff, on by default, gives it the bigger food values
+		shown above and its own Nourishment, even if the vanilla soup option is off. You can switch the buff off in the
+		<a href={siteUrl('/reference/config/#enableRabbitStewBuff')}>config</a>.
+	</p>
+) : null}

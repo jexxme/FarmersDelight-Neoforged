@@ -1,0 +1,71 @@
+---
+title: Rich Soil
+description: Rich Soil and Rich Soil Farmland in Farmer's Delight Neoforged, the free bone meal it gives plants, mushroom colonies, and what it does not affect.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import Stages from '../../../components/data/Stages.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import RichSoilTick from '../../../components/farming/RichSoilTick.astro';
+import { config, tags, loot, nameOf, pct } from '../../../lib/data';
+import { richSoil, checksToTime } from '../../../data/code/farming';
+
+export const opt = config.find((c) => c.key === 'richSoilBoostChance');
+export const boost = opt.default;
+export const friendly = { vegetation: 'flowers, grass and saplings', dry_vegetation: 'dead bushes', stem_fruit: 'melons and pumpkins growing from a stem', melon_stem_fruit: 'melons and pumpkins growing from a stem', pumpkin_stem_fruit: 'melons and pumpkins growing from a stem' };
+export const supports = [...new Set(Object.keys(tags.resolved.block).filter((k) => k.startsWith('minecraft:supports_') && tags.resolved.block[k].includes('farmersdelight:rich_soil')).map((k) => k.replace('minecraft:supports_', '')).map((k) => friendly[k] ?? k.replaceAll('_', ' ')))];
+export const farmlandDrop = loot.blocks['farmersdelight:blocks/rich_soil_farmland'].pools[0].entries[0].item;
+
+
+<Render name="blocks/rich_soil" size={200} float="right" caption="Rich Soil" />
+
+<Item id="rich_soil" /> is what [Organic Compost](/mechanics/organic-compost/) turns into, and it's the best ground in the mod. It works like dirt, but every so often it gives the plant on it a free dose of bone meal, and it turns a plain mushroom into a [mushroom colony](/mechanics/mushroom-colonies/). Till it with a hoe for <Item id="rich_soil_farmland" />, which does the same for crops and can't be trampled.
+
+There's no recipe for it: compost is the only way to get Rich Soil.
+
+<Shot src="mechanics/rich-soil-farm.jpg" caption="Rich Soil Farmland with rows of ripe cabbages and onions, and tomatoes climbing a rope trellis behind." />
+
+## How it works
+
+Rich Soil gets a turn every so often, like a growing crop. Each turn it goes through these cases in order:
+
+<RichSoilTick />
+
+At the default {pct(boost, 0)}, that is one free bone meal about every {checksToTime(1 / boost)} for each block of soil. The plant has to accept bone meal right then: a crop that isn't fully grown yet, a sapling, a berry bush. You see green sparkles when it happens.
+
+A mushroom on Rich Soil becomes a colony on the soil's very next turn, in any light, with no chance roll. Colonies then grow on Rich Soil by themselves, and only there.
+
+Server owners can change the {pct(boost, 0)} in the [config](/reference/config/), or set it to 0 to turn the boost off.
+
+## Rich Soil Farmland
+
+Use any hoe on Rich Soil with air above it. You get dry Rich Soil Farmland, which behaves like normal farmland:
+
+- **Water.** It turns moist when water is within {richSoil.nearWater.value} blocks, or when it rains on it, and slowly dries out otherwise.
+- **The boost needs moisture.** It only hands out free bone meal while it's fully moist. Dry Rich Soil Farmland gives nothing extra.
+- **No trampling.** Jumping or falling on it never turns it back into dirt.
+- **Back to soil.** Putting a solid block on it turns it back into Rich Soil, but melons and pumpkins can sit on it. Breaking it gives you {nameOf(farmlandDrop)}.
+
+<Stages block="rich_soil_farmland" title="Dry and moist" labels={{ '0': 'dry', '7': 'moist' }} />
+
+Farmer villagers work it just like farmland ([Villagers](/mechanics/villagers/)).
+
+## What to plant on it
+
+Rich Soil counts as dirt, so anything that grows on dirt grows on it, and rice and wild crops can be planted on it too. It also holds {supports.join(', ')}.
+
+<Aside type="tip" title="Good uses">
+- **Rice paddies.** Put Rich Soil under the rice: the free bone meal goes to the rice, and mature rice passes it on to its slow panicles.
+- **Tree and berry farms.** Saplings, sweet berry bushes and bamboo get the free bone meal too.
+- **Ceilings.** <Item id="minecraft:glow_berries" label="Cave vines" /> hanging from a Rich Soil ceiling get it from above.
+</Aside>
+
+## Good to know
+
+- These never get a free bone meal: <Chips tag="farmersdelight:unaffected_by_rich_soil" compact />
+- Mushrooms survive on Rich Soil in any light, even in full daylight.
+- Rich Soil and Rich Soil Farmland both count as activators for nearby [Organic Compost](/mechanics/organic-compost/).
+- The free bone meal works on plants from other mods too, as long as they accept bone meal.

@@ -1,0 +1,97 @@
+---
+title: Heat sources
+description: What heats a Cooking Pot or Skillet, how to pass heat through a hopper, which sources must be lit, and when the pot sits on a tray.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import HeatRule from '../../../components/cooking/HeatRule.astro';
+import { tags, renderOf, nameOf } from '../../../lib/data';
+import { heat, pot, timesAsFast } from '../../../data/code/cooking';
+
+export const T = tags.resolved.block;
+export const sources = T['farmersdelight:heat_sources'];
+export const trays = T['farmersdelight:tray_heat_sources'];
+export const conductors = T['farmersdelight:heat_conductors'];
+export const file = (t) => tags.files.find((f) => f.registry === 'block' && f.tag === t);
+export const optionalConductors = file('farmersdelight:heat_conductors').values.filter((v) => v.endsWith('?')).map((v) => v.slice(0, -1));
+export const modName = (id) => id.split(':')[0].replace(/^./, (c) => c.toUpperCase());
+export const mustBeLit = ['farmersdelight:stove', 'minecraft:campfire', 'minecraft:soul_campfire'];
+export const reach = 2 * heat.heldNear.value + 1;
+
+<Render name="scenes/pot-on-campfire" float="right" size={220} caption="A campfire heats the pot and gives it a tray" />
+
+A <Item id="cooking_pot" /> or a placed <Item id="skillet" /> only cooks while something hot is under it. Put it right
+on top of a heat source, or put a <Item id="minecraft:hopper" /> in between. That's the whole rule, but a few details
+decide whether your kitchen works.
+
+## What heats a pot
+
+The pot is heated when a heat source is **right below** it, or **two blocks below** with a hopper in between. Heat never
+travels sideways, never through other blocks, and never more than two blocks. Campfires and the Stove only count while
+they are lit.
+
+<HeatRule />
+
+These {sources.length} blocks give heat:
+
+<table>
+	<thead><tr><th></th><th>Block</th><th>Must be lit</th><th>Tray</th></tr></thead>
+	<tbody>
+		{sources.map((id) => {
+			const r = renderOf(`heat/${id.replace(':', '-')}`);
+			return (
+				<tr>
+					<td style="width:64px">{r ? <img src={r} alt="" width="56" height="56" loading="lazy" /> : null}</td>
+					<td><Item id={id} /></td>
+					<td>{mustBeLit.includes(id) ? 'yes' : '—'}</td>
+					<td>{trays.includes(id) ? 'yes' : '—'}</td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+
+The <Item id="stove" /> is the tidy choice: it is placed already lit and works at once. Put it out with a shovel or a
+water bucket and the pot cools down (see [Stove](/mechanics/stove/)). Everything without a "yes" works all the time. Light
+level doesn't matter.
+
+## Passing heat through a hopper
+
+{conductors.length === 1 ? <>Only the {nameOf(conductors[0]).toLowerCase()} passes heat up</> : <>{conductors.map((id, i) => <>{i ? ', ' : ''}<Item id={id} /></>)} pass heat up</>}{optionalConductors.length ? <> (and {optionalConductors.map((id, i) => <>{i ? ', ' : ''}the {nameOf(id)} from {modName(id)}</>)}, if you play with that mod)</> : null}.
+Put it between the heat source and the pot and it does two jobs at once: it carries the heat, and it pulls finished meals
+out of the pot.
+
+<div class="not-content" style="display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:flex-end;margin:1rem 0">
+	<Render name="scenes/pot-on-hopper" size={180} caption="Magma block, hopper, pot" />
+	<Render name="scenes/pot-hanging" size={180} caption="A hanging pot is heated like any other" />
+</div>
+
+That makes the hopper the base of every automatic kitchen; see [Cooking Pot automation](/mechanics/cooking-pot/#automation).
+
+## Trays
+
+On fire, lava or a campfire, a pot or skillet stands on a small metal tray. The tray is
+only looks: heating works the same with or without it. On {sources.filter((id) => !trays.includes(id)).map((id, i, a) => <>{i ? (i === a.length - 1 ? ' or ' : ', ') : ''}<Item id={id} /></>)} there is no tray, and a hanging pot never gets one.
+
+<div class="not-content" style="display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:flex-end;margin:1rem 0">
+	<Render name="scenes/pot-on-campfire" size={160} caption="Campfire: tray" />
+	<Render name="scenes/pot-on-stove" size={160} caption="Stove: no tray" />
+	<Render name="scenes/skillet-on-campfire" size={160} caption="Skillet on a campfire: tray" />
+	<Render name="scenes/skillet-on-stove" size={160} caption="Skillet on a stove: no tray" />
+</div>
+
+## The hand-held skillet
+
+Cooking with a <Item id="skillet" /> in your hand is more forgiving. You only need to be close to heat: any heat source in
+the {reach}×{reach}×{reach} blocks around you, or being on fire yourself. Here an unlit campfire or Stove counts too, and
+hoppers play no part. See [Skillet](/mechanics/skillet/).
+
+## Good to know
+
+- **Losing heat isn't a disaster.** Without heat, a pot or placed skillet loses progress, {timesAsFast(pot.decay.value, pot.cookStep.value)}
+  as it built up, instead of starting over.
+- **Only blocks count.** A burning mob or a lava bucket in your hand never heats a pot. The hand-held skillet is the one
+  exception: it counts you as heat while you are on fire.
+- **Modpacks can add heat sources.** If a pack adds its own, they follow the same rules, including "must be lit" for
+  anything that can be lit.

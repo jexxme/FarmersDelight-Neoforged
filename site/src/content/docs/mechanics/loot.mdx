@@ -1,0 +1,68 @@
+---
+title: Loot
+description: Which chests hold Farmer's Delight seeds, rope, knives and food, how likely each item is, and the extra drops from mobs.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import LootTable from '../../../components/farming/LootTable.astro';
+import LootModifiers from '../../../components/farming/LootModifiers.astro';
+import { loot, modifiers, tags, pct } from '../../../lib/data';
+import { chestName, chestChance } from '../../../lib/describe';
+
+export const chestMods = modifiers.filter((m) => m.type === 'farmersdelight:add_loot_table');
+export const tables = chestMods.map((m) => m.table).filter((t) => loot.chests[t]);
+export const allItems = [...new Set(tables.flatMap((t) => loot.chests[t].pools.flatMap((p) => p.entries.map((e) => e.item).filter(Boolean))))];
+export const where = allItems.map((id) => ({ id, in: tables.map((t) => ({ t, p: chestChance(loot.chests[t], id).chance })).filter((x) => x.p > 0).sort((a, b) => b.p - a.p) }));
+export const groups = [
+	['Mineshafts, dungeons and shipwrecks', /mineshaft|dungeon|shipwreck/, 'Seeds, rice and plenty of rope, plus the odd Cooking Pot or Skillet.'],
+	['Pillager outposts', /outpost/, 'Food for the raiders.'],
+	['Villages', /village/, 'Each village type keeps a couple of its local crops in its houses, and butchers keep knives and meat.'],
+	['Nether and End', /bastion|portal|end_city/, 'The place to find good knives, often enchanted.'],
+].map(([title, re, text]) => ({ title, text, list: tables.filter((t) => re.test(t)) })).filter((g) => g.list.length);
+export const other = tables.filter((t) => !groups.some((g) => g.list.includes(t)));
+export const bsLoot = tags.resolved.enchantment['minecraft:on_random_loot']?.includes('farmersdelight:backstabbing');
+
+Farmer's Delight adds its own loot to {tables.length} kinds of chest: seeds and rope in mineshafts and shipwrecks, knives in bastions and end cities, onions in pillager outposts, and crops in village houses. The normal loot stays; these items come on top. It also gives some mobs an extra drop.
+
+## Find an item
+
+The chance that one chest of that kind has the item at all:
+
+<table>
+<thead><tr><th>Item</th><th>Found in</th></tr></thead>
+<tbody>
+{where.map((w) => (
+	<tr>
+		<td><Item id={w.id} /></td>
+		<td>{w.in.map((x) => <span style="margin-right:0.9rem;white-space:nowrap"><a href={`#${x.t.split('/').pop()}`}>{chestName(x.t)}</a> <span class="fd-val">{pct(x.p, 0)}</span></span>)}</td>
+	</tr>
+))}
+</tbody>
+</table>
+
+## Chests
+
+Each chest below shows the extra loot. A group picks an item a few times, and the bar is the chance for each pick; "nothing" means that pick comes up empty.
+
+{groups.map((g) => (
+	<>
+		<h3>{g.title}</h3>
+		<p>{g.text}</p>
+		{g.list.map((t) => <LootTable id={t} />)}
+	</>
+))}
+{other.map((t) => <LootTable id={t} />)}
+
+## Mob drops
+
+Zombies and illagers killed by a player can drop an <Item id="onion" />:
+
+<LootModifiers ids={['farmersdelight:add_onion_to_zombies', 'farmersdelight:add_onion_to_illagers']} />
+
+Killing animals with a [knife](/mechanics/knives/#extra-drops-with-a-knife) gives extra leather, ham, feathers and more, and knives get straw from grass and slices from cakes and pies. Those drops are listed on the [Knives](/mechanics/knives/) and [Straw](/mechanics/straw-and-rope/#getting-straw) pages.
+
+## Good to know
+
+- Chests roll their loot the first time they're opened. Chests that were already opened keep what they had.
+- Server owners can turn the chest loot off in the [config](/reference/config/). The mob drops always stay on.
+- {bsLoot ? 'Randomly enchanted knives from bastions and ruined portals can come with Backstabbing.' : ''}

@@ -1,0 +1,108 @@
+---
+title: Skillet
+description: Frying food in your hand or on a placed Skillet, how Fire Aspect makes it faster (with a calculator), and the Skillet as a heavy weapon.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import SkilletCalc from '../../../components/islands/cooking-skillet-calc.tsx';
+import { items, playableRecipes, nameOf, iconOf, seconds, pct } from '../../../lib/data';
+import { skillet, heat, skilletTicks, timeText, timesAsFast, hearts } from '../../../data/code/cooking';
+
+export const I = items['farmersdelight:skillet'];
+export const campfire = playableRecipes.filter((r) => r.type === 'campfire_cooking');
+export const times = [...new Set(campfire.map((r) => r.cookingtime))];
+export const calcRecipes = campfire.map((r) => ({ id: r.id, name: nameOf(r.result.id), icon: iconOf(r.result.id)?.src ?? '', ticks: r.cookingtime }));
+export const enchants = Object.entries(skillet.enchantments.value).filter(([t]) => I.tags.includes(t)).flatMap(([, e]) => e);
+export const repair = skillet.repairTag.value[I.repairWith] ?? [];
+export const dmg = I.attackDamage + skillet.playerBaseDamage.value;
+export const spd = +(skillet.playerBaseSpeed.value + I.attackSpeed).toFixed(2);
+export const reach = 2 * heat.heldNear.value + 1;
+export const t0 = campfire[0].cookingtime;
+
+<Render name="blocks/skillet" float="right" size={190} caption="A placed Skillet" />
+
+The <Item id="skillet" /> is a frying pan. Cook with it **in your hand** near a fire, or **place it** on a heat source as
+a small, fast grill. It cooks everything a campfire or the [Stove](/mechanics/stove/) can, in a fraction of the time: food
+that takes {timeText(t0)} on a campfire is done in {timeText(skilletTicks(t0, 0))}. It also hits hard, for
+{hearts(dmg)}.
+
+<Shot src="mechanics/skillet-campfire.jpg" caption="A skillet set on a campfire, searing a steak outdoors." />
+
+## Cooking in your hand
+
+1. Hold the Skillet in one hand and raw food in the other, and stand close to heat: any heat source in the
+   {reach}×{reach}×{reach} blocks around you counts, even an unlit campfire or Stove. Being on fire works too.
+2. Hold right-click. One item goes into the pan and starts frying.
+3. Keep holding until it's done. The cooked food goes into your inventory.
+
+Let go early and you get the raw item back. You can't start frying underwater, and food that can't be grilled shows a
+hint instead.
+
+## Cooking on a placed Skillet
+
+Sneak and right-click a block with the Skillet to place it; a normal right-click doesn't. Set it on a lit heat source,
+just like a [Cooking Pot](/mechanics/heat-sources/).
+
+- **Right-click with food** to put the whole stack in. The Skillet must be empty first: it won't take more of a stack
+  that is already cooking.
+- **Each item** fries in the Skillet time, then gets tossed out the side, and the next one starts.
+- **Right-click with an empty hand** to take the stack back.
+- **No heat:** the current item loses progress {timesAsFast(skillet.tick.value)} as it cooked. A waterlogged Skillet
+  drops its food and won't take more.
+
+<div class="not-content" style="display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:flex-end;margin:1rem 0">
+	<Render name="scenes/skillet-on-campfire" size={170} caption="On a campfire (with tray)" />
+	<Render name="scenes/skillet-on-stove" size={170} caption="On a Stove" />
+</div>
+
+## Cook time and Fire Aspect
+
+The Skillet takes {pct(skillet.factor.value)} of the campfire time, rounded down to whole seconds. Each level of **Fire
+Aspect** on the Skillet takes off another {pct(skillet.perFireAspect.value)} of the campfire time, but nothing cooks
+faster than {timeText(skillet.minTime.value)}. A placed Skillet keeps the Fire Aspect it had when you placed it.
+
+<SkilletCalc client:visible recipes={calcRecipes} />
+
+{times.length === 1 ? (
+	<p>
+		All of the mod's grill foods take {timeText(times[0])} on a campfire. In a Skillet that is
+		{' '}{[0, 1, 2].map((l, i) => <>{i ? (i === 2 ? ', and ' : ', ') : ''}<strong>{seconds(skilletTicks(times[0], l))}</strong>{l ? ` with Fire Aspect ${['I', 'II'][l - 1]}` : ' without Fire Aspect'}</>)}.
+	</p>
+) : (
+	<table>
+		<thead><tr><th>Food</th><th>Campfire</th><th>Skillet</th><th>Fire Aspect I</th><th>Fire Aspect II</th></tr></thead>
+		<tbody>
+			{campfire.map((r) => (
+				<tr>
+					<td><Item id={r.result.id} /></td>
+					<td>{seconds(r.cookingtime)}</td>
+					{[0, 1, 2].map((l) => <td>{seconds(skilletTicks(r.cookingtime, l))}</td>)}
+				</tr>
+			))}
+		</tbody>
+	</table>
+)}
+
+## As a weapon
+
+The Skillet hits for **{dmg} damage** ({hearts(dmg)}) with extra knockback, but it is slow: attack speed {spd}. A fully
+charged hit lands with a heavy clang. It has {I.durability} durability, loses 1 per hit and 1 per block you mine with it,
+and is repaired with {repair.length ? repair.map((id, i) => <>{i ? ', ' : ''}<Item id={id} /></>) : 'iron'}.
+
+It takes {enchants.map((e, i) => <>{i ? (i === enchants.length - 1 ? ' and ' : ', ') : ''}{e}</>)}, but never Sweeping
+Edge. Fire Aspect does double duty: it sets mobs alight and makes your cooking faster.
+
+## Good to know
+
+- **Breaking a placed Skillet** drops its food and the Skillet itself, with its enchantments, durability and name intact.
+- **Held vs placed heat.** In your hand an unlit campfire or Stove counts as heat; a placed Skillet needs it lit.
+- **No hoppers.** Nothing can load a placed Skillet automatically.
+- **Sparks.** A placed Skillet with Fire Aspect gives off little sparks, more with higher levels.
+
+<Aside type="tip">
+For the fastest hand cooking, stand next to a Stove: it counts as heat even when it's out, and it only burns you if you
+stand on top of it.
+</Aside>

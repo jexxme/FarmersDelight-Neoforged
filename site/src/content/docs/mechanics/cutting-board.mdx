@@ -1,0 +1,95 @@
+---
+title: Cutting Board
+description: How to cut food and blocks on the Cutting Board, which tool each recipe needs, how Fortune helps (with a calculator), and how to automate it with a dispenser.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Shot from '../../../components/mc/Shot.astro';
+import Recipe from '../../../components/recipes/Recipe.astro';
+import CutGroups from '../../../components/cooking/CutGroups.astro';
+import FortuneCalc from '../../../components/islands/cooking-fortune-calc.tsx';
+import { playableRecipes, items, config, tags, nameOf, iconOf, seconds, pct } from '../../../lib/data';
+import { board } from '../../../data/code/cooking';
+
+export const cutting = playableRecipes.filter((r) => r.type === 'farmersdelight:cutting');
+export const fortune = config.find((c) => c.key === 'cuttingBoardFortuneBonus');
+export const dispenser = config.find((c) => c.key === 'enableCuttingBoardDispenserBehavior');
+export const knives = tags.resolved.item['c:tools/knife'];
+export const flat = tags.resolved.item['farmersdelight:flat_on_cutting_board'];
+export const inputName = (r) => {
+	const i = r.ingredients[0];
+	if (i.tag) return i.items.length === 1 ? nameOf(i.items[0]) : `Any ${i.tag.split(/[:/]/).pop().replaceAll('_', ' ')}`;
+	return i.items.length > 1 ? r.id.split('/').pop().replaceAll('_', ' ').replace(/^./, (c) => c.toUpperCase()) : nameOf(i.items[0]);
+};
+export const chanceRows = cutting.filter((r) => r.results.some((o) => o.chance < 1)).map((r) => ({
+	id: r.id,
+	input: inputName(r),
+	icon: iconOf(r.ingredients[0].items[0])?.src ?? '',
+	outs: r.results.filter((o) => o.chance < 1).map((o) => ({ name: nameOf(o.id), icon: iconOf(o.id)?.src ?? '', count: o.count, chance: o.chance })),
+}));
+export const ex = chanceRows[0];
+export const exChance = ex.outs[0].chance;
+export const fuel = items['farmersdelight:cutting_board'].fuel;
+
+<Render name="blocks/cutting_board" float="right" size={190} caption="Cutting Board" />
+
+The <Item id="cutting_board" /> is where raw ingredients get cut up. Put an item on it, hit it with the right tool, and the
+pieces fall off the side. Knives do the kitchen work: cuts of meat, fish slices, dough and pie slices. Axes, pickaxes,
+shovels, hoes and shears break down logs, stone, gravel and old gear. There are {cutting.length} recipes in all.
+
+<Shot src="mechanics/cutting-board.jpg" caption="Prep counter: a cabbage waiting on one cutting board, an iron knife on the next, spruce cabinets below." />
+
+## How to cut
+
+1. **Put it on.** Right-click the board with the item in your main hand. The whole stack goes on, and you can top it up
+   with more of the same item. Right-click with an empty hand to take it all back.
+2. **Cut.** Right-click with the right tool in your main hand. Each cut uses {board.perCut.value} item from the board,
+   drops the results to the side, and costs the tool {board.toolWear.value} durability.
+3. **Wrong tool?** You get an "invalid tool" message and nothing happens.
+
+Any knife works for food: {knives.map((id) => <Item id={id} label="" />)}. For blocks, any axe, pickaxe, shovel or hoe does
+the job, and shears (modded ones too) salvage leather goods.
+
+<div class="not-content" style="display:flex;flex-wrap:wrap;gap:1.25rem 2rem;margin:1.25rem 0">
+	<Recipe id="cutting/beef" />
+	<Recipe id="cutting/wild_tomatoes" />
+	<Recipe id="cutting/acacia_log" />
+</div>
+
+## Lucky drops and Fortune
+
+Some drops only come sometimes; the percentage is shown in the corner of the slot. When a recipe gives two or more of a
+lucky drop, each one rolls on its own. A **Fortune** tool adds {pct(fortune.default)} to every one of these chances per
+level: the {pct(exChance)} {ex.outs[0].name} from {ex.input} becomes {pct(Math.min(1, exChance + 3 * fortune.default))}
+with Fortune III. Knives and axes can both take Fortune.
+
+<FortuneCalc client:visible rows={chanceRows} bonusDefault={fortune.default} range={fortune.range} />
+
+The bonus per level can be changed in the [config](/reference/config/#cuttingBoardFortuneBonus); 0 turns it off.
+
+## Automation
+
+- **Dispenser slicer.** A dispenser facing a Cutting Board uses whatever it holds as the cutting tool on the item on the
+  board. The tool stays in the dispenser and only wears down. Put a hopper above the board to feed it and one below where
+  the pieces land, and you have a hands-free meat or fish slicer.
+- **Watch out:** while a board is in front of it, a dispenser never shoots its item out, even when the board is empty.
+  {dispenser.default ? 'You can switch this off in the config.' : 'This is off by default; switch it on in the config.'}
+- **Hoppers** can put items on the board and take them off from any side.
+- **Comparator.** A comparator reads how full the stack on the board is, from 1 up to {board.comparator.value + 1}.
+
+## Every recipe by tool
+
+Hover a slot to see the item.
+
+<CutGroups />
+
+## Good to know
+
+- **Show off a tool.** Sneak and right-click the board with a tool, a trident or shears to lay it on the board as
+  decoration. {flat.map((id, i) => <>{i ? (i === flat.length - 1 ? ' and ' : ', ') : ''}<Item id={id} /></>)} lie flat;
+  everything else stands up. While a tool is on display the board can't cut; take it off with an empty hand.
+- **Mind the empty board.** Right-clicking an empty board with a knife puts the knife on it like any other item.
+- **Support.** The board needs a solid block under it, or something that holds up its middle like a fence, and pops off otherwise.
+- **Breaking it** drops the board and the stack on it.
+- **Fuel.** A Cutting Board burns in a furnace for {seconds(fuel)}.

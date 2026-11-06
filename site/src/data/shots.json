@@ -1,0 +1,62 @@
+[
+  {
+    "file": "mechanics/cooking-pot-gui.jpg",
+    "caption": "Beef stew on the way: raw beef, a carrot and a potato in the Cooking Pot over a lit stove, with bowls waiting in the container slot.",
+    "shows": "Cooking Pot GUI: ingredients, heat indicator, cooking progress, container and output slots"
+  },
+  {
+    "file": "mechanics/stove-grilling.jpg",
+    "caption": "A lit stove grilling six raw cuts at once: beef, porkchop, chicken, mutton, salmon and cod.",
+    "shows": "Stove: placing up to six raw foods on top to cook them"
+  },
+  {
+    "file": "mechanics/cutting-board.jpg",
+    "caption": "Prep counter: a cabbage waiting on one cutting board, an iron knife on the next, spruce cabinets below.",
+    "shows": "Cutting board with an ingredient and a knife, on a cabinet counter"
+  },
+  {
+    "file": "mechanics/skillet-campfire.jpg",
+    "caption": "A skillet set on a campfire, searing a steak outdoors.",
+    "shows": "Placed skillet cooking food over a campfire heat source"
+  },
+  {
+    "file": "mechanics/rich-soil-farm.jpg",
+    "caption": "Rich soil farmland with rows of mature cabbages and onions, and tomatoes climbing a rope trellis behind.",
+    "shows": "Rich soil farmland, cabbages, onions and tomatoes climbing ropes"
+  },
+  {
+    "file": "mechanics/compost-heap.jpg",
+    "caption": "An organic compost heap beside a pond, with mushrooms and rich soil around it to speed up composting.",
+    "shows": "Organic compost maturing into rich soil, sped up by water, sunlight and nearby mushrooms or rich soil"
+  },
+  {
+    "file": "mechanics/mushroom-colonies.jpg",
+    "caption": "Brown and red mushroom colonies at different growth stages on a bed of rich soil.",
+    "shows": "Mushroom colonies growing on rich soil (all ages)"
+  },
+  {
+    "file": "mechanics/rice-paddy.jpg",
+    "caption": "A rice paddy: young rice in the shallow water up front, mature plants with golden panicles behind.",
+    "shows": "Rice growing in water, from seedlings to panicles"
+  },
+  {
+    "file": "mechanics/wild-crops-beach.jpg",
+    "caption": "Wild cabbages, wild beetroots and sandy shrubs growing on a sandy shore.",
+    "shows": "Wild crops and sandy shrubs found on beaches"
+  },
+  {
+    "file": "mechanics/feast-table.jpg",
+    "caption": "A feast table: roast chicken, honey glazed ham, stuffed pumpkin, shepherd's pie, rice roll medley and gleaming salad, some already served, next to pies with slices taken.",
+    "shows": "Placed feasts with servings taken, and pies with bites taken"
+  },
+  {
+    "file": "mechanics/village-compost.jpg",
+    "caption": "The plains compost pile, one of the houses villages can generate: organic compost and rich soil in a fenced pen beside a small shed.",
+    "shows": "Village compost pile structure"
+  },
+  {
+    "file": "mechanics/cabinets-baskets.jpg",
+    "caption": "A kitchen storage corner with spruce cabinets, crates of carrots, potatoes, cabbages and onions, a rice bag and baskets.",
+    "shows": "Cabinets, crates, rice bag and baskets for storage"
+  }
+]

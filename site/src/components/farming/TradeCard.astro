@@ -1,0 +1,59 @@
+---
+// One villager / wandering trader offer from trades.json, drawn like a row of the vanilla merchant screen.
+import Slot from '../mc/Slot.astro';
+import { trades, url, nameOf, pct } from '../../lib/data';
+interface Props {
+	id: string;
+}
+const t = trades.find((x) => x.id === Astro.props.id);
+if (!t) throw new Error(`No trade ${Astro.props.id}`);
+---
+<div class="fd-trade not-content">
+	<div class="mc-panel row">
+		<Slot id={t.wants.id} count={t.wants.count} scale={2} />
+		<img class="arrow" src={url('/gui/mc/trade_arrow.png')} alt="for" width="20" height="18" />
+		<Slot id={t.gives.id} count={t.gives.count} scale={2} />
+	</div>
+	<div class="txt">
+		<span class="what">
+			{t.wants.count} {nameOf(t.wants.id)} → {t.gives.count} {nameOf(t.gives.id)}
+		</span>
+		<span class="meta">
+			{t.maxUses} in stock · {t.xp} villager XP
+		</span>
+	</div>
+</div>
+<style>
+	.fd-trade {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		padding: 0.4rem 0;
+		border-bottom: 1px solid var(--fd-border);
+	}
+	.row {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 6px 8px;
+	}
+	.arrow {
+		image-rendering: pixelated;
+		width: 20px;
+		height: 18px;
+	}
+	.txt {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.35;
+	}
+	.what {
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-sm);
+	}
+	.meta {
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+</style>
