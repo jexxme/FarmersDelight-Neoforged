@@ -204,6 +204,12 @@ const chapters = [
 	.corner.right {
 		right: 10px;
 	}
+	/* Like the title screen: the right-hand line only fits when there's room for both */
+	@media (max-width: 75rem) {
+		.corner.right {
+			display: none;
+		}
+	}
 	.intro {
 		font-size: 20px;
 		line-height: 30px;
