@@ -27,7 +27,7 @@ const upR = await Promise.all(upstream.map((s) => render(s, false)));
 		</ul>
 	</nav>
 	<div class="cl-body">
-		<h2 class="cl-group fd-sign orange">Farmer's Delight Neoforged</h2>
+		<h2 class="cl-group">Farmer's Delight Neoforged</h2>
 		{
 			portR.map((s) => (
 				<section id={s.id} class="cl-rel port ref-board">
@@ -39,7 +39,7 @@ const upR = await Promise.all(upstream.map((s) => render(s, false)));
 				</section>
 			))
 		}
-		<h2 class="cl-group fd-sign">Farmer's Delight (vectorwing)</h2>
+		<h2 class="cl-group">Farmer's Delight (vectorwing)</h2>
 		<p class="cl-note">Releases of the original mod. Each Neoforged release carries the content of the Farmer's Delight version in its name. Lines marked (1.20), (1.21) and so on are about other Minecraft versions of the original.</p>
 		{
 			upR.map((s, i) =>
@@ -213,5 +213,55 @@ const upR = await Promise.all(upstream.map((s) => render(s, false)));
 		flex-wrap: wrap;
 		white-space: normal;
 		overflow-wrap: anywhere;
+	}
+	/* One column: a compact jump bar of versions above the notes, instead of a squeezed side column */
+	.cl {
+		grid-template-columns: minmax(0, 1fr) !important;
+		gap: 24px !important;
+	}
+	.cl-index {
+		position: static !important;
+		max-height: none !important;
+		overflow: visible !important;
+		display: grid;
+		grid-template-columns: max-content minmax(0, 1fr);
+		gap: 6px 16px;
+		align-items: baseline;
+		padding: 12px 16px;
+		background: var(--fd-surface);
+		border: 3px solid var(--fd-frame);
+	}
+	.cl-index .cl-k {
+		margin: 0 !important;
+		border: 0 !important;
+		color: var(--sl-color-gray-3);
+	}
+	.cl-index ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2px 16px;
+		margin: 0 !important;
+	}
+	.cl-index a {
+		display: inline !important;
+		white-space: nowrap;
+	}
+	.cl-group {
+		display: block;
+		font-size: 30px;
+		line-height: 40px;
+		font-weight: 400;
+		margin: 48px 0 16px !important;
+		padding: 16px 0 0;
+		border-top: 4px solid var(--fd-border);
+		color: var(--fd-heading-ink);
+	}
+	.cl-body > .cl-group:first-child {
+		margin-top: 0 !important;
+	}
+	@media (max-width: 40rem) {
+		.cl-index {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 </style>
