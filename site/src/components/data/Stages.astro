@@ -6,11 +6,13 @@ interface Props {
 	block: string;
 	title?: string;
 	labels?: Record<string, string>;
+	/** Show the highest state first (e.g. a full feast down to empty). */
+	reverse?: boolean;
 }
-const { block, title, labels = {} } = Astro.props;
+const { block, title, labels = {}, reverse = false } = Astro.props;
 const keys = Object.keys(renders)
 	.filter((k) => k.startsWith(`stages/${block}-`))
-	.sort((a, b) => +a.split('-').pop()! - +b.split('-').pop()!);
+	.sort((a, b) => (reverse ? -1 : 1) * (+a.split('-').pop()! - +b.split('-').pop()!));
 const b = blocks[`farmersdelight:${block}`];
 const prop = b ? Object.keys(b.properties).find((p) => ['age', 'servings', 'bites', 'composting', 'moisture'].includes(p)) : null;
 const propLabel: Record<string, string> = { age: 'Age', servings: 'Servings', bites: 'Bites taken', composting: 'Stage', moisture: 'Moisture' };

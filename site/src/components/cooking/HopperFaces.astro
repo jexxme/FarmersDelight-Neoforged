@@ -1,0 +1,110 @@
+---
+// Which Cooking Pot slots a hopper reaches from each face (CookingPotBlockEntity#registerCapabilities, CookingPotItemHandler).
+// A column of real renders with HTML labels beside each block.
+import { renderOf } from '../../lib/data';
+const potImg = renderOf('blocks/cooking_pot');
+const hopper = renderOf('heat/minecraft-hopper');
+const magma = renderOf('heat/minecraft-magma_block');
+const rows = [
+	{ img: hopper, side: null, cls: '', arrow: 'both', title: 'Top face', text: 'ingredients in and out (the six ingredient slots)' },
+	{ img: potImg, side: hopper, cls: 'pot', arrow: 'out', title: 'Cooking Pot', text: 'side faces: containers in, meals out. The meal slot is never reachable.' },
+	{ img: hopper, side: null, cls: '', arrow: 'none', title: 'Bottom face', text: 'meals out of the output slot' },
+	{ img: magma, side: null, cls: 'src', arrow: 'none', title: 'Heat source', text: 'the hopper passes its heat up to the pot' },
+];
+---
+<figure class="fd-hopper not-content">
+	<ol>
+		{
+			rows.map((r) => (
+				<li class={r.cls}>
+					<span class="side">{r.side && <><img src={r.side} alt="Hopper" width="64" height="64" /><span class="harr" aria-hidden="true" /></>}</span>
+					<span class="blk"><img src={r.img} alt="" width="80" height="80" /></span>
+					<span class="lbl"><b>{r.title}</b>{r.text}</span>
+					{r.arrow !== 'none' && <span class:list={['varr', r.arrow]} aria-hidden="true" />}
+				</li>
+			))
+		}
+	</ol>
+</figure>
+<style>
+	.fd-hopper {
+		margin: 30px 0;
+	}
+	ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		position: relative;
+		display: grid;
+		grid-template-columns: 100px 96px 1fr;
+		align-items: center;
+		gap: 0 16px;
+		margin: 0 0 24px !important;
+		font-size: 20px;
+		line-height: 30px;
+	}
+	.blk {
+		width: 96px;
+		height: 96px;
+		display: grid;
+		place-items: center;
+		border: 3px solid var(--fd-frame);
+		background: var(--fd-surface);
+		box-shadow: 4px 4px 0 #000;
+	}
+	.pot .blk {
+		border-color: var(--fd-orange-frame);
+		background: var(--fd-orange-paper);
+	}
+	.src .blk {
+		border-style: dashed;
+	}
+	.side {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 4px;
+	}
+	.harr {
+		width: 0;
+		height: 0;
+		border: 8px solid transparent;
+		border-left: 12px solid var(--sl-color-white);
+		margin-right: -12px;
+	}
+	.varr {
+		position: absolute;
+		left: calc(100px + 16px + 48px - 8px);
+		bottom: -24px;
+		width: 0;
+		height: 0;
+		border: 8px solid transparent;
+		border-top: 12px solid var(--sl-color-white);
+	}
+	.varr.out {
+		border-top-color: var(--sl-color-text-accent);
+	}
+	.lbl {
+		display: flex;
+		flex-direction: column;
+		color: var(--sl-color-gray-2);
+	}
+	.lbl b {
+		color: var(--fd-heading-ink);
+	}
+	@media (max-width: 30rem) {
+		li {
+			grid-template-columns: 70px 96px 1fr;
+			gap: 0 8px;
+		}
+		.side img {
+			width: 48px;
+			height: 48px;
+		}
+		.varr {
+			left: calc(70px + 8px + 48px - 8px);
+		}
+	}
+</style>

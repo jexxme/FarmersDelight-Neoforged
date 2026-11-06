@@ -3216,5 +3216,407 @@
 		"name": "Raw Gold",
 		"food": null,
 		"stack": null
+	},
+	"minecraft:red_sand": {
+		"id": "minecraft:red_sand",
+		"name": "Red Sand",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:sand": {
+		"id": "minecraft:sand",
+		"name": "Sand",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:suspicious_sand": {
+		"id": "minecraft:suspicious_sand",
+		"name": "Suspicious Sand",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:black_wool": {
+		"id": "minecraft:black_wool",
+		"name": "Black Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:blue_wool": {
+		"id": "minecraft:blue_wool",
+		"name": "Blue Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:brown_wool": {
+		"id": "minecraft:brown_wool",
+		"name": "Brown Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:cyan_wool": {
+		"id": "minecraft:cyan_wool",
+		"name": "Cyan Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:gray_wool": {
+		"id": "minecraft:gray_wool",
+		"name": "Gray Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:green_wool": {
+		"id": "minecraft:green_wool",
+		"name": "Green Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:light_blue_wool": {
+		"id": "minecraft:light_blue_wool",
+		"name": "Light Blue Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:light_gray_wool": {
+		"id": "minecraft:light_gray_wool",
+		"name": "Light Gray Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:lime_wool": {
+		"id": "minecraft:lime_wool",
+		"name": "Lime Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:magenta_wool": {
+		"id": "minecraft:magenta_wool",
+		"name": "Magenta Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:orange_wool": {
+		"id": "minecraft:orange_wool",
+		"name": "Orange Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:pink_wool": {
+		"id": "minecraft:pink_wool",
+		"name": "Pink Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:purple_wool": {
+		"id": "minecraft:purple_wool",
+		"name": "Purple Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:red_wool": {
+		"id": "minecraft:red_wool",
+		"name": "Red Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:white_wool": {
+		"id": "minecraft:white_wool",
+		"name": "White Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:yellow_wool": {
+		"id": "minecraft:yellow_wool",
+		"name": "Yellow Wool",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:black_carpet": {
+		"id": "minecraft:black_carpet",
+		"name": "Black Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:blue_carpet": {
+		"id": "minecraft:blue_carpet",
+		"name": "Blue Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:brown_carpet": {
+		"id": "minecraft:brown_carpet",
+		"name": "Brown Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:cyan_carpet": {
+		"id": "minecraft:cyan_carpet",
+		"name": "Cyan Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:gray_carpet": {
+		"id": "minecraft:gray_carpet",
+		"name": "Gray Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:green_carpet": {
+		"id": "minecraft:green_carpet",
+		"name": "Green Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:light_blue_carpet": {
+		"id": "minecraft:light_blue_carpet",
+		"name": "Light Blue Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:light_gray_carpet": {
+		"id": "minecraft:light_gray_carpet",
+		"name": "Light Gray Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:lime_carpet": {
+		"id": "minecraft:lime_carpet",
+		"name": "Lime Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:magenta_carpet": {
+		"id": "minecraft:magenta_carpet",
+		"name": "Magenta Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:orange_carpet": {
+		"id": "minecraft:orange_carpet",
+		"name": "Orange Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:pink_carpet": {
+		"id": "minecraft:pink_carpet",
+		"name": "Pink Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:purple_carpet": {
+		"id": "minecraft:purple_carpet",
+		"name": "Purple Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:red_carpet": {
+		"id": "minecraft:red_carpet",
+		"name": "Red Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:white_carpet": {
+		"id": "minecraft:white_carpet",
+		"name": "White Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:yellow_carpet": {
+		"id": "minecraft:yellow_carpet",
+		"name": "Yellow Carpet",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:black_wool_slab": {
+		"id": "minecraft:black_wool_slab",
+		"name": "Black Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:blue_wool_slab": {
+		"id": "minecraft:blue_wool_slab",
+		"name": "Blue Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:brown_wool_slab": {
+		"id": "minecraft:brown_wool_slab",
+		"name": "Brown Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:cyan_wool_slab": {
+		"id": "minecraft:cyan_wool_slab",
+		"name": "Cyan Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:gray_wool_slab": {
+		"id": "minecraft:gray_wool_slab",
+		"name": "Gray Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:green_wool_slab": {
+		"id": "minecraft:green_wool_slab",
+		"name": "Green Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:light_blue_wool_slab": {
+		"id": "minecraft:light_blue_wool_slab",
+		"name": "Light Blue Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:light_gray_wool_slab": {
+		"id": "minecraft:light_gray_wool_slab",
+		"name": "Light Gray Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:lime_wool_slab": {
+		"id": "minecraft:lime_wool_slab",
+		"name": "Lime Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:magenta_wool_slab": {
+		"id": "minecraft:magenta_wool_slab",
+		"name": "Magenta Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:orange_wool_slab": {
+		"id": "minecraft:orange_wool_slab",
+		"name": "Orange Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:pink_wool_slab": {
+		"id": "minecraft:pink_wool_slab",
+		"name": "Pink Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:purple_wool_slab": {
+		"id": "minecraft:purple_wool_slab",
+		"name": "Purple Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:red_wool_slab": {
+		"id": "minecraft:red_wool_slab",
+		"name": "Red Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:white_wool_slab": {
+		"id": "minecraft:white_wool_slab",
+		"name": "White Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:yellow_wool_slab": {
+		"id": "minecraft:yellow_wool_slab",
+		"name": "Yellow Wool Slab",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:black_wool_stairs": {
+		"id": "minecraft:black_wool_stairs",
+		"name": "Black Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:blue_wool_stairs": {
+		"id": "minecraft:blue_wool_stairs",
+		"name": "Blue Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:brown_wool_stairs": {
+		"id": "minecraft:brown_wool_stairs",
+		"name": "Brown Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:cyan_wool_stairs": {
+		"id": "minecraft:cyan_wool_stairs",
+		"name": "Cyan Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:gray_wool_stairs": {
+		"id": "minecraft:gray_wool_stairs",
+		"name": "Gray Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:green_wool_stairs": {
+		"id": "minecraft:green_wool_stairs",
+		"name": "Green Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:light_blue_wool_stairs": {
+		"id": "minecraft:light_blue_wool_stairs",
+		"name": "Light Blue Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:light_gray_wool_stairs": {
+		"id": "minecraft:light_gray_wool_stairs",
+		"name": "Light Gray Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:lime_wool_stairs": {
+		"id": "minecraft:lime_wool_stairs",
+		"name": "Lime Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:magenta_wool_stairs": {
+		"id": "minecraft:magenta_wool_stairs",
+		"name": "Magenta Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:orange_wool_stairs": {
+		"id": "minecraft:orange_wool_stairs",
+		"name": "Orange Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:pink_wool_stairs": {
+		"id": "minecraft:pink_wool_stairs",
+		"name": "Pink Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:purple_wool_stairs": {
+		"id": "minecraft:purple_wool_stairs",
+		"name": "Purple Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:red_wool_stairs": {
+		"id": "minecraft:red_wool_stairs",
+		"name": "Red Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:white_wool_stairs": {
+		"id": "minecraft:white_wool_stairs",
+		"name": "White Wool Stairs",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:yellow_wool_stairs": {
+		"id": "minecraft:yellow_wool_stairs",
+		"name": "Yellow Wool Stairs",
+		"food": null,
+		"stack": null
 	}
 }

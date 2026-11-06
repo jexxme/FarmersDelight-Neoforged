@@ -1,0 +1,90 @@
+---
+title: Animal feed
+description: Dog Food and Horse Feed, which animals accept them, the healing and effects they give, and their recipes.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Recipe from '../../../components/recipes/Recipe.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import FoodStats from '../../../components/data/FoodStats.astro';
+import Src from '../../../components/mc/Src.astro';
+import Cite from '../../../components/cooking/Cite.astro';
+import { items, tags, recipesFor, effects } from '../../../lib/data';
+import { feed } from '../../../data/code/cooking';
+
+export const E = tags.resolved.entity_type;
+export const dogUsers = E['farmersdelight:dog_food_users'];
+export const horseUsers = E['farmersdelight:horse_feed_users'];
+export const tempted = tags.resolved.item['minecraft:horse_tempt_items'];
+export const ent = (id) => id.split(':')[1].replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+export const effName = (id) => id.split(':')[1].replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+export const dog = items['farmersdelight:dog_food'];
+export const horse = items['farmersdelight:horse_feed'];
+export const ENT = 'src/generated/resources/data/farmersdelight/tags/entity_type/';
+
+Two items are meant for your animals rather than for you. Feed them by right-clicking the animal with the item in hand.
+Both heal the animal to full and give it a set of effects.
+
+<div class="not-content fd-feed">
+	<div class="fd-board feedcard">
+		<h3><Item id="dog_food" /></h3>
+		<dl>
+			<dt>Fed to</dt><dd>{dogUsers.map((e, i) => <>{i ? ', ' : ''}{ent(e)}</>)}, tamed only <Src path={`${ENT}dog_food_users.json`} /></dd>
+			<dt>Heals</dt><dd>to full health</dd>
+			<dt>Effects</dt><dd>{feed.dogEffects.value.map((e) => <EffectBadge id={e.id} name={effName(e.id)} ticks={e.ticks} amplifier={e.amplifier} />)} <Cite f={feed.dogEffects} /></dd>
+			<dt>Leaves</dt><dd><Item id={dog.remainder} /> (not in creative)</dd>
+			<dt>Stack</dt><dd>{dog.stack}</dd>
+			<dt>You can eat it</dt><dd><FoodStats nutrition={dog.food.nutrition} saturation={dog.food.saturation} compact /></dd>
+		</dl>
+	</div>
+	<div class="fd-board feedcard">
+		<h3><Item id="horse_feed" /></h3>
+		<dl>
+			<dt>Fed to</dt><dd>{horseUsers.map((e, i) => <>{i ? ', ' : ''}{ent(e)}</>)}, tamed only <Src path={`${ENT}horse_feed_users.json`} /></dd>
+			<dt>Heals</dt><dd>to full health</dd>
+			<dt>Effects</dt><dd>{feed.horseEffects.value.map((e) => <EffectBadge id={e.id} name={effName(e.id)} ticks={e.ticks} amplifier={e.amplifier} />)} <Cite f={feed.horseEffects} /></dd>
+			<dt>Used up</dt><dd>1 per feeding (not in creative)</dd>
+			<dt>Stack</dt><dd>{horse.stack}</dd>
+			<dt>Edible</dt><dd>no, it is not food for players</dd>
+		</dl>
+	</div>
+</div>
+
+## How it works
+
+**Dog Food** <Cite f={feed.dogUse} />: right-click a living animal from `#farmersdelight:dog_food_users` while holding Dog
+Food. If the animal can be tamed it must already be tamed. Its health is set to the maximum, it gets the three effects, you
+hear it eat and see a few stars. Outside creative you lose one Dog Food and get the <Item id="minecraft:bowl" /> back. Since
+Dog Food is also a normal bowl food, you can eat it yourself when you are not aiming at a dog.
+
+**Horse Feed** <Cite f={feed.horseUse} />: the same with `#farmersdelight:horse_feed_users`; tameable mounts must be tamed.
+Full health, the two effects, a horse eating sound and stars, and one Horse Feed is used up (not in creative).
+Horse Feed is also in `#minecraft:horse_tempt_items` ({tempted.map((id, i) => <>{i ? ', ' : ''}<Item id={id} /></>)}), so
+horses follow you while you hold it.
+
+Both items explain this in their tooltip ("When fed to…") while the client option `enableFoodEffectTooltip` is on
+<Cite f={feed.dogTooltip} />.
+
+## Recipes
+
+<div class="not-content" style="display:flex;flex-wrap:wrap;gap:30px 40px;margin:20px 0">
+	{[...recipesFor('farmersdelight:dog_food'), ...recipesFor('farmersdelight:horse_feed')].map((r) => <Recipe recipe={r} />)}
+</div>
+
+Dog Food cooks in the [Cooking Pot](/mechanics/cooking-pot/), so it needs heat and a bowl to serve.
+
+## Details
+
+- The tag `#farmersdelight:horse_feed_tempted` ({E['farmersdelight:horse_feed_tempted'].map((e, i) => <>{i ? ', ' : ''}{ent(e)}</>)})
+  exists but is not read by any code; tempting uses the vanilla item tag above.
+- Pack makers can add any living mob to the two "users" tags. Mobs that cannot be tamed accept the food without the tamed check.
+- Feeding works on the mob directly and does not breed it or count as its normal food.
+
+<style>{`
+.fd-feed { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 30px; margin: 30px 0; font-size: 20px; line-height: 30px; }
+.fd-feed .feedcard { padding: 12px 18px; }
+.fd-feed h3 { margin: 0 0 8px; font-size: 30px; line-height: 40px; font-weight: 400; color: var(--fd-heading-ink); }
+.fd-feed dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin: 0; }
+.fd-feed dt { color: var(--sl-color-gray-3); }
+.fd-feed dd { margin: 0; color: var(--sl-color-gray-2); display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+`}</style>

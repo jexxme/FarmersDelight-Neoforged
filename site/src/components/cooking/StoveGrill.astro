@@ -1,0 +1,57 @@
+---
+// The Stove's grill seen from above: six positions in two rows of three, filled in order (StoveBlockEntity#getStoveItemOffset,
+// AbstractStoveBlockEntity#getNextEmptySlot). Slots show the inputs of the shipped campfire recipes.
+import Slot from '../mc/Slot.astro';
+import { playableRecipes, renderOf } from '../../lib/data';
+import { stove as S } from '../../data/code/cooking';
+const inputs = playableRecipes.filter((r) => r.type === 'campfire_cooking').map((r) => r.ingredients![0]);
+const stove = renderOf('blocks/stove');
+const slots = Array.from({ length: S.slots.value }, (_, i) => inputs[i] ?? null);
+---
+<figure class="fd-grill not-content">
+	<img src={stove} alt="Stove" width="150" height="150" />
+	<div class="mc-panel grid">
+		{slots.map((ing, i) => (
+			<span class="cell">
+				<span class="n">{i + 1}</span>
+				<Slot ingredient={ing} scale={2} />
+			</span>
+		))}
+	</div>
+	<p class="lbl">
+		{S.slots.value} grill slots, {S.perSlot.value} item each,<br />filled in order 1 to {S.slots.value}
+	</p>
+</figure>
+<style>
+	.fd-grill {
+		margin: 30px 0;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 20px 30px;
+	}
+	.grid {
+		display: grid !important;
+		grid-template-columns: repeat(3, auto);
+		gap: 6px;
+	}
+	.cell {
+		position: relative;
+	}
+	.n {
+		position: absolute;
+		left: -4px;
+		top: -12px;
+		z-index: 1;
+		font-size: 20px;
+		line-height: 20px;
+		color: #fff;
+		text-shadow: 2px 2px 0 #3f3f3f;
+	}
+	.lbl {
+		margin: 0;
+		font-size: 20px;
+		line-height: 30px;
+		color: var(--sl-color-gray-2);
+	}
+</style>

@@ -1,0 +1,84 @@
+---
+title: Drinks
+description: Every Farmer's Delight drink, what it does when drunk, the bottle or bowl it gives back, and how it stacks.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import FoodStats from '../../../components/data/FoodStats.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import Src from '../../../components/mc/Src.astro';
+import Cite from '../../../components/cooking/Cite.astro';
+import { itemList, recipesFor, seconds, short } from '../../../lib/data';
+import { drink } from '../../../data/code/cooking';
+
+export const drinks = itemList.filter((i) => i.consumable && (i.category === 'drinks' || i.consumable.animation === 'drink'));
+export const noFood = drinks.filter((i) => !i.food && i.consumable.other.length);
+export const describe = (o) =>
+	o.type === 'farmersdelight:remove_random_effects'
+		? `Removes one random ${o.harmful_only ? 'harmful ' : ''}effect (not one in #${short(o.excluded)})`
+		: o.type === 'farmersdelight:heal'
+			? `Heals ${o.amount} health (${o.amount / 2} heart${o.amount === 2 ? '' : 's'})`
+			: o.type === 'farmersdelight:extinguish'
+				? 'Puts out fire'
+				: o.type;
+
+Drinks are consumed with the drinking animation and give their container back. Most come in a
+<Item id="minecraft:glass_bottle" />. The mod has {drinks.filter((d) => d.category === 'drinks').length} items in its
+drinks tab, and {drinks.length - drinks.filter((d) => d.category === 'drinks').length} more foods that are drunk rather
+than eaten.
+
+## Every drink
+
+<table>
+	<thead><tr><th>Drink</th><th>What it does</th><th>Food</th><th>Returns</th><th>Stack</th><th>Drink time</th></tr></thead>
+	<tbody>
+		{drinks.map((d) => (
+			<tr>
+				<td><Item id={d.id} /></td>
+				<td>
+					{d.consumable.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}
+					{d.consumable.other.map((o) => <div>{describe(o)}</div>)}
+					{d.tooltip.length ? <div class="fd-source">tooltip: “{d.tooltip.join(' ')}”</div> : null}
+				</td>
+				<td>{d.food && (d.food.nutrition || d.food.saturation) ? <FoodStats nutrition={d.food.nutrition} saturation={d.food.saturation} compact /> : d.food ? 'none, always drinkable' : '—'}</td>
+				<td><Item id={d.remainder} /></td>
+				<td>{d.stack}</td>
+				<td><span class="fd-val">{seconds(d.consumable.seconds * 20)}</span></td>
+			</tr>
+		))}
+	</tbody>
+</table>
+
+The values come from each item's `minecraft:consumable` and `minecraft:food` components in the game.
+
+## How drinking works
+
+- **The container comes back.** After drinking, the container is put in your inventory (or dropped if it is full), even
+  from a stack of 16; the last drink of a stack turns into the container in your hand <Cite f={drink.container} />.
+- **Effect removal** (`farmersdelight:remove_random_effects`) picks one of your active effects at random, skipping effects
+  in an exclusion tag, and optionally only harmful ones <Cite f={drink.removeRandom} />. The exclusion tags
+  `#farmersdelight:milk_bottle_ignored` and `#farmersdelight:hot_cocoa_ignored` ship empty, so packs can protect effects
+  from them.
+- **Healing** (`farmersdelight:heal`) heals the drinker directly <Cite f={drink.heal} />.
+- Drinks with a food component (Apple Cider, Glow Berry Custard) can be drunk even with a full hunger bar, because their food
+  is marked always edible.
+
+<Aside type="note" title="Milk Bottle, Hot Cocoa and Melon Juice in this version">
+{noFood.map((d, i) => <>{i ? ', ' : ''}<Item id={d.id} /></>)} have no food component. Farmer's Delight's drink item runs the
+game's normal consume step, which is where these effects are applied, only for items that have food; without food it just
+uses up the drink and hands back the bottle <Cite f={drink.foodPath} /> <Cite f={drink.vanillaFinish} />. Read from the code,
+drinking these three therefore removes no effect and heals nothing in this version. Not checked in game.
+</Aside>
+
+## Recipes
+
+<RecipeList ids={drinks.flatMap((d) => recipesFor(d.id).map((r) => r.id))} />
+
+## Details
+
+- Stack size: {[...new Set(drinks.map((d) => d.stack))].join(' or ')}.
+- In `#c:drinks`: {drinks.filter((d) => d.tags.includes('c:drinks')).map((d, i) => <>{i ? ', ' : ''}<Item id={d.id} /></>)}; in `#c:drinks/milk`: {drinks.filter((d) => d.tags.includes('c:drinks/milk')).map((d, i) => <>{i ? ', ' : ''}<Item id={d.id} /></>)}.
+- Registrations: <Cite f={drink.registration} />.

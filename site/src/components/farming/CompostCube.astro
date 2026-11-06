@@ -1,0 +1,105 @@
+---
+// The 3x3x3 cube Organic Compost scans each random tick, drawn as three layers (OrganicCompostBlock.randomTick).
+import { compost } from '../../data/code/farming';
+import { pct } from '../../lib/data';
+const r = compost.cube.value;
+const n = 2 * r + 1;
+const C = 40;
+const gap = 30;
+const layers = [
+	{ label: 'below', dy: -1 },
+	{ label: 'same level', dy: 0 },
+	{ label: 'above', dy: 1 },
+];
+const W = layers.length * n * C + (layers.length - 1) * gap + 8;
+const H = n * C + 40;
+---
+<figure class="fd-cube fd-board not-content">
+	<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`The ${n}×${n}×${n} cube around the compost block, in three layers`}>
+		{
+			layers.map((l, li) => {
+				const ox = 4 + li * (n * C + gap);
+				return (
+					<g>
+						<text x={ox + (n * C) / 2} y="22" class="lbl">{l.label}</text>
+						{Array.from({ length: n * n }, (_, i) => {
+							const x = i % n;
+							const z = Math.floor(i / n);
+							const centre = l.dy === 0 && x === r && z === r;
+							return (
+								<g>
+									<rect x={ox + x * C} y={34 + z * C} width={C} height={C} class={centre ? 'c on' : 'c'} />
+									<rect x={ox + x * C + C / 2 - 3} y={34 + z * C + 6} width="6" height="6" class="sun" />
+								</g>
+							);
+						})}
+					</g>
+				);
+			})
+		}
+	</svg>
+	<figcaption>
+		<span class="key"><i class="k-on" /> the compost, which counts as an activator itself</span>
+		<span class="key"><i class="k-sun" /> sky light is read one block above each cell</span>
+		<span>
+			All {n ** 3} cells count. Every activator adds {pct(compost.activator.value)}; one water cell anywhere adds {pct(compost.waterAdd.value)}; the highest sky light found decides between {pct(compost.skyBright.value)} and {pct(compost.skyDim.value)}.
+		</span>
+	</figcaption>
+</figure>
+<style>
+	.fd-cube {
+		margin: 30px 0;
+		padding: 12px 16px;
+	}
+	svg {
+		width: 100%;
+		height: auto;
+		display: block;
+		max-width: 33rem;
+	}
+	.c {
+		fill: none;
+		stroke: var(--sl-color-gray-4);
+		stroke-width: 2;
+	}
+	.c.on {
+		fill: var(--fd-orange-paper);
+		stroke: var(--fd-orange-frame);
+	}
+	.sun {
+		fill: var(--fd-gold);
+	}
+	.lbl {
+		font-family: var(--fd-font-mono);
+		font-size: 20px;
+		fill: var(--sl-color-gray-2);
+		text-anchor: middle;
+	}
+	figcaption {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		margin-top: 10px;
+		font-size: 20px;
+		line-height: 28px;
+		color: var(--sl-color-gray-3);
+	}
+	.key {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+	.key i {
+		display: inline-block;
+		width: 14px;
+		height: 14px;
+		flex: none;
+	}
+	.k-on {
+		background: var(--fd-orange-paper);
+		box-shadow: inset 0 0 0 2px var(--fd-orange-frame);
+	}
+	.k-sun {
+		background: var(--fd-gold);
+	}
+</style>

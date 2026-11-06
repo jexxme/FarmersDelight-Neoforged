@@ -11,6 +11,8 @@
 			"table": "farmersdelight:chests/fd_abandoned_mineshaft"
 		},
 		"target": "minecraft:chests/abandoned_mineshaft",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_abandoned_mineshaft"
 	},
 	{
@@ -25,6 +27,8 @@
 			"table": "farmersdelight:chests/fd_bastion_hoglin_stable"
 		},
 		"target": "minecraft:chests/bastion_hoglin_stable",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_bastion_hoglin_stable"
 	},
 	{
@@ -39,6 +43,8 @@
 			"table": "farmersdelight:chests/fd_bastion_treasure"
 		},
 		"target": "minecraft:chests/bastion_treasure",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_bastion_treasure"
 	},
 	{
@@ -53,6 +59,8 @@
 			"table": "farmersdelight:chests/fd_end_city_treasure"
 		},
 		"target": "minecraft:chests/end_city_treasure",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_end_city_treasure"
 	},
 	{
@@ -67,6 +75,8 @@
 			"table": "farmersdelight:chests/fd_pillager_outpost"
 		},
 		"target": "minecraft:chests/pillager_outpost",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_pillager_outpost"
 	},
 	{
@@ -81,6 +91,8 @@
 			"table": "farmersdelight:chests/fd_ruined_portal"
 		},
 		"target": "minecraft:chests/ruined_portal",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_ruined_portal"
 	},
 	{
@@ -95,6 +107,8 @@
 			"table": "farmersdelight:chests/fd_shipwreck_supply"
 		},
 		"target": "minecraft:chests/shipwreck_supply",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_shipwreck_supply"
 	},
 	{
@@ -109,6 +123,8 @@
 			"table": "farmersdelight:chests/fd_simple_dungeon"
 		},
 		"target": "minecraft:chests/simple_dungeon",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_simple_dungeon"
 	},
 	{
@@ -123,6 +139,8 @@
 			"table": "farmersdelight:chests/fd_village_butcher"
 		},
 		"target": "minecraft:chests/village/village_butcher",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_village_butcher"
 	},
 	{
@@ -137,6 +155,8 @@
 			"table": "farmersdelight:chests/fd_village_desert_house"
 		},
 		"target": "minecraft:chests/village/village_desert_house",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_village_desert_house"
 	},
 	{
@@ -151,6 +171,8 @@
 			"table": "farmersdelight:chests/fd_village_plains_house"
 		},
 		"target": "minecraft:chests/village/village_plains_house",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_village_plains_house"
 	},
 	{
@@ -165,6 +187,8 @@
 			"table": "farmersdelight:chests/fd_village_savanna_house"
 		},
 		"target": "minecraft:chests/village/village_savanna_house",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_village_savanna_house"
 	},
 	{
@@ -179,6 +203,8 @@
 			"table": "farmersdelight:chests/fd_village_snowy_house"
 		},
 		"target": "minecraft:chests/village/village_snowy_house",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_village_snowy_house"
 	},
 	{
@@ -193,6 +219,8 @@
 			"table": "farmersdelight:chests/fd_village_taiga_house"
 		},
 		"target": "minecraft:chests/village/village_taiga_house",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"table": "farmersdelight:chests/fd_village_taiga_house"
 	},
 	{
@@ -246,6 +274,13 @@
 			},
 			"item": "farmersdelight:onion"
 		},
+		"entity": [
+			"minecraft:pillager",
+			"minecraft:evoker",
+			"minecraft:vindicator"
+		],
+		"killedByPlayer": true,
+		"silkTouch": false,
 		"lootingChance": {
 			"base": 0.02,
 			"enchanted": {
@@ -307,6 +342,13 @@
 			},
 			"item": "farmersdelight:onion"
 		},
+		"entity": [
+			"minecraft:zombie",
+			"minecraft:husk",
+			"minecraft:zombie_villager"
+		],
+		"killedByPlayer": true,
+		"silkTouch": false,
 		"lootingChance": {
 			"base": 0.02,
 			"enchanted": {
@@ -349,6 +391,8 @@
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
 		"entity": "minecraft:chicken",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"item": "minecraft:feather"
 	},
 	{
@@ -392,6 +436,8 @@
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
 		"entity": "minecraft:hoglin",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"onFire": false,
 		"item": "farmersdelight:ham"
 	},
@@ -446,6 +492,8 @@
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
 		"entity": "minecraft:pig",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"onFire": false,
 		"lootingChance": {
 			"base": 0.5,
@@ -535,6 +583,17 @@
 			"item": "minecraft:leather"
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
+		"entity": [
+			"minecraft:cow",
+			"minecraft:mooshroom",
+			"minecraft:horse",
+			"minecraft:donkey",
+			"minecraft:mule",
+			"minecraft:llama",
+			"minecraft:trader_llama"
+		],
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"item": "minecraft:leather"
 	},
 	{
@@ -565,6 +624,8 @@
 			"count": 4,
 			"removed_item": "minecraft:pumpkin"
 		},
+		"killedByPlayer": false,
+		"silkTouch": true,
 		"tool": "#farmersdelight:tools/knives",
 		"block": {
 			"blocks": "minecraft:pumpkin",
@@ -604,6 +665,8 @@
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
 		"entity": "minecraft:rabbit",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"item": "minecraft:rabbit_hide"
 	},
 	{
@@ -638,6 +701,8 @@
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
 		"entity": "minecraft:shulker",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"item": "minecraft:shulker_shell"
 	},
 	{
@@ -681,6 +746,8 @@
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
 		"entity": "minecraft:hoglin",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"onFire": true,
 		"item": "farmersdelight:smoked_ham"
 	},
@@ -735,6 +802,8 @@
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
 		"entity": "minecraft:pig",
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"onFire": true,
 		"lootingChance": {
 			"base": 0.5,
@@ -789,6 +858,12 @@
 			"item": "minecraft:string"
 		},
 		"attackerTool": "#farmersdelight:tools/knives",
+		"entity": [
+			"minecraft:spider",
+			"minecraft:cave_spider"
+		],
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"item": "minecraft:string"
 	},
 	{
@@ -813,6 +888,8 @@
 			},
 			"slice": "farmersdelight:apple_pie_slice"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"tool": "#farmersdelight:tools/knives",
 		"block": {
 			"blocks": "farmersdelight:apple_pie",
@@ -841,6 +918,8 @@
 			},
 			"slice": "farmersdelight:cake_slice"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"tool": "#farmersdelight:tools/knives",
 		"block": {
 			"blocks": "minecraft:cake",
@@ -939,6 +1018,8 @@
 			"count": 7,
 			"item": "farmersdelight:cake_slice"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"tool": "#farmersdelight:tools/knives",
 		"item": "farmersdelight:cake_slice",
 		"count": 7
@@ -965,6 +1046,8 @@
 			},
 			"slice": "farmersdelight:chocolate_pie_slice"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"tool": "#farmersdelight:tools/knives",
 		"block": {
 			"blocks": "farmersdelight:chocolate_pie",
@@ -993,6 +1076,8 @@
 			},
 			"slice": "farmersdelight:pumpkin_pie_slice"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"tool": "#farmersdelight:tools/knives",
 		"block": {
 			"blocks": "farmersdelight:pumpkin_pie",
@@ -1021,6 +1106,8 @@
 			},
 			"slice": "farmersdelight:sweet_berry_cheesecake_slice"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"tool": "#farmersdelight:tools/knives",
 		"block": {
 			"blocks": "farmersdelight:sweet_berry_cheesecake",
@@ -1053,6 +1140,8 @@
 			},
 			"item": "farmersdelight:straw"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"chance": 0.2,
 		"tool": "#farmersdelight:straw_harvesters",
 		"block": {
@@ -1086,6 +1175,8 @@
 			},
 			"item": "farmersdelight:straw"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"tool": "#farmersdelight:straw_harvesters",
 		"block": {
 			"blocks": "farmersdelight:rice_panicles",
@@ -1120,6 +1211,8 @@
 			},
 			"item": "farmersdelight:straw"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"tool": "#farmersdelight:straw_harvesters",
 		"block": {
 			"blocks": "minecraft:wheat",
@@ -1155,6 +1248,8 @@
 			},
 			"item": "farmersdelight:straw"
 		},
+		"killedByPlayer": false,
+		"silkTouch": false,
 		"chance": 0.3,
 		"tool": "#farmersdelight:straw_harvesters",
 		"block": {

@@ -407,6 +407,13 @@
 				"minecraft:white_tulip",
 				"minecraft:wither_rose"
 			],
+			"c:flowers/tall": [
+				"minecraft:lilac",
+				"minecraft:peony",
+				"minecraft:pitcher_plant",
+				"minecraft:rose_bush",
+				"minecraft:sunflower"
+			],
 			"c:foods": [
 				"farmersdelight:apple_pie",
 				"farmersdelight:apple_pie_slice",
@@ -1860,6 +1867,11 @@
 				"minecraft:dandelion",
 				"minecraft:golden_carrot"
 			],
+			"minecraft:sand": [
+				"minecraft:red_sand",
+				"minecraft:sand",
+				"minecraft:suspicious_sand"
+			],
 			"minecraft:shovels": [
 				"minecraft:copper_shovel",
 				"minecraft:diamond_shovel",
@@ -1985,6 +1997,78 @@
 				"minecraft:rotten_flesh",
 				"minecraft:salmon",
 				"minecraft:tropical_fish"
+			],
+			"minecraft:wool": [
+				"minecraft:black_wool",
+				"minecraft:blue_wool",
+				"minecraft:brown_wool",
+				"minecraft:cyan_wool",
+				"minecraft:gray_wool",
+				"minecraft:green_wool",
+				"minecraft:light_blue_wool",
+				"minecraft:light_gray_wool",
+				"minecraft:lime_wool",
+				"minecraft:magenta_wool",
+				"minecraft:orange_wool",
+				"minecraft:pink_wool",
+				"minecraft:purple_wool",
+				"minecraft:red_wool",
+				"minecraft:white_wool",
+				"minecraft:yellow_wool"
+			],
+			"minecraft:wool_carpets": [
+				"minecraft:black_carpet",
+				"minecraft:blue_carpet",
+				"minecraft:brown_carpet",
+				"minecraft:cyan_carpet",
+				"minecraft:gray_carpet",
+				"minecraft:green_carpet",
+				"minecraft:light_blue_carpet",
+				"minecraft:light_gray_carpet",
+				"minecraft:lime_carpet",
+				"minecraft:magenta_carpet",
+				"minecraft:orange_carpet",
+				"minecraft:pink_carpet",
+				"minecraft:purple_carpet",
+				"minecraft:red_carpet",
+				"minecraft:white_carpet",
+				"minecraft:yellow_carpet"
+			],
+			"minecraft:wool_slabs": [
+				"minecraft:black_wool_slab",
+				"minecraft:blue_wool_slab",
+				"minecraft:brown_wool_slab",
+				"minecraft:cyan_wool_slab",
+				"minecraft:gray_wool_slab",
+				"minecraft:green_wool_slab",
+				"minecraft:light_blue_wool_slab",
+				"minecraft:light_gray_wool_slab",
+				"minecraft:lime_wool_slab",
+				"minecraft:magenta_wool_slab",
+				"minecraft:orange_wool_slab",
+				"minecraft:pink_wool_slab",
+				"minecraft:purple_wool_slab",
+				"minecraft:red_wool_slab",
+				"minecraft:white_wool_slab",
+				"minecraft:yellow_wool_slab"
+			],
+			"minecraft:wool_stairs": [
+				"minecraft:black_wool_stairs",
+				"minecraft:blue_wool_stairs",
+				"minecraft:brown_wool_stairs",
+				"minecraft:cyan_wool_stairs",
+				"minecraft:gray_wool_stairs",
+				"minecraft:green_wool_stairs",
+				"minecraft:light_blue_wool_stairs",
+				"minecraft:light_gray_wool_stairs",
+				"minecraft:lime_wool_stairs",
+				"minecraft:magenta_wool_stairs",
+				"minecraft:orange_wool_stairs",
+				"minecraft:pink_wool_stairs",
+				"minecraft:purple_wool_stairs",
+				"minecraft:red_wool_stairs",
+				"minecraft:white_wool_stairs",
+				"minecraft:yellow_wool_stairs"
 			],
 			"origins:meat": [
 				"farmersdelight:bacon_and_eggs",
@@ -2112,6 +2196,14 @@
 				"minecraft:white_tulip",
 				"minecraft:wither_rose"
 			],
+			"c:flowers/tall": [
+				"minecraft:lilac",
+				"minecraft:peony",
+				"minecraft:pitcher_plant",
+				"minecraft:rose_bush",
+				"minecraft:sunflower"
+			],
+			"c:mineable/knife": [],
 			"c:ropes": [
 				"farmersdelight:rope"
 			],
@@ -2468,6 +2560,11 @@
 				"farmersdelight:wild_potatoes",
 				"farmersdelight:wild_rice",
 				"farmersdelight:wild_tomatoes"
+			],
+			"minecraft:air": [
+				"minecraft:air",
+				"minecraft:cave_air",
+				"minecraft:void_air"
 			],
 			"minecraft:all_hanging_signs": [
 				"farmersdelight:black_hanging_canvas_sign",
@@ -10080,6 +10177,29 @@
 				"minecraft:yellow_wool_slab",
 				"minecraft:yellow_wool_stairs"
 			],
+			"minecraft:campfires": [
+				"minecraft:campfire",
+				"minecraft:soul_campfire"
+			],
+			"minecraft:candle_cakes": [
+				"minecraft:black_candle_cake",
+				"minecraft:blue_candle_cake",
+				"minecraft:brown_candle_cake",
+				"minecraft:candle_cake",
+				"minecraft:cyan_candle_cake",
+				"minecraft:gray_candle_cake",
+				"minecraft:green_candle_cake",
+				"minecraft:light_blue_candle_cake",
+				"minecraft:light_gray_candle_cake",
+				"minecraft:lime_candle_cake",
+				"minecraft:magenta_candle_cake",
+				"minecraft:orange_candle_cake",
+				"minecraft:pink_candle_cake",
+				"minecraft:purple_candle_cake",
+				"minecraft:red_candle_cake",
+				"minecraft:white_candle_cake",
+				"minecraft:yellow_candle_cake"
+			],
 			"minecraft:cannot_replace_below_tree_trunk": [
 				"farmersdelight:rich_soil",
 				"minecraft:coarse_dirt",
@@ -12400,6 +12520,10 @@
 				"minecraft:spruce_fence",
 				"minecraft:warped_fence"
 			],
+			"minecraft:fire": [
+				"minecraft:fire",
+				"minecraft:soul_fire"
+			],
 			"minecraft:flowers": [
 				"farmersdelight:wild_beetroots",
 				"farmersdelight:wild_cabbages",
@@ -13547,6 +13671,56 @@
 				"minecraft:rooted_dirt",
 				"minecraft:snow_block"
 			],
+			"minecraft:logs": [
+				"minecraft:acacia_log",
+				"minecraft:acacia_wood",
+				"minecraft:birch_log",
+				"minecraft:birch_wood",
+				"minecraft:cherry_log",
+				"minecraft:cherry_wood",
+				"minecraft:crimson_hyphae",
+				"minecraft:crimson_stem",
+				"minecraft:dark_oak_log",
+				"minecraft:dark_oak_wood",
+				"minecraft:jungle_log",
+				"minecraft:jungle_wood",
+				"minecraft:mangrove_log",
+				"minecraft:mangrove_wood",
+				"minecraft:oak_log",
+				"minecraft:oak_wood",
+				"minecraft:pale_oak_log",
+				"minecraft:pale_oak_wood",
+				"minecraft:poplar_log",
+				"minecraft:poplar_wood",
+				"minecraft:spruce_log",
+				"minecraft:spruce_wood",
+				"minecraft:stripped_acacia_log",
+				"minecraft:stripped_acacia_wood",
+				"minecraft:stripped_birch_log",
+				"minecraft:stripped_birch_wood",
+				"minecraft:stripped_cherry_log",
+				"minecraft:stripped_cherry_wood",
+				"minecraft:stripped_crimson_hyphae",
+				"minecraft:stripped_crimson_stem",
+				"minecraft:stripped_dark_oak_log",
+				"minecraft:stripped_dark_oak_wood",
+				"minecraft:stripped_jungle_log",
+				"minecraft:stripped_jungle_wood",
+				"minecraft:stripped_mangrove_log",
+				"minecraft:stripped_mangrove_wood",
+				"minecraft:stripped_oak_log",
+				"minecraft:stripped_oak_wood",
+				"minecraft:stripped_pale_oak_log",
+				"minecraft:stripped_pale_oak_wood",
+				"minecraft:stripped_poplar_log",
+				"minecraft:stripped_poplar_wood",
+				"minecraft:stripped_spruce_log",
+				"minecraft:stripped_spruce_wood",
+				"minecraft:stripped_warped_hyphae",
+				"minecraft:stripped_warped_stem",
+				"minecraft:warped_hyphae",
+				"minecraft:warped_stem"
+			],
 			"minecraft:lush_ground_replaceable": [
 				"farmersdelight:rich_soil",
 				"minecraft:andesite",
@@ -14662,6 +14836,21 @@
 				"minecraft:podzol",
 				"minecraft:warped_nylium"
 			],
+			"minecraft:planks": [
+				"minecraft:acacia_planks",
+				"minecraft:bamboo_planks",
+				"minecraft:birch_planks",
+				"minecraft:cherry_planks",
+				"minecraft:crimson_planks",
+				"minecraft:dark_oak_planks",
+				"minecraft:jungle_planks",
+				"minecraft:mangrove_planks",
+				"minecraft:oak_planks",
+				"minecraft:pale_oak_planks",
+				"minecraft:poplar_planks",
+				"minecraft:spruce_planks",
+				"minecraft:warped_planks"
+			],
 			"minecraft:replaceable": [
 				"farmersdelight:sandy_shrub",
 				"minecraft:air",
@@ -14829,6 +15018,11 @@
 				"minecraft:white_tulip",
 				"minecraft:wither_rose",
 				"minecraft:yellow_poplar_leaves"
+			],
+			"minecraft:sand": [
+				"minecraft:red_sand",
+				"minecraft:sand",
+				"minecraft:suspicious_sand"
 			],
 			"minecraft:sculk_replaceable": [
 				"farmersdelight:rich_soil",
@@ -15869,6 +16063,78 @@
 				"minecraft:zombie_head",
 				"minecraft:zombie_wall_head"
 			],
+			"minecraft:wool": [
+				"minecraft:black_wool",
+				"minecraft:blue_wool",
+				"minecraft:brown_wool",
+				"minecraft:cyan_wool",
+				"minecraft:gray_wool",
+				"minecraft:green_wool",
+				"minecraft:light_blue_wool",
+				"minecraft:light_gray_wool",
+				"minecraft:lime_wool",
+				"minecraft:magenta_wool",
+				"minecraft:orange_wool",
+				"minecraft:pink_wool",
+				"minecraft:purple_wool",
+				"minecraft:red_wool",
+				"minecraft:white_wool",
+				"minecraft:yellow_wool"
+			],
+			"minecraft:wool_carpets": [
+				"minecraft:black_carpet",
+				"minecraft:blue_carpet",
+				"minecraft:brown_carpet",
+				"minecraft:cyan_carpet",
+				"minecraft:gray_carpet",
+				"minecraft:green_carpet",
+				"minecraft:light_blue_carpet",
+				"minecraft:light_gray_carpet",
+				"minecraft:lime_carpet",
+				"minecraft:magenta_carpet",
+				"minecraft:orange_carpet",
+				"minecraft:pink_carpet",
+				"minecraft:purple_carpet",
+				"minecraft:red_carpet",
+				"minecraft:white_carpet",
+				"minecraft:yellow_carpet"
+			],
+			"minecraft:wool_slabs": [
+				"minecraft:black_wool_slab",
+				"minecraft:blue_wool_slab",
+				"minecraft:brown_wool_slab",
+				"minecraft:cyan_wool_slab",
+				"minecraft:gray_wool_slab",
+				"minecraft:green_wool_slab",
+				"minecraft:light_blue_wool_slab",
+				"minecraft:light_gray_wool_slab",
+				"minecraft:lime_wool_slab",
+				"minecraft:magenta_wool_slab",
+				"minecraft:orange_wool_slab",
+				"minecraft:pink_wool_slab",
+				"minecraft:purple_wool_slab",
+				"minecraft:red_wool_slab",
+				"minecraft:white_wool_slab",
+				"minecraft:yellow_wool_slab"
+			],
+			"minecraft:wool_stairs": [
+				"minecraft:black_wool_stairs",
+				"minecraft:blue_wool_stairs",
+				"minecraft:brown_wool_stairs",
+				"minecraft:cyan_wool_stairs",
+				"minecraft:gray_wool_stairs",
+				"minecraft:green_wool_stairs",
+				"minecraft:light_blue_wool_stairs",
+				"minecraft:light_gray_wool_stairs",
+				"minecraft:lime_wool_stairs",
+				"minecraft:magenta_wool_stairs",
+				"minecraft:orange_wool_stairs",
+				"minecraft:pink_wool_stairs",
+				"minecraft:purple_wool_stairs",
+				"minecraft:red_wool_stairs",
+				"minecraft:white_wool_stairs",
+				"minecraft:yellow_wool_stairs"
+			],
 			"neoforge:villager_farmlands": [
 				"farmersdelight:rich_soil_farmland",
 				"minecraft:farmland"
@@ -15920,6 +16186,56 @@
 			]
 		},
 		"worldgen/biome": {
+			"c:is_beach": [
+				"minecraft:beach",
+				"minecraft:snowy_beach"
+			],
+			"c:is_hot/overworld": [
+				"minecraft:badlands",
+				"minecraft:bamboo_jungle",
+				"minecraft:desert",
+				"minecraft:eroded_badlands",
+				"minecraft:jungle",
+				"minecraft:mushroom_fields",
+				"minecraft:savanna",
+				"minecraft:savanna_plateau",
+				"minecraft:sparse_jungle",
+				"minecraft:stony_peaks",
+				"minecraft:warm_ocean",
+				"minecraft:windswept_savanna",
+				"minecraft:wooded_badlands"
+			],
+			"c:is_mushroom": [
+				"minecraft:mushroom_fields"
+			],
+			"c:is_underground": [
+				"minecraft:deep_dark",
+				"minecraft:dripstone_caves",
+				"minecraft:lush_caves",
+				"minecraft:sulfur_caves"
+			],
+			"c:is_wet": [
+				"minecraft:bamboo_jungle",
+				"minecraft:beach",
+				"minecraft:dripstone_caves",
+				"minecraft:jungle",
+				"minecraft:lush_caves",
+				"minecraft:mangrove_swamp",
+				"minecraft:sparse_jungle",
+				"minecraft:sulfur_caves",
+				"minecraft:swamp"
+			],
+			"c:is_wet/overworld": [
+				"minecraft:bamboo_jungle",
+				"minecraft:beach",
+				"minecraft:dripstone_caves",
+				"minecraft:jungle",
+				"minecraft:lush_caves",
+				"minecraft:mangrove_swamp",
+				"minecraft:sparse_jungle",
+				"minecraft:sulfur_caves",
+				"minecraft:swamp"
+			],
 			"farmersdelight:has_brown_mushroom_colony": [
 				"minecraft:mushroom_fields"
 			],
@@ -16160,6 +16476,68 @@
 				"minecraft:warm_ocean",
 				"minecraft:windswept_savanna",
 				"minecraft:wooded_badlands"
+			],
+			"minecraft:is_beach": [
+				"minecraft:beach",
+				"minecraft:snowy_beach"
+			],
+			"minecraft:is_overworld": [
+				"minecraft:badlands",
+				"minecraft:bamboo_jungle",
+				"minecraft:beach",
+				"minecraft:birch_forest",
+				"minecraft:cherry_grove",
+				"minecraft:cold_ocean",
+				"minecraft:dappled_forest",
+				"minecraft:dark_forest",
+				"minecraft:deep_cold_ocean",
+				"minecraft:deep_dark",
+				"minecraft:deep_frozen_ocean",
+				"minecraft:deep_lukewarm_ocean",
+				"minecraft:deep_ocean",
+				"minecraft:desert",
+				"minecraft:dripstone_caves",
+				"minecraft:eroded_badlands",
+				"minecraft:flower_forest",
+				"minecraft:forest",
+				"minecraft:frozen_ocean",
+				"minecraft:frozen_peaks",
+				"minecraft:frozen_river",
+				"minecraft:grove",
+				"minecraft:ice_spikes",
+				"minecraft:jagged_peaks",
+				"minecraft:jungle",
+				"minecraft:lukewarm_ocean",
+				"minecraft:lush_caves",
+				"minecraft:mangrove_swamp",
+				"minecraft:meadow",
+				"minecraft:mushroom_fields",
+				"minecraft:ocean",
+				"minecraft:old_growth_birch_forest",
+				"minecraft:old_growth_pine_taiga",
+				"minecraft:old_growth_spruce_taiga",
+				"minecraft:pale_garden",
+				"minecraft:plains",
+				"minecraft:river",
+				"minecraft:savanna",
+				"minecraft:savanna_plateau",
+				"minecraft:snowy_beach",
+				"minecraft:snowy_plains",
+				"minecraft:snowy_slopes",
+				"minecraft:snowy_taiga",
+				"minecraft:sparse_jungle",
+				"minecraft:stony_peaks",
+				"minecraft:stony_shore",
+				"minecraft:sulfur_caves",
+				"minecraft:sunflower_plains",
+				"minecraft:swamp",
+				"minecraft:taiga",
+				"minecraft:warm_ocean",
+				"minecraft:windswept_forest",
+				"minecraft:windswept_gravelly_hills",
+				"minecraft:windswept_hills",
+				"minecraft:windswept_savanna",
+				"minecraft:wooded_badlands"
 			]
 		},
 		"entity_type": {
@@ -16178,6 +16556,14 @@
 				"minecraft:mule",
 				"minecraft:skeleton_horse",
 				"minecraft:zombie_horse"
+			],
+			"minecraft:raiders": [
+				"minecraft:evoker",
+				"minecraft:illusioner",
+				"minecraft:pillager",
+				"minecraft:ravager",
+				"minecraft:vindicator",
+				"minecraft:witch"
 			]
 		},
 		"enchantment": {

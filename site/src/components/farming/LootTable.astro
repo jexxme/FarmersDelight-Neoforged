@@ -1,0 +1,178 @@
+---
+// One Farmer's Delight chest loot table from loot.json: pools, rolls, item slots, weights as chance bars, counts, item
+// modifiers, the vanilla chest it is injected into (modifiers.json) and the chance a chest has each item at all.
+// <LootTable id="farmersdelight:chests/fd_shipwreck_supply" />
+import Slot from '../mc/Slot.astro';
+import Src from '../mc/Src.astro';
+import { loot, modifiers, nameOf, pct } from '../../lib/data';
+import { chestName, chestChance } from '../../lib/describe';
+import { lootTable } from '../../data/code/farming-loot';
+interface Props {
+	id: string;
+}
+const { id } = Astro.props;
+const t = lootTable(id);
+const mod = modifiers.find((m) => m.table === id);
+const target = mod?.target as string | undefined;
+const rolls = (r: { min: number; max: number }) => (r.min === r.max ? `${r.min} roll${r.min === 1 ? '' : 's'}` : `${r.min}–${r.max} rolls`);
+const count = (c: { min: number; max: number }) => (c.min === c.max ? `${c.min}` : `${c.min}–${c.max}`);
+const items = [...new Set(t.pools.flatMap((p) => p.entries.map((e) => e.item).filter(Boolean)))] as string[];
+const any = items.map((i) => ({ id: i, p: chestChance(loot.chests[id], i).chance }));
+const slug = id.split('/').pop();
+---
+<section class="fd-lt not-content" id={slug}>
+	<header>
+		<span class="name">{chestName(id)}</span>
+		<span class="into">
+			added to <code>{target}</code>
+			<Src path={`src/generated/resources/data/farmersdelight/loot_table/chests/${slug}.json`} label="table" />
+			{mod && <Src path={`src/generated/resources/data/farmersdelight/loot_modifiers/${mod.id.split(':')[1]}.json`} label="modifier" />}
+		</span>
+	</header>
+	<div class="mc-panel gui">
+	<div class="pools">
+		{
+			t.pools.map((p, i) => (
+				<div class="pool">
+					<div class="ph">
+						<span>pool {i + 1}</span>
+						<span>{rolls(p.rolls)}</span>
+					</div>
+					{p.entries.map((e) => (
+						<div class:list={['e', { empty: !e.item }]}>
+							{e.item ? <Slot id={e.item} scale={2} count={e.count.min === e.count.max ? e.count.min : 1} /> : <span class="blank" />}
+							<span class="nm">
+								{e.item ? nameOf(e.item) : 'nothing'}
+								{e.item && <span class="cnt">×{count(e.count)}</span>}
+								{e.details && e.details.length > 0 && <span class="det">{e.details.join(' · ')}</span>}
+							</span>
+							<span class="bar" title={`weight ${e.weight}`}>
+								<span style={`width:${e.chance * 100}%`} />
+							</span>
+							<span class="pc">{pct(e.chance, 1)}</span>
+						</div>
+					))}
+				</div>
+			))
+		}
+	</div>
+	<div class="any">
+		<span class="k">chance a chest has it</span>
+		{
+			any.map((a) => (
+				<span class="a">
+					{nameOf(a.id)} <b>{pct(a.p, 0)}</b>
+				</span>
+			))
+		}
+	</div>
+	</div>
+</section>
+<style>
+	.fd-lt {
+		margin: 2.5rem 0;
+	}
+	header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0 20px;
+		margin-bottom: 10px;
+	}
+	.name {
+		font-family: var(--fd-font-display);
+		font-size: 30px;
+		line-height: 40px;
+		color: var(--fd-heading-ink);
+	}
+	.into {
+		font-size: 20px;
+		color: var(--sl-color-gray-3);
+		display: inline-flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		align-items: center;
+	}
+	.gui {
+		display: block;
+		color: #404040;
+		font-size: 20px;
+		line-height: 24px;
+	}
+	.pools {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+		gap: 10px 24px;
+	}
+	.ph {
+		display: flex;
+		justify-content: space-between;
+		color: #404040;
+		margin-bottom: 4px;
+		border-bottom: 2px solid #8b8b8b;
+	}
+	.e {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) 50px 60px;
+		align-items: center;
+		gap: 10px;
+		padding: 2px 0;
+	}
+	.blank {
+		width: 36px;
+		height: 36px;
+		background: #8b8b8b;
+		box-shadow: inset 2px 2px 0 #373737, inset -2px -2px 0 #fff;
+	}
+	.nm {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0 8px;
+		color: #404040;
+	}
+	.empty .nm {
+		color: #707070;
+	}
+	.cnt,
+	.det {
+		color: #606060;
+	}
+	.det {
+		flex-basis: 100%;
+	}
+	.pc {
+		text-align: right;
+		color: #404040;
+	}
+	.bar {
+		height: 10px;
+		background: #8b8b8b;
+		box-shadow: inset 2px 2px 0 #373737;
+		display: block;
+	}
+	.bar span {
+		display: block;
+		height: 100%;
+		background: #5aa02c;
+	}
+	.empty .bar span {
+		background: #555;
+	}
+	.any {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 20px;
+		border-top: 2px solid #8b8b8b;
+		margin-top: 8px;
+		padding-top: 4px;
+		color: #404040;
+	}
+	.k {
+		flex-basis: 100%;
+		color: #606060;
+	}
+	.a b {
+		color: #404040;
+	}
+</style>

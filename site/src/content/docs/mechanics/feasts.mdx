@@ -1,0 +1,166 @@
+---
+title: Feasts
+description: Placeable feasts with several servings, which container each needs, leftovers, what breaking a feast drops, and the Rice Roll Medley.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Src from '../../../components/mc/Src.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Stages from '../../../components/data/Stages.astro';
+import FoodStats from '../../../components/data/FoodStats.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import Cite from '../../../components/cooking/Cite.astro';
+import ServingLadder from '../../../components/cooking/ServingLadder.astro';
+import { tags, blocks, items, loot, nameOf, recipesFor } from '../../../lib/data';
+import { feast } from '../../../data/code/cooking';
+import Shot from '../../../components/mc/Shot.astro';
+
+export const feasts = tags.resolved.block['farmersdelight:feasts'];
+export const maxOf = (id) => Math.max(...blocks[id].properties.servings.map(Number));
+export const servingOf = (id) => id.replace(/_block$/, '');
+export const lootOf = (id) => {
+	const t = loot.blocks[id.replace('farmersdelight:', 'farmersdelight:blocks/')];
+	const max = maxOf(id);
+	const full = t.pools.filter((p) => p.conditions.includes(`servings = ${max}`)).flatMap((p) => p.entries.map((e) => e.item));
+	const part = t.pools.filter((p) => p.conditions.includes(`not (servings = ${max})`)).flatMap((p) => p.entries.map((e) => e.item));
+	return { full, part };
+};
+export const medley = 'farmersdelight:rice_roll_medley_block';
+export const fourServing = feasts.filter((id) => id !== medley);
+
+<Render name="scenes/feast-table" float="right" size={230} caption="Feasts set out on a table" />
+
+Feasts are big meals you place as a block and share. Each one holds several servings; anyone can take a serving by
+right-clicking it with the right container, usually a <Item id="minecraft:bowl" />. There are {feasts.length} feasts, all
+cooked or crafted as a single item that stacks to {items['farmersdelight:roast_chicken_block'].stack}.
+
+<Shot src="mechanics/feast-table.jpg" caption="A feast table: roast chicken, honey glazed ham, stuffed pumpkin, shepherd's pie, rice roll medley and gleaming salad, some already served, next to pies with slices taken." />
+
+## How it works
+
+<ServingLadder block="roast_chicken_block" />
+
+1. **Place** the feast on top of a solid block; it needs a rigid surface below and breaks off otherwise
+   <Cite f={feast.survive} />.
+2. **Serve.** Right-click holding the serving's container. One container is used (not in creative), one serving goes into
+   your inventory or drops, and the feast shows one serving less <Cite f={feast.take} />. Holding anything else shows a
+   "use a …" hint naming the container.
+3. **Leftovers.** Most feasts stay as a plate of leftovers at 0 servings; right-click the leftovers to clear them, which
+   breaks the block and drops its loot <Cite f={feast.leftovers} />. The <Item id="stuffed_pumpkin_block" /> has no
+   leftovers and disappears with its last serving <Cite f={feast.vanish} />.
+
+A comparator next to a feast reads its servings left <Cite f={feast.comparator} />. Feasts break instead of moving when a
+piston pushes them <Cite f={feast.properties} />.
+
+## The feasts
+
+<table>
+	<thead><tr><th>Feast</th><th>Servings</th><th>Serving</th><th>Container</th><th>Leftovers</th></tr></thead>
+	<tbody>
+		{feasts.map((id) => {
+			const s = id === medley ? null : items[servingOf(id)];
+			return (
+				<tr>
+					<td><Item id={id} /></td>
+					<td><span class="fd-val">{maxOf(id)}</span></td>
+					<td>{s ? <Item id={s.id} /> : <a href="#rice-roll-medley">three kinds of roll</a>}</td>
+					<td>{s?.remainder ? <Item id={s.remainder} /> : '—'}</td>
+					<td>{feast.registrations.value[id] ? 'yes' : 'no'}</td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+<p><Cite f={feast.registrations} /> <Src path="src/generated/resources/data/farmersdelight/tags/block/feasts.json" /></p>
+
+Every four-serving feast gives the same meal per serving:
+
+<table>
+	<thead><tr><th>Serving</th><th>Food</th><th>Effect</th><th>Stack</th></tr></thead>
+	<tbody>
+		{fourServing.map((id) => {
+			const s = items[servingOf(id)];
+			return (
+				<tr>
+					<td><Item id={s.id} /></td>
+					<td><FoodStats nutrition={s.food.nutrition} saturation={s.food.saturation} compact /></td>
+					<td>{s.consumable.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}</td>
+					<td>{s.stack}</td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+
+{fourServing.map((id) => <Stages block={id.replace('farmersdelight:', '')} title={`${nameOf(id)}: servings left`} labels={{ [maxOf(id)]: 'full', 0: feast.registrations.value[id] ? 'leftovers' : 'gone' }} />)}
+
+## Breaking a feast
+
+Breaking a feast that is **full** gives the feast back as an item. Breaking it after even one serving was taken drops only
+the leftovers: the remaining servings are lost. From the loot tables:
+
+<table>
+	<thead><tr><th>Feast</th><th>Broken while full</th><th>Broken after serving</th></tr></thead>
+	<tbody>
+		{feasts.map((id) => {
+			const l = lootOf(id);
+			return (
+				<tr>
+					<td><Item id={id} /></td>
+					<td>{l.full.map((x, i) => <>{i ? ', ' : ''}<Item id={x} /></>)}</td>
+					<td>{l.part.length ? l.part.map((x, i) => <>{i ? ', ' : ''}<Item id={x} /></>) : <em>nothing</em>}</td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+<p><Src path="src/generated/resources/data/farmersdelight/loot_table/blocks/roast_chicken_block.json" label="loot_table/blocks/*_block.json" /></p>
+
+<Aside type="caution">
+Take every serving before you pick a feast up. A feast with three servings left breaks into a bowl, not three meals.
+</Aside>
+
+## Gleaming Salad
+
+The <Item id="gleaming_salad_block" /> glows: its light level is {feast.saladLightPerServing.value} per serving left, so
+{blocks['farmersdelight:gleaming_salad_block'].maxLight} when full <Cite f={feast.saladLightPerServing} />. It sparkles with a
+chance of {feast.saladSparkle.value * 100}% per serving each animation tick <Cite f={feast.saladSparkle} />.
+
+## Rice Roll Medley
+
+The <Item id={medley} /> has {feast.medleyServings.value} servings, and what you get depends on how many are left
+<Cite f={feast.medleyOrder} />:
+
+<table>
+	<thead><tr><th>Servings left</th><th>Serving</th><th>Food</th></tr></thead>
+	<tbody>
+		{feast.medleyOrder.value.map((_, k) => feast.medleyServings.value - k).map((n) => {
+			const s = items[feast.medleyOrder.value[n - 1]];
+			return (
+				<tr><td><span class="fd-val">{n}</span></td><td><Item id={s.id} /></td><td><FoodStats nutrition={s.food.nutrition} saturation={s.food.saturation} compact /></td></tr>
+			);
+		})}
+	</tbody>
+</table>
+
+<Stages block="rice_roll_medley_block" title="Rice Roll Medley: servings left" labels={{ [feast.medleyServings.value]: 'full', 0: 'leftovers' }} />
+
+<Aside type="note" title="How serving behaves in this version">
+A feast only serves when its serving item has a container: the check is `container != null && held item is that
+container` <Cite f={feast.containerCheck} />. The rolls have none
+({[...new Set(feast.medleyOrder.value)].map((id, i) => <>{i ? ', ' : ''}<Item id={id} /></>)}: no crafting remainder in the
+item data), so in this version right-clicking the medley with any item does not take a serving and shows no hint. Breaking
+it while full returns the medley. This is read from the code and has not been checked in game.
+</Aside>
+
+## Recipes
+
+<RecipeList ids={feasts.flatMap((id) => recipesFor(id).map((r) => r.id))} />
+
+## Details
+
+- Feasts are not pathfindable, so mobs walk around them <Src path="common/block/FeastBlock.java" lines="173-176" />.
+- Each serving plays the "take portion" sound and, except for the Rice Roll Medley, a few crumb particles.
+- Serving counts the held container as used in your statistics.

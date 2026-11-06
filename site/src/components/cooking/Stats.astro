@@ -1,0 +1,97 @@
+---
+// Key numbers of a mechanic as a ruled definition list (label, value, note, source). Values come from data/code facts.
+import Cite from './Cite.astro';
+interface Stat {
+	label: string;
+	value: string | number;
+	unit?: string;
+	sub?: string;
+	src?: string;
+	icon?: string;
+}
+interface Props {
+	items: Stat[];
+}
+const { items } = Astro.props;
+---
+<dl class="fd-stats not-content">
+	{
+		items.map((s) => (
+			<div class="stat">
+				<dt>{s.label}</dt>
+				<dd class="val">
+					{s.icon && <img src={s.icon} alt="" width="20" height="20" />}
+					{s.value}
+					{s.unit && <small>{s.unit}</small>}
+				</dd>
+				{(s.sub || s.src) && (
+					<dd class="sub">
+						{s.sub}
+						{s.src && <Cite f={s.src} />}
+					</dd>
+				)}
+			</div>
+		))
+	}
+</dl>
+<style>
+	.fd-stats {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+		margin: 30px 0;
+		clear: both;
+		background: var(--fd-surface);
+		border: 3px solid var(--fd-frame);
+		box-shadow: 4px 4px 0 #000;
+	}
+	.stat {
+		min-width: 0;
+		padding: 10px 14px 8px;
+		margin: 0;
+		border-right: 2px solid var(--fd-border);
+		border-bottom: 2px solid var(--fd-border);
+		margin-right: -2px;
+		margin-bottom: -2px;
+	}
+	dt {
+		font-size: 20px;
+		line-height: 30px;
+		color: var(--sl-color-gray-3);
+	}
+	dd {
+		margin: 0;
+	}
+	.val {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0 10px;
+		font-size: 30px;
+		line-height: 40px;
+		color: var(--fd-heading-ink);
+	}
+	.val small {
+		font-size: 20px;
+		color: var(--sl-color-gray-3);
+	}
+	.val img {
+		image-rendering: pixelated;
+		align-self: center;
+	}
+	.sub {
+		font-size: 20px;
+		line-height: 30px;
+		color: var(--sl-color-gray-3);
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 8px;
+		align-items: baseline;
+	}
+	.sub :global(.fd-src),
+	.sub :global(.fd-vsrc) {
+		display: inline-block;
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+</style>

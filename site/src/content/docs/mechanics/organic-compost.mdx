@@ -1,0 +1,93 @@
+---
+title: Organic Compost
+description: How Organic Compost decomposes into Rich Soil, the exact chance per random tick, what speeds it up, and a calculator for the expected time.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Src from '../../../components/mc/Src.astro';
+import Stages from '../../../components/data/Stages.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Vanilla from '../../../components/farming/Vanilla.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import BlockDrops from '../../../components/farming/BlockDrops.astro';
+import CompostCalc from '../../../components/farming/CompostCalc.astro';
+import CompostCube from '../../../components/farming/CompostCube.astro';
+import { pct } from '../../../lib/data';
+import { compost, vanilla, cite, compostChance, randomTicksToTime } from '../../../data/code/farming';
+import Shot from '../../../components/mc/Shot.astro';
+
+export const N = compost.stages.value + 1;
+export const ex = [
+	['Alone, in shade, dry', compostChance(1, false, false)],
+	['Alone, under open sky', compostChance(1, true, false)],
+	['Open sky, next to water', compostChance(1, true, true)],
+	['Open sky, water, 8 compost neighbours', compostChance(9, true, true)],
+];
+
+<Render name="scenes/compost-to-soil" size={260} float="right" caption="Organic Compost next to the Rich Soil it becomes" />
+
+<Item id="organic_compost" /> is a block that slowly rots into <Item id="rich_soil" />, the best soil in the mod. Place it, leave it, and come back later. Nothing needs to be added; the block works on its own and goes faster with sunlight, water and other "activator" blocks nearby.
+
+<Shot src="mechanics/compost-heap.jpg" caption="An organic compost heap beside a pond, with mushrooms and rich soil around it to speed up composting." />
+
+## How it works
+
+The compost has a `composting` stage from 0 to {compost.stages.value} <Src {...cite(compost.stages)} />. On each random tick it adds up a chance, then rolls once <Src {...cite(compost.roll)} />:
+
+| Source | Adds |
+|---|---|
+| Each block from `#farmersdelight:compost_activators` in the {2 * compost.cube.value + 1}×{2 * compost.cube.value + 1}×{2 * compost.cube.value + 1} cube around it, **itself included** | +{pct(compost.activator.value)} <Src {...cite(compost.activator)} /> |
+| Highest sky light in the cube (read one block above each cell) is above {compost.skyThreshold.value} | +{pct(compost.skyBright.value)}, otherwise +{pct(compost.skyDim.value)} <Src {...cite(compost.skyThreshold)} /> |
+| Any water in the cube (source, flowing, or a waterlogged block) | +{pct(compost.waterAdd.value)} once <Src {...cite(compost.water)} /> |
+
+A success moves it one stage on; a success at stage {compost.stages.value} turns it into Rich Soil. That is **{N} successes** from fresh compost.
+
+<CompostCube />
+
+Activators:
+
+<Chips tag="farmersdelight:compost_activators" />
+
+<Aside title="Torches don't help">
+Only **sky** light counts, and the game's sky light value does not change between day and night <Vanilla {...cite(vanilla.skyBrightness)} />. A torch-lit cellar always gets the low light bonus. A compost pile outside under a roof of glass still sees the sky.
+</Aside>
+
+## Calculator
+
+<CompostCalc />
+
+Some fixed cases:
+
+| Setup | Chance per random tick | Mean time to Rich Soil |
+|---|---|---|
+| {ex[0][0]} | {pct(ex[0][1])} | {randomTicksToTime(N / ex[0][1])} |
+| {ex[1][0]} | {pct(ex[1][1])} | {randomTicksToTime(N / ex[1][1])} |
+| {ex[2][0]} | {pct(ex[2][1])} | {randomTicksToTime(N / ex[2][1])} |
+| {ex[3][0]} | {pct(ex[3][1])} | {randomTicksToTime(N / ex[3][1])} |
+
+The math: one block gets a random tick on average every {vanilla.sectionTick.value} / {vanilla.randomTickSpeed.value} game ticks, because each 16×16×16 section picks {vanilla.randomTickSpeed.value} random positions per tick <Vanilla {...cite(vanilla.sectionTick)} />. The compost needs {N} successes at chance *p*, so on average {N} / *p* random ticks.
+
+Big piles are faster than single blocks: the centre of a solid {2 * compost.cube.value + 1}-wide cube of compost counts {(2 * compost.cube.value + 1) ** 3} activators, {pct((2 * compost.cube.value + 1) ** 3 * compost.activator.value)} before light and water.
+
+## Stages
+
+<Stages block="organic_compost" title="Composting stages" />
+
+A comparator reads {compost.stages.value + 1} from fresh compost and counts down by one per stage <Src {...cite(compost.comparator)} />, so you can tell how far a buried pile is.
+
+## Recipes
+
+<RecipeList output="organic_compost" />
+
+## Details
+
+- The compost always random-ticks, also when nothing is around it <Src {...cite('common/block/OrganicCompostBlock.java:27-30')} />.
+- Breaking it drops the block at any stage, but the stage is lost: it restarts at 0.
+
+<BlockDrops block="organic_compost" />
+
+- Mushroom colonies can sit on compost: it is in `#minecraft:overrides_mushroom_light_requirement`, so mushrooms survive on it in any light. They only grow on Rich Soil though ([Mushroom colonies](/mechanics/mushroom-colonies/)).
+- Villages can generate compost heaps with Organic Compost ([Villagers](/mechanics/villagers/)).
+- It gives off mycelium particles now and then <Src {...cite(compost.particles)} />.

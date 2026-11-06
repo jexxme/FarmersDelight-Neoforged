@@ -1,0 +1,24 @@
+---
+// A citation chip for vanilla Minecraft 26.3 code (not linkable: decompiled sources). <Vanilla path="net/minecraft/.../CropBlock.java" lines="72-84" />
+interface Props {
+	path: string;
+	lines?: string;
+}
+const { path, lines } = Astro.props;
+const file = path.split('/').pop();
+---
+<span class="fd-vsrc" title={`Vanilla Minecraft 26.3: ${path}${lines ? ` lines ${lines}` : ''}`}>vanilla {file}{lines ? `:${lines}` : ''}</span>
+<style>
+	.fd-vsrc {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--fd-font-mono);
+		font-size: 20px;
+		padding: 0 6px;
+		border-radius: 0;
+		border: 1px dashed var(--fd-border);
+		color: var(--sl-color-gray-3);
+		vertical-align: baseline;
+		white-space: nowrap;
+	}
+</style>

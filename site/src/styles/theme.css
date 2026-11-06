@@ -443,3 +443,15 @@ img.pixel,
 	border-radius: 0;
 	box-shadow: 4px 4px 0 #000;
 }
+
+/* Long source chips must not push tables past the content column */
+.sl-markdown-content :is(td, th) .fd-src {
+	white-space: normal;
+	word-break: break-all;
+}
+.sl-markdown-content table:not(:where(.not-content *)) {
+	max-width: 100%;
+}
+.sl-markdown-content td {
+	overflow-wrap: anywhere;
+}

@@ -18,6 +18,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.125
@@ -30,10 +32,13 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": {
+								"min": 0.15,
+								"max": 0.8
+							},
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [
-								"set_damage"
-							],
+							"modifiers": [],
 							"chance": 0.125
 						},
 						{
@@ -60,6 +65,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.2
@@ -72,6 +79,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.2
@@ -84,6 +93,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.2
@@ -112,6 +123,8 @@
 								"max": 12
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.3333333333333333
@@ -125,7 +138,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_bastion_hoglin_stable": {
 			"pools": [
@@ -145,11 +159,17 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": {
+								"min": 0.15,
+								"max": 0.8
+							},
+							"enchant": {
+								"type": "enchant_randomly",
+								"levels": null,
+								"options": "#minecraft:on_random_loot"
+							},
 							"conditions": [],
-							"modifiers": [
-								"set_damage",
-								"enchant_randomly"
-							],
+							"modifiers": [],
 							"chance": 0.2
 						},
 						{
@@ -160,10 +180,14 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": {
+								"type": "enchant_randomly",
+								"levels": null,
+								"options": "#minecraft:on_random_loot"
+							},
 							"conditions": [],
-							"modifiers": [
-								"enchant_randomly"
-							],
+							"modifiers": [],
 							"chance": 0.4
 						},
 						{
@@ -190,6 +214,8 @@
 								"max": 5
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -202,6 +228,8 @@
 								"max": 5
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.25
@@ -215,7 +243,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_bastion_treasure": {
 			"pools": [
@@ -235,11 +264,17 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": {
+								"min": 0.8,
+								"max": 1
+							},
+							"enchant": {
+								"type": "enchant_randomly",
+								"levels": null,
+								"options": "#minecraft:on_random_loot"
+							},
 							"conditions": [],
-							"modifiers": [
-								"set_damage",
-								"enchant_randomly"
-							],
+							"modifiers": [],
 							"chance": 0.125
 						},
 						{
@@ -250,6 +285,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.125
@@ -263,7 +300,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_end_city_treasure": {
 			"pools": [
@@ -283,10 +321,17 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": {
+								"type": "enchant_with_levels",
+								"levels": {
+									"min": 20,
+									"max": 39
+								},
+								"options": "#minecraft:on_random_loot"
+							},
 							"conditions": [],
-							"modifiers": [
-								"enchant_with_levels"
-							],
+							"modifiers": [],
 							"chance": 0.125
 						},
 						{
@@ -297,10 +342,17 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": {
+								"type": "enchant_with_levels",
+								"levels": {
+									"min": 20,
+									"max": 39
+								},
+								"options": "#minecraft:on_random_loot"
+							},
 							"conditions": [],
-							"modifiers": [
-								"enchant_with_levels"
-							],
+							"modifiers": [],
 							"chance": 0.125
 						},
 						{
@@ -312,7 +364,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_pillager_outpost": {
 			"pools": [
@@ -332,6 +385,8 @@
 								"max": 12
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5555555555555556
@@ -344,6 +399,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.2222222222222222
@@ -357,7 +414,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_ruined_portal": {
 			"pools": [
@@ -377,10 +435,14 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": {
+								"type": "enchant_randomly",
+								"levels": null,
+								"options": "#minecraft:on_random_loot"
+							},
 							"conditions": [],
-							"modifiers": [
-								"enchant_randomly"
-							],
+							"modifiers": [],
 							"chance": 0.25
 						},
 						{
@@ -392,7 +454,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_shipwreck_supply": {
 			"pools": [
@@ -412,6 +475,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.25
@@ -424,6 +489,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.25
@@ -436,6 +503,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.25
@@ -448,6 +517,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.25
@@ -470,6 +541,8 @@
 								"max": 12
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.6666666666666666
@@ -483,7 +556,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_simple_dungeon": {
 			"pools": [
@@ -503,6 +577,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.25
@@ -515,6 +591,8 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.25
@@ -543,6 +621,8 @@
 								"max": 12
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.3333333333333333
@@ -556,7 +636,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_village_butcher": {
 			"pools": [
@@ -576,6 +657,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.3333333333333333
@@ -588,6 +671,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.3333333333333333
@@ -616,6 +701,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.09090909090909091
@@ -628,6 +715,8 @@
 								"max": 6
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.2727272727272727
@@ -640,6 +729,8 @@
 								"max": 6
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.2727272727272727
@@ -652,6 +743,8 @@
 								"max": 6
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.2727272727272727
@@ -665,7 +758,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_village_desert_house": {
 			"pools": [
@@ -685,6 +779,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -697,6 +793,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -704,7 +802,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_village_plains_house": {
 			"pools": [
@@ -724,6 +823,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -736,6 +837,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -743,7 +846,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_village_savanna_house": {
 			"pools": [
@@ -763,6 +867,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -775,6 +881,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -782,7 +890,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_village_snowy_house": {
 			"pools": [
@@ -802,6 +911,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -814,6 +925,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -821,7 +934,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		},
 		"farmersdelight:chests/fd_village_taiga_house": {
 			"pools": [
@@ -841,6 +955,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -853,6 +969,8 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 0.5
@@ -860,7 +978,8 @@
 					]
 				}
 			],
-			"type": "minecraft:chest"
+			"type": "minecraft:chest",
+			"modifiers": []
 		}
 	},
 	"blocks": {
@@ -882,6 +1001,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -891,11 +1012,13 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/apple_pie": {
 			"pools": [],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/bamboo_basket": {
 			"pools": [
@@ -915,6 +1038,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -924,7 +1049,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/bamboo_cabinet": {
 			"pools": [
@@ -944,6 +1070,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -953,7 +1081,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/beetroot_crate": {
 			"pools": [
@@ -973,6 +1102,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -980,7 +1111,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/birch_cabinet": {
 			"pools": [
@@ -1000,6 +1132,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -1009,7 +1143,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/black_canvas_sign": {
 			"pools": [
@@ -1029,6 +1164,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1036,7 +1173,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/black_hanging_canvas_sign": {
 			"pools": [
@@ -1056,6 +1194,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1063,7 +1203,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/blue_canvas_sign": {
 			"pools": [
@@ -1083,6 +1224,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1090,7 +1233,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/blue_hanging_canvas_sign": {
 			"pools": [
@@ -1110,6 +1254,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1117,7 +1263,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/brown_canvas_sign": {
 			"pools": [
@@ -1137,6 +1284,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1144,7 +1293,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/brown_hanging_canvas_sign": {
 			"pools": [
@@ -1164,6 +1314,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1171,7 +1323,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/brown_mushroom_colony": {
 			"pools": [
@@ -1191,10 +1344,14 @@
 								"max": 2
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"age = 0"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						},
 						{
@@ -1205,11 +1362,15 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"age = 1"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						},
 						{
@@ -1220,11 +1381,15 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"age = 2"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						},
 						{
@@ -1235,11 +1400,15 @@
 								"max": 5
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"not (neoforge:can_item_perform_ability) and age = 3"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						},
 						{
@@ -1250,17 +1419,24 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"neoforge:can_item_perform_ability and age = 3"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						}
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": [
+				"explosion_decay"
+			]
 		},
 		"farmersdelight:blocks/budding_tomatoes": {
 			"pools": [
@@ -1280,6 +1456,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1287,7 +1465,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/cabbages": {
 			"pools": [
@@ -1307,10 +1486,14 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"age = 7"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.5
 						},
 						{
@@ -1321,10 +1504,14 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.5
 						}
 					]
@@ -1351,14 +1538,21 @@
 								"extra": 3,
 								"probability": 0.5714286
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 1
 						}
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": [
+				"explosion_decay"
+			]
 		},
 		"farmersdelight:blocks/cabbage_crate": {
 			"pools": [
@@ -1378,6 +1572,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1385,7 +1581,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/canvas_rug": {
 			"pools": [
@@ -1405,6 +1602,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1412,7 +1611,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/canvas_sign": {
 			"pools": [
@@ -1432,6 +1632,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1439,7 +1641,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/carrot_crate": {
 			"pools": [
@@ -1459,6 +1662,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1466,7 +1671,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/cherry_cabinet": {
 			"pools": [
@@ -1486,6 +1692,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -1495,11 +1703,13 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/chocolate_pie": {
 			"pools": [],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/cooking_pot": {
 			"pools": [
@@ -1519,6 +1729,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -1528,7 +1740,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/crimson_cabinet": {
 			"pools": [
@@ -1548,6 +1761,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -1557,7 +1772,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/cutting_board": {
 			"pools": [
@@ -1577,6 +1793,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1584,7 +1802,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/cyan_canvas_sign": {
 			"pools": [
@@ -1604,6 +1823,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1611,7 +1832,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/cyan_hanging_canvas_sign": {
 			"pools": [
@@ -1631,6 +1853,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1638,7 +1862,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/dark_oak_cabinet": {
 			"pools": [
@@ -1658,6 +1883,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -1667,7 +1894,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/full_tatami_mat": {
 			"pools": [
@@ -1687,6 +1915,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"part = head"
 							],
@@ -1696,7 +1926,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/gleaming_salad_block": {
 			"pools": [
@@ -1718,6 +1949,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1742,6 +1975,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1749,7 +1984,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/gray_canvas_sign": {
 			"pools": [
@@ -1769,6 +2005,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1776,7 +2014,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/gray_hanging_canvas_sign": {
 			"pools": [
@@ -1796,6 +2035,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1803,7 +2044,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/green_canvas_sign": {
 			"pools": [
@@ -1823,6 +2065,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1830,7 +2074,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/green_hanging_canvas_sign": {
 			"pools": [
@@ -1850,6 +2095,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1857,7 +2104,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/half_tatami_mat": {
 			"pools": [
@@ -1877,6 +2125,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1884,7 +2134,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/hanging_canvas_sign": {
 			"pools": [
@@ -1904,6 +2155,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1911,7 +2164,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/honey_glazed_ham_block": {
 			"pools": [
@@ -1933,6 +2187,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1957,6 +2213,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1981,6 +2239,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -1988,7 +2248,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/jungle_cabinet": {
 			"pools": [
@@ -2008,6 +2269,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -2017,7 +2280,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/light_blue_canvas_sign": {
 			"pools": [
@@ -2037,6 +2301,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2044,7 +2310,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/light_blue_hanging_canvas_sign": {
 			"pools": [
@@ -2064,6 +2331,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2071,7 +2340,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/light_gray_canvas_sign": {
 			"pools": [
@@ -2091,6 +2361,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2098,7 +2370,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/light_gray_hanging_canvas_sign": {
 			"pools": [
@@ -2118,6 +2391,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2125,7 +2400,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/lime_canvas_sign": {
 			"pools": [
@@ -2145,6 +2421,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2152,7 +2430,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/lime_hanging_canvas_sign": {
 			"pools": [
@@ -2172,6 +2451,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2179,7 +2460,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/magenta_canvas_sign": {
 			"pools": [
@@ -2199,6 +2481,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2206,7 +2490,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/magenta_hanging_canvas_sign": {
 			"pools": [
@@ -2226,6 +2511,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2233,7 +2520,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/mangrove_cabinet": {
 			"pools": [
@@ -2253,6 +2541,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -2262,7 +2552,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/oak_cabinet": {
 			"pools": [
@@ -2282,6 +2573,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -2291,7 +2584,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/onions": {
 			"pools": [
@@ -2311,8 +2605,12 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 1
 						}
 					]
@@ -2339,14 +2637,21 @@
 								"extra": 3,
 								"probability": 0.5714286
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 1
 						}
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": [
+				"explosion_decay"
+			]
 		},
 		"farmersdelight:blocks/onion_crate": {
 			"pools": [
@@ -2366,6 +2671,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2373,7 +2680,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/orange_canvas_sign": {
 			"pools": [
@@ -2393,6 +2701,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2400,7 +2710,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/orange_hanging_canvas_sign": {
 			"pools": [
@@ -2420,6 +2731,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2427,7 +2740,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/organic_compost": {
 			"pools": [
@@ -2447,6 +2761,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2454,7 +2770,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/pale_oak_cabinet": {
 			"pools": [
@@ -2474,6 +2791,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -2483,7 +2802,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/pink_canvas_sign": {
 			"pools": [
@@ -2503,6 +2823,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2510,7 +2832,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/pink_hanging_canvas_sign": {
 			"pools": [
@@ -2530,6 +2853,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2537,7 +2862,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/potato_crate": {
 			"pools": [
@@ -2557,6 +2883,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2564,11 +2892,13 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/pumpkin_pie": {
 			"pools": [],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/purple_canvas_sign": {
 			"pools": [
@@ -2588,6 +2918,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2595,7 +2927,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/purple_hanging_canvas_sign": {
 			"pools": [
@@ -2615,6 +2948,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2622,7 +2957,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/red_canvas_sign": {
 			"pools": [
@@ -2642,6 +2978,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2649,7 +2987,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/red_hanging_canvas_sign": {
 			"pools": [
@@ -2669,6 +3008,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2676,7 +3017,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/red_mushroom_colony": {
 			"pools": [
@@ -2696,10 +3038,14 @@
 								"max": 2
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"age = 0"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						},
 						{
@@ -2710,11 +3056,15 @@
 								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"age = 1"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						},
 						{
@@ -2725,11 +3075,15 @@
 								"max": 4
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"age = 2"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						},
 						{
@@ -2740,11 +3094,15 @@
 								"max": 5
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"not (neoforge:can_item_perform_ability) and age = 3"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						},
 						{
@@ -2755,17 +3113,24 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"neoforge:can_item_perform_ability and age = 3"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.2
 						}
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": [
+				"explosion_decay"
+			]
 		},
 		"farmersdelight:blocks/rice": {
 			"pools": [
@@ -2785,6 +3150,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2792,7 +3159,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rice_bag": {
 			"pools": [
@@ -2812,6 +3180,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2819,7 +3189,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rice_bale": {
 			"pools": [
@@ -2839,6 +3210,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2846,7 +3219,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rice_panicles": {
 			"pools": [
@@ -2866,10 +3240,14 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"age = 3 and with #farmersdelight:tools/knives"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.5
 						},
 						{
@@ -2880,17 +3258,22 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"age = 3"
 							],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 0.5
 						}
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rice_roll_medley_block": {
 			"pools": [
@@ -2912,6 +3295,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2936,6 +3321,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2943,7 +3330,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rich_soil": {
 			"pools": [
@@ -2963,6 +3351,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2970,7 +3360,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rich_soil_farmland": {
 			"pools": [
@@ -2990,6 +3381,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -2997,7 +3390,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/roast_chicken_block": {
 			"pools": [
@@ -3019,6 +3413,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3043,6 +3439,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3067,6 +3465,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3074,7 +3474,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rope": {
 			"pools": [
@@ -3094,6 +3495,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3101,7 +3504,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rope_fence": {
 			"pools": [
@@ -3121,6 +3525,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3128,7 +3534,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/rope_fence_gate": {
 			"pools": [
@@ -3148,6 +3555,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3155,7 +3564,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/safety_net": {
 			"pools": [
@@ -3175,6 +3585,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3182,7 +3594,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/sandy_shrub": {
 			"pools": [
@@ -3202,6 +3615,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -3219,6 +3634,8 @@
 								"formula": "uniform_bonus_count",
 								"bonusMultiplier": 2
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise",
 								"12.5% chance"
@@ -3231,7 +3648,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/shepherds_pie_block": {
 			"pools": [
@@ -3253,6 +3671,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3277,6 +3697,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3284,7 +3706,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/skillet": {
 			"pools": [
@@ -3304,6 +3727,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"farmersdelight:copy_skillet"
@@ -3313,7 +3738,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/spruce_cabinet": {
 			"pools": [
@@ -3333,6 +3759,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -3342,7 +3770,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/stove": {
 			"pools": [
@@ -3362,6 +3791,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3369,7 +3800,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/straw_bale": {
 			"pools": [
@@ -3389,6 +3821,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3396,7 +3830,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/stuffed_pumpkin_block": {
 			"pools": [
@@ -3418,6 +3853,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3425,11 +3862,13 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/sweet_berry_cheesecake": {
 			"pools": [],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/tatami": {
 			"pools": [
@@ -3449,6 +3888,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3456,7 +3897,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/tomatoes": {
 			"pools": [
@@ -3475,11 +3917,18 @@
 							"weight": 1,
 							"count": {
 								"min": 1,
-								"max": 1
+								"max": 2
 							},
-							"fortune": null,
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 1
+							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 1
 						}
 					]
@@ -3502,8 +3951,12 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 1
 						}
 					]
@@ -3526,14 +3979,21 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 1
 						}
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": [
+				"explosion_decay"
+			]
 		},
 		"farmersdelight:blocks/tomatoes_on_rope": {
 			"pools": [
@@ -3552,11 +4012,18 @@
 							"weight": 1,
 							"count": {
 								"min": 1,
-								"max": 1
+								"max": 2
 							},
-							"fortune": null,
+							"fortune": {
+								"formula": "uniform_bonus_count",
+								"bonusMultiplier": 1
+							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 1
 						}
 					]
@@ -3579,14 +4046,21 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
-							"modifiers": [],
+							"modifiers": [
+								"explosion_decay"
+							],
 							"chance": 1
 						}
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": [
+				"explosion_decay"
+			]
 		},
 		"farmersdelight:blocks/tomato_crate": {
 			"pools": [
@@ -3606,6 +4080,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3613,7 +4089,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/warped_cabinet": {
 			"pools": [
@@ -3633,6 +4110,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -3642,7 +4121,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/white_canvas_sign": {
 			"pools": [
@@ -3662,6 +4142,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3669,7 +4151,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/white_hanging_canvas_sign": {
 			"pools": [
@@ -3689,6 +4172,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3696,7 +4181,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/wild_beetroots": {
 			"pools": [
@@ -3718,6 +4204,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3740,6 +4228,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -3757,6 +4247,8 @@
 								"formula": "uniform_bonus_count",
 								"bonusMultiplier": 2
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
@@ -3768,7 +4260,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/wild_cabbages": {
 			"pools": [
@@ -3790,6 +4283,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3812,6 +4307,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -3829,6 +4326,8 @@
 								"formula": "uniform_bonus_count",
 								"bonusMultiplier": 2
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
@@ -3840,7 +4339,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/wild_carrots": {
 			"pools": [
@@ -3860,6 +4360,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -3877,6 +4379,8 @@
 								"formula": "uniform_bonus_count",
 								"bonusMultiplier": 2
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
@@ -3888,7 +4392,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/wild_onions": {
 			"pools": [
@@ -3908,6 +4413,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -3925,6 +4432,8 @@
 								"formula": "uniform_bonus_count",
 								"bonusMultiplier": 2
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
@@ -3950,9 +4459,11 @@
 							"weight": 1,
 							"count": {
 								"min": 1,
-								"max": 1
+								"max": 3
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -3960,7 +4471,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/wild_potatoes": {
 			"pools": [
@@ -3980,6 +4492,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -3997,6 +4511,8 @@
 								"formula": "uniform_bonus_count",
 								"bonusMultiplier": 2
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
@@ -4008,7 +4524,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/wild_rice": {
 			"pools": [
@@ -4030,6 +4547,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -4044,6 +4563,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
@@ -4070,6 +4591,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -4084,6 +4607,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
@@ -4093,7 +4618,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/wild_tomatoes": {
 			"pools": [
@@ -4115,6 +4641,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -4137,6 +4665,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"neoforge:can_item_perform_ability"
 							],
@@ -4154,6 +4684,8 @@
 								"formula": "uniform_bonus_count",
 								"bonusMultiplier": 2
 							},
+							"damage": null,
+							"enchant": null,
 							"conditions": [
 								"otherwise"
 							],
@@ -4165,7 +4697,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/wooden_basket": {
 			"pools": [
@@ -4185,6 +4718,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [
 								"copy_components"
@@ -4194,7 +4729,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/yellow_canvas_sign": {
 			"pools": [
@@ -4214,6 +4750,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -4221,7 +4759,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		},
 		"farmersdelight:blocks/yellow_hanging_canvas_sign": {
 			"pools": [
@@ -4241,6 +4780,8 @@
 								"max": 1
 							},
 							"fortune": null,
+							"damage": null,
+							"enchant": null,
 							"conditions": [],
 							"modifiers": [],
 							"chance": 1
@@ -4248,7 +4789,8 @@
 					]
 				}
 			],
-			"type": "minecraft:block"
+			"type": "minecraft:block",
+			"modifiers": []
 		}
 	}
 }

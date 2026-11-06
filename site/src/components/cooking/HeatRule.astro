@@ -1,0 +1,101 @@
+---
+// HeatableBlockEntity#isHeated as four block columns: direct source, source under a conductor, source under another
+// block, and an unlit source. Blocks are the site's real renders; labels are HTML.
+import { renderOf, iconOf, nameOf, tags } from '../../lib/data';
+const pot = renderOf('blocks/cooking_pot');
+const conductor = tags.resolved.block['farmersdelight:heat_conductors'][0];
+const hop = renderOf(`heat/${conductor.replace(':', '-')}`);
+const magma = renderOf('heat/minecraft-magma_block');
+const stove = renderOf('heat/farmersdelight-stove');
+const stone = iconOf('minecraft:stone')?.src;
+type Cell = { img: string | null | undefined; alt: string; off?: boolean };
+const cols: { title: string; ok: boolean; cells: Cell[]; note: string }[] = [
+	{ title: 'Directly on', ok: true, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: magma, alt: 'heat source' }], note: 'source below' },
+	{ title: 'Via a conductor', ok: true, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: hop, alt: nameOf(conductor) }, { img: magma, alt: 'heat source' }], note: 'source 2 below' },
+	{ title: 'Other block', ok: false, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: stone, alt: 'Stone' }, { img: magma, alt: 'heat source' }], note: 'not a conductor' },
+	{ title: 'Unlit source', ok: false, cells: [{ img: pot, alt: 'Cooking Pot' }, { img: stove, alt: 'unlit Stove', off: true }], note: 'lit = false' },
+];
+---
+<figure class="fd-heatrule not-content" aria-label="Heat rule">
+	{
+		cols.map((c) => (
+			<div class="col">
+				<b class="t">{c.title}</b>
+				<div class="stack">
+					{c.cells.map((cell, k) => (
+						<span class:list={['cell', { ok: k === 0 && c.ok, no: k === 0 && !c.ok, off: cell.off }]}>
+							{cell.img && <img src={cell.img} alt={cell.alt} width="64" height="64" />}
+						</span>
+					))}
+				</div>
+				<span class:list={['mark', c.ok ? 'ok' : 'no']}>{c.ok ? 'heated' : 'not heated'}</span>
+				<span class="note">{c.note}</span>
+			</div>
+		))
+	}
+</figure>
+<style>
+	.fd-heatrule {
+		margin: 30px 0;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 20px 10px;
+		font-size: 20px;
+		line-height: 30px;
+	}
+	@media (max-width: 36rem) {
+		.fd-heatrule {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	.col {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 6px;
+	}
+	.t {
+		color: var(--fd-heading-ink);
+		min-height: 60px;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+	}
+	.stack {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		min-height: calc(3 * 80px);
+	}
+	.cell {
+		width: 80px;
+		height: 80px;
+		display: grid;
+		place-items: center;
+		border: 2px solid var(--fd-border);
+		margin-top: -2px;
+		background: var(--fd-surface);
+	}
+	.cell.ok {
+		border: 4px solid var(--fd-green);
+	}
+	.cell.no {
+		border: 4px solid var(--sl-color-text-accent);
+	}
+	.cell.off img {
+		opacity: 0.6;
+	}
+	.cell.off {
+		border-style: dashed;
+	}
+	.mark.ok {
+		color: var(--fd-green);
+	}
+	.mark.no {
+		color: var(--sl-color-text-accent);
+	}
+	.note {
+		color: var(--sl-color-gray-3);
+	}
+</style>

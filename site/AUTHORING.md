@@ -31,7 +31,7 @@ npm run data                     # extract + icons + renders + gui textures
 `npm run data` needs the vanilla client jar from the Gradle cache (any Gradle task of the mod downloads it).
 The generated files are committed, so CI only runs `npm run build`.
 
-## Components (import paths from `src/content/docs/<dir>/<page>.mdx`: `../../components/...`)
+## Components (import paths from `src/content/docs/<dir>/<page>.mdx`: `../../../components/...`)
 
 | Component | Use |
 |---|---|
@@ -48,6 +48,8 @@ The generated files are committed, so CI only runs `npm run build`.
 | `mc/Sprite.astro` | Crop of a 256×256 GUI texture (`public/gui/*.png`). |
 
 Starlight's own components are available too: `import { Aside, Tabs, TabItem, Card, CardGrid, Steps, Badge, LinkCard } from '@astrojs/starlight/components';`
+
+In MDX, don't import `url` from `lib/data` under that name: MDX exports its own `url`. Use `url as siteUrl`.
 
 Interactive pieces are Preact islands in `src/components/islands/*.tsx` (`/** @jsxImportSource preact */`), used
 with `client:visible` (or `client:load` above the fold). Pass data in as props from the MDX/Astro side.

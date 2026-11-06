@@ -1,0 +1,226 @@
+---
+// One wild-crop (or colony) worldgen entry from worldgen.json: rarity, attempts, spread, ground, companions and the
+// resolved biome list (names and base temperatures from biomes.json). <WorldgenPanel id="farmersdelight:wild_carrots" />
+import Slot from '../mc/Slot.astro';
+import Src from '../mc/Src.astro';
+import Chips from './Chips.astro';
+import { worldgen, biomes, nameOf, short } from '../../lib/data';
+import { blockTag, biomeGroups } from '../../data/code/farming-world';
+interface Props {
+	id: string;
+	item?: string;
+}
+const { id } = Astro.props;
+const w = worldgen.find((x) => x.id === id);
+if (!w) throw new Error(`No worldgen entry ${id}`);
+const item = Astro.props.item ?? w.parts?.find((p: any) => p.block?.startsWith('farmersdelight:'))?.block ?? id;
+const name = short(id).replace('farmersdelight:', '');
+const heightmap = w.placement.find((p: any) => p.type === 'heightmap')?.heightmap;
+const range = (s: any) => (s ? `±${s.x?.max ?? '?'} horizontally, ±${s.y?.max ?? '?'} vertically` : '');
+const crop = w.parts?.find((p: any) => p.block === item);
+const others = (w.parts ?? []).filter((p: any) => p.block && p.block !== item);
+const ground = (p: any) => {
+	const below = p?.predicates?.find((q: any) => q.offset?.[1] === -1);
+	if (!below) return null;
+	if (below.tag) return { tag: below.tag, ids: blockTag(below.tag) };
+	if (below.blocks) return { tag: null, ids: [below.blocks] };
+	return null;
+};
+const g = ground(crop);
+const groups = biomeGroups(w.biomes);
+const tf = w.extra ?? {};
+const denied = w.denied ? (Array.isArray(w.denied) ? w.denied : [w.denied]) : [];
+const fileOf = (kind: string) => `src/main/resources/data/farmersdelight/${kind}`;
+const offsetStep = w.placement.find((p: any) => p.type === 'offset');
+const predicate = w.placement.find((p: any) => p.type === 'block_predicate_filter')?.predicate;
+---
+<section class="fd-wg fd-board not-content" id={`wg-${name}`}>
+	<header>
+		<Slot id={item} scale={2} />
+		<div class="title">
+			<span class="name">{nameOf(item)}</span>
+			<span class="rar"><b>1 in {w.rarity}</b> chunks</span>
+		</div>
+	</header>
+	<dl>
+		<dt>Biomes <span class="n">{w.biomes.length}</span></dt>
+		<dd>
+			<div class="groups">
+				{
+					groups.map(([label, list]) => (
+						<div class="grp">
+							<span class="gl">{label}</span>
+							<span class="bl">
+								{list.map((b) => (
+									<span class="b" title={b}>
+										{biomes[b]?.name ?? short(b)} <span class="t">{biomes[b]?.temperature}</span>
+									</span>
+								))}
+							</span>
+						</div>
+					))
+				}
+			</div>
+			<p class="rule">
+				From <code>{w.allowed}</code>
+				{denied.length > 0 && <>, minus {denied.map((d: string, i: number) => <>{i > 0 && ' and '}<code>{d.startsWith('#') ? d : biomes[d]?.name ?? d}</code></>)}</>}
+				{(tf.min_temperature !== undefined || tf.max_temperature !== undefined) && (
+					<>, base temperature {tf.min_temperature ?? '…'} to {tf.max_temperature ?? '…'}</>
+				)}
+				{w.candidateBiomes.length !== w.biomes.length && <> ({w.candidateBiomes.length} biomes before the filters)</>}. Numbers are base temperatures.{' '}
+				<Src path={fileOf(`neoforge/biome_modifier/${name}.json`)} label="biome modifier" />
+			</p>
+		</dd>
+		<dt>Patch</dt>
+		<dd>
+			A chunk gets a patch with chance 1/{w.rarity}. The patch makes <b>{w.count}</b> attempts around a random spot on the{' '}
+			{heightmap === 'OCEAN_FLOOR_WG' ? 'sea or lake floor' : 'surface'} (<code>{heightmap}</code>)
+			{crop?.spread?.x && <>; each attempt lands within {range(crop.spread)} (a triangular spread, densest at the centre)</>}
+			{offsetStep && <>; each attempt is moved {range(offsetStep)}</>}. <Src path={fileOf(`worldgen/placed_feature/${w.placed.split(':')[1]}.json`)} label="placed feature" />
+		</dd>
+		{
+			g && (
+				<>
+					<dt>Grows on</dt>
+					<dd>
+						Air above, and below: {g.tag && <code>#{g.tag}</code>} <Chips ids={g.ids} compact />
+					</dd>
+				</>
+			)
+		}
+		{
+			predicate && (
+				<>
+					<dt>Grows in</dt>
+					<dd>
+						A water block with air above and a block from <code>#minecraft:substrate_overworld</code> below: <Chips ids={blockTag('minecraft:substrate_overworld')} compact />
+					</dd>
+				</>
+			)
+		}
+		{
+			others.length > 0 && (
+				<>
+					<dt>With it</dt>
+					<dd>
+						{others.map((p: any) => (
+							<span class="comp">
+								<Chips ids={[p.block]} />
+								{p.spread?.x ? <span class="sub">{range(p.spread)}</span> : <span class="sub">replaces nearby ground</span>}
+							</span>
+						))}
+						<Src path={fileOf(`worldgen/feature/${name}.json`)} label="feature" />
+					</dd>
+				</>
+			)
+		}
+		{
+			crop?.randomProperty && (
+				<>
+					<dt>State</dt>
+					<dd>
+						Random <code>{crop.randomProperty.property}</code> {crop.randomProperty.min} to {crop.randomProperty.max}
+					</dd>
+				</>
+			)
+		}
+	</dl>
+</section>
+<style>
+	.fd-wg {
+		margin: 20px 0;
+		padding: 12px 16px;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 6px;
+		font-size: 20px;
+		line-height: 26px;
+	}
+	header {
+		display: flex;
+		gap: 14px;
+		align-items: center;
+		border-bottom: 3px solid var(--fd-frame);
+		padding-bottom: 8px;
+	}
+	.title {
+		display: flex;
+		flex-direction: column;
+	}
+	.name {
+		font-family: var(--fd-font-display);
+		font-size: 20px;
+		color: var(--fd-heading-ink);
+		text-shadow: var(--fd-px) 0 0 currentColor;
+		letter-spacing: var(--fd-px);
+	}
+	.rar {
+		color: var(--sl-color-gray-3);
+	}
+	.rar b {
+		color: var(--fd-gold);
+	}
+	dl {
+		margin: 0;
+		display: grid;
+		grid-template-columns: 7rem minmax(0, 1fr);
+	}
+	dt,
+	dd {
+		margin: 0;
+		padding: 8px 0;
+		border-bottom: 2px solid var(--fd-border);
+	}
+	dt {
+		color: var(--sl-color-gray-3);
+	}
+	.n {
+		color: var(--fd-gold);
+	}
+	.groups {
+		display: grid;
+		gap: 4px;
+	}
+	.grp {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+	}
+	@media (max-width: 40rem) {
+		dl,
+		.grp {
+			grid-template-columns: 1fr;
+		}
+		dt {
+			border-bottom: 0;
+			padding-bottom: 0;
+		}
+	}
+	.gl {
+		color: var(--sl-color-gray-4);
+	}
+	.bl {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 18px;
+	}
+	.b {
+		white-space: nowrap;
+		color: var(--sl-color-white);
+	}
+	.t {
+		color: var(--sl-color-gray-4);
+	}
+	.rule {
+		margin: 8px 0 0;
+		color: var(--sl-color-gray-3);
+	}
+	.comp {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-right: 20px;
+	}
+	.sub {
+		color: var(--sl-color-gray-3);
+	}
+</style>

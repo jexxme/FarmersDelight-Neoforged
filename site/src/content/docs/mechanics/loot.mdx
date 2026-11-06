@@ -1,0 +1,73 @@
+---
+title: Loot
+description: Every Farmer's Delight chest loot table with its pools, weights and counts, the vanilla chests they are added to, and the extra mob and block drops.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Src from '../../../components/mc/Src.astro';
+import LootTable from '../../../components/farming/LootTable.astro';
+import LootModifiers from '../../../components/farming/LootModifiers.astro';
+import { loot, modifiers, config, nameOf, pct } from '../../../lib/data';
+import { chestName, chestChance } from '../../../lib/describe';
+
+export const chestMods = modifiers.filter((m) => m.type === 'farmersdelight:add_loot_table');
+export const tables = chestMods.map((m) => m.table).filter((t) => loot.chests[t]);
+export const opt = config.find((c) => c.key === 'generateFDChestLoot');
+export const allItems = [...new Set(tables.flatMap((t) => loot.chests[t].pools.flatMap((p) => p.entries.map((e) => e.item).filter(Boolean))))];
+export const where = allItems.map((id) => ({ id, in: tables.map((t) => ({ t, p: chestChance(loot.chests[t], id).chance })).filter((x) => x.p > 0).sort((a, b) => b.p - a.p) }));
+
+Farmer's Delight adds its own loot to {tables.length} kinds of vanilla chest: seeds and rope in mineshafts and shipwrecks, knives in bastions and end cities, onions in pillager outposts, and crops in village houses. It also adds drops to some mobs and blocks.
+
+## How it works
+
+Each chest addition is a global loot modifier of type `farmersdelight:add_loot_table`: when the game fills a vanilla chest with a matching loot table, it rolls the Farmer's Delight table too and adds the result <Src path="src/main/java/vectorwing/farmersdelight/common/loot/modifier/FDAddTableLootModifier.java" lines="38-43" />. The vanilla loot stays as it was.
+
+Turn it off with <code>{opt.key}</code> (default {String(opt.default)}) in <code>{opt.file}</code>: when false, nothing is added <Src path="src/main/java/vectorwing/farmersdelight/common/Configuration.java" lines="107-108" />. Chests that were already generated keep their contents.
+
+How to read a table: each **pool** rolls the listed number of times, and each roll picks one entry by weight. The bar is the chance per roll. "Chance a chest has it" combines all rolls of all pools.
+
+## Find an item
+
+<table>
+<thead><tr><th>Item</th><th>Found in (chance per chest)</th></tr></thead>
+<tbody>
+{where.map((w) => (
+	<tr>
+		<td><Item id={w.id} /></td>
+		<td>{w.in.map((x) => <span style="margin-right:0.9rem;white-space:nowrap"><a href={`#${x.t.split('/').pop()}`}>{chestName(x.t)}</a> <span class="fd-val">{pct(x.p, 0)}</span></span>)}</td>
+	</tr>
+))}
+</tbody>
+</table>
+
+## Chest tables
+
+{tables.map((t) => <LootTable id={t} />)}
+
+## Mob drops
+
+Zombies and illagers killed by a player can drop an <Item id="onion" />:
+
+<LootModifiers ids={['farmersdelight:add_onion_to_zombies', 'farmersdelight:add_onion_to_illagers']} />
+
+Killing animals with a [knife](/mechanics/knives/) adds an extra drop:
+
+<LootModifiers filter="scavenging_" />
+
+## Block drops
+
+Blocks broken with a knife:
+
+<LootModifiers filter="straw_from_" />
+<LootModifiers filter="slicing_" />
+
+<Aside type="note">
+Loot modifiers are separate from the chests' and blocks' own loot tables. Block loot of Farmer's Delight blocks is shown on their pages, for example [crops](/mechanics/crops/) and [wild crops](/mechanics/wild-crops/).
+</Aside>
+
+## Details
+
+- The chest-loot option only affects the `add_loot_table` modifiers. The mob and block modifiers above are always active.
+- Enchanted knives in bastions and ruined portals use `enchant_randomly` from `#minecraft:on_random_loot`, which includes Backstabbing; end city knives are enchanted as at a level range instead.
+- Chest names follow the vanilla loot table ids; the tables themselves are in `data/farmersdelight/loot_table/chests/`.

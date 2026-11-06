@@ -1,0 +1,139 @@
+---
+// What a block drops when broken, read from its loot table (loot.json + pool modifiers, see data/code/farming-loot.ts).
+// <BlockDrops block="cabbages" />  Each pool is one line group; alternatives read "first match wins".
+import Slot from '../mc/Slot.astro';
+import Src from '../mc/Src.astro';
+import { nameOf, pct } from '../../lib/data';
+import { lootTable, conditionText } from '../../data/code/farming-loot';
+interface Props {
+	block: string;
+	title?: string;
+	src?: boolean;
+}
+const { block, title, src = true } = Astro.props;
+const t = lootTable(`farmersdelight:blocks/${block}`);
+const fortune = (f: any) => {
+	if (!f) return '';
+	if (f.formula === 'binomial_with_bonus_count') return `Fortune: + binomial(${f.extra} + level, ${pct(f.probability, 1)})`;
+	if (f.formula === 'uniform_bonus_count') return `Fortune: + 0 to ${f.bonusMultiplier} × level`;
+	if (f.formula === 'ore_drops') return 'Fortune: ore formula';
+	return `Fortune: ${f.formula}`;
+};
+const count = (c: { min: number; max: number }) => (c.min === c.max ? `${c.min}` : `${c.min}–${c.max}`);
+const empty = t.pools.length === 0;
+---
+<div class="fd-drops fd-board not-content">
+	<div class="head">
+		<span class="k">{title ?? 'Drops'}</span>
+		{src && <Src path={t.source} label={`${block}.json`} />}
+	</div>
+	{empty && <p class="none">Nothing. The loot table is empty.</p>}
+	{
+		t.pools.map((p) => {
+			const alt = p.entries.some((e) => e.conditions.includes('otherwise'));
+			return (
+				<div class="pool">
+					{(p.conditions.length > 0 || alt) && (
+						<div class="when">
+							{p.conditions.length > 0 && <span>only if {p.conditions.map(conditionText).join(' · ')}</span>}
+							{alt && <span class="alt">first match wins</span>}
+						</div>
+					)}
+					{p.entries.map((e, i) => {
+						const conds = e.conditions.filter((c) => c !== 'otherwise').map(conditionText);
+						return (
+							<div class="row">
+								{e.item ? <Slot id={e.item} count={e.count.min === e.count.max ? e.count.min : 1} scale={2} /> : <span class="blank" />}
+								<span class="what">
+									<span class="name">
+										{alt && i > 0 && <span class="else">else </span>}
+										{e.item ? nameOf(e.item) : 'nothing'}
+									</span>
+									<span class="meta">
+										{e.item && <span class="num">×{count(e.count)}</span>}
+										{conds.length > 0 && <span>{conds.join(' · ')}</span>}
+										{e.fortune && <span>{fortune(e.fortune)}</span>}
+									</span>
+								</span>
+							</div>
+						);
+					})}
+				</div>
+			);
+		})
+	}
+</div>
+<style>
+	.fd-drops {
+		margin: 20px 0 30px;
+		padding: 8px 14px 10px;
+		font-size: 20px;
+		line-height: 24px;
+	}
+	.head {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 20px;
+		border-bottom: 3px solid var(--fd-frame);
+		margin: -8px -14px 6px;
+		padding: 6px 14px 4px;
+		background: var(--fd-frame);
+	}
+	.k {
+		color: var(--fd-paper);
+	}
+	.head :global(.fd-src) {
+		color: var(--fd-paper);
+	}
+	.pool + .pool {
+		border-top: 2px solid var(--fd-border);
+	}
+	.pool {
+		padding: 6px 0;
+	}
+	.when {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 20px;
+		color: var(--sl-color-gray-3);
+		margin-bottom: 4px;
+	}
+	.alt {
+		color: var(--sl-color-text-accent);
+	}
+	.row {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 2px 0;
+	}
+	.blank {
+		width: 36px;
+		height: 36px;
+		border: 2px dashed var(--fd-border);
+	}
+	.what {
+		display: flex;
+		flex-direction: column;
+	}
+	.name {
+		color: var(--sl-color-white);
+	}
+	.else {
+		color: var(--sl-color-gray-3);
+	}
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 16px;
+		color: var(--sl-color-gray-3);
+	}
+	.num {
+		color: var(--fd-gold);
+	}
+	.none {
+		color: var(--sl-color-gray-3);
+		margin: 4px 0 0;
+	}
+</style>

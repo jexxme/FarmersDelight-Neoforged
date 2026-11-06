@@ -66,6 +66,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -111,6 +133,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -203,6 +247,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -248,6 +314,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -338,6 +426,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -383,6 +493,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -473,6 +605,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -518,6 +672,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -677,6 +853,33 @@
 					"y": 1,
 					"z": 0
 				},
+				"offsets": [
+					{
+						"x": 0,
+						"y": 1,
+						"z": 0
+					},
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -722,6 +925,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -767,6 +992,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -941,6 +1188,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -986,6 +1255,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -1138,6 +1429,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -1183,6 +1496,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -1316,6 +1651,7 @@
 				"block": null,
 				"randomProperty": null,
 				"spread": null,
+				"offsets": [],
 				"tries": null,
 				"predicates": []
 			}
@@ -1408,6 +1744,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 4,
+							"min": -4,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{
@@ -1453,6 +1811,28 @@
 						"plateau": 0
 					}
 				},
+				"offsets": [
+					{
+						"x": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						},
+						"y": {
+							"type": "minecraft:trapezoid",
+							"max": 3,
+							"min": -3,
+							"plateau": 0
+						},
+						"z": {
+							"type": "minecraft:trapezoid",
+							"max": 6,
+							"min": -6,
+							"plateau": 0
+						}
+					}
+				],
 				"tries": null,
 				"predicates": [
 					{

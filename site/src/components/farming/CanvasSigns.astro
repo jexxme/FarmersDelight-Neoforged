@@ -1,0 +1,75 @@
+---
+// The 17 canvas sign colours with the text colour each starts with (config canvasSignDarkBackgroundList, CanvasSign.isDarkBackground).
+import { renderOf, config, tags, nameOf } from '../../lib/data';
+const dark: string[] = config.find((c) => c.key === 'canvasSignDarkBackgroundList').default;
+const signs = tags.resolved.item['farmersdelight:canvas_signs'] ?? [];
+const order = ['canvas_sign', 'white', 'light_gray', 'gray', 'black', 'brown', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'light_blue', 'blue', 'purple', 'magenta', 'pink'];
+const rows = order
+	.map((c) => (c === 'canvas_sign' ? 'farmersdelight:canvas_sign' : `farmersdelight:${c}_canvas_sign`))
+	.filter((id) => signs.includes(id))
+	.map((id) => {
+		const colour = id.split(':')[1].replace(/_?canvas_sign$/, '');
+		return { id, colour, white: colour !== '' && dark.includes(colour), img: renderOf(`blocks/${id.split(':')[1]}`) };
+	});
+---
+<figure class="fd-signs not-content">
+	<ul>
+		{
+			rows.map((r) => (
+				<li title={nameOf(r.id)}>
+					{r.img && <img src={r.img} alt="" width="64" height="64" loading="lazy" />}
+					<span class="c">{r.colour ? r.colour.replace('_', ' ') : 'plain'}</span>
+					<span class:list={['t', { w: r.white }]}>{r.white ? 'white text' : 'black text'}</span>
+				</li>
+			))
+		}
+	</ul>
+	<figcaption>Starting text colour with the default <code>canvasSignDarkBackgroundList</code>. Dye the text afterwards as with any sign.</figcaption>
+</figure>
+<style>
+	.fd-signs {
+		margin: 1.5rem 0;
+	}
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+		border-top: 3px solid var(--fd-frame);
+		border-left: 3px solid var(--fd-frame);
+		background: var(--fd-surface);
+		box-shadow: var(--fd-shadow);
+	}
+	li {
+		margin: 0 !important;
+		padding: 0.4rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border-right: 2px solid var(--fd-border);
+		border-bottom: 2px solid var(--fd-border);
+	}
+	img {
+		width: 56px;
+		height: auto;
+		image-rendering: pixelated;
+	}
+	.c {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-2);
+	}
+	.t {
+		font-family: var(--fd-font-mono);
+		font-size: 20px;
+		color: var(--sl-color-gray-3);
+	}
+	.t.w {
+		color: var(--sl-color-accent);
+	}
+	figcaption {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		margin-top: 0.4rem;
+	}
+</style>

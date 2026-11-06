@@ -1,0 +1,140 @@
+---
+title: Wild crops & worldgen
+description: Where wild cabbages, onions, tomatoes, carrots, potatoes, beetroots and rice generate, what they drop, and how to spread them with bone meal.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Src from '../../../components/mc/Src.astro';
+import EffectBadge from '../../../components/data/EffectBadge.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Vanilla from '../../../components/farming/Vanilla.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import BlockDrops from '../../../components/farming/BlockDrops.astro';
+import WorldgenPanel from '../../../components/farming/WorldgenPanel.astro';
+import BiomeFilter from '../../../components/farming/BiomeFilter.astro';
+import { worldgen, pct } from '../../../lib/data';
+import { wild, wildStew, flowerSeconds, cite } from '../../../data/code/farming';
+import { blockTag } from '../../../data/code/farming-world';
+import Shot from '../../../components/mc/Shot.astro';
+
+export const wg = (n) => worldgen.find((w) => w.id === `farmersdelight:${n}`);
+
+<Render name="scenes/wild-crops" size={240} float="right" caption="Wild crops on grass and sand" />
+
+Wild crops are the starting point of every Farmer's Delight farm. They look like tufts of leafy plants with a flower on top and break like tall grass. Breaking one gives the seed or the crop itself, so a single find is enough to start a field.
+
+Seven wild plants generate: <Item id="wild_cabbages" />, <Item id="wild_onions" />, <Item id="wild_tomatoes" />, <Item id="wild_carrots" />, <Item id="wild_potatoes" />, <Item id="wild_beetroots" /> and <Item id="wild_rice" />. <Item id="sandy_shrub" plural /> come along with beach patches.
+
+<Shot src="mechanics/wild-crops-beach.jpg" caption="Wild cabbages, wild beetroots and sandy shrubs growing on a sandy shore." />
+
+## Where they grow
+
+Pick a biome to see what can generate there. Click a plant to jump to its details.
+
+<BiomeFilter />
+
+## How generation works
+
+Each wild crop is added to biomes by a biome modifier that takes an allowed biome tag, an optional denied list and an optional range of base temperature <Src {...cite(wild.modifier)} />. The biome lists below are those filters already applied. Every patch also checks that its spot is in `#minecraft:is_overworld` <Src {...cite(wild.biomeTagFilter)} />.
+
+For each chunk in an allowed biome:
+
+1. The patch spawns with chance 1 in N (the rarity).
+2. It picks a spot and makes a number of attempts around it ({wg('wild_cabbages').count} for most of them, {wg('wild_rice').count} for wild rice). Offsets follow a triangular ("trapezoid") spread, so plants cluster near the middle.
+3. Each attempt first tries the crop, then the companion plant, each only on air above the right ground <Src {...cite(wild.inOrder)} />.
+
+A single patch therefore holds many plants, and most chunks have none.
+
+## The wild crops
+
+### Wild cabbages
+
+<WorldgenPanel id="farmersdelight:wild_cabbages" />
+<BlockDrops block="wild_cabbages" title="Drops" />
+
+### Wild beetroots
+
+<WorldgenPanel id="farmersdelight:wild_beetroots" />
+<BlockDrops block="wild_beetroots" title="Drops" />
+
+### Wild onions
+
+<WorldgenPanel id="farmersdelight:wild_onions" />
+<BlockDrops block="wild_onions" title="Drops" />
+
+### Wild carrots
+
+<WorldgenPanel id="farmersdelight:wild_carrots" />
+<BlockDrops block="wild_carrots" title="Drops" />
+
+### Wild potatoes
+
+<WorldgenPanel id="farmersdelight:wild_potatoes" />
+<BlockDrops block="wild_potatoes" title="Drops" />
+
+### Wild tomatoes
+
+<WorldgenPanel id="farmersdelight:wild_tomatoes" />
+<BlockDrops block="wild_tomatoes" title="Drops" />
+
+Wild tomatoes take hot biomes but skip any in `{wg('wild_tomatoes').denied}`, even hot ones. Their ground tag `#farmersdelight:terrain` is overworld substrate plus sand.
+
+### Wild rice
+
+<WorldgenPanel id="farmersdelight:wild_rice" />
+<BlockDrops block="wild_rice" title="Drops (each half)" />
+
+Wild rice is a two-block plant standing in water. It uses its own feature instead of the patch pattern above <Src {...cite(wild.riceFeature)} />. The lower half needs a full water source and <code>#minecraft:substrate_overworld</code> or sand below <Src {...cite(wild.riceSurvive)} />.
+
+### Mushroom colonies
+
+Brown and red [mushroom colonies](/mechanics/mushroom-colonies/) generate in mushroom biomes with a random age. On mycelium they never grow further.
+
+<WorldgenPanel id="farmersdelight:brown_mushroom_colony" />
+<WorldgenPanel id="farmersdelight:red_mushroom_colony" />
+
+## Sandy shrub
+
+<Item id="sandy_shrub" /> is not generated on its own: it only appears as the companion of beach cabbage and beetroot patches. It needs <Chips ids={blockTag('minecraft:sand')} compact /> below <Src {...cite(wild.shrubSand)} />. Bone meal always works on it and places a fresh patch of shrubs around it <Src {...cite(wild.shrubBonemeal)} />. A knife on a shrub can give <Item id="straw" /> ([Straw and rope](/mechanics/straw-and-rope/)).
+
+<BlockDrops block="sandy_shrub" title="Drops" />
+
+## Spreading with bone meal
+
+You can multiply wild crops before you have a field.
+
+- **Wild cabbages, onions, tomatoes, carrots, potatoes, beetroots:** bone meal succeeds {pct(wild.bonemealChance.value, 0)} of the time <Src {...cite(wild.bonemealChance)} />. A success plants one copy on a free, valid spot a few blocks away (a short random walk). It does nothing once there are {wild.spreadLimit.value} or more of the same wild crop in the {wild.spreadArea.value.xz * 2 + 1}×{wild.spreadArea.value.y * 2 + 1}×{wild.spreadArea.value.xz * 2 + 1} area around it <Src {...cite(wild.spreadLimit)} />.
+- **Wild rice:** bone meal succeeds {pct(wild.riceBonemeal.value, 0)} of the time and drops one <Item id="wild_rice" /> item instead of spreading <Src {...cite(wild.riceBonemeal)} />.
+
+## Replanting
+
+Wild crops can be placed back on <Chips ids={blockTag('minecraft:substrate_overworld')} compact /> or sand <Src {...cite(wild.placeOn)} />, so you can move them into a garden. Shears pick up the plant itself (see the drops above).
+
+## Cutting board
+
+A [Cutting Board](/mechanics/cutting-board/) with a knife turns wild crops into seeds or crops plus dye.
+
+<RecipeList type="farmersdelight:cutting" filter="cutting/wild_" />
+
+## Suspicious stew
+
+Six wild crops are small flowers (`#minecraft:small_flowers`), so they work in suspicious stew:
+
+<table>
+<thead><tr><th>Wild crop</th><th>Stew effect</th></tr></thead>
+<tbody>
+{wildStew.value.map(([b, e, s]) => (
+	<tr><td><Item id={b} /></td><td><EffectBadge id={e} ticks={Math.floor(s * flowerSeconds.value)} /></td></tr>
+))}
+</tbody>
+</table>
+
+Durations are given to the vanilla flower constructor in seconds <Src {...cite(wildStew)} /> <Vanilla {...cite(flowerSeconds)} />.
+
+## Details
+
+- Wild crops cannot be replaced by placing a block into them, unlike grass <Src {...cite('common/block/WildCropBlock.java:40-43')} />.
+- They burn well: flammability {wild.flammable.value.flammability}, fire spread {wild.flammable.value.spread} <Src {...cite(wild.flammable)} />.
+- The biome tags `farmersdelight:wild_*_whitelist` / `_blacklist` and `has_wild_*` still exist, but no biome modifier or code reads them. Editing them changes nothing; pack makers should override the biome modifiers instead ([Worldgen for pack makers](/pack-makers/worldgen/)).
+- Some biome lists include oceans and cave biomes because the allowed tag is `#minecraft:is_overworld`. Patches sit on the surface heightmap and still need the right ground, so they rarely succeed there.

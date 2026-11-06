@@ -1,0 +1,95 @@
+---
+title: Mushroom colonies
+description: How brown and red mushroom colonies grow on Rich Soil, how to harvest them with shears or a knife, and what each age drops.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Src from '../../../components/mc/Src.astro';
+import Stages from '../../../components/data/Stages.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import BlockDrops from '../../../components/farming/BlockDrops.astro';
+import { worldgen, items, pct } from '../../../lib/data';
+import { colony, cite, randomTicksToTime } from '../../../data/code/farming';
+import { lootTable } from '../../../data/code/farming-loot';
+import Shot from '../../../components/mc/Shot.astro';
+
+export const max = colony.maxAge.value;
+export const growth = 1 / colony.growth.value;
+export const wg = worldgen.find((w) => w.id === 'farmersdelight:brown_mushroom_colony');
+export const breakDrops = lootTable('farmersdelight:blocks/brown_mushroom_colony').pools[0].entries.filter((e) => e.item === 'minecraft:brown_mushroom');
+export const ages = Array.from({ length: max + 1 }, (_, a) => a);
+
+<Render name="scenes/colony-farm" size={260} float="right" caption="Colonies on Rich Soil" />
+
+A <Item id="brown_mushroom_colony" /> or <Item id="red_mushroom_colony" /> is a cluster of mushrooms that grows bigger over time and can be harvested again and again, like a tomato vine. Colonies only grow on [Rich Soil](/mechanics/rich-soil/), which makes them the end point of the compost chain: compost becomes Rich Soil, Rich Soil turns a mushroom into a colony, and the colony keeps giving mushrooms.
+
+<Shot src="mechanics/mushroom-colonies.jpg" caption="Brown and red mushroom colonies at different growth stages on a bed of rich soil." />
+
+## Getting one
+
+- **Plant a mushroom on Rich Soil.** A plain brown or red mushroom on Rich Soil becomes a colony of age 0 on the soil's next random tick <Src {...cite('common/block/RichSoilBlock.java:77-88')} />.
+- **Find one.** Colonies generate in mushroom fields on mycelium, 1 patch in {wg.rarity} chunks, at a random age ([Wild crops](/mechanics/wild-crops/#wg-brown_mushroom_colony)). Break them with shears at full age to take the block, or place your own on Rich Soil.
+
+## How it works
+
+A colony has an age from 0 to {max} <Src {...cite(colony.maxAge)} />. On each random tick, a colony standing on <Chips tag="farmersdelight:mushroom_colony_growable_on" compact /> grows one age with chance {pct(growth, 0)} <Src {...cite(colony.growth)} />. From age 0 to {max} that is {max / growth} random ticks on average, about {randomTicksToTime(max / growth)}.
+
+<Aside type="caution" title="Wild colonies don't grow">
+Growth checks only `#farmersdelight:mushroom_colony_growable_on`, which holds Rich Soil alone. A colony on mycelium, podzol or anything else stays at its age forever.
+</Aside>
+
+<Stages block="brown_mushroom_colony" title="Brown mushroom colony" />
+<Stages block="red_mushroom_colony" title="Red mushroom colony" />
+
+### Harvesting
+
+Right-click a colony of age 1 or more:
+
+| Tool | Effect | Durability |
+|---|---|---|
+| <Item id="shears" /> (or any tool that can `shears_harvest`, or `#c:tools/shear`) | Age −1, drops **1** mushroom | −1 <Src {...cite(colony.shears)} /> |
+| Any [knife](/mechanics/knives/) | Drops **as many mushrooms as the age**, age back to 0 | −1 <Src {...cite(colony.knife)} /> |
+
+A knife takes a full colony's {max} mushrooms in one click; shears take them one at a time. Either way the colony stays and grows back.
+
+### Bone meal
+
+Bone meal always works while the colony is below age {max}, adding {colony.bonemeal.value.min} or {colony.bonemeal.value.max} ages <Src {...cite(colony.bonemeal)} />. It works on any floor, so it can push a wild colony to full size too.
+
+## Breaking a colony
+
+Breaking gives more mushrooms than a harvest, but the colony is gone. At full age, shears keep the block.
+
+<table>
+<thead><tr><th>Age</th>{ages.map((a) => <th>{a}</th>)}</tr></thead>
+<tbody>
+<tr><td>Mushrooms</td>{breakDrops.map((e) => <td>{e.count.min}</td>)}</tr>
+</tbody>
+</table>
+
+<BlockDrops block="brown_mushroom_colony" title="Drops: brown mushroom colony" />
+
+The red colony's table is the same with red mushrooms.
+
+## Survival
+
+A colony stays put if the block below is in `#minecraft:overrides_mushroom_light_requirement` (any light), or if the light at the colony is below {colony.survive.value} and the floor is a full solid block <Src {...cite(colony.survive)} />:
+
+<Chips tag="minecraft:overrides_mushroom_light_requirement" />
+
+## Recipes
+
+A colony on a [Cutting Board](/mechanics/cutting-board/) splits into mushrooms.
+
+<RecipeList ids={['cutting/brown_mushroom_colony', 'cutting/red_mushroom_colony']} />
+
+## Details
+
+- Colonies are compost activators and speed up nearby [Organic Compost](/mechanics/organic-compost/).
+- They do not get Rich Soil's bone meal boost (they are in `#farmersdelight:unaffected_by_rich_soil`); their own growth is faster.
+- In a composter a colony always adds a layer (chance {items['farmersdelight:brown_mushroom_colony'].compost}).
+- Pick-block on a colony gives the plain mushroom <Src {...cite('common/block/MushroomColonyBlock.java:133-136')} />.
+- "Knife" here means an item with the `knife_harvest` ability or in `#farmersdelight:tools/knives` <Src {...cite(colony.isKnife)} />.

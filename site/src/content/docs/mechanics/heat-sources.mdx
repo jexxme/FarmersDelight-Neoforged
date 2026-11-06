@@ -1,0 +1,118 @@
+---
+title: Heat sources
+description: Which blocks heat a Cooking Pot or Skillet, the lit rule, heat conductors such as the hopper, and which sources show a tray.
+---
+
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Src from '../../../components/mc/Src.astro';
+import Cite from '../../../components/cooking/Cite.astro';
+import HeatRule from '../../../components/cooking/HeatRule.astro';
+import { tags, renderOf, nameOf, blocks } from '../../../lib/data';
+import { heat, stove, pot } from '../../../data/code/cooking';
+
+export const T = tags.resolved.block;
+export const sources = T['farmersdelight:heat_sources'];
+export const trays = T['farmersdelight:tray_heat_sources'];
+export const conductors = T['farmersdelight:heat_conductors'];
+export const file = (t) => tags.files.find((f) => f.registry === 'block' && f.tag === t);
+export const optionalConductors = file('farmersdelight:heat_conductors').values.filter((v) => v.endsWith('?')).map((v) => v.slice(0, -1));
+export const litBlocks = { 'farmersdelight:stove': 'stove', 'minecraft:campfire': 'campfire', 'minecraft:soul_campfire': 'campfire' };
+export const TAGDIR = 'src/generated/resources/data/farmersdelight/tags/block/';
+
+<Render name="scenes/pot-on-campfire" float="right" size={220} caption="A campfire heats the pot and gives it a tray" />
+
+A <Item id="cooking_pot" /> or a placed <Item id="skillet" /> only cooks while something hot is under it. The mod
+decides that with two block tags: **heat sources**, which give heat, and **heat conductors**, which pass it up from
+the block below. A placed pot or skillet checks the block under it every tick.
+
+## How it works
+
+The rule is short <Cite f={heat.isHeated} />:
+
+1. If the block **directly below** is a heat source, the pot is heated. If that block has a `lit` state, it must be lit
+   <Cite f={heat.directLit} />.
+2. Otherwise, if the block directly below is a **heat conductor** and the block **two below** is a heat source (same lit
+   rule), the pot is heated <Cite f={heat.conducted} />.
+3. Nothing else counts. Heat never travels sideways, never more than two blocks, and only through one conductor.
+
+<HeatRule />
+
+The pot and the skillet both accept conductors: the code has a switch for "direct heat only", but no block turns it on
+<Cite f={heat.requiresDirect} />.
+
+## Heat sources
+
+`#farmersdelight:heat_sources` holds {sources.length} blocks in this version
+<Src path={`${TAGDIR}heat_sources.json`} />. The ones marked *tray* also come from
+`#farmersdelight:tray_heat_sources` <Src path={`${TAGDIR}tray_heat_sources.json`} />.
+
+<table>
+	<thead><tr><th></th><th>Block</th><th>Tray</th><th>Only while lit</th></tr></thead>
+	<tbody>
+		{sources.map((id) => {
+			const r = renderOf(`heat/${id.replace(':', '-')}`);
+			return (
+				<tr>
+					<td style="width:64px">{r ? <img src={r} alt="" width="56" height="56" loading="lazy" /> : null}</td>
+					<td><Item id={id} /></td>
+					<td>{trays.includes(id) ? 'tray' : '—'}</td>
+					<td>
+						{litBlocks[id] === 'stove' ? <>yes, the block has a <code>lit</code> state <Cite f={stove.placedLit} /></> : litBlocks[id] === 'campfire' ? <>yes, campfires have a <code>lit</code> state <Cite f={heat.campfireLit} /></> : '—'}
+					</td>
+				</tr>
+			);
+		})}
+	</tbody>
+</table>
+
+- The <Item id="stove" /> is placed already lit, so it works at once <Cite f={stove.placedLit} />. Put it out with a
+  shovel or a water bucket and the pot cools down; see [Stove](/mechanics/stove/).
+- Blocks in the list without a `lit` state, like <Item id="minecraft:magma_block" /> or a
+  <Item id="minecraft:lava_cauldron" />, always count.
+- Light level does not matter, and the source does not need to touch anything else.
+
+## Heat conductors
+
+`#farmersdelight:heat_conductors` <Src path={`${TAGDIR}heat_conductors.json`} /> contains
+{conductors.map((id, i) => <>{i ? ', ' : ''}<Item id={id} /></>)}{optionalConductors.length ? <>, plus {optionalConductors.map((id, i) => <>{i ? ', ' : ''}<code>{id}</code></>)} when that mod is installed</> : null}.
+
+<div class="not-content" style="display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:flex-end;margin:1rem 0">
+	<Render name="scenes/pot-on-hopper" size={180} caption="Magma block, hopper, pot" />
+	<Render name="scenes/pot-hanging" size={180} caption="A hanging pot is heated like any other" />
+</div>
+
+The hopper is the useful one: it sits between the source and the pot, passes the heat up, and pulls finished meals out of
+the pot's bottom face at the same time. See [Cooking Pot automation](/mechanics/cooking-pot/#automation).
+
+## Which blocks show a tray
+
+A pot or skillet standing on a block from `#farmersdelight:tray_heat_sources`
+({trays.map((id, i) => <>{i ? ', ' : ''}<Item id={id} /></>)}) gets a metal tray under it, with a full-width
+1-pixel collision box <Src path="common/block/CookingPotBlock.java" lines="57-58" /> <Cite f={heat.trayPot} /> <Cite f={heat.traySkillet} />. The tray is only looks and collision; heating
+works the same with or without it.
+
+<div class="not-content" style="display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:flex-end;margin:1rem 0">
+	<Render name="scenes/pot-on-campfire" size={160} caption="Campfire: tray" />
+	<Render name="scenes/pot-on-stove" size={160} caption="Stove: no tray" />
+	<Render name="scenes/skillet-on-campfire" size={160} caption="Skillet on a campfire: tray" />
+	<Render name="scenes/skillet-on-stove" size={160} caption="Skillet on a stove: no tray" />
+</div>
+
+The Stove, magma block and lava cauldron heat without a tray. A hanging pot (placed against the underside of a block)
+never changes to a tray.
+
+## The hand-held skillet is different
+
+Cooking with a <Item id="skillet" /> held in your hand uses its own, looser check: you are near heat if you are on fire, or
+if any block in the 3×3×3 cube around you is in `#farmersdelight:heat_sources`. That check looks at the tag only, so an
+unlit campfire or an unlit Stove counts, and conductors play no part <Cite f={heat.heldNear} />. See
+[Skillet](/mechanics/skillet/).
+
+## Details
+
+- Pack makers can add any block to these tags. Any block with the standard `lit` state is checked for it automatically.
+- Both tags are block tags, so items and entities (a burning mob, a lava bucket) never count, except for the hand-held
+  skillet, which also accepts a burning player.
+- Without heat, a pot or placed skillet loses progress at {pot.decay.value} per tick rather than resetting; see
+  [Cooking Pot](/mechanics/cooking-pot/#how-it-works).

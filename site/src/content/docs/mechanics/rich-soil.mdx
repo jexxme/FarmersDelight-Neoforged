@@ -1,0 +1,80 @@
+---
+title: Rich Soil
+description: Rich Soil and Rich Soil Farmland in Farmer's Delight Neoforged, the free bone meal boost, mushroom colonies, what it does not affect, and tilling.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Src from '../../../components/mc/Src.astro';
+import Stages from '../../../components/data/Stages.astro';
+import Chips from '../../../components/farming/Chips.astro';
+import BlockDrops from '../../../components/farming/BlockDrops.astro';
+import RichSoilTick from '../../../components/farming/RichSoilTick.astro';
+import { config, tags, pct } from '../../../lib/data';
+import { richSoil, cite, randomTicksToTime } from '../../../data/code/farming';
+import Shot from '../../../components/mc/Shot.astro';
+
+export const opt = config.find((c) => c.key === 'richSoilBoostChance');
+export const boost = opt.default;
+export const supports = Object.keys(tags.resolved.block).filter((k) => k.startsWith('minecraft:supports_') && tags.resolved.block[k].includes('farmersdelight:rich_soil')).map((k) => k.replace('minecraft:supports_', '').replaceAll('_', ' '));
+
+<Render name="blocks/rich_soil" size={200} float="right" caption="Rich Soil" />
+
+<Item id="rich_soil" /> is what [Organic Compost](/mechanics/organic-compost/) turns into. It works like dirt, but on its random ticks it gives plants on it a free dose of bone meal, and it turns plain mushrooms into [mushroom colonies](/mechanics/mushroom-colonies/). Till it with a hoe for <Item id="rich_soil_farmland" />, which does the same for crops and cannot be trampled.
+
+There is no crafting recipe: the only source is compost.
+
+<Shot src="mechanics/rich-soil-farm.jpg" caption="Rich soil farmland with rows of mature cabbages and onions, and tomatoes climbing a rope trellis behind." />
+
+## How it works
+
+Each random tick, Rich Soil goes through these cases in order <Src {...cite(richSoil.randomTick)} />:
+
+<RichSoilTick />
+
+- **Boost chance.** The chance comes from the `richSoilBoostChance` setting: default **{pct(boost, 0)}**, range {opt.range[0]} to {opt.range[1]}, and 0 turns boosts off <Src {...cite(richSoil.boostRoll)} /> <Src {...cite(richSoil.configLine)} />. At the default that is one free bone meal every {Math.round(1 / boost)} random ticks, about every {randomTicksToTime(1 / boost)} on average.
+- **What gets boosted.** The plant must accept bone meal at that moment (for example a crop that is not fully grown) and must not be in `#farmersdelight:unaffected_by_rich_soil` <Src {...cite(richSoil.boostPlant)} />. A boost shows green particles.
+- **Below.** Plants in `#farmersdelight:planted_from_below` grow downward from the block above, so they are boosted from below and never from above <Src {...cite(richSoil.aboveBelow)} />: <Chips tag="farmersdelight:planted_from_below" compact />
+- **Mushrooms.** A brown or red mushroom directly on Rich Soil turns into a colony of age 0 on the next random tick, without any chance roll or light check <Src {...cite(richSoil.colony)} />.
+
+### Not affected
+
+These never get a boost:
+
+<Chips tag="farmersdelight:unaffected_by_rich_soil" />
+
+Mushroom colonies are on the list because they have their own, faster growth on Rich Soil.
+
+## Rich Soil Farmland
+
+Use any hoe on Rich Soil with air above it to get Rich Soil Farmland (dry, moisture 0); the hoe loses 1 durability. Tilling from below does not work <Src {...cite(richSoil.tilling)} label="transformables.json" />.
+
+<Stages block="rich_soil_farmland" title="Dry and moist" labels={{ '0': 'moisture 0', '7': 'moisture 7' }} />
+
+- **Water.** Like farmland, it is moist when water is within {richSoil.nearWater.value} blocks horizontally (same level or one up) or when rain falls on it; otherwise it dries one step per random tick <Src {...cite(richSoil.nearWater)} />.
+- **Boost only when moist.** The Rich Soil boost runs only on a random tick where the farmland is already fully moist (moisture 7) <Src {...cite(richSoil.farmlandTick)} />. Dry Rich Soil Farmland gives nothing extra.
+- **No trampling.** Jumping or falling on it does normal fall damage and nothing else <Src {...cite(richSoil.noTrample)} />.
+- **Fertile** while its moisture is above 0, which speeds crops the same way moist farmland does <Src {...cite(richSoil.fertile)} />.
+- It turns back into Rich Soil when a solid block is put on it, but melons and pumpkins may sit on it <Src {...cite(richSoil.farmlandSurvive)} />.
+- Farmer villagers work it like farmland ([Villagers](/mechanics/villagers/)).
+
+<BlockDrops block="rich_soil_farmland" title="Drops: Rich Soil Farmland" />
+
+## What you can plant on it
+
+Rich Soil is in `#minecraft:dirt` and `#minecraft:substrate_overworld`, so anything that grows on dirt grows on it, and rice and wild crops can be planted on it. Plain Rich Soil is also in the vanilla `supports_*` tags for: {supports.join(', ')}.
+
+<Aside type="tip" title="Good uses">
+- Put Rich Soil under rice in a paddy: the boost goes to the rice, and mature rice passes it on to its panicles.
+- Saplings, sweet berry bushes and bamboo on Rich Soil get the same free bone meal.
+- Cave vines hanging from a Rich Soil ceiling are boosted from above.
+</Aside>
+
+## Details
+
+- Plant compatibility is left to vanilla rules (`TriState.DEFAULT`) <Src {...cite(richSoil.sustain)} />. Rich Soil Farmland accepts any crop block <Src {...cite(richSoil.farmlandSustain)} />.
+- The boost is a real bone meal application: it fires NeoForge's crop-grow events, so other mods can block or react to it.
+- Rich Soil counts as a compost activator and lets mushrooms survive in any light (`#minecraft:overrides_mushroom_light_requirement`).
+
+<BlockDrops block="rich_soil" title="Drops: Rich Soil" />

@@ -196,8 +196,11 @@ function conditionText(c) {
 }
 function lootTable(json) {
 	const pools = [];
+	// Functions apply at three levels: the table, the pool and the entry (in that order, outermost last)
+	const tableMods = asList(json.modifier ?? json.functions);
 	for (const pool of json.pools ?? []) {
 		const entries = [];
+		const poolMods = asList(pool.modifier ?? pool.functions);
 		const flat = (e, inherited = []) => {
 			const conds = [...inherited, ...asList(e.condition ?? e.conditions)];
 			if (e.type?.endsWith('alternatives') || e.type?.endsWith('group') || e.type?.endsWith('sequence')) {
@@ -209,16 +212,20 @@ function lootTable(json) {
 				return;
 			}
 			referenced.add(e.name);
-			const mods = asList(e.modifier ?? e.functions);
+			const mods = [...asList(e.modifier ?? e.functions), ...poolMods, ...tableMods];
 			const count = mods.find((m) => m.type?.endsWith('set_count'));
 			const bonus = mods.find((m) => m.type?.endsWith('apply_bonus'));
+			const damage = mods.find((m) => m.type?.endsWith('set_damage'));
+			const enchant = mods.find((m) => m.type?.endsWith('enchant_randomly') || m.type?.endsWith('enchant_with_levels'));
 			entries.push({
 				item: e.name,
 				weight: e.weight ?? 1,
 				count: count ? numberText(count.count) : { min: 1, max: 1 },
 				fortune: bonus ? { formula: short(bonus.formula), ...bonus.parameters } : null,
+				damage: damage ? numberText(damage.damage) : null,
+				enchant: enchant ? { type: short(enchant.type), levels: enchant.levels ? numberText(enchant.levels) : null, options: enchant.options ?? null } : null,
 				conditions: conds.map((c) => (c.type === 'otherwise' ? 'otherwise' : conditionText(c))).filter(Boolean),
-				modifiers: mods.map((m) => short(m.type)).filter((t) => t !== 'set_count' && t !== 'apply_bonus'),
+				modifiers: mods.map((m) => short(m.type)).filter((t) => !['set_count', 'apply_bonus', 'set_damage', 'enchant_randomly', 'enchant_with_levels'].includes(t)),
 			});
 		};
 		pool.entries.forEach((e) => flat(e));
@@ -231,7 +238,7 @@ function lootTable(json) {
 			entries,
 		});
 	}
-	return { pools, type: json.type };
+	return { pools, type: json.type, modifiers: tableMods.map((m) => short(m.type)) };
 }
 const loot = { chests: {}, blocks: {} };
 for (const kind of ['chests', 'blocks']) {
@@ -253,8 +260,18 @@ const modifiers = [];
 		if (tableCond) m.target = tableCond.loot_table_id;
 		const knife = terms.find((t) => t.type?.endsWith('entity_properties') && t.entity === 'attacker');
 		if (knife) m.attackerTool = knife.predicate?.['minecraft:equipment']?.mainhand?.items ?? null;
-		const ent = terms.find((t) => t.type?.endsWith('entity_properties') && t.entity === 'this' && t.predicate?.['minecraft:entity_type']);
-		if (ent) m.entity = ent.predicate['minecraft:entity_type'];
+		// The killed mob(s): may sit directly in the terms or inside an any_of (leather, string)
+		const mobs = [];
+		const findMobs = (c) => {
+			if (!c || typeof c !== 'object') return;
+			if (c.type?.endsWith('entity_properties') && c.entity === 'this' && c.predicate?.['minecraft:entity_type']) mobs.push(...asList(c.predicate['minecraft:entity_type']));
+			for (const t of asList(c.terms)) findMobs(t);
+			if (c.term) findMobs(c.term);
+		};
+		findMobs(json.condition);
+		if (mobs.length) m.entity = mobs.length === 1 ? mobs[0] : mobs;
+		m.killedByPlayer = terms.some((t) => t.type?.endsWith('killed_by_player'));
+		m.silkTouch = JSON.stringify(json.condition).includes('silk_touch');
 		const fire = terms.find((t) => t.predicate?.['minecraft:flags']?.is_on_fire !== undefined);
 		if (fire) m.onFire = fire.predicate['minecraft:flags'].is_on_fire;
 		const chance = terms.find((t) => t.type?.endsWith('random_chance'));
@@ -322,6 +339,8 @@ const worldgen = [];
 					block: blockId,
 					randomProperty,
 					spread: offset ? { x: offset.x, y: offset.y, z: offset.z } : null,
+					// Every offset step in order (some patches offset twice, e.g. the coarse dirt under wild carrots)
+					offsets: (part.placement ?? []).filter((p) => p.type.endsWith('offset')).map((o) => ({ x: o.x, y: o.y, z: o.z })),
 					tries: count?.count ?? null,
 					predicates: preds.map((p) => ({ type: short(p.type), blocks: p.blocks ?? null, tag: p.tag ?? null, offset: p.offset ?? null, fluids: p.fluids ?? null })),
 				};
@@ -527,12 +546,21 @@ const effects = Object.entries(runtime.effects).map(([id, e]) => ({
 	grantedBy: Object.values(items).filter((it) => it.consumable?.effects.some((fx) => fx.id === id)).map((it) => it.id),
 }));
 
-// Tags (the ones the site talks about)
+// Tags (the ones the site talks about): FD's own, any containing an FD entry, and every tag the mod's data or
+// code mentions ("#ns:path" in a JSON file, or a "tag" field such as in worldgen predicates)
+const mentioned = new Set();
+for (const root of [GEN, MAIN]) {
+	for (const f of walk(root)) {
+		const text = fs.readFileSync(path.join(root, f), 'utf8');
+		for (const m of text.matchAll(/"#([a-z0-9_.-]+:[a-z0-9_/.-]+)"/g)) mentioned.add(m[1]);
+		for (const m of text.matchAll(/"tag"\s*:\s*"([a-z0-9_.-]+:[a-z0-9_/.-]+)"/g)) mentioned.add(m[1]);
+	}
+}
 const fdTagsAll = {};
 for (const [reg, tags] of Object.entries(runtime.tags)) {
 	for (const [tag, values] of Object.entries(tags)) {
 		const fdHasIt = values.some((v) => v.startsWith('farmersdelight:'));
-		if (tag.startsWith('farmersdelight:') || fdHasIt || (reg === 'item' && usedItemTags.has(tag))) {
+		if (tag.startsWith('farmersdelight:') || fdHasIt || mentioned.has(tag) || (reg === 'item' && usedItemTags.has(tag))) {
 			(fdTagsAll[reg] ??= {})[tag] = values;
 			if (reg === 'item') values.forEach((v) => referenced.add(v));
 		}
@@ -638,6 +666,14 @@ write('meta.json', {
 		advancements: advancements.length,
 	},
 });
+// NeoForge data maps shipped by the mod (e.g. villager_compostables, block transformables)
+const dataMaps = {};
+for (const root of [GEN, MAIN]) {
+	const dir = path.join(root, 'neoforge/data_maps');
+	for (const f of walk(dir)) dataMaps[`neoforge:${f.replace(/\.json$/, '')}`] = { file: path.relative(REPO, path.join(dir, f)).replaceAll('\\', '/'), ...readFile(path.join(dir, f)) };
+}
+write('data-maps.json', dataMaps);
+
 // Text documents shipped in the repo, for the changelog and differences pages
 write('docs-text.json', {
 	changelog: fs.readFileSync(path.join(REPO, 'changelog.md'), 'utf8'),

@@ -1,0 +1,108 @@
+---
+// Side view of a basket's pickup area: its own block plus one block in the direction its opening faces (Basket.java).
+// The area boxes are read from Basket.COLLECTION_AREA_SHAPES (in pixels, 16 per block).
+import { renderOf } from '../../lib/data';
+const B = 64;
+const cases = [
+	{ label: 'facing up (placed looking down)', dx: 0, dy: -1 },
+	{ label: 'facing sideways (placed looking at a wall)', dx: 1, dy: 0 },
+];
+const img = renderOf('blocks/wooden_basket');
+---
+<figure class="fd-bk not-content">
+	<div class="row fd-board">
+		{
+			cases.map((c) => {
+				const W = B * 2 + 40;
+				const H = B * 2 + 40;
+				const bx = 20 + (c.dx < 0 ? B : 0);
+				const by = 20 + (c.dy < 0 ? B : 0);
+				const zx = Math.min(bx, bx + c.dx * B);
+				const zy = Math.min(by, by + c.dy * B);
+				const zw = B * (1 + Math.abs(c.dx));
+				const zh = B * (1 + Math.abs(c.dy));
+				return (
+					<div class="case">
+						<svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Pickup area ${c.label}`}>
+							<rect x={zx} y={zy} width={zw} height={zh} class="zone" />
+							<rect x={bx + c.dx * B} y={by + c.dy * B} width={B} height={B} class="cell" />
+							<image href={img} x={bx} y={by} width={B} height={B} />
+							<rect x={bx} y={by} width={B} height={B} class="cell" />
+							<line
+								x1={bx + B / 2}
+								y1={by + B / 2}
+								x2={bx + B / 2 + c.dx * B * 0.9}
+								y2={by + B / 2 + c.dy * B * 0.9}
+								class="arrow"
+								marker-end="url(#fdbk-a)"
+							/>
+							<rect x={bx + c.dx * B + B / 2 - 6} y={by + c.dy * B + B / 2 + 8} width="12" height="12" class="item" />
+						</svg>
+						<span>{c.label}</span>
+					</div>
+				);
+			})
+		}
+	</div>
+	<svg width="0" height="0" style="position:absolute">
+		<defs>
+			<marker id="fdbk-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+				<path d="M0 0 L10 5 L0 10 z" class="head" />
+			</marker>
+		</defs>
+	</svg>
+	<figcaption>Shaded: the pickup area. Items lying anywhere in it are pulled in, one item entity at a time.</figcaption>
+</figure>
+<style>
+	.fd-bk {
+		margin: 1.5rem 0;
+	}
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		padding: 12px 16px;
+	}
+	.case {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.25rem;
+		width: 14rem;
+	}
+	svg {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+	.case span {
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+	.zone {
+		fill: var(--fd-gold);
+		opacity: 0.4;
+	}
+	.cell {
+		fill: none;
+		stroke: var(--sl-color-gray-4);
+		stroke-dasharray: 4 3;
+	}
+	.arrow {
+		stroke: var(--sl-color-accent);
+		stroke-width: 3;
+	}
+	.head {
+		fill: var(--sl-color-accent);
+	}
+	.item {
+		fill: var(--sl-color-white);
+	}
+	figcaption {
+		font-size: 20px;
+		line-height: 28px;
+		margin-top: 10px;
+		color: var(--sl-color-gray-3);
+	}
+</style>

@@ -1,0 +1,128 @@
+---
+// Every playable Cutting Board recipe, grouped by the tool it needs. Compact rows of real inventory slots.
+import Slot from '../mc/Slot.astro';
+import { playableRecipes, nameOf, short, type Recipe } from '../../lib/data';
+const cutting = playableRecipes.filter((r) => r.type === 'farmersdelight:cutting');
+const toolKey = (r: Recipe) => {
+	const t = r.tool!;
+	const tags = [t.tag, ...(t.any ?? []).map((a) => a.tag)].filter(Boolean) as string[];
+	if (tags.includes('c:tools/knife')) return 'knife';
+	if (tags.includes('minecraft:axes')) return 'axe';
+	if (tags.includes('minecraft:pickaxes')) return 'pickaxe';
+	if (tags.includes('minecraft:shovels')) return 'shovel';
+	if (tags.includes('minecraft:hoes')) return 'hoe';
+	if (tags.includes('c:tools/shear') || t.any?.some((a) => a.action?.startsWith('shears'))) return 'shears';
+	return 'other';
+};
+const ORDER: [string, string, string][] = [
+	['knife', 'Knife', 'food prep, flowers and plants'],
+	['axe', 'Axe', 'stripping logs and wood for Tree Bark, breaking wooden blocks down'],
+	['pickaxe', 'Pickaxe', 'salvaging stone and brick blocks'],
+	['shovel', 'Shovel', 'sifting'],
+	['hoe', 'Hoe', 'salvaging chest boats and minecarts'],
+	['shears', 'Shears', 'salvaging leather goods'],
+	['other', 'Other', ''],
+];
+const groups = ORDER.map(([k, label, blurb]) => ({ k, label, blurb, list: cutting.filter((r) => toolKey(r) === k) })).filter((g) => g.list.length);
+const inputName = (r: Recipe) => {
+	const i = r.ingredients![0];
+	if (i.tag) return `#${short(i.tag)}`;
+	return i.items.length > 1 ? r.id.split('/').pop()!.replaceAll('_', ' ').replace(/^./, (c) => c.toUpperCase()) : nameOf(i.items[0]);
+};
+---
+<div class="fd-cutgroups not-content">
+	{
+		groups.map((g) => (
+			<section class="grp" id={`tool-${g.k}`}>
+				<header>
+					<Slot ingredient={g.list[0].tool} scale={2} />
+					<h3>{g.label}</h3>
+					<span class="n">{g.list.length} recipes</span>
+					{g.blurb && <span class="blurb">{g.blurb}</span>}
+				</header>
+				<ul>
+					{g.list.map((r) => (
+						<li title={r.id.replace('farmersdelight:', '')}>
+							<span class="slots">
+								<Slot ingredient={r.ingredients![0]} scale={1.5} />
+								<span class="arr">→</span>
+								{r.results!.map((o) => (
+									<Slot id={o.id} count={o.count} chance={o.chance} scale={1.5} />
+								))}
+							</span>
+							<span class="nm">{inputName(r)}</span>
+						</li>
+					))}
+				</ul>
+			</section>
+		))
+	}
+</div>
+<style>
+	.fd-cutgroups {
+		margin: 30px 0;
+		font-size: 20px;
+		line-height: 30px;
+	}
+	.grp {
+		margin-bottom: 30px;
+		padding: 12px 16px 16px;
+		background: var(--fd-surface);
+		border: 3px solid var(--fd-frame);
+		box-shadow: 4px 4px 0 #000;
+	}
+	header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0 16px;
+		margin-bottom: 10px;
+	}
+	h3 {
+		margin: 0;
+		font-size: 30px;
+		line-height: 40px;
+		font-weight: 400;
+		color: var(--fd-heading-ink);
+	}
+	.n {
+		color: var(--sl-color-text-accent);
+	}
+	.blurb {
+		flex-basis: 100%;
+		color: var(--sl-color-gray-3);
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+		column-gap: 20px;
+	}
+	li {
+		margin: 0;
+		padding: 6px 0;
+		border-bottom: 2px solid var(--fd-border);
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+	.slots {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 2px;
+	}
+	.arr {
+		color: var(--sl-color-gray-4);
+		padding: 0 4px;
+	}
+	.nm {
+		font-size: 20px;
+		color: var(--sl-color-gray-3);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+</style>

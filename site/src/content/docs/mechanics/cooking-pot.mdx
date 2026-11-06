@@ -1,0 +1,171 @@
+---
+title: Cooking Pot
+description: How the Cooking Pot cooks, stores and serves meals, with its slots, hopper faces, experience and what it keeps when broken.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Item from '../../../components/mc/Item.astro';
+import Render from '../../../components/mc/Render.astro';
+import Src from '../../../components/mc/Src.astro';
+import RecipeList from '../../../components/recipes/RecipeList.astro';
+import Cite from '../../../components/cooking/Cite.astro';
+import Stats from '../../../components/cooking/Stats.astro';
+import PotFlow from '../../../components/cooking/PotFlow.astro';
+import PotGui from '../../../components/cooking/PotGui.astro';
+import HopperFaces from '../../../components/cooking/HopperFaces.astro';
+import CookDecay from '../../../components/cooking/CookDecay.astro';
+import { playableRecipes, items, blocks, config, nameOf, seconds, loot } from '../../../lib/data';
+import { pot } from '../../../data/code/cooking';
+import Shot from '../../../components/mc/Shot.astro';
+
+export const cooking = playableRecipes.filter((r) => r.type === 'farmersdelight:cooking');
+export const times = [...new Set(cooking.map((r) => r.cookingtime))].sort((a, b) => a - b);
+export const xps = cooking.map((r) => r.experience ?? 0);
+export const byContainer = Object.entries(cooking.reduce((m, r) => { const k = r.container?.id ?? ''; (m[k] ??= []).push(r); return m; }, {})).sort((a, b) => b[1].length - a[1].length);
+export const tabs = Object.entries(cooking.reduce((m, r) => { m[r.tab ?? pot.defaultTab.value] = (m[r.tab ?? pot.defaultTab.value] ?? 0) + 1; return m; }, {}));
+export const book = config.find((c) => c.key === 'enableCookingPotRecipeBook');
+export const potBlock = blocks['farmersdelight:cooking_pot'];
+export const potLoot = loot.blocks['farmersdelight:blocks/cooking_pot'];
+
+<Render name="scenes/pot-on-stove" float="right" size={220} caption="A Cooking Pot on a lit Stove" />
+
+The <Item id="cooking_pot" /> is the heart of the kitchen. Put up to {pot.maxIngredients.value} ingredients in, set it on a
+heat source, and it cooks them into a meal. Finished servings wait inside the pot until you scoop them out with the
+right container, usually a <Item id="minecraft:bowl" />. It cooks {cooking.length} recipes in this version.
+
+<Stats
+	items={[
+		{ label: 'Ingredients', value: `1–${pot.maxIngredients.value}`, sub: 'shapeless', src: pot.maxIngredients.src },
+		{ label: 'Default cook time', value: pot.defaultCookTime.value, unit: `ticks · ${seconds(pot.defaultCookTime.value)}`, src: pot.defaultCookTime.src },
+		{ label: 'Shipped cook times', value: `${times[0]}–${times[times.length - 1]}`, unit: 'ticks', sub: times.map((t) => seconds(t)).join(', ') },
+		{ label: 'Servings stored', value: pot.mealCap.value, sub: 'of one meal', src: pot.mealCap.src },
+		{ label: 'Experience', value: `${Math.min(...xps)}–${Math.max(...xps)}`, unit: 'per meal' },
+	]}
+/>
+
+<Shot src="mechanics/cooking-pot-gui.jpg" caption="Beef stew on the way: raw beef, a carrot and a potato in the Cooking Pot over a lit stove, with bowls waiting in the container slot." />
+
+## How it works
+
+<PotFlow />
+
+1. **Ingredients.** The six slots are shapeless: any arrangement works, but the number of filled slots must equal the
+   number of ingredients in the recipe, so a stray extra item blocks the match <Cite f={pot.shapeless} />.
+2. **Heat.** The pot only cooks with a heat source directly below it, or two below with a <Item id="minecraft:hopper" />
+   in between. See [heat sources](/mechanics/heat-sources/).
+3. **Cook time.** Every tick that the pot is heated, holds a matching recipe and has room for the result, its progress
+   goes up by {pot.cookStep.value} <Cite f={pot.cookStep} />. The target is the recipe's `cookingtime`
+   ({pot.defaultCookTime.value} ticks when a recipe leaves it out). If the heat goes away, or the ingredients stop
+   matching, progress does not reset: it falls by {pot.decay.value} per tick until it reaches zero <Cite f={pot.decay} />.
+4. **Finishing.** One meal goes into the meal slot and every ingredient slot loses one item <Cite f={pot.finish} />.
+   Ingredients that leave something behind (a bucket, a bowl, a bottle) pop out of the side of the pot as an item instead of
+   staying inside <Cite f={pot.eject} />.
+5. **Meal slot.** Servings pile up here, up to {pot.mealCap.value} even for meals that stack to 16, as long as each new
+   meal is the same item with the same components <Cite f={pot.canCook} />. A different meal stops the pot until the slot is
+   emptied.
+6. **Container and output.** A meal that needs no container moves to the output slot by itself. Otherwise each matching
+   container in the container slot turns one serving into a finished meal in the output slot <Cite f={pot.autoOutput} />.
+
+<CookDecay total={pot.defaultCookTime.value} step={pot.cookStep.value} decay={pot.decay.value} heatedFor={120} coldFor={40} label="A 200-tick meal" />
+
+### Which container a meal needs
+
+The container is the recipe's `container` field if it has one, otherwise the meal's crafting remainder (the item you get
+back after eating it) <Cite f={pot.containerRule} />. Shipped recipes use:
+
+<table>
+	<thead><tr><th>Container</th><th>Recipes</th><th>Meals</th></tr></thead>
+	<tbody>
+		{byContainer.map(([id, rs]) => (
+			<tr>
+				<td>{id ? <Item id={id} /> : <em>none, goes straight to output</em>}</td>
+				<td>{rs.length}</td>
+				<td>{rs.map((r, i) => <>{i ? ', ' : ''}<Item id={r.result.id} /></>)}</td>
+			</tr>
+		))}
+	</tbody>
+</table>
+
+Remainders the pot throws out <Cite f={pot.remainderOverrides} />: the item's own crafting remainder, plus a fixed list for
+these vanilla items:
+{pot.remainderOverrides.value.map(([a, b], i) => <>{i ? ', ' : ''}<Item id={a} /> → <Item id={b} /></>)}.
+
+## Serving
+
+<PotGui />
+
+- **Right-click with the container.** Holding the meal's container (any stack size) and right-clicking the pot takes
+  one serving straight from the meal slot: one container is used, the meal goes to your inventory or drops at your
+  feet <Cite f={pot.serveClick} /> <Cite f={pot.serveTake} />.
+- **Right-click with anything else** (or an empty hand) opens the pot's screen. Items are never put in by clicking the block.
+- **Sneak with an empty hand** to switch the pot between hanging from its handle and standing <Cite f={pot.handleToggle} />.
+- **Shift-click** in the screen sends `#farmersdelight:serving_containers` (<Item id="minecraft:bowl" />,
+  <Item id="minecraft:glass_bottle" />, <Item id="minecraft:bucket" />) and the pot's current container to the container
+  slot; everything else goes to the ingredient slots <Cite f={pot.shiftClick} />.
+- **From the crafting grid.** A Cooking Pot item that holds a meal, crafted together with exactly one matching container,
+  gives one meal and returns the pot with one serving fewer <Cite f={pot.foodServing} />.
+
+## Automation
+
+<HopperFaces />
+
+The pot exposes two views of its inventory to hoppers and pipes <Cite f={pot.hopperSides} /> <Cite f={pot.hopperHandler} />:
+
+| Face | Insert into | Extract from |
+|---|---|---|
+| Top | ingredient slots | ingredient slots |
+| Sides and bottom | container slot | output slot |
+
+The meal slot is never reachable. A hopper under the pot both pulls finished meals and, sitting on a heat source, passes
+the heat up, so one column of *source, hopper, pot* is a complete automatic kitchen once a hopper on top feeds ingredients
+and one on the side feeds bowls.
+
+**Comparator.** The signal is the average fill of all nine slots: <code>floor(average × {pot.comparator.value}) + 1</code> when anything
+is inside, 0 when empty <Cite f={pot.comparator} />.
+
+## Experience
+
+Each recipe has an `experience` value (shipped: {[...new Set(xps)].sort().join(', ')}; {pot.defaultXp.value} when left
+out <Cite f={pot.defaultXp} />). The pot counts how many times each recipe finished <Cite f={pot.xpTrack} />, and pays out
+`floor(count × experience)` orbs plus one more with the leftover fraction as the chance <Cite f={pot.xpSplit} />. It pays
+when a player takes items from the output slot, or when the pot is broken <Cite f={pot.xpTake} /> <Cite f={pot.breakSide} />.
+Serving by right-click and hoppers do not pay out; the experience stays stored in the pot.
+
+## Breaking the pot
+
+- The ingredient, container and output slots drop as items, and the stored experience pops out <Cite f={pot.breakDrops} />.
+- The meal slot is **kept in the pot item**, together with its container and a custom name: the loot table copies
+  `farmersdelight:meal`, `farmersdelight:container` and `minecraft:custom_name`, and only drops when the pot survives the
+  explosion <Src path="src/generated/resources/data/farmersdelight/loot_table/blocks/cooking_pot.json" lines="5-20" />.
+  Place it again and the servings are still there; pick-block in creative also copies them <Cite f={pot.pickBlock} />.
+- The pot item stacks to {items['farmersdelight:cooking_pot'].stack}.
+
+## Recipe book
+
+The screen has a recipe book when `enableCookingPotRecipeBook` is on (default **{String(book.default)}**)
+<Cite f={pot.recipeBook} />. Recipes sort into tabs by their `recipe_book_tab` (<code>{pot.defaultTab.value}</code> if missing)
+<Cite f={pot.defaultTab} />: {tabs.map(([t, n], i) => <>{i ? ', ' : ''}<strong>{t}</strong> {n}</>)}.
+
+## Recipes
+
+A cross-section of what the pot does: a plain meal, a fast sauce, a bottled drink, a feast with its own container, a
+container-free snack and a vanilla soup. Every recipe is in the [recipe reference](/reference/recipes/).
+
+<RecipeList ids={['cooking/beef_stew', 'cooking/tomato_sauce', 'cooking/hot_cocoa', 'cooking/stuffed_pumpkin_block', 'cooking/dumplings', 'cooking/beetroot_soup']} />
+
+## Details
+
+- **Placement.** The pot faces you. Placed against the underside of a block it hangs by its handle; otherwise it shows a
+  tray when the block below is a tray heat source (fire, lava, campfires) <Cite f={pot.placement} />. The tray state updates
+  when the block below changes, unless the pot is hanging <Cite f={pot.traySupport} />. It can be waterlogged.
+- **Effects.** While heated it bubbles ({pot.bubbles.value.bubble * 100}% chance per tick) and steams
+  ({pot.bubbles.value.steam * 100}%) <Cite f={pot.bubbles} />, and plays a boiling sound one time in
+  {pot.boilSound.value}, a thicker one when a meal is stored <Cite f={pot.boilSound} />.
+- **Block.** Hardness {potBlock.hardness}, blast resistance {potBlock.blastResistance}.
+- **Mixing meals.** A pot holding servings of one meal cannot cook a different one until the meal slot is empty, even with
+  free room <Cite f={pot.canCook} />.
+
+<Aside type="tip">
+Shift-clicking a stack of bowls into the screen lets the pot fill the output slot on its own, one meal per bowl, up to a
+full stack.
+</Aside>
