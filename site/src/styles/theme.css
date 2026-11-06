@@ -209,25 +209,22 @@ starlight-theme-select select {
 	header .social-icons::after {
 		display: none;
 	}
-	header .social-icons a {
-		width: 40px;
-		height: 40px;
-		padding: 0;
-		margin: 0;
-		display: grid;
-		place-items: center;
-		background: #000;
-		border: 2px solid #a0a0a0;
-		filter: none;
-	}
-	header .social-icons a:hover {
-		border-color: #fff;
-	}
-	header starlight-theme-select select {
-		margin-inline: 0;
-		width: 108px;
-		padding-inline: 30px 22px !important;
-	}
+}
+/* GitHub as a square box like the theme button (header and the phone menu) */
+.social-icons a {
+	width: 40px;
+	height: 40px;
+	padding: 0 !important;
+	margin: 0 !important;
+	display: grid !important;
+	place-items: center;
+	background: #000;
+	border: 2px solid #a0a0a0;
+	color: #fff !important;
+	filter: none !important;
+}
+.social-icons a:hover {
+	border-color: #fff;
 }
 header .social-icons svg {
 	width: 24px;
@@ -294,6 +291,7 @@ site-search button[data-close-modal] {
 }
 #starlight__search .pagefind-ui__search-input::placeholder {
 	color: #a0a0a0;
+	opacity: 1; /* Pagefind dims it to 0.2 */
 }
 #starlight__search .pagefind-ui__form::before {
 	background-color: #e0e0e0;

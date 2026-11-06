@@ -47,6 +47,7 @@ export default defineConfig({
 			components: {
 				Head: './src/components/overrides/Head.astro',
 				Footer: './src/components/overrides/Footer.astro',
+				ThemeSelect: './src/components/overrides/ThemeSelect.astro',
 			},
 			lastUpdated: false,
 			tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
