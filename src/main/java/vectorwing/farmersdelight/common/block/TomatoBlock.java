@@ -56,8 +56,8 @@ public class TomatoBlock extends CropBlock
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		int age = state.getValue(getAgeProperty());
 		boolean isMature = age == getMaxAge();
-		// TODO: This used to skip block interaction for bone meal. Test if it works as intended with SUCCESS.
-		return !isMature && stack.is(Items.BONE_MEAL) ? InteractionResult.SUCCESS : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+		// Bone meal on an unripe vine skips the block interaction so the bone meal item itself is used (PASS, not SUCCESS).
+		return !isMature && stack.is(Items.BONE_MEAL) ? InteractionResult.PASS : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	@Override
