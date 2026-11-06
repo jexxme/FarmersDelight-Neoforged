@@ -1,14 +1,14 @@
 ---
 title: All recipes
-description: Every Farmer's Delight recipe as it appears in game, filterable by type and searchable by output or ingredient.
+description: Every Farmer's Delight recipe as it appears in game, filterable by station and searchable by result or ingredient.
 tableOfContents: false
 ---
 import RecipeBrowser from '../../../components/reference/RecipeBrowser.astro';
 import { meta } from '../../../lib/data';
 
-All {meta.counts.recipes} recipes that load in a plain game: {meta.counts.cooking} for the [Cooking Pot](/mechanics/cooking-pot/), {meta.counts.cutting} for the [Cutting Board](/mechanics/cutting-board/), and the rest for crafting tables, furnaces, smokers, campfires and the smithing table.
-Hover a slot for the item name; slots that cycle accept any item of a tag. The code under each card is the recipe id for data packs and `/recipe`.
+All {meta.counts.recipes} recipes, drawn the way the game shows them: {meta.counts.cooking} for the [Cooking Pot](/mechanics/cooking-pot/), {meta.counts.cutting} for the [Cutting Board](/mechanics/cutting-board/), and the rest for the crafting table, furnaces, campfires and the smithing table.
+Search for a result or an ingredient, or pick a station. Hover a slot for the item's name; slots that flip through items accept any of them.
 
-To see how a recipe breaks down into raw materials, use the [recipe planner](/reference/recipe-planner/). The {meta.counts.integrationRecipes} recipes that only load with other mods installed are on [Compatibility](/compatibility/#data-only-integrations).
+To see what a dish takes all the way down to raw crops, use the [recipe planner](/reference/recipe-planner/). The {meta.counts.integrationRecipes} extra recipes for other mods are on [Compatibility](/compatibility/#recipes-for-other-mods).
 
 <RecipeBrowser />

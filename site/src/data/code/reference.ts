@@ -1,6 +1,7 @@
-// Code facts for the reference and pack-maker pages, read from the mod's Java (paths relative to
-// src/main/java/vectorwing/farmersdelight). Each value carries the lines it was read from; show it with <Src>.
-// NeoForge facts (not in this repo) cite the NeoForge 26.3.0.101 sources jar and are marked `neoforge: true`.
+// Code facts for the reference pages, read from the mod's Java (paths relative to
+// src/main/java/vectorwing/farmersdelight). Each value carries the lines it was read from, for maintainers only:
+// the player pages never show citations. NeoForge facts (not in this repo) cite the NeoForge 26.3.0.101 sources jar
+// and are marked `neoforge: true`. Plain-language helpers for the pages are at the bottom.
 
 export type Cited<T> = { value: T; src: string; lines: string; neoforge?: boolean };
 const c = <T>(value: T, src: string, lines: string, neoforge = false): Cited<T> => ({ value, src, lines, neoforge });
@@ -128,7 +129,7 @@ export const jei = {
 	catalysts: c(null, 'integration/jei/JEIPlugin.java', '71-77'),
 	clickArea: c(null, 'integration/jei/JEIPlugin.java', '80-82'),
 	transfer: c(null, 'integration/jei/JEIPlugin.java', '85-87'),
-	/** JEI shows the special dough recipe with two wheat; DoughRecipe needs exactly one. */
+	/** JEI's display of the special dough recipe. Checked in game by the Port Lead: it shows one wheat, like DoughRecipe needs. */
 	doughDisplay: c(null, 'integration/jei/FDRecipes.java', '52-60'),
 };
 export const rei = {
@@ -158,3 +159,101 @@ export const consumeEffects = {
 	heal: c(null, 'common/item/component/consumable/HealConsumeEffect.java', '17-19'),
 	extinguish: c(null, 'common/item/component/consumable/ExtinguishConsumeEffect.java', '14'),
 };
+
+// ------------------------------------------------------------------ known issues (player wording)
+// What currently doesn't work right, in plain words for the Differences page and the food table. Each was found by
+// reading the code (see the session notes "port-bugs-from-docs.md"); the citation is where the behaviour comes from.
+export const knownIssues = {
+	pieBites: c(null, 'common/block/PieBlock.java', '104'),
+	drinks: c(['farmersdelight:milk_bottle', 'farmersdelight:hot_cocoa', 'farmersdelight:melon_juice'], 'common/item/ConsumableItem.java', '58-71'),
+	riceRollMedley: c('farmersdelight:rice_roll_medley_block', 'common/block/FeastBlock.java', '115-117'),
+	rabbitStew: c('minecraft:rabbit_stew', 'common/event/CommonEvents.java', '41-43'),
+	onionSoup: c('farmersdelight:onion_soup', 'common/registry/ModItems.java', '530-533'),
+	nourishmentTier: c(['farmersdelight:chicken_soup', 'farmersdelight:fried_rice', 'farmersdelight:grilled_salmon'], 'common/registry/ModItems.java', '509-520'),
+	rottenTomato: c('farmersdelight:rotten_tomato', 'common/item/RottenTomatoItem.java', '28-47'),
+	ropeReeling: c('enableRopeReeling', 'common/block/RopeBlock.java', '55-61'),
+	tomatoBoneMeal: c(null, 'common/block/TomatoBlock.java', '57-63'),
+	villageFarms: c('generateFDCropsOnVillageFarms', 'common/world/VillageStructures.java', '36-62'),
+	jeiCopperKnife: c('farmersdelight:copper_knife', 'integration/jei/JEIPlugin.java', '51-67'),
+};
+/** All of these are fixed for the release after 1.3.4 (not released yet). */
+export const issuesVersion = '1.3.4';
+/** Short note shown next to foods that don't do what their tooltip says right now. */
+export const foodIssueNote: Record<string, string> = Object.fromEntries(
+	knownIssues.drinks.value.map((id) => [id, "Known issue in 1.3.4: drinking it uses it up, but nothing happens. Fixed in the next update."]),
+);
+
+// ------------------------------------------------------------------ add-on recipes (player wording)
+/** What the built-in recipes for other mods do (src/main/resources/data/farmersdelight/recipe/integration/<mod>/).
+ * Recipe counts come from recipes.json; this is only the summary. */
+export const addonRecipes: Record<string, { name: string; text: string; src: string }> = {
+	create: {
+		name: 'Create',
+		text: 'Millstone milling for the wild crops and Rice Panicles, Mixer recipes for Cabbage Leaves, Pie Crust and Tomato Sauce, and a Spout recipe that fills a Pie Crust into a Chocolate Pie.',
+		src: 'src/main/resources/data/farmersdelight/recipe/integration/create/',
+	},
+	immersiveengineering: {
+		name: 'Immersive Engineering',
+		text: 'Cabbages, onions, rice and tomatoes grow in the Garden Cloche, the Crusher grinds the wild crops and Rice Panicles, the Metal Press cuts pumpkins into Pumpkin Slices, and tomatoes and seeds go into the Fermenter and Squeezer.',
+		src: 'src/main/resources/data/farmersdelight/recipe/integration/immersiveengineering/',
+	},
+	silentgear: {
+		name: 'Silent Gear',
+		text: 'Strip Netherwood logs on the Cutting Board with an axe to get Tree Bark.',
+		src: 'src/main/resources/data/farmersdelight/recipe/integration/silentgear/',
+	},
+};
+/** Files of Create potato-cannon ammo that Farmer's Delight ships (each lists its items). */
+export const potatoCannonDir = 'src/main/resources/data/farmersdelight/create/potato_projectile/type';
+
+/** What Farmer's Delight puts into other mods' tags, in player words. Key: "<registry> <tag>". */
+export const foreignTagText: Record<string, string> = {
+	'block create:passive_boiler_heaters': 'the Stove heats a steam boiler',
+	'item create:upright_on_belt': 'meals, drinks and feasts stand upright on belts',
+	'block create:fan_transparent': 'air from fans blows through the Safety Net',
+	'item tconstruct:seeds': 'onions count as seeds',
+	'item origins:meat': 'fish slices, fried eggs and other meaty food count as meat',
+};
+export const modNames: Record<string, string> = {
+	create: 'Create',
+	createaddition: 'Create Crafts & Additions',
+	immersiveengineering: 'Immersive Engineering',
+	silentgear: 'Silent Gear',
+	sereneseasons: 'Serene Seasons',
+	tconstruct: "Tinkers' Construct",
+	origins: 'Origins',
+	sable: 'Sable',
+	quark: 'Quark',
+	supplementaries: 'Supplementaries',
+	autumnity: 'Autumnity',
+};
+
+// ------------------------------------------------------------------ advancements (player wording)
+/** How to get the advancements whose criteria aren't simply "get, place or eat this item". */
+export const advancementHints: Record<string, { text: string; src: string }> = {
+	'farmersdelight:main/root': { text: 'Unlocks as soon as you pick up any item.', src: 'src/generated/resources/data/farmersdelight/advancement/main/root.json' },
+	'farmersdelight:main/eat_nourishing_food': { text: 'Get the Nourishment effect, from any food that gives it.', src: 'src/generated/resources/data/farmersdelight/advancement/main/eat_nourishing_food.json' },
+	'farmersdelight:main/harvest_ropelogged_tomato': { text: 'Pick ripe tomatoes by hand from a vine that climbed a rope.', src: 'src/generated/resources/data/farmersdelight/advancement/main/harvest_ropelogged_tomato.json' },
+	'farmersdelight:main/hit_raider_with_rotten_tomato': { text: 'Hit a raider with a Rotten Tomato you threw.', src: 'src/generated/resources/data/farmersdelight/advancement/main/hit_raider_with_rotten_tomato.json' },
+	'farmersdelight:main/use_cutting_board': { text: 'Cut anything on a Cutting Board.', src: 'common/block/entity/CuttingBoardBlockEntity.java:129' },
+	'farmersdelight:main/use_skillet': { text: 'Finish cooking a food in a Skillet you hold.', src: 'common/item/SkilletItem.java:240' },
+};
+
+// ------------------------------------------------------------------ formatting helpers
+/** Game ticks as plain words: "30 seconds", "5 minutes", "1 minute 30 seconds". */
+export function timeText(ticks: number) {
+	const s = Math.round(ticks / 20);
+	const m = Math.floor(s / 60);
+	const r = s % 60;
+	const mins = m === 1 ? '1 minute' : `${m} minutes`;
+	const secs = r === 1 ? '1 second' : `${r} seconds`;
+	if (!m) return secs;
+	return r ? `${mins} ${secs}` : mins;
+}
+/** A Maven version range as words: "[a,)" -> "a or newer", "[a,b)" -> "a or newer, below b". */
+export function rangeText(range: string) {
+	const m = range.match(/^\[([^,]*),([^\])]*)[\])]$/);
+	if (!m) return range;
+	const [, lo, hi] = m;
+	return hi ? `${lo} or newer, below ${hi}` : `${lo} or newer`;
+}

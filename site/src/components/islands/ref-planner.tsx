@@ -65,6 +65,13 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 	}, [recipes]);
 
 	const nm = (id: string) => info[id]?.name ?? id.split(':')[1].replaceAll('_', ' ');
+	/** A tool line in plain words: its label, or "Any axe" for a tool tag, or the item's name. */
+	const toolName = (t: NonNullable<PRecipe['tool']>) => t.label ?? (t.tag ? `Any ${t.tag.split(/[/:]/).pop()!.replace(/s$/, '')}` : nm(t.items[0]));
+	/** A recipe choice in plain words: where it's made and from what. */
+	const recipeLabel = (r: PRecipe) => {
+		const names = r.ins.map((i) => (i.label ?? nm(i.items[0])));
+		return `${r.type}: from ${names.slice(0, 2).join(', ')}${names.length > 2 ? ', …' : ''}`;
+	};
 	const defaultItem = (ing: PIng) => {
 		if (ing.items.length === 1 || !ing.tag) return ing.items[0];
 		const tail = ing.tag.split(/[/:]/).pop()!;
@@ -166,7 +173,7 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 						)}
 						{n.ing && n.ing.items.length > 1 && (
 							<small>
-								{n.ing.tag ? `#${n.ing.tag.replace(/^minecraft:/, '')} · ` : ''}any of {n.ing.items.length}
+								any of {n.ing.items.length}
 							</small>
 						)}
 						{n.ing?.label === 'Serving container' && <small>serving container</small>}
@@ -184,7 +191,7 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 								<option value="-1">Raw material</option>
 								{n.options.map((r, i) => (
 									<option value={String(i)} key={r.id}>
-										{r.type}: {r.id}
+										{recipeLabel(r)}
 									</option>
 								))}
 							</select>
@@ -194,7 +201,7 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 				</div>
 				{n.recipe?.tool && !collapsed && (
 					<div class="pl-tool">
-						Tool: {icon(n.recipe.tool.items[0], 16)} {n.recipe.tool.label ?? (n.recipe.tool.tag ? `#${n.recipe.tool.tag.replace(/^minecraft:/, '')}` : nm(n.recipe.tool.items[0]))}, not used up
+						Tool: {icon(n.recipe.tool.items[0], 16)} {toolName(n.recipe.tool)}, not used up
 					</div>
 				)}
 				{n.recipe && !collapsed && n.children.length > 0 && <ul>{n.children.map((c) => row(c, depth + 1))}</ul>}
@@ -207,7 +214,7 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 
 	return (
 		<div class="planner not-content">
-			<div class="pl-pick ref-board">
+			<div class="pl-pick">
 				<div class="pl-target">
 					{icon(target, 48)}
 					<div>
@@ -307,7 +314,7 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 										<span class="slot">{icon(t!.items[0], 32)}</span>
 									</td>
 									<td>
-										{t!.label ?? (t!.tag ? `#${t!.tag.replace(/^minecraft:/, '')}` : nm(t!.items[0]))} <small>tool</small>
+										{toolName(t!)} <small>tool</small>
 									</td>
 								</tr>
 							))}
@@ -322,7 +329,7 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 			<style>{`
 .planner { margin: 20px 0; }
 .pl-k { display: block; font-size: 20px; line-height: 30px; color: var(--sl-color-gray-3); }
-.pl-pick { display: grid; grid-template-columns: auto 7rem 1fr; gap: 10px 24px; align-items: end; padding: 14px 16px; }
+.pl-pick { display: grid; grid-template-columns: auto 7rem 1fr; gap: 10px 24px; align-items: end; padding: 0 0 10px; border-bottom: 2px solid var(--fd-border); }
 .pl-target { display: flex; gap: 12px; align-items: center; }
 .pl-target img { image-rendering: pixelated; }
 .pl-target strong { display: block; font-size: 30px; line-height: 40px; color: var(--fd-heading-ink); text-shadow: none; letter-spacing: 0; }

@@ -1,119 +1,92 @@
 ---
 title: Compatibility
-description: Supported Minecraft and NeoForge versions, recipe viewers (JEI, REI), AppleSkin, and the data-only integrations with Create, Immersive Engineering and other mods.
+description: Which Minecraft versions Farmer's Delight Neoforged runs on, and how it works with JEI, REI, AppleSkin, Create, Serene Seasons and other mods.
 ---
 import { Aside } from '@astrojs/starlight/components';
-import Cite from '../../components/reference/Cite.astro';
-import RepoFile from '../../components/reference/RepoFile.astro';
-import Recipe from '../../components/recipes/Recipe.astro';
-import Src from '../../components/mc/Src.astro';
 import Item from '../../components/mc/Item.astro';
-import { jei, rei, doughNeedsOne } from '../../data/code/reference';
-import { meta, recipes, tags } from '../../lib/data';
+import AddonRecipes from '../../components/reference/AddonRecipes.astro';
+import { rangeText, foreignTagText, modNames } from '../../data/code/reference';
+import { meta, tags, nameOf } from '../../lib/data';
 
-export const integ = recipes.filter((r) => r.id.includes(':integration/'));
-export const byMod = Object.entries(integ.reduce((m, r) => ((m[r.id.split('/')[1]] = (m[r.id.split('/')[1]] ?? 0) + 1), m), {}));
-export const modName = { create: 'Create', immersiveengineering: 'Immersive Engineering', silentgear: 'Silent Gear' };
-export const foreign = [...new Set(tags.files.map((f) => f.tag.split(':')[0]).filter((ns) => !['farmersdelight', 'c', 'minecraft', 'neoforge'].includes(ns)))].sort();
-export const optional = [...new Set(tags.files.flatMap((f) => f.values.filter((v) => v.endsWith('?')).map((v) => v.replace(/^#/, '').split(':')[0])))].filter((ns) => ns !== 'farmersdelight').sort();
 export const rel = (tag) => `https://github.com/jexxme/FarmersDelight-Neoforged/releases/tag/${encodeURIComponent(tag)}`;
+export const knives = tags.resolved.item['c:tools/knife'] ?? [];
+export const seasonFiles = tags.files.filter((f) => f.registry === 'item' && f.tag.startsWith('sereneseasons:') && f.tag.endsWith('_crops'));
+export const seasonOrder = ['spring', 'summer', 'autumn', 'winter'];
+export const seasonCrops = [...new Set(seasonFiles.flatMap((f) => f.values))].map((id) => ({
+	id,
+	seasons: seasonOrder.filter((s) => seasonFiles.some((f) => f.tag === `sereneseasons:${s}_crops` && f.values.includes(id))),
+}));
+export const cap = (s) => s[0].toUpperCase() + s.slice(1);
+export const otherTags = tags.files.filter((f) => foreignTagText[`${f.registry} ${f.tag}`]);
+export const tagMods = [...new Set(otherTags.map((f) => f.tag.split(':')[0]))];
+export const ropes = tags.files.filter((f) => f.tag === 'farmersdelight:ropes').flatMap((f) => f.values.filter((v) => v.endsWith('?'))).map((v) => modNames[v.split(':')[0]] ?? v.split(':')[0]);
 
-## Minecraft and NeoForge versions
+Farmer's Delight Neoforged runs on NeoForge and needs no other mods. This page is for picking a modpack: which versions it runs on and what it does with the mods around it.
 
-There is one file per Minecraft version, all with the same content, version {meta.modVersion}. The mod id stays <code>{meta.modId}</code>, so worlds and add-ons made for Farmer's Delight keep working.
+## Minecraft versions
 
-<table class="fd-versions">
-<thead><tr><th>Minecraft</th><th>NeoForge</th><th>Built against</th><th>Release</th></tr></thead>
+There's one file per Minecraft version, all with the same content (version {meta.modVersion}). Install it on the client and the server.
+
+<table>
+<thead><tr><th>Minecraft</th><th>NeoForge</th><th>Download</th></tr></thead>
 <tbody>
 {meta.versions.map((v) => (
 <tr>
-<td><strong>{v.gameVersions.split(',').join(', ')}</strong><br /><small><code>{v.minecraftRange}</code></small></td>
-<td><code>{v.neoforgeRange}</code></td>
-<td><code>{v.neoforge}</code></td>
-<td><a href={rel(v.tag)}><code>{v.tag}</code></a></td>
+<td><strong>{v.gameVersions.split(',').join(', ')}</strong></td>
+<td>{rangeText(v.neoforgeRange)}</td>
+<td><a href={rel(v.tag)}>{v.tag}</a></td>
 </tr>
 ))}
 </tbody>
 </table>
 
-Ranges use Maven notation: `[a,b)` means from `a` up to but not including `b`; `[a,)` means `a` or newer.
+It replaces the original Farmer's Delight, so remove that one first. Worlds and add-ons made for Farmer's Delight keep working. See [Differences from the original](/differences/).
 
-## Recipe viewers
+## Recipe viewers and other helpers
 
-| Viewer | Status |
+| Mod | Works? |
 |---|---|
-| **JEI** | Supported on every version |
-| **REI** | Supported on Minecraft 26.1.2 and newer (<Src path="README.md" lines="43" />) |
-| **EMI** | Not yet: EMI has no 26.x release. The plugin code is kept, commented out, in `integration/emi/` |
+| **JEI** | Yes, on every version |
+| **REI** | Yes, on Minecraft 26.1.2 and newer |
+| **EMI** | Not yet: EMI isn't out for Minecraft 26.x |
+| **AppleSkin** | Yes |
+| **CraftTweaker** | Not yet: CraftTweaker isn't out for Minecraft 26.x |
 
-### JEI
+**JEI and REI** both show the Cooking Pot, Cutting Board and Organic Compost recipes, and list the Stove and Skillet for campfire cooking. Click the arrow in the Cooking Pot to see its recipes, or use the viewer's transfer button to move a recipe's ingredients into the pot. Info pages explain wheat dough, straw, ham, knives and the wild crops.
+REI has info pages for all {knives.length} knives.
 
-- Recipe categories for the Cooking Pot, Cutting Board and Organic Compost decomposition <Cite c={jei.categories} />.
-- The Cooking Pot, Cutting Board and Organic Compost are their categories' stations; the Stove and Skillet are added to vanilla campfire cooking <Cite c={jei.catalysts} />.
-- Click the Cooking Pot's arrow to open its recipes <Cite c={jei.clickArea} />, and move a recipe's ingredients into the pot with JEI's transfer button <Cite c={jei.transfer} />.
-- Info pages for wheat dough, straw, ham, knives and the wild crops <Cite c={jei.info} />.
+<Aside type="caution" title="Known issue in 1.3.4">
+JEI has no info page for the <Item id="copper_knife" />. Fixed in the next update.
+</Aside>
 
-Known gaps: the knife info page is missing for the <Item id="copper_knife" />, and the water dough recipe is shown with two wheat <Cite c={jei.doughDisplay} /> although it takes exactly one <Cite c={doughNeedsOne} />.
+**AppleSkin** reads food values from the game, so it shows hunger and saturation for every Farmer's Delight food without any special support. While you have Nourishment, Farmer's Delight gilds your hunger bar itself; you can turn that off in the [client settings](/reference/config/#enableNourishmentHungerOverlay).
 
-### REI
+**CraftTweaker** support will come back once CraftTweaker is out for 26.x. Until then, datapacks can change all of Farmer's Delight's recipes.
 
-The same categories, stations, click area and recipe transfer <Cite c={rei.categories} /> <Cite c={rei.clickArea} /> <Cite c={rei.transfer} />. The info pages include all six knives <Cite c={rei.info} />, and the dough recipe shows one wheat <Cite c={rei.displays} />. The REI integration is adapted from Farmer's Delight Refabricated.
+## Recipes for other mods
 
-## AppleSkin
+Farmer's Delight brings its own recipes for a few other mods. They switch on by themselves when that mod is installed, and stay off when it isn't, or isn't out for your Minecraft version yet.
 
-Works: AppleSkin reads food values from the game, so Farmer's Delight's food shows normally. The mod has no AppleSkin-specific code. Nourishment draws its own gilded hunger bar (client option `enableNourishmentHungerOverlay`).
-
-## CraftTweaker
-
-Not yet: CraftTweaker has no 26.x release. The integration code is kept, commented out, in `integration/crafttweaker/`. Data packs can do everything the CraftTweaker support did.
-
-## Data-only integrations
-
-Some recipes only load when another mod is installed (`neoforge:mod_loaded`). They need no code, so they work as soon as that mod exists for your Minecraft version:
-
-<ul class="fd-mods">
-{byMod.map(([mod, n]) => <li><strong>{modName[mod] ?? mod}</strong> <span>{n} {n === 1 ? 'recipe' : 'recipes'}</span> <code>recipe/integration/{mod}/</code></li>)}
-</ul>
-
-Create also gets potato-cannon projectile data for Farmer's Delight crops and pies (`data/farmersdelight/create/`).
-
-<details>
-<summary>Example: Create milling of wild cabbages</summary>
-<RepoFile path="src/main/resources/data/farmersdelight/recipe/integration/create/milling/wild_cabbages.json" />
-</details>
-
-<details>
-<summary>Example: Immersive Engineering cloche for tomatoes</summary>
-<RepoFile path="src/main/resources/data/farmersdelight/recipe/integration/immersiveengineering/cloche/tomato.json" />
-</details>
-
-<details>
-<summary>Example: Silent Gear netherwood on the Cutting Board</summary>
-<div class="fd-pair">
-<RepoFile path="src/main/resources/data/farmersdelight/recipe/integration/silentgear/cutting/netherwood.json" />
-<Recipe id="integration/silentgear/cutting/netherwood" />
-</div>
-</details>
+<AddonRecipes />
 
 ## Tags for other mods
 
-Farmer's Delight fills common `c:` tags (crops, foods, seeds, tools, storage blocks…), so recipes from other mods that ask for "any onion" or "any knife" accept its items. It also adds its items to tags of these mods: {foreign.map((ns, i) => <>{i > 0 && ', '}<code>{ns}</code></>)}.
-Some of its own tags list other mods' items as optional entries, skipped when that mod is missing: {optional.map((ns, i) => <>{i > 0 && ', '}<code>{ns}</code></>)}.
+Farmer's Delight puts its items in the shared tags most mods use, so another mod's recipe that asks for "any onion", "any cabbage" or "any knife" takes Farmer's Delight's too. It also works with a few mods directly:
 
-<Aside title="Coming from the original Farmer's Delight?">
-Remove it first; this port replaces it. Recipe ids match Farmer's Delight 1.21, so packs and scripts that refer to them keep working. See [Differences from upstream](/differences/).
-</Aside>
+<ul>
+{tagMods.map((m) => (
+<li><strong>{modNames[m] ?? m}:</strong> {otherTags.filter((f) => f.tag.startsWith(m + ':')).map((f) => foreignTagText[`${f.registry} ${f.tag}`]).join('; ')}{m === 'create' && '. A Create Chute between a heat source and a Cooking Pot passes the heat up'}.</li>
+))}
+<li><strong>Ropes from {ropes.join(' and ')}:</strong> tomato vines climb them too.</li>
+</ul>
 
-<style>{`
-.fd-versions small { color: var(--sl-color-gray-3); font-size: 20px; }
-.fd-versions code { white-space: nowrap; }
-.fd-mods { list-style: none; padding: 0 16px; margin: 20px 0; background: var(--fd-surface); border: 3px solid var(--fd-frame); box-shadow: 4px 4px 0 #000; }
-.fd-mods li { display: flex; flex-wrap: wrap; gap: 0 20px; align-items: baseline; padding: 8px 0; margin: 0; border-bottom: 2px solid var(--fd-border); }
-.fd-mods li:last-child { border-bottom: 0; }
-.fd-mods strong { color: var(--fd-heading-ink); }
-.fd-mods span, .fd-mods code { color: var(--sl-color-gray-3); }
-.fd-pair { display: flex; flex-wrap: wrap; gap: 20px 30px; align-items: center; }
-.fd-pair > .fd-repofile { flex: 1 1 18rem; min-width: 0; }
-.sl-markdown-content details { margin: 10px 0; }
-.sl-markdown-content details > summary { cursor: pointer; color: var(--sl-color-text-accent); }
-`}</style>
+With **Serene Seasons**, the crops grow in these seasons:
+
+<table>
+<thead><tr><th>Crop</th><th>Seasons</th></tr></thead>
+<tbody>
+{seasonCrops.map((c) => (
+<tr><td><Item id={c.id} /></td><td>{c.seasons.map(cap).join(', ')}</td></tr>
+))}
+</tbody>
+</table>

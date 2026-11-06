@@ -1,5 +1,5 @@
 /*
- * Shared pieces for the reference and pack-maker components, in the site's Farmer's Delight / Minecraft look
+ * Shared pieces for the reference components, in the site's Farmer's Delight / Minecraft look
  * (src/styles/theme.css): FD Pixel at 20/30/40 px, square corners, hard 4px shadows, framed boards,
  * Minecraft text fields and stone buttons. Imported by the components in src/components/reference/.
  */
@@ -158,24 +158,19 @@ select.ref-field {
 	display: block;
 }
 
-/* Section heading inside a component: a small orange sign */
+/* Section heading inside a component: plain, like the page's own sub-headings */
 .ref-h {
-	display: inline-block;
+	display: block;
 	font-family: var(--fd-font-display);
 	font-weight: 400;
 	font-size: 20px;
 	line-height: 30px;
-	margin: 40px 0 10px;
-	padding: 2px 12px 0;
-	color: var(--fd-orange-ink);
-	border-style: solid;
-	border-width: 6px 9px 9px 6px;
-	border-image: url('/FarmersDelight-Neoforged/ui/sign-orange.png') 2 3 3 2 fill / 6px 9px 9px 6px repeat;
-	image-rendering: pixelated;
+	margin: 30px 0 8px;
+	color: var(--fd-heading-ink);
 	scroll-margin-top: 9rem;
 }
 .ref-h .n {
-	color: #8f4a20;
+	color: var(--sl-color-gray-3);
 	margin-left: 8px;
 }
 

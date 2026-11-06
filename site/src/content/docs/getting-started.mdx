@@ -9,7 +9,8 @@ import Render from '../../components/mc/Render.astro';
 import Shot from '../../components/mc/Shot.astro';
 import RecipeList from '../../components/recipes/RecipeList.astro';
 import EffectBadge from '../../components/data/EffectBadge.astro';
-import { meta, items, worldgen, duration } from '../../lib/data';
+import { meta, items, worldgen } from '../../lib/data';
+import { rangeText, timeText } from '../../data/code/reference';
 
 export const stew = items['farmersdelight:vegetable_soup'];
 export const nourish = Object.values(items).flatMap((i) => i.consumable?.effects ?? []).filter((e) => e.id === 'farmersdelight:nourishment').map((e) => e.duration);
@@ -28,14 +29,13 @@ Use the file that matches your Minecraft version:
 
 <table>
 	<thead>
-		<tr><th>Minecraft</th><th>NeoForge</th><th>Release</th></tr>
+		<tr><th>Minecraft</th><th>NeoForge</th></tr>
 	</thead>
 	<tbody>
 		{meta.versions.map((v) => (
 			<tr>
 				<td><strong>{v.gameVersions.replaceAll(',', ', ')}</strong></td>
-				<td>{v.neoforgeRange.endsWith(',)') ? `${v.neoforgeRange.slice(1, -2)} or newer` : v.neoforgeRange}</td>
-				<td><code>{v.tag}</code></td>
+				<td>{rangeText(v.neoforgeRange)}</td>
 			</tr>
 		))}
 	</tbody>
@@ -44,8 +44,8 @@ Use the file that matches your Minecraft version:
 Download it from [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged).
 
 <Aside type="tip" title="Coming from the original Farmer's Delight?">
-	The mod id is still <code>farmersdelight</code> and recipe ids match Farmer's Delight 1.21, so your worlds' item names, datapacks
-	and add-on recipes keep working. See [Differences from upstream](/differences/).
+	Remove it first; this mod replaces it. Your worlds, datapacks and add-ons keep working, because every item and recipe
+	keeps its name. See [Differences from the original](/differences/).
 </Aside>
 
 ## Your first hour
@@ -83,7 +83,7 @@ Download it from [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged) 
 <dl class="ideas">
 	<div>
 		<dt><Item id="beef_stew" label="Nourishment" /></dt>
-		<dd>Meals give Nourishment for {duration(Math.min(...nourish))} to {duration(Math.max(...nourish))} (minutes:seconds). While it lasts, your hunger bar doesn't go down. [How it works](/mechanics/effects/).</dd>
+		<dd>Meals give Nourishment for {timeText(Math.min(...nourish))} to {timeText(Math.max(...nourish))}. While it lasts, your hunger bar doesn't go down. [How it works](/mechanics/effects/).</dd>
 	</div>
 	<div>
 		<dt><Item id="rich_soil" /></dt>

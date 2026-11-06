@@ -4,10 +4,9 @@ description: Every release of Farmer's Delight Neoforged and of the original Far
 tableOfContents: false
 ---
 import Changelog from '../../components/reference/Changelog.astro';
-import Src from '../../components/mc/Src.astro';
 import { meta } from '../../lib/data';
 
-The current release is **{meta.modVersion}** for Minecraft {meta.versions.map((v) => v.minecraft).join(', ')}. Version numbers are the Farmer's Delight content version plus a build number (`+neoforged.N`).
-This page is the mod's own changelog <Src path="changelog.md" />; downloads are on the [GitHub releases](https://github.com/jexxme/FarmersDelight-Neoforged/releases), [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged) and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged).
+The current release is **{meta.modVersion}** for Minecraft {meta.versions.map((v) => v.minecraft).join(', ')}. The first part of the version is the Farmer's Delight content it carries; the `+neoforged` number counts this mod's own releases.
+Download it from [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged), [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged) or the [GitHub releases](https://github.com/jexxme/FarmersDelight-Neoforged/releases). Below are this mod's releases first, then the original Farmer's Delight's.
 
 <Changelog />

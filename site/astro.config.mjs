@@ -112,7 +112,7 @@ export default defineConfig({
 					label: 'About',
 					items: [
 						{ label: 'Compatibility', slug: 'compatibility' },
-						{ label: 'Differences from upstream', slug: 'differences' },
+						{ label: 'Differences from the original', slug: 'differences' },
 						{ label: 'Changelog', slug: 'changelog' },
 					],
 				},

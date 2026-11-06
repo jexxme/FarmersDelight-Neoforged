@@ -1,81 +1,66 @@
 ---
-title: Differences from upstream
-description: What Farmer's Delight Neoforged changes compared with vectorwing's Farmer's Delight, which upstream issues it fixes, and where its behaviour differs.
+title: Differences from the original
+description: Coming from vectorwing's Farmer's Delight? What stays the same, what's new or fixed, and what doesn't work right yet, with workarounds.
 ---
 import { Aside } from '@astrojs/starlight/components';
-import Cite from '../../components/reference/Cite.astro';
-import Src from '../../components/mc/Src.astro';
 import Item from '../../components/mc/Item.astro';
-import DocSection from '../../components/reference/DocSection.astro';
-import { port, rabbitStewSkip, rabbitStewBuff, jei, itemAbility, configFiles, doughNeedsOne } from '../../data/code/reference';
-import { items, meta, duration, vanillaFoods, soupEffects } from '../../lib/data';
+import { knownIssues, issuesVersion, nourishmentTiers, timeText } from '../../data/code/reference';
+import { items, blocks, meta, vanillaFoods, soupEffects } from '../../lib/data';
 
 export const food = (id) => items[`farmersdelight:${id}`];
-export const nour = (id) => food(id).consumable.effects.find((e) => e.id === 'farmersdelight:nourishment')?.duration;
+export const nour = (id) => food(id).consumable.effects.find((e) => e.id === 'farmersdelight:nourishment')?.duration ?? 0;
+export const sat = (x) => +x.toFixed(1);
 export const rabbit = vanillaFoods.find((v) => v.id === 'minecraft:rabbit_stew');
 export const rabbitSoup = soupEffects.find((s) => s.item === 'minecraft:rabbit_stew');
+export const onion = food('onion_soup').food;
+export const pie = food('shepherds_pie').food;
+export const sameAsPie = onion.nutrition === pie.nutrition && onion.saturation === pie.saturation && nour('onion_soup') === nour('shepherds_pie');
+export const medium = nourishmentTiers.value.find(([n]) => n === 'Medium')[1];
+export const tier = knownIssues.nourishmentTier.value.map((id) => id.split(':')[1]);
+export const names = tier.map((id) => items[`farmersdelight:${id}`].name);
+export const tierNames = names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0];
+export const medleyFull = Math.max(...blocks[knownIssues.riceRollMedley.value].properties.servings.map(Number));
 
-Farmer's Delight Neoforged is vectorwing's Farmer's Delight ({meta.modVersion.split('+')[0]} content) ported to Minecraft 26.x on NeoForge. Gameplay, item ids and recipe ids are the same; this page lists what is not.
+Farmer's Delight Neoforged is vectorwing's Farmer's Delight, brought to Minecraft 26.x on NeoForge. It has the content of Farmer's Delight {meta.modVersion.split('+')[0]}, so if you know the original, you already know this mod. This page covers the few places where it's different.
 
-## What the port changes
+## What stays the same
 
-Minecraft 26.x moved many things into data and components. The port follows:
+The crops, meals, blocks and recipes are the same, with the same names. Switching over is safe:
 
-- **Canvas Signs use the vanilla sign block entities.** Old `canvas_sign` and `hanging_canvas_sign` block entities are aliased to vanilla's, so existing signs load <Cite c={port.aliases} /> <Cite c={port.signEntities} />. The old `basket` id is aliased to `bamboo_basket` too.
-- **Fuel, compost and villager food values are default item components** instead of data maps <Cite c={port.defaultComponents} />.
-- **Villager trades are data files**, switched on and off by the trade config options through a load condition.
-- **The common config is a local config** with the old file name <code>{configFiles.common.value}</code>, because NeoForge for 26.3 dropped the common type <Cite c={configFiles.common} />.
-- **Tool-ability ingredients fall back to tool tags** for the vanilla abilities NeoForge removed <Cite c={itemAbility.fallbacks} />.
-- **Drinks are built from consume effects** (`farmersdelight:remove_random_effects`, `farmersdelight:heal`, `farmersdelight:extinguish`).
-- **REI support** is added on Minecraft 26.1.2 and newer, adapted from Farmer's Delight Refabricated. EMI and CraftTweaker are not available yet. See [Compatibility](/compatibility/).
+- Remove the original Farmer's Delight and add this one. Your worlds keep their kitchens, farms and chests.
+- Datapacks, add-on recipes and scripts made for Farmer's Delight keep working, because every item and recipe keeps its name.
+- <Item id="canvas_sign" plural /> from older worlds keep their text, and old Baskets load as <Item id="bamboo_basket" plural />.
+- Your old config file is still read, under the same name.
 
-## Upstream issues fixed here
+## What's new or fixed
 
-From the port's review of the open issues on vectorwing's tracker <Src path="docs/UPSTREAM_ISSUES.md" />:
+- **REI support** on Minecraft 26.1.2 and newer, next to JEI. See [Compatibility](/compatibility/).
+- **Fixes for problems the original still has**, from its [issue tracker](https://github.com/vectorwing/FarmersDelight/issues):
+  - <Item id="rope_fence" plural /> and <Item id="rope_fence_gate" plural /> count as fences and fence gates, so recipes and mods that want "any fence" take them.
+  - The <Item id="stove" /> can be lit with any fire starter, including Fire Charges and other mods' flint and steel.
+  - Farmer villagers can compost <Item id="cabbage_seeds" /> and <Item id="tomato_seeds" />.
+  - Shift-clicking meals out of the <Item id="cooking_pot" /> counts toward your crafting statistics.
+  - Modpacks can make their own grasses drop <Item id="straw" /> by adding them to one tag.
+  - Updated translations: Russian, Rusyn, Mexican Spanish, Indonesian, Turkish, Ukrainian and Brazilian Portuguese.
 
-<DocSection doc="upstreamIssues" section="Fixed" />
+Everything else that changed, release by release, is in the [changelog](/changelog/).
 
-### Not applicable
+## Known issues in 1.3.4
 
-<DocSection doc="upstreamIssues" section="Not applicable" />
+These all work again in the next update. Until then, here's what to expect in {issuesVersion} and how to work around it.
 
-### Still open
+- **Placed pies can't be eaten by hand.** Use a knife on the pie to cut off slices, and eat those. Fixed in the next update.
+- **<Item id="milk_bottle" />, <Item id="hot_cocoa" /> and <Item id="melon_juice" /> do nothing when you drink them.** Use a <Item id="minecraft:milk_bucket" /> or a Potion of Healing instead. Fixed in the next update.
+- **The <Item id="rice_roll_medley_block" /> can't be served.** Make the rolls on their own; break a placed medley to get it back (it still has all {medleyFull} servings). Fixed in the next update.
+- **<Item id="minecraft:rabbit_stew" /> gives no Nourishment**, though its tooltip lists {timeText(rabbitSoup.duration)}. Turning off **Rabbit Stew Buff** in the [config](/reference/config/#enableRabbitStewBuff) brings it back, with vanilla food values. Fixed in the next update.
+- **<Item id="onion_soup" /> has the wrong stats:** {onion.nutrition} hunger, {sat(onion.saturation)} saturation and {timeText(nour('onion_soup'))} of Nourishment{sameAsPie ? ", the same as Shepherd's Pie" : ''}. Fixed in the next update.
+- **{tierNames} give {timeText(nour(tier[0]))} of Nourishment instead of {timeText(medium)}.** Fixed in the next update.
+- **A thrown <Item id="rotten_tomato" /> acts like a snowball**, without its splat. Fired from a Dispenser it works normally. Fixed in the next update.
+- **Ropes don't react to an empty hand or a rope in hand:** sneaking to reel a rope back up, clicking with rope to extend it downward and ringing a bell hung on a rope don't work. Break ropes one by one, and sneak while placing rope. Fixed in the next update.
+- **Bone meal used by hand on an unripe tomato vine does nothing.** Dispensers and Rich Soil still grow it. Fixed in the next update.
+- **Village farms almost never grow Farmer's Delight crops**, even with the setting on. The original mod has the same bug. Fixed in the next update.
+- **JEI has no info page for the <Item id="copper_knife" />.** REI has it. Fixed in the next update.
 
-<DocSection doc="upstreamIssues" section="Open" />
-
-The full list of port fixes is in the [changelog](/changelog/#neoforged-1.3.3+neoforged.1).
-
-## Behaviour that differs
-
-These are how {meta.modVersion} behaves today. Each one is in the code as linked.
-
-<dl class="fd-diffs">
-<dt><Item id="minecraft:rabbit_stew" /> gives no Nourishment</dt>
-<dd>With `enableRabbitStewBuff` on (default), Rabbit Stew gets {rabbit.nutrition} hunger and {+rabbit.saturation.toFixed(1)} saturation <Cite c={rabbitStewBuff} />, and the soup handler skips it, so the {duration(rabbitSoup.duration)} Nourishment listed for it is never applied <Cite c={rabbitStewSkip} />. Its tooltip still shows Nourishment. Turn the buff off to get the Nourishment with vanilla food values.</dd>
-
-<dt><Item id="onion_soup" /> uses Shepherd's Pie values</dt>
-<dd>It is registered with the Shepherd's Pie food values ({food('onion_soup').food.nutrition} hunger, {food('onion_soup').food.saturation} saturation) and {duration(nour('onion_soup'))} of Nourishment; the registration carries a "double check" note <Cite c={port.onionSoup} />.</dd>
-
-<dt><Item id="chicken_soup" /> and <Item id="fried_rice" /> give {duration(nour('chicken_soup'))} of Nourishment</dt>
-<dd>Farmer's Delight 1.3.2's changelog says both were moved down to the 3-minute tier; in this port they give {duration(nour('chicken_soup'))} and {duration(nour('fried_rice'))}.</dd>
-
-<dt>A thrown <Item id="rotten_tomato" /> is a snowball</dt>
-<dd>Thrown by a player, it flies as a vanilla snowball, with the rotten tomato sound <Cite c={port.rottenTomatoThrow} />. Fired from a dispenser it is the mod's own rotten tomato <Cite c={port.rottenTomatoDispense} />.</dd>
-
-<dt>JEI shows the water dough recipe with two wheat</dt>
-<dd>JEI's display <Cite c={jei.doughDisplay} /> differs from the recipe, which takes exactly one <Cite c={doughNeedsOne} />. JEI also has no info page for the <Item id="copper_knife" />; REI shows both correctly.</dd>
-
-<dt>Some content is registered but unused</dt>
-<dd>The tags `#farmersdelight:horse_feed_tempted` and `#farmersdelight:flint_tool_materials`, the loot function <code>farmersdelight:{port.smokerCook.value}</code> <Cite c={port.smokerCook} />, and the `farmersdelight:` biome whitelist and blacklist tags are not read by anything.</dd>
-</dl>
-
-<Aside title="Comfort">
-Comfort is still registered but no food grants it. That is upstream's own change in 1.3.0, which moved those foods to Nourishment; see [Nourishment & Comfort](/mechanics/effects/).
+<Aside title="Looking for Comfort?">
+The Comfort effect is still in the game, but no food gives it any more. That's the original's own change from version 1.3.0, which moved those foods to Nourishment. See [Nourishment & Comfort](/mechanics/effects/).
 </Aside>
-
-<style>{`
-.fd-diffs { margin: 20px 0 30px; padding: 0 18px; background: var(--fd-surface); border: 3px solid var(--fd-frame); box-shadow: 4px 4px 0 #000; }
-.fd-diffs dt { margin: 0; padding-top: 12px; color: var(--fd-heading-ink); }
-.fd-diffs dd { margin: 4px 0 0; padding-bottom: 12px; border-bottom: 2px solid var(--fd-border); color: var(--sl-color-gray-2); }
-.fd-diffs dd:last-child { border-bottom: 0; }
-`}</style>

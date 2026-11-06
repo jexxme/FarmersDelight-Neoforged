@@ -1,36 +1,54 @@
 ---
 title: Configuration
-description: Every Farmer's Delight Neoforged config option with its type, default, range and the code it changes.
+description: Every Farmer's Delight Neoforged setting in plain words, with its default, which file it's in and when a change takes effect.
 ---
 import { Aside } from '@astrojs/starlight/components';
 import ConfigReference from '../../../components/reference/ConfigReference.astro';
-import Cite from '../../../components/reference/Cite.astro';
 import { configFiles } from '../../../data/code/reference';
 import { config } from '../../../lib/data';
 
-export const common = config.filter((c) => c.file === configFiles.common.value);
-export const client = config.filter((c) => c.file === configFiles.client.value);
+export const commonFile = configFiles.common.value;
+export const clientFile = configFiles.client.value;
+export const common = config.filter((c) => c.file === commonFile);
+export const client = config.filter((c) => c.file === clientFile);
 
-Farmer's Delight has two config files: <code>{configFiles.common.value}</code> with {common.length} gameplay options <Cite c={configFiles.common} /> and <code>{configFiles.client.value}</code> with {client.length} display options <Cite c={configFiles.client} />.
-You can also edit them in game: the mod registers a config screen for the **Mods** list <Cite c={configFiles.screen} />.
+Farmer's Delight has {common.length} gameplay settings and {client.length} settings for your own screen.
+The easiest way to change them is in game: on the title screen click **Mods**, pick Farmer's Delight and click **Config**.
+Most changes apply right away; the few that don't say so below.
 
-<Aside title="Keep client and server in step">
-NeoForge for 26.3 dropped the "common" config type, so the port registers <code>{configFiles.common.value}</code> as a local config under its old file name; existing configs keep working <Cite c={configFiles.common} />.
-Two options change item defaults at startup, `enableRabbitStewBuff` and `enableStackableSoupItems`. Their own comments ask for the same value on the client and the server.
+You can also edit the files in the `config` folder of your game or server: <code>{commonFile}</code> for gameplay and <code>{clientFile}</code> for the display options.
+Each setting below shows its in-game name first and its name in the file after it.
+
+<Aside title="Running a server?">
+The server's gameplay file decides almost everything. Two settings, **Rabbit Stew Buff** and **Stackable Soup Items**, change items when the game starts, so every player needs the same value as the server. Otherwise food values or stack sizes won't match.
 </Aside>
 
-Comments are copied from the code. Open **What it affects** for what the option changes and the code that reads it.
+<Aside type="caution" title="Known issue in 1.3.4">
+Three settings don't do what they say yet: **Rope Reeling** does nothing, **Rabbit Stew Buff** also takes away Rabbit Stew's Nourishment, and **Generate Mod Crops on Village Farms** almost never puts Farmer's Delight crops on village farms. All three are fixed in the next update. See [Known issues](/differences/#known-issues-in-134).
+</Aside>
 
-## {configFiles.common.value}
+## Gameplay settings
 
-<ConfigReference file={configFiles.common.value} />
+These are in <code>{commonFile}</code>.
 
-## {configFiles.client.value}
+<ConfigReference file={commonFile} />
 
-<ConfigReference file={configFiles.client.value} />
+<details>
+<summary>What the default file looks like</summary>
 
-## Default files
+<ConfigReference file={commonFile} toml />
 
-Generated from the defaults above. The game writes these files itself on first launch, with its own comments and formatting; this is what the values look like.
+</details>
 
-<ConfigReference toml />
+## Client settings
+
+These are in <code>{clientFile}</code> and only change what you see on your own screen, so each player picks their own.
+
+<ConfigReference file={clientFile} />
+
+<details>
+<summary>What the default file looks like</summary>
+
+<ConfigReference file={clientFile} toml />
+
+</details>

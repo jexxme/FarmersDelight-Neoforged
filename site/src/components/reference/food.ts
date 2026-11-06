@@ -1,6 +1,7 @@
 // Food rows for the food reference, built from items.json, vanilla-foods.json and soup-effects.json.
 import { itemList, vanillaFoods, soupEffects, iconOf, pageOf, nameOf, url, CATEGORIES, config } from '../../lib/data';
 import type { FoodRow, FoodEffect } from '../islands/ref-food';
+import { foodIssueNote } from '../../data/code/reference';
 
 const NOUR = 'farmersdelight:nourishment';
 const effectIcon = (id: string) => url(`/gui/effect/${id.split(':')[1]}.png`);
@@ -56,10 +57,11 @@ export function foodRows(): FoodRow[] {
 				stack: i.stack,
 				container: rem ? { id: rem, name: nameOf(rem), icon: iconOf(rem)?.src ?? null } : null,
 				nourishment: eff.find((e) => e.id === NOUR)?.ticks ?? 0,
+				issue: foodIssueNote[i.id] ?? null,
 			};
 		});
 	// Vanilla soups: Nourishment added on eating (enableVanillaSoupExtraEffects). Rabbit Stew is skipped while
-	// enableRabbitStewBuff is on (CommonEvents.java:41-43).
+	// enableRabbitStewBuff is on (a known issue in 1.3.4, see knownIssues in data/code/reference.ts).
 	const soupsOn = cfg('enableVanillaSoupExtraEffects') === true;
 	const rabbitBuff = cfg('enableRabbitStewBuff') === true;
 	const vanilla: FoodRow[] = vanillaFoods
@@ -69,7 +71,7 @@ export function foodRows(): FoodRow[] {
 			const soup = soupEffects.find((s) => s.item === v.id);
 			if (soup && soupsOn) {
 				const skipped = v.id === 'minecraft:rabbit_stew' && rabbitBuff;
-				if (!skipped) eff.unshift({ id: soup.effect, name: 'Nourishment', icon: effectIcon(soup.effect), ticks: soup.duration, amp: 0, prob: 1, note: "Added by Farmer's Delight (enableVanillaSoupExtraEffects)" });
+				if (!skipped) eff.unshift({ id: soup.effect, name: 'Nourishment', icon: effectIcon(soup.effect), ticks: soup.duration, amp: 0, prob: 1, note: "Added by Farmer's Delight" });
 			}
 			const ic = iconOf(v.id);
 			return {
@@ -89,6 +91,7 @@ export function foodRows(): FoodRow[] {
 				stack: v.stack,
 				container: null,
 				nourishment: eff.find((e) => e.id === NOUR)?.ticks ?? 0,
+				issue: null,
 			};
 		});
 	return [...fd, ...vanilla];

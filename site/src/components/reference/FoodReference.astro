@@ -3,7 +3,8 @@
 // vanilla-foods.json and soup-effects.json.
 import FoodTable from '../islands/ref-food';
 import { foodRows, categoryLabels, best } from './food';
-import { duration, url } from '../../lib/data';
+import { url } from '../../lib/data';
+import { timeText } from '../../data/code/reference';
 import './ref.css';
 import type { FoodRow } from '../islands/ref-food';
 
@@ -20,7 +21,7 @@ const callouts: { title: string; value: string; note: string; rows: FoodRow[] }[
 	(() => {
 		const b = best(fd, (r) => r.saturation);
 		const n = b.rows[0].nutrition;
-		return { title: 'Most filling', value: `${+b.value.toFixed(1)} saturation`, note: `${b.rows.length} foods tie, all with ${n} hunger; ${b.rows.filter((r) => r.nourishment > 0).length} of them also give Nourishment.`, rows: b.rows };
+		return { title: 'Most filling', value: `${+b.value.toFixed(1)} saturation`, note: b.rows.length > 1 ? `${b.rows.length} foods tie, all with ${n} hunger; ${b.rows.filter((r) => r.nourishment > 0).length} of them also give Nourishment.` : `It also restores ${n} hunger.`, rows: b.rows };
 	})(),
 	(() => {
 		const b = best(fd, (r) => r.nutrition * r.stack);
@@ -28,13 +29,8 @@ const callouts: { title: string; value: string; note: string; rows: FoodRow[] }[
 		return { title: 'Most hunger per stack', value: `${b.value} hunger`, note: `${r.nutrition} per item × stacks of ${r.stack}. Bowl meals stack to ${mealStack}, so handheld food wins on inventory space.`, rows: b.rows };
 	})(),
 	(() => {
-		const b = best(fd, (r) => r.saturation * r.stack);
-		const r = b.rows[0];
-		return { title: 'Most saturation per stack', value: `${+b.value.toFixed(1)} saturation`, note: `${+r.saturation.toFixed(1)} per item × ${r.stack}.`, rows: b.rows };
-	})(),
-	(() => {
 		const b = best(rows.filter((r) => !r.vanilla), (r) => r.nourishment);
-		return { title: 'Longest Nourishment', value: duration(b.value), note: `${b.rows.length} foods give the longest Nourishment, so the hunger bar stops draining for ${duration(b.value)} minutes (except while healing).`, rows: b.rows };
+		return { title: 'Longest Nourishment', value: timeText(b.value), note: b.rows.length > 1 ? `${b.rows.length} foods stop your hunger bar from draining that long.` : '', rows: b.rows };
 	})(),
 	(() => {
 		const b = best(quick, (r) => r.nutrition);
@@ -42,90 +38,41 @@ const callouts: { title: string; value: string; note: string; rows: FoodRow[] }[
 	})(),
 ];
 ---
-<dl class="fd-best ref-board not-content">
+<ul class="fd-best">
 	{
 		callouts.map((c) => (
-			<div class="row">
-				<dt>{c.title}</dt>
-				<dd>
-					<span class="val">{c.value}</span>
-					<span class="icons">
-						{c.rows.slice(0, 12).map((r) => (
-							<a href={r.href ?? undefined} data-tip-items={`${r.name}~${r.id}`}>
-								{r.icon && <img class="ref-icon" src={r.icon} alt={r.name} width="32" height="32" loading="lazy" />}
-							</a>
-						))}
-						{c.rows.length > 12 && <span class="more">+{c.rows.length - 12}</span>}
-					</span>
-					<span class="note">
-						{c.rows.length <= 3 && <strong>{c.rows.map((r) => r.name).join(', ')}. </strong>}
-						{c.note}
-					</span>
-				</dd>
-			</div>
+			<li>
+				<strong>{c.title}:</strong> {c.value}
+				{c.rows.length <= 3 ? <>, from {c.rows.map((r) => r.name).join(', ')}.</> : '.'} {c.note}{' '}
+				<span class="icons">
+					{c.rows.slice(0, 10).map((r) => (
+						<a href={r.href ?? undefined} data-tip-items={`${r.name}~${r.id}`}>
+							{r.icon && <img src={r.icon} alt={r.name} width="24" height="24" loading="lazy" />}
+						</a>
+					))}
+					{c.rows.length > 10 && <span class="more">+{c.rows.length - 10}</span>}
+				</span>
+			</li>
 		))
 	}
-</dl>
+</ul>
 <FoodTable client:visible rows={rows} cats={categoryLabels} maxS={maxS} shank={{ full: url('/gui/mc/food_full.png'), half: url('/gui/mc/food_half.png') }} />
 <style>
-	.fd-best {
-		margin: 20px 0 30px;
-		padding: 0 16px;
-	}
-	.row {
-		display: grid;
-		grid-template-columns: 15rem 1fr;
-		gap: 4px 20px;
-		padding: 10px 0;
-		border-bottom: 2px solid var(--fd-border);
-	}
-	.row:last-child {
-		border-bottom: 0;
-	}
-	dt {
-		font-size: 20px;
-		line-height: 30px;
-		color: var(--sl-color-text-accent);
-	}
-	dd {
-		margin: 0;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 4px 16px;
-	}
-	.val {
-		font-size: 20px;
-		line-height: 30px;
-		color: var(--sl-color-white);
-		white-space: nowrap;
-	}
 	.icons {
 		display: inline-flex;
 		flex-wrap: wrap;
 		gap: 2px;
-		align-items: center;
+		vertical-align: -5px;
+	}
+	.icons img {
+		display: block;
+		image-rendering: pixelated;
 	}
 	.icons a:hover img {
 		outline: 2px solid #fff;
 	}
 	.more {
-		font-size: 20px;
 		color: var(--sl-color-gray-3);
 		margin-left: 4px;
-	}
-	.note {
-		flex-basis: 100%;
-		font-size: 20px;
-		line-height: 30px;
-		color: var(--sl-color-gray-3);
-	}
-	.note strong {
-		color: var(--sl-color-gray-2);
-	}
-	@media (max-width: 40rem) {
-		.row {
-			grid-template-columns: 1fr;
-		}
 	}
 </style>

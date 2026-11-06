@@ -1,34 +1,58 @@
 ---
-// Both config files from config.json (read from Configuration.java by extract.mjs), grouped by file and section,
-// with the definition line in Configuration.java and a note on what each option changes.
+// The settings of one config file (config.json, read from the mod's config spec by extract.mjs), grouped by section,
+// with the in-game names from the mod's language file and a plain note on what each one does.
+// <ConfigReference file="farmersdelight-common.toml" />, or <ConfigReference file="…" toml /> for the default file.
 import { Code } from '@astrojs/starlight/components';
-import Src from '../mc/Src.astro';
-import { config, url } from '../../lib/data';
+import { config, url, nameOf, pct, vanillaFoods } from '../../lib/data';
 import { configNotes } from '../../data/code/reference-config';
-import { readRepo, JAVA } from './repo';
-import './ref.css';
+import { stackableSoups } from '../../data/code/reference';
+import { ticksPerRandomTick } from '../../data/code/farming';
+import { readRepoJson } from './repo';
 interface Props {
-	file?: string;
+	file: string;
 	toml?: boolean;
 }
 const { file, toml = false } = Astro.props;
-const javaPath = 'common/Configuration.java';
-const java = readRepo(JAVA + javaPath).split('\n');
-/** Lines of the option's definition: from its "X = BUILDER.comment(" line to the define(...) line. */
-function linesOf(key: string) {
-	const def = java.findIndex((l) => new RegExp(`\\.define\\w*\\("${key}"`).test(l));
-	if (def < 0) return null;
-	let startLine = def;
-	while (startLine > 0 && !/=\s*\w+_BUILDER/.test(java[startLine])) startLine--;
-	return `${startLine + 1}-${def + 1}`;
+const lang: Record<string, string> = readRepoJson('src/main/resources/assets/farmersdelight/lang/en_us.json');
+const label = (key: string) => lang[`farmersdelight.configuration.${key}`] ?? key;
+const rows = config.filter((c) => c.file === file);
+const sections = [...new Set(rows.map((c) => c.section as string))];
+
+const human = (s: string) => s.replaceAll('_', ' ');
+const list = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs.join(''));
+function shown(c: any): string {
+	const v = c.default;
+	if (c.type === 'boolean') return v ? 'On' : 'Off';
+	if (c.type === 'decimal' && c.range?.[1] === 1) return pct(v);
+	if (Array.isArray(v)) return list(v.map((x: string) => (x.includes(':') ? nameOf(x) : human(x))));
+	if (typeof v === 'string' && v.includes(':')) return nameOf(v);
+	return String(v);
 }
-const files = [...new Set(config.map((c) => c.file))].filter((f) => !file || f === file);
+function range(c: any): string | null {
+	if (!c.range) return null;
+	const [lo, hi] = c.range;
+	return c.type === 'decimal' && hi === 1 ? `${pct(lo)} to ${pct(hi)}` : `${lo} to ${hi}`;
+}
+const turnSeconds = Math.round(ticksPerRandomTick() / 20);
+const rabbit = vanillaFoods.find((v) => v.id === 'minecraft:rabbit_stew');
+/** Extra sentences built from data, per option. */
+const extra: Record<string, (c: any) => string> = {
+	richSoilBoostChance: () => `A block gets its turn on average every ${turnSeconds} seconds.`,
+	cuttingBoardFortuneBonus: (c) => `With the default, a Fortune III knife adds ${pct(c.default * 3)}.`,
+	enableRabbitStewBuff: () => (rabbit ? `With it on, Rabbit Stew restores ${rabbit.nutrition} hunger and ${+rabbit.saturation.toFixed(1)} saturation.` : ''),
+	enableStackableSoupItems: () => `They stack to ${stackableSoups.value}.`,
+};
+const whenText = {
+	reload: 'A change applies the next time the world loads, or after /reload.',
+	restart: 'A change applies after a game restart. On a server, players need the same setting as the server.',
+	new: 'Only affects villages generated after the change.',
+};
+
 const fmt = (v: unknown): string => (Array.isArray(v) ? `[${v.map(fmt).join(', ')}]` : typeof v === 'string' ? `"${v}"` : String(v));
-const typeName: Record<string, string> = { boolean: 'true / false', decimal: 'decimal', list: 'list of strings', string: 'string', integer: 'integer' };
-function tomlOf(f: string) {
+function tomlOf() {
 	const out: string[] = [];
 	let section: string | null = null;
-	for (const c of config.filter((x) => x.file === f)) {
+	for (const c of rows) {
 		if (c.section !== section) {
 			section = c.section;
 			if (section) out.push((out.length ? '\n' : '') + `[${section}]`);
@@ -41,161 +65,86 @@ function tomlOf(f: string) {
 }
 ---
 {
-	toml
-		? files.map((f) => <Code code={tomlOf(f)} lang="toml" title={`${f} (defaults)`} />)
-		: files.map((f) => {
-				const rows = config.filter((c) => c.file === f);
-				const sections = [...new Set(rows.map((c) => c.section))];
-				return (
-					<div class="cfg not-content">
-						{sections.map((s) => (
-							<section>
-								<h3 class="ref-h" id={`${f.replace('.toml', '')}-${s || 'root'}`}>
-									{s ? `[${s}]` : 'Top level'}
-								</h3>
-								<dl class="ref-board">
-									{rows
-										.filter((c) => c.section === s)
-										.map((c) => {
-											const n = configNotes[c.key];
-											const lines = linesOf(c.key);
-											return (
-												<div class="cfg-row ref-target" id={c.key}>
-													<dt>
-														<a href={`#${c.key}`} class="cfg-key">
-															{c.key}
-														</a>
-														<span class="cfg-type">{typeName[c.type] ?? c.type}</span>
-													</dt>
-													<dd>
-														<div class="cfg-vals">
-															<span>
-																<i>default</i> <code>{fmt(c.default)}</code>
-															</span>
-															{c.range && (
-																<span>
-																	<i>range</i> <code>{c.range[0]}</code>–<code>{c.range[1]}</code>
-																</span>
-															)}
-															{lines && <Src path={javaPath} lines={lines} />}
-														</div>
-														<p class="cfg-comment">{c.comment.join(' ')}</p>
-														{n && (
-															<details class="ref-details">
-																<summary>What it affects</summary>
-																<p>
-																	{n.text} {n.link && <a href={url(n.link)}>More</a>}
-																</p>
-																<p class="cfg-uses">
-																	Read in {n.uses.map((u) => <Src path={u.src} lines={u.lines} />)}
-																</p>
-															</details>
-														)}
-													</dd>
-												</div>
-											);
-										})}
-								</dl>
-							</section>
-						))}
-					</div>
-				);
-			})
+	toml ? (
+		<Code code={tomlOf()} lang="toml" title={file} />
+	) : (
+		sections.map((s) => (
+			<>
+				{s && <h3 id={`${file.replace('.toml', '')}-${s}`}>{label(s.split('.').pop()!)}</h3>}
+				<dl class="cfg">
+					{rows
+						.filter((c) => c.section === s)
+						.map((c) => {
+							const n = configNotes[c.key];
+							const r = range(c);
+							const more = extra[c.key]?.(c);
+							return (
+								<div class="cfg-row ref-target" id={c.key}>
+									<dt>
+										<strong>{label(c.key)}</strong> <code class="cfg-key">{c.key}</code>
+									</dt>
+									<dd>
+										<p>
+											{n?.text ?? c.comment.join(' ')} {more}
+										</p>
+										<p class="cfg-meta">
+											Default: <b>{shown(c)}</b>
+											{r && <>. Range {r}</>}.{n?.when && <> {whenText[n.when]}</>}
+											{n?.link && (
+												<>
+													{' '}
+													<a href={url(n.link)}>More</a>
+												</>
+											)}
+										</p>
+									</dd>
+								</div>
+							);
+						})}
+				</dl>
+			</>
+		))
+	)
 }
 <style>
 	.cfg {
 		margin: 10px 0 30px;
 	}
-	dl {
-		margin: 0;
-		padding: 0 16px;
-	}
 	.cfg-row {
-		display: grid;
-		grid-template-columns: minmax(14rem, 20rem) 1fr;
-		gap: 4px 24px;
-		padding: 12px 0;
+		padding: 10px 0 12px;
 		border-bottom: 2px solid var(--fd-border);
 		scroll-margin-top: 6rem;
 	}
 	.cfg-row:last-child {
 		border-bottom: 0;
 	}
-	dt {
-		display: flex;
-		flex-direction: column;
-		min-width: 0;
-		line-height: 30px;
+	.cfg dt {
+		margin: 0;
+		font-weight: 400;
+	}
+	.cfg dt strong {
+		color: var(--fd-heading-ink);
+		font-weight: 400;
 	}
 	.cfg-key {
-		font-size: 20px;
-		color: var(--sl-color-text-accent);
-		text-decoration: none;
-		overflow-wrap: anywhere;
-	}
-	.cfg-key:hover {
-		color: var(--sl-color-white);
-		text-decoration: underline;
-		text-decoration-thickness: 2px;
-		text-underline-offset: 4px;
-	}
-	.cfg-type {
-		font-size: 20px;
-		color: var(--sl-color-gray-3);
-	}
-	dd {
-		margin: 0;
-		min-width: 0;
-		line-height: 30px;
-	}
-	.cfg-vals {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0 20px;
-		align-items: center;
-		font-size: 20px;
-	}
-	.cfg-vals i {
-		font-style: normal;
-		color: var(--sl-color-gray-3);
-	}
-	.cfg-vals code {
 		font-family: var(--sl-font);
 		font-size: 20px;
-		color: var(--sl-color-white);
-		background: var(--sl-color-black);
-		padding: 0 6px;
+		color: var(--sl-color-gray-3);
+		background: none;
+		padding: 0 0 0 8px;
 		overflow-wrap: anywhere;
 	}
-	.cfg-comment {
-		margin: 6px 0 0;
-		font-size: 20px;
-		color: var(--sl-color-gray-2);
+	.cfg dd {
+		margin: 2px 0 0;
 	}
-	details {
-		margin-top: 6px;
+	.cfg dd p {
+		margin: 0;
 	}
-	details p {
-		margin: 6px 0 0;
-		font-size: 20px;
-		color: var(--sl-color-gray-2);
+	.cfg-meta {
+		color: var(--sl-color-gray-3);
 	}
-	details a {
-		color: var(--sl-color-text-accent);
-		text-decoration: underline;
-		text-decoration-thickness: 2px;
-		text-underline-offset: 4px;
-	}
-	.cfg-uses {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 6px;
-		align-items: center;
-		color: var(--sl-color-gray-3) !important;
-	}
-	@media (max-width: 45rem) {
-		.cfg-row {
-			grid-template-columns: 1fr;
-		}
+	.cfg-meta b {
+		font-weight: 400;
+		color: var(--sl-color-white);
 	}
 </style>
