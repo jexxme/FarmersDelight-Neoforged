@@ -207,4 +207,11 @@ const upR = await Promise.all(upstream.map((s) => render(s, false)));
 			overflow: visible;
 		}
 	}
+	.cl h3 {
+		min-width: 0;
+		max-width: 100%;
+		flex-wrap: wrap;
+		white-space: normal;
+		overflow-wrap: anywhere;
+	}
 </style>
