@@ -101,7 +101,8 @@ public class PieBlock extends Block
 			return cutSlice(level, pos, state, player, heldStack.getItem());
 		}
 
-		return InteractionResult.PASS;
+		// Anything but a knife eats a bite (useWithoutItem); PASS would skip it on 26.x.
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
 	@Override
