@@ -26,6 +26,8 @@ export default defineConfig({
 	site,
 	base,
 	trailingSlash: 'always',
+	// Start loading a page as soon as the pointer rests on (or focus reaches) a link to it, so clicks feel instant
+	prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
 	markdown: { rehypePlugins: [rehypeBaseLinks] },
 	integrations: [
 		preact(),

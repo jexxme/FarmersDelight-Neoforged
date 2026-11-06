@@ -59,13 +59,22 @@ document.addEventListener('focusout', () => {
 });
 
 // Cycle tag slots once a second, all in step (like JEI). A hovered slot holds still so its tooltip stays right.
+// Only slots on screen are cycled: long pages have hundreds, and touching them all every second costs real time.
+const visible = new Set<HTMLElement>();
+const io = new IntersectionObserver(
+	(entries) => {
+		for (const e of entries) e.isIntersecting ? visible.add(e.target as HTMLElement) : visible.delete(e.target as HTMLElement);
+	},
+	{ rootMargin: '100px' },
+);
+for (const c of document.querySelectorAll<HTMLElement>('.mc-cycle')) io.observe(c);
 setInterval(() => {
 	if (document.hidden) return;
-	for (const c of document.querySelectorAll<HTMLElement>('.mc-cycle')) {
+	for (const c of visible) {
 		if (current && current.contains(c)) continue;
-		const imgs = c.querySelectorAll('img');
-		const i = [...imgs].findIndex((x) => x.classList.contains('on'));
-		imgs[i]?.classList.remove('on');
-		imgs[(i + 1) % imgs.length]?.classList.add('on');
+		const on = c.querySelector('img.on') ?? c.firstElementChild;
+		const next = on?.nextElementSibling?.tagName === 'IMG' ? on.nextElementSibling : c.querySelector('img');
+		on?.classList.remove('on');
+		next?.classList.add('on');
 	}
 }, 1000);

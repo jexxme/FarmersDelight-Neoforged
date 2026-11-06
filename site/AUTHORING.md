@@ -43,7 +43,7 @@ The generated files are committed, so CI only runs `npm run build`.
 | `data/EffectBadge.astro` | Effect with its real icon: `id`, `ticks`, `amplifier`, `probability`. |
 | `data/Stages.astro` `<Stages block="cabbages" />` | Strip of renders, one per block state (age, servings, bites, composting). |
 | `mc/Render.astro` `<Render name="scenes/pot-on-stove" caption="…" />` | Isometric render. Names are in `src/data/gen/renders.json` (`blocks/*`, `stages/*`, `heat/*`, `scenes/*`). |
-| `mc/Shot.astro` `<Shot src="kitchen.jpg" caption="…" />` | In-game screenshot from `public/shots`. |
+| `mc/Shot.astro` `<Shot src="kitchen.jpg" caption="…" />` | In-game screenshot from `src/assets/shots` (served as AVIF/WebP in several widths). |
 | `mc/Sprite.astro` | Crop of a 256×256 GUI texture (`public/gui/*.png`). |
 
 Starlight's own components are available too: `import { Aside, Tabs, TabItem, Card, CardGrid, Steps, Badge, LinkCard } from '@astrojs/starlight/components';`

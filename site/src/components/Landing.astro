@@ -1,7 +1,9 @@
 ---
 // Home page as a Minecraft title screen (panorama, logo, splash text, stone buttons), followed by the chapters on
 // canvas signs and the whole mod in a creative-inventory panel with one tab per category.
+import { Picture } from 'astro:assets';
 import Slot from './mc/Slot.astro';
+import hero from '../assets/shots/hero.jpg';
 import { meta, url, itemList, CATEGORIES, iconOf } from '../lib/data';
 
 const cats = Object.entries(CATEGORIES)
@@ -36,7 +38,18 @@ const chapters = [
 ];
 ---
 <div class="landing not-content">
-	<section class="title-screen" style={`background-image:url(${url('/shots/hero.jpg')})`}>
+	<section class="title-screen">
+		<Picture
+			class="panorama"
+			src={hero}
+			formats={['avif', 'webp']}
+			fallbackFormat="jpg"
+			widths={[640, 960, 1440, 1920]}
+			sizes="(max-width: 62rem) 100vw, 59rem"
+			alt=""
+			loading="eager"
+			fetchpriority="high"
+		/>
 		<div class="logo-wrap">
 			<img class="logo" src={url('/ui/banner.png')} alt="Farmer's Delight Neoforged" width="536" height="136" />
 			<span class="splash" data-splashes={JSON.stringify(splashes)}>{splashes[0]}</span>
@@ -132,8 +145,6 @@ const chapters = [
 	.title-screen {
 		position: relative;
 		min-height: 560px;
-		background-size: cover;
-		background-position: 50% 40%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -142,6 +153,17 @@ const chapters = [
 		padding: 60px 16px 70px;
 		border: 4px solid #000;
 		box-shadow: 6px 6px 0 #000;
+		isolation: isolate;
+	}
+	/* The panorama is a real <img> (not a CSS background) so the browser finds it early and picks the right size */
+	.title-screen :global(.panorama) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 40%;
+		z-index: -1;
 	}
 	.logo-wrap {
 		position: relative;
