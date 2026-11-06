@@ -16,6 +16,10 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 		font-size: var(--sl-text-xs);
 		color: var(--sl-color-gray-3);
 	}
+	/* Starlight's footer (edit link, prev/next) is empty on item pages but still takes ~120px; drop it when empty */
+	:global(main footer.sl-flex:not(:has(a))) {
+		display: none;
+	}
 	.fd-footer p + p {
 		margin-top: 0.4rem;
 	}

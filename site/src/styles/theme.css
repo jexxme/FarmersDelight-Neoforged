@@ -151,6 +151,12 @@ header.header {
 	width: auto !important;
 	max-width: none;
 }
+/* Phones: a little smaller so the search and menu buttons fit beside it */
+@media (max-width: 30rem) {
+	.site-title img {
+		height: 54px !important;
+	}
+}
 /* Search box and theme picker as Minecraft text fields */
 site-search > button,
 starlight-theme-select select {
@@ -177,6 +183,182 @@ header .social-icons a {
 }
 header starlight-theme-select svg {
 	color: #e0e0e0;
+}
+/* Search sits with the other controls on the right (as the creative search field does), not at the sidebar edge */
+header .header > :nth-child(2) {
+	justify-content: flex-end;
+}
+@media (min-width: 50rem) {
+	site-search > button {
+		width: 20rem;
+	}
+}
+/* Same height as the search field; a GitHub icon you can actually see */
+starlight-theme-select select {
+	height: 40px;
+	padding-block: 0 !important;
+}
+/* Search, GitHub and theme read as one toolbar: three black text-field boxes, same height, same gaps */
+@media (min-width: 50rem) {
+	header .header {
+		column-gap: 8px;
+	}
+	header .right-group {
+		gap: 8px;
+	}
+	header .social-icons::after {
+		display: none;
+	}
+}
+/* GitHub as a square box like the theme button (header and the phone menu) */
+.social-icons a {
+	width: 40px;
+	height: 40px;
+	padding: 0 !important;
+	margin: 0 !important;
+	display: grid !important;
+	place-items: center;
+	background: #000;
+	border: 2px solid #a0a0a0;
+	color: #fff !important;
+	filter: none !important;
+}
+.social-icons a:hover {
+	border-color: #fff;
+}
+header .social-icons svg {
+	width: 24px;
+	height: 24px;
+}
+
+/* Opening search hides the page scrollbar; keep its space so the page doesn't jump sideways */
+html {
+	scrollbar-gutter: stable;
+}
+
+/* ---------------------------------------------------------------- search dialog, like the creative "Search Items" tab */
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+#starlight__search .fd-search-icon {
+	width: 32px;
+	height: 32px;
+	flex: none;
+	image-rendering: pixelated;
+}
+/* The sub-result that only repeats the page title: keep its text, drop the repeated name */
+#starlight__search .fd-dup .pagefind-ui__result-link {
+	font-size: 0;
+	line-height: 0;
+}
+#starlight__search .fd-dup .pagefind-ui__result-title {
+	height: 0;
+	line-height: 0;
+}
+site-search dialog {
+	background: #c6c6c6 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: inset 4px 4px 0 #fff, inset -4px -4px 0 #555, 0 0 0 4px #000, 8px 8px 0 4px #000 !important;
+}
+@media (min-width: 50rem) {
+	site-search dialog {
+		min-height: 0 !important;
+	}
+}
+site-search button[data-close-modal] {
+	color: #404040;
+}
+#starlight__search {
+	--pagefind-ui-primary: #404040;
+	--pagefind-ui-text: #404040;
+	--pagefind-ui-font: var(--sl-font);
+	--pagefind-ui-border-radius: 0;
+	--sl-search-result-pad-inline-start: 16px;
+	--sl-search-corners: 0;
+}
+#starlight__search .pagefind-ui__search-input {
+	background: #000;
+	border: 2px solid #a0a0a0;
+	border-radius: 0;
+	color: #e0e0e0;
+	font-size: 20px;
+}
+#starlight__search .pagefind-ui__search-input:focus {
+	border-color: #fff;
+}
+#starlight__search .pagefind-ui__search-input::placeholder {
+	color: #a0a0a0;
+	opacity: 1; /* Pagefind dims it to 0.2 */
+}
+#starlight__search .pagefind-ui__form::before {
+	background-color: #e0e0e0;
+}
+#starlight__search .pagefind-ui__search-clear::before {
+	background-color: #e0e0e0;
+}
+/* Empty dialog: say what you can search for instead of a blank panel */
+#starlight__search .pagefind-ui__form:not(:has(.pagefind-ui__results-area))::after {
+	content: 'Search every item, block, recipe and guide. Try "tomato", "knife" or "rich soil".';
+	display: block;
+	margin-top: 20px;
+	color: #404040;
+	font-size: 20px;
+	line-height: 30px;
+}
+#starlight__search .pagefind-ui__message {
+	color: #404040;
+	font-size: 20px;
+}
+/* The pixel font is only crisp at multiples of 10 px; Pagefind's own sizes (18 px and smaller) blur it */
+#starlight__search .pagefind-ui__result-title,
+#starlight__search .pagefind-ui__result-link {
+	font-size: 20px;
+	line-height: 30px;
+}
+/* Results as slot-grey cards with Minecraft's white GUI text */
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title::before,
+#starlight__search .pagefind-ui__result-nested::before {
+	display: none;
+}
+#starlight__search .pagefind-ui__result {
+	background: #8b8b8b;
+	box-shadow: inset 2px 2px 0 #373737, inset -2px -2px 0 #fff;
+	padding: 2px;
+}
+#starlight__search .pagefind-ui__result-inner > * {
+	background: transparent;
+}
+#starlight__search .pagefind-ui__result-nested {
+	border-top: 2px solid #6f6f6f;
+	padding-inline-start: 32px;
+}
+#starlight__search .pagefind-ui__result-link {
+	--pagefind-ui-text: #fff;
+	color: #fff;
+	font-weight: 400;
+	text-shadow: 2px 2px 0 #3f3f3f;
+}
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title:hover .pagefind-ui__result-link,
+#starlight__search .pagefind-ui__result-nested:hover .pagefind-ui__result-link {
+	color: #ffffa0;
+}
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title:hover,
+#starlight__search .pagefind-ui__result-nested:hover {
+	background: #9d9d9d;
+}
+#starlight__search .pagefind-ui__result-excerpt {
+	color: #e0e0e0;
+	font-size: 20px;
+	line-height: 30px;
+	text-shadow: 2px 2px 0 #3f3f3f;
+}
+#starlight__search mark {
+	color: #ffff55;
+	background: none;
+	font-weight: 400;
 }
 
 /* ---------------------------------------------------------------- sidebar */

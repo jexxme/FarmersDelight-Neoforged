@@ -140,7 +140,10 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 		return ic ? <img src={ic} alt="" width={size} height={size} loading="lazy" /> : <span class="pl-noicon" style={{ width: size, height: size }} />;
 	};
 
-	const row = (n: Node, depth: number) => {
+	// The tree only changes with target/amount/choices; reusing the same vnodes lets Preact skip it while you type a search
+	const treeView = useMemo(() => <ul class="pl-root">{row(tree, 0)}</ul>, [tree, sel]);
+
+	function row(n: Node, depth: number) {
 		const collapsed = sel[n.key]?.c ?? false;
 		const lineKey = n.key.slice(0, n.key.lastIndexOf('@'));
 		return (
@@ -267,7 +270,7 @@ export default function Planner({ recipes, info, choices, start }: { recipes: PR
 				<section class="pl-tree" aria-label="Ingredient tree">
 					<h3 class="ref-h">Ingredient tree</h3>
 					<div class="ref-board">
-						<ul class="pl-root">{row(tree, 0)}</ul>
+						{treeView}
 					</div>
 				</section>
 				<aside class="pl-side">

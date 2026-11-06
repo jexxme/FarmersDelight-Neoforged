@@ -26,6 +26,8 @@ export default defineConfig({
 	site,
 	base,
 	trailingSlash: 'always',
+	// Start loading a page as soon as the pointer rests on (or focus reaches) a link to it, so clicks feel instant
+	prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
 	markdown: { rehypePlugins: [rehypeBaseLinks] },
 	integrations: [
 		preact(),
@@ -45,6 +47,7 @@ export default defineConfig({
 			components: {
 				Head: './src/components/overrides/Head.astro',
 				Footer: './src/components/overrides/Footer.astro',
+				ThemeSelect: './src/components/overrides/ThemeSelect.astro',
 			},
 			lastUpdated: false,
 			tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },

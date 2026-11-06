@@ -10,6 +10,7 @@ import { meta, items, worldgen, iconOf } from '../../lib/data';
 import { rangeText, timeText } from '../../data/code/reference';
 
 export const nourish = Object.values(items).flatMap((i) => i.consumable?.effects ?? []).filter((e) => e.id === 'farmersdelight:nourishment').map((e) => e.duration);
+export const jar = (tag) => `https://github.com/jexxme/FarmersDelight-Neoforged/releases/download/${encodeURIComponent(tag)}/FarmersDelight-Neoforged-${encodeURIComponent(tag)}.jar`;
 export const wildCount = worldgen.filter((w) => w.id.includes('wild_')).length;
 
 Farmer's Delight adds a kitchen to Minecraft. You grow four new crops, cook meals in a pot over a fire, cut ingredients
@@ -21,23 +22,24 @@ which stops your hunger bar from going down while it lasts.
 ## Install
 
 Farmer's Delight Neoforged needs [NeoForge](https://neoforged.net/) and nothing else. Install it on both the client and the server.
-Use the file that matches your Minecraft version:
+Use the file that matches your Minecraft version. Click your version to download the newest release for it:
 
 <table>
 	<thead>
-		<tr><th>Minecraft</th><th>NeoForge</th></tr>
+		<tr><th>Minecraft</th><th>NeoForge</th><th>Mod version</th></tr>
 	</thead>
 	<tbody>
 		{meta.versions.map((v) => (
 			<tr>
-				<td><strong>{v.gameVersions.replaceAll(',', ', ')}</strong></td>
+				<td><strong><a href={jar(v.tag)} download>{v.gameVersions.replaceAll(',', ', ')}</a></strong></td>
 				<td>{rangeText(v.neoforgeRange)}</td>
+				<td style="white-space:nowrap">{v.tag.slice(v.tag.indexOf('-') + 1)}</td>
 			</tr>
 		))}
 	</tbody>
 </table>
 
-Download it from [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged).
+You can also get it from [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged), [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged) or the [GitHub releases](https://github.com/jexxme/FarmersDelight-Neoforged/releases), which also list older versions.
 
 <Aside type="tip" title="Coming from the original Farmer's Delight?">
 	Remove it first; this mod replaces it. Your worlds, datapacks and add-ons keep working, because every item and recipe

@@ -29,26 +29,30 @@ export default function Catalog({ rows, cats, base }: { rows: Row[]; cats: Cat[]
 		if (h && cats.some((c) => c.key === h)) setActive([h]);
 	}, []);
 
-	const filtered = useMemo(() => {
+	// Every tile is rendered once and stays in the page; filtering only toggles `hidden` and sorting only reorders.
+	// Rebuilding the tiles on each keystroke took ~0.3 s on a mid-range phone, so fast typing queued up and lagged.
+	const search = useMemo(() => rows.map((r) => [r.name.toLowerCase(), r.id, ...r.effects.map((e) => e.toLowerCase()), ...r.tags].join('\n')), [rows]);
+	const shown = useMemo(() => {
 		const words = q.toLowerCase().split(/\s+/).filter(Boolean);
-		let out = rows.filter(
-			(r) =>
-				(!active.length || active.includes(r.category)) &&
-				(!food || r.nutrition !== null) &&
-				(!blocks || r.block) &&
-				words.every((w) => r.name.toLowerCase().includes(w) || r.id.includes(w) || r.effects.some((e) => e.toLowerCase().includes(w)) || r.tags.some((t) => t.includes(w))),
-		);
-		if (sort === 'name') out = [...out].sort((a, b) => a.name.localeCompare(b.name));
-		if (sort === 'nutrition') out = [...out].sort((a, b) => (b.nutrition ?? -1) - (a.nutrition ?? -1));
-		if (sort === 'saturation') out = [...out].sort((a, b) => (b.saturation ?? -1) - (a.saturation ?? -1));
-		return out;
-	}, [q, active, food, blocks, sort]);
+		const set = new Set<string>();
+		rows.forEach((r, i) => {
+			if ((!active.length || active.includes(r.category)) && (!food || r.nutrition !== null) && (!blocks || r.block) && words.every((w) => search[i].includes(w))) set.add(r.id);
+		});
+		return set;
+	}, [q, active, food, blocks]);
+	const byCat = useMemo(() => new Map(cats.map((c) => [c.key, rows.filter((r) => r.category === c.key)])), [rows, cats]);
+	const sorted = useMemo(() => {
+		if (sort === 'name') return [...rows].sort((a, b) => a.name.localeCompare(b.name));
+		if (sort === 'nutrition') return [...rows].sort((a, b) => (b.nutrition ?? -1) - (a.nutrition ?? -1));
+		if (sort === 'saturation') return [...rows].sort((a, b) => (b.saturation ?? -1) - (a.saturation ?? -1));
+		return rows;
+	}, [sort]);
 
-	const grouped = sort === 'tab' && !q;
+	const grouped = sort === 'tab';
 	const toggle = (k: string) => setActive((a) => (a.includes(k) ? a.filter((x) => x !== k) : [...a, k]));
 
 	const tile = (r: Row) => (
-		<a class="cat-tile" href={`${base}${r.slug}/`} key={r.id} data-tip-items={`${r.name}~${r.id}`}>
+		<a class="cat-tile" href={`${base}${r.slug}/`} key={r.id} hidden={!shown.has(r.id)} data-tip-items={`${r.name}~${r.id}`}>
 			<span class="cat-icon">
 				<img src={r.icon} alt="" width={48} height={48} loading="lazy" style={{ imageRendering: 'pixelated' }} />
 			</span>
@@ -91,23 +95,21 @@ export default function Catalog({ rows, cats, base }: { rows: Row[]; cats: Cat[]
 				)}
 			</div>
 			<p class="cat-count">
-				{filtered.length} of {rows.length} items
+				{shown.size} of {rows.length} items
 			</p>
 			{grouped ? (
-				cats
-					.filter((c) => filtered.some((r) => r.category === c.key))
-					.map((c) => (
-						<section key={c.key} id={c.key}>
-							<h2 class="cat-h">
-								{c.label} <span>{c.blurb}</span>
-							</h2>
-							<div class="cat-grid">{filtered.filter((r) => r.category === c.key).map(tile)}</div>
-						</section>
-					))
+				cats.map((c) => (
+					<section key={c.key} id={c.key} hidden={!byCat.get(c.key)!.some((r) => shown.has(r.id))}>
+						<h2 class="cat-h">
+							{c.label} <span>{c.blurb}</span>
+						</h2>
+						<div class="cat-grid">{byCat.get(c.key)!.map(tile)}</div>
+					</section>
+				))
 			) : (
-				<div class="cat-grid">{filtered.map(tile)}</div>
+				<div class="cat-grid">{sorted.map(tile)}</div>
 			)}
-			{filtered.length === 0 && <p>No items match. Try fewer words, or clear the filters.</p>}
+			{shown.size === 0 && <p>No items match. Try fewer words, or clear the filters.</p>}
 			<style>{`
 .catalog { margin-top: 24px; }
 .cat-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; position: sticky; top: var(--sl-nav-height); z-index: 5; background: var(--sl-color-black); padding: 12px 0 10px; }
@@ -127,6 +129,7 @@ export default function Catalog({ rows, cats, base }: { rows: Row[]; cats: Cat[]
 .cat-h { font-family: var(--sl-font); font-weight: 400; font-size: 30px; margin: 40px 0 0; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; scroll-margin-top: 9rem; color: var(--fd-heading-ink, var(--sl-color-white)); }
 .cat-h span { font-size: 20px; color: var(--sl-color-gray-3); }
 .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 4px; margin-top: 12px; padding: 10px; background: #c6c6c6; box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555, 0 0 0 2px #000, 6px 6px 0 2px #000; }
+.cat-tile[hidden], .catalog section[hidden] { display: none; }
 .cat-tile { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px 8px; text-decoration: none; color: #404040; text-align: center; }
 .cat-tile:hover { background: #d8d8d8; }
 .cat-tile:hover .cat-name { color: #000; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
