@@ -92,6 +92,14 @@ neoForge {
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
+        // Writes the runtime values the docs site reads (site/src/data/runtime.json). See FDDocsExport.
+        docsExport {
+            type = "gameTestServer"
+            gameDirectory = project.file('run/docs-export')
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            systemProperty 'farmersdelight.docsExport', file('site/src/data/runtime.json').getAbsolutePath()
+        }
+
         data {
             clientData()
 

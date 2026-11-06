@@ -63,7 +63,10 @@ public class FarmersDelight
 		ModRecipeCategories.RECIPE_BOOK_CATEGORIES.register(modEventBus);
 
 		// GameTests only in the dev environment (or with -Dfarmersdelight.gametests=true), not in the released jar
-		if (!net.neoforged.fml.loading.FMLEnvironment.isProduction() || Boolean.getBoolean("farmersdelight.gametests")) {
+		// The docs exporter (Gradle task runDocsExport) runs on its own, without the other tests
+		if (System.getProperty(vectorwing.farmersdelight.gametest.FDDocsExport.PROPERTY) != null) {
+			vectorwing.farmersdelight.gametest.FDDocsExport.register(modEventBus);
+		} else if (!net.neoforged.fml.loading.FMLEnvironment.isProduction() || Boolean.getBoolean("farmersdelight.gametests")) {
 			vectorwing.farmersdelight.gametest.FDGameTests.register(modEventBus);
 			vectorwing.farmersdelight.gametest.FDStressTests.register(modEventBus);
 			vectorwing.farmersdelight.gametest.FDConservationTests.register(modEventBus);
