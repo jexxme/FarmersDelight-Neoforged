@@ -188,7 +188,32 @@ header .social-icons svg {
 	height: 30px;
 }
 
+/* Opening search hides the page scrollbar; keep its space so the page doesn't jump sideways */
+html {
+	scrollbar-gutter: stable;
+}
+
 /* ---------------------------------------------------------------- search dialog, like the creative "Search Items" tab */
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+#starlight__search .fd-search-icon {
+	width: 32px;
+	height: 32px;
+	flex: none;
+	image-rendering: pixelated;
+}
+/* The sub-result that only repeats the page title: keep its text, drop the repeated name */
+#starlight__search .fd-dup .pagefind-ui__result-link {
+	font-size: 0;
+	line-height: 0;
+}
+#starlight__search .fd-dup .pagefind-ui__result-title {
+	height: 0;
+	line-height: 0;
+}
 site-search dialog {
 	background: #c6c6c6 !important;
 	border: 0 !important;

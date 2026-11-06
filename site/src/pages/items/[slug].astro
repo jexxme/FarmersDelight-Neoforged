@@ -79,7 +79,7 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		</div>
 		<div class="ip-side">
 			<div class="ip-tooltip">
-				<p class="t-name">{item.name}</p>
+				<p class="t-name" data-pagefind-ignore>{item.name}</p>
 				{item.tooltip.map((t) => <p class="t-blue">{t}</p>)}
 				{item.food && (
 					<p class="t-food">
