@@ -32,7 +32,8 @@ branch, like the original Farmer's Delight:
 
 ## Versions and releases
 
-The mod version is the Farmer's Delight content version plus a build number (`1.3.3+neoforged.1`), the same on
-every branch. A release is tagged per branch as `<minecraft_version>-<mod_version>`, for example
-`26.3-1.3.3+neoforged.1`, which is also the version in the jar name. Pushing the tag runs the release
+The mod version is the Farmer's Delight content version plus our release number (`1.3.4-2`), the same on
+every branch. Add-ons compare it like a Farmer's Delight version: `1.3.4-2` is newer than 1.3.4 and older than 1.3.5.
+A release is tagged per branch as `<minecraft_version>-<mod_version>`, for example `26.3-1.3.4-2`. The stores and
+GitHub show it as `MC 26.3 · FD 1.3.4 (2)`, and the jar is `FarmersDelight-Neoforged-MC26.3-FD1.3.4-2.jar`. Pushing the tag runs the release
 workflow, which builds and tests again and publishes the jar. Checklist: [RELEASING.md](RELEASING.md).

@@ -11,7 +11,9 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = "${minecraft_version}-${mod_version}"
+// Jar name: FarmersDelight-Neoforged-MC26.3-FD1.3.4-2.jar (MC26.1-26.1.1 when a jar covers several Minecraft versions)
+def releaseGames = project.release_game_versions.split(',')
+version = "MC${releaseGames.length > 1 ? releaseGames.first() + '-' + releaseGames.last() : releaseGames.first()}-FD${mod_version}"
 group = 'vectorwing.farmersdelight'
 
 sourceSets.main.resources {
