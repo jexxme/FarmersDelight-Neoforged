@@ -635,13 +635,20 @@ write('tags.json', { resolved: fdTagsAll, files: fdTagFiles });
 write('advancements.json', advancements);
 write('vanilla-foods.json', vanillaFoods);
 write('soup-effects.json', soupEffects);
-// Supported Minecraft versions: one release tag per Minecraft version ("<mc>-<mod_version>")
+// Supported Minecraft versions: release tags are "<mc>-<mod_version>". Use each Minecraft line's newest tag, so the
+// list is right before the current version is tagged too; the tag shown is the one this release gets.
 const versions = [];
 try {
 	const git = (...a) => execFileSync('git', ['-C', REPO, ...a], { encoding: 'utf8' });
-	for (const tag of git('tag', '--list', `*-${props.mod_version}`).split(/\r?\n/).filter(Boolean)) {
+	const newest = new Map();
+	for (const tag of git('tag', '--list', '*-*+neoforged.*').split(/\r?\n/).filter(Boolean)) {
+		const mc = tag.slice(0, tag.indexOf('-'));
+		const prev = newest.get(mc);
+		if (!prev || tag.localeCompare(prev, undefined, { numeric: true }) > 0) newest.set(mc, tag);
+	}
+	for (const [mc, tag] of newest) {
 		const p = Object.fromEntries(git('show', `${tag}:gradle.properties`).split(/\r?\n/).filter((l) => /^\w+=/.test(l)).map((l) => l.split(/=(.*)/s).slice(0, 2)));
-		versions.push({ tag, minecraft: p.minecraft_version, minecraftRange: p.minecraft_version_range, gameVersions: p.release_game_versions, neoforge: p.neo_version, neoforgeRange: p.neo_version_range });
+		versions.push({ tag: `${mc}-${props.mod_version}`, minecraft: p.minecraft_version, minecraftRange: p.minecraft_version_range, gameVersions: p.release_game_versions, neoforge: p.neo_version, neoforgeRange: p.neo_version_range });
 	}
 } catch (e) {
 	console.log('versions: git not available, keeping the previous list');

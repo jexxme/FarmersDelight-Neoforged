@@ -13599,7 +13599,7 @@
 				{
 					"id": "farmersdelight:nourishment",
 					"name": "Nourishment",
-					"duration": 6000,
+					"duration": 3600,
 					"amplifier": 0,
 					"probability": 1
 				}
@@ -13773,7 +13773,7 @@
 				{
 					"id": "farmersdelight:nourishment",
 					"name": "Nourishment",
-					"duration": 6000,
+					"duration": 3600,
 					"amplifier": 0,
 					"probability": 1
 				}
@@ -13993,8 +13993,8 @@
 		"stack": 16,
 		"rarity": "common",
 		"food": {
-			"nutrition": 14,
-			"saturation": 21,
+			"nutrition": 12,
+			"saturation": 19.2,
 			"alwaysEdible": false
 		},
 		"consumable": {
@@ -14004,7 +14004,7 @@
 				{
 					"id": "farmersdelight:nourishment",
 					"name": "Nourishment",
-					"duration": 6000,
+					"duration": 3600,
 					"amplifier": 0,
 					"probability": 1
 				}
@@ -14575,7 +14575,7 @@
 				{
 					"id": "farmersdelight:nourishment",
 					"name": "Nourishment",
-					"duration": 6000,
+					"duration": 3600,
 					"amplifier": 0,
 					"probability": 1
 				}

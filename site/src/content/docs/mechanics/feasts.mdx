@@ -70,7 +70,7 @@ is left, such as a bone or a bowl. {noLeftovers.map((id) => <Item id={id} />)} {
 					<td><Item id={id} /></td>
 					<td>{maxOf(id)}</td>
 					<td>{s ? <Item id={s.id} /> : <a href="#rice-roll-medley">three kinds of roll</a>}</td>
-					<td>{s?.remainder ? <Item id={s.remainder} /> : '—'}</td>
+					<td>{s?.remainder ? <Item id={s.remainder} /> : 'empty hand'}</td>
 				</tr>
 			);
 		})}
@@ -124,13 +124,10 @@ three meals.
 
 ## Rice Roll Medley
 
-The <Item id={medley} /> holds {feast.medleyServings.value} rolls, served in order:
-{medleyRuns.map((r, i) => <>{i ? (i === medleyRuns.length - 1 ? ', then ' : ', then ') : ''}{r.n} <Item id={r.id} plural /></>)}.
-
-<Aside type="caution" title="Known issue in 1.3.4">
-The medley can't be served: right-clicking it does nothing. Break it while it's still full to get it back, and make the
-rolls on their own instead.
-</Aside>
+The <Item id={medley} /> is the finger food of feasts: it holds {feast.medleyServings.value} rolls, and you take them
+with an empty hand, no bowl needed. Each right-click hands you the next roll, in this order:
+{medleyRuns.map((r, i) => <>{i ? ', then ' : ''}{r.n} <Item id={r.id} plural /></>)}. When the last roll is gone, the
+empty plate stays; right-click it to clear it away and get the bowl back.
 
 <Stages block="rice_roll_medley_block" title="Rice Roll Medley: servings left" labels={ladderLabels(medley)} />
 

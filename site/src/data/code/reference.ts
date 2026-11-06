@@ -107,9 +107,9 @@ export const nourishmentTiers = c(
 );
 export const vanillaSoups = c(null, 'common/FoodValues.java', '274-278');
 export const soupHandler = c(null, 'common/event/CommonEvents.java', '36-54');
-/** With enableRabbitStewBuff on, the soup handler returns before adding Nourishment to Rabbit Stew. */
+/** With enableRabbitStewBuff on, the soup handler skips Rabbit Stew: the buffed stew brings its own Nourishment. */
 export const rabbitStewSkip = c(null, 'common/event/CommonEvents.java', '41-43');
-export const rabbitStewBuff = c(null, 'common/event/CommonModBusEvents.java', '46-48');
+export const rabbitStewBuff = c(null, 'common/event/CommonModBusEvents.java', '46-51');
 export const stackableSoups = c(16, 'common/event/CommonModBusEvents.java', '36-45');
 
 // ------------------------------------------------------------------ config
@@ -146,7 +146,6 @@ export const port = {
 	aliases: c(null, 'common/registry/RegistryAliases.java', '9-15'),
 	signEntities: c(null, 'common/event/CommonModBusEvents.java', '51-64'),
 	defaultComponents: c(null, 'common/ItemDefaultComponents.java', '19-30'),
-	onionSoup: c(null, 'common/registry/ModItems.java', '530-533'),
 	rottenTomatoThrow: c(null, 'common/item/RottenTomatoItem.java', '28-47'),
 	rottenTomatoDispense: c(null, 'common/item/RottenTomatoItem.java', '49-52'),
 	smokerCook: c('smoker_cook', 'common/registry/ModLootFunctions.java', '18'),
@@ -159,29 +158,6 @@ export const consumeEffects = {
 	heal: c(null, 'common/item/component/consumable/HealConsumeEffect.java', '17-19'),
 	extinguish: c(null, 'common/item/component/consumable/ExtinguishConsumeEffect.java', '14'),
 };
-
-// ------------------------------------------------------------------ known issues (player wording)
-// What currently doesn't work right, in plain words for the Differences page and the food table. Each was found by
-// reading the code (see the session notes "port-bugs-from-docs.md"); the citation is where the behaviour comes from.
-export const knownIssues = {
-	pieBites: c(null, 'common/block/PieBlock.java', '104'),
-	drinks: c(['farmersdelight:milk_bottle', 'farmersdelight:hot_cocoa', 'farmersdelight:melon_juice'], 'common/item/ConsumableItem.java', '58-71'),
-	riceRollMedley: c('farmersdelight:rice_roll_medley_block', 'common/block/FeastBlock.java', '115-117'),
-	rabbitStew: c('minecraft:rabbit_stew', 'common/event/CommonEvents.java', '41-43'),
-	onionSoup: c('farmersdelight:onion_soup', 'common/registry/ModItems.java', '530-533'),
-	nourishmentTier: c(['farmersdelight:chicken_soup', 'farmersdelight:fried_rice', 'farmersdelight:grilled_salmon'], 'common/registry/ModItems.java', '509-520'),
-	rottenTomato: c('farmersdelight:rotten_tomato', 'common/item/RottenTomatoItem.java', '28-47'),
-	ropeReeling: c('enableRopeReeling', 'common/block/RopeBlock.java', '55-61'),
-	tomatoBoneMeal: c(null, 'common/block/TomatoBlock.java', '57-63'),
-	villageFarms: c('generateFDCropsOnVillageFarms', 'common/world/VillageStructures.java', '36-62'),
-	jeiCopperKnife: c('farmersdelight:copper_knife', 'integration/jei/JEIPlugin.java', '51-67'),
-};
-/** All of these are fixed for the release after 1.3.4 (not released yet). */
-export const issuesVersion = '1.3.4';
-/** Short note shown next to foods that don't do what their tooltip says right now. */
-export const foodIssueNote: Record<string, string> = Object.fromEntries(
-	knownIssues.drinks.value.map((id) => [id, "Known issue in 1.3.4: drinking it uses it up, but nothing happens. Fixed in the next update."]),
-);
 
 // ------------------------------------------------------------------ add-on recipes (player wording)
 /** What the built-in recipes for other mods do (src/main/resources/data/farmersdelight/recipe/integration/<mod>/).

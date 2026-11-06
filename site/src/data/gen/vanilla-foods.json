@@ -527,7 +527,15 @@
 		"consumable": {
 			"seconds": 1.6,
 			"animation": "eat",
-			"effects": [],
+			"effects": [
+				{
+					"id": "farmersdelight:nourishment",
+					"name": "Nourishment",
+					"duration": 6000,
+					"amplifier": 0,
+					"probability": 1
+				}
+			],
 			"other": []
 		},
 		"stack": 16

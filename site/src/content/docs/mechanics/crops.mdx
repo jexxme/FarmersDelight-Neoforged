@@ -3,7 +3,6 @@ title: Crops
 description: How to grow cabbages, onions, tomatoes and rice in Farmer's Delight Neoforged, how long they take, what they drop and how bone meal works on them.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
 import Shot from '../../../components/mc/Shot.astro';
@@ -31,7 +30,7 @@ export const planted = tags.resolved.item['minecraft:villager_plantable_seeds'].
 
 Farmer's Delight adds four crops. <Item id="cabbage" /> and <Item id="onion" /> grow just like wheat. <Item id="tomato" label="Tomatoes" /> start as a bush, turn into a vine you can pick again and again, and climb rope. <Item id="rice" /> grows in shallow water and pushes up panicles on top.
 
-You can't buy these crops from farmers, so your first seeds come from [wild crops](/mechanics/wild-crops/), chests or the wandering trader (see [getting seeds](#getting-seeds)).
+You can't buy these crops from farmers, so your first seeds come from [wild crops](/mechanics/wild-crops/), village farms, chests or the wandering trader (see [getting seeds](#getting-seeds)).
 
 ## Planting and growing
 
@@ -112,11 +111,12 @@ After {ages('rice')} stages, mature rice grows <Item id="rice_panicle" label="Ri
 | Rice | Always works: +{crops.riceBonemeal.value.min} to {crops.riceBonemeal.value.max} stages; extra growth goes into the panicles. Not once the panicles are ripe |
 | Rice panicles | +1 stage, but {pct(panicleMiss, 0)} of the time nothing happens |
 
-<Aside type="caution" title="Known issue in 1.3.4">Bone meal used by hand on a growing tomato vine does nothing (and isn't used up). Use a dispenser with bone meal, or let [Rich Soil](/mechanics/rich-soil/)'s free bone meal do it.</Aside>
+Bone meal works the same by hand, from a dispenser or from [Rich Soil](/mechanics/rich-soil/). One exception: right-clicking a *ripe* tomato vine with bone meal picks the tomatoes, as with an empty hand, and keeps your bone meal. To push a ripe vine up its rope, use a dispenser.
 
 ## Getting seeds
 
 - **Wild crops.** Break <Item id="wild_cabbages" />, <Item id="wild_tomatoes" />, <Item id="wild_onions" /> or <Item id="wild_rice" /> for seeds, or cut them on a [Cutting Board](/mechanics/cutting-board/). [Wild crops](/mechanics/wild-crops/) shows where they grow.
+- **Village farms.** Every kind of village grows some Farmer's Delight crops on its farms ([Villagers](/mechanics/villagers/#crops-on-village-farms)). Break a few and you have seeds.
 - **Chests.** Shipwrecks, mineshafts, dungeons and village houses carry seeds and crops ([Loot](/mechanics/loot/)).
 - **Wandering trader.** Sells {wandering.map((t) => nameOf(t.gives.id)).join(', ')} for {wandering[0].wants.count} emerald each ([Villagers](/mechanics/villagers/)).
 - **Your own crops.** Tomatoes and rotten tomatoes craft into seeds, and rice panicles give rice grain.
@@ -128,4 +128,5 @@ After {ages('rice')} stages, mature rice grows <Item id="rice_panicle" label="Ri
 - A tomato vine keeps trying to climb after it ripens, so you can add rope at any time.
 - [Rich Soil Farmland](/mechanics/rich-soil/) can't be trampled and accepts every crop that grows on farmland, other mods' crops included.
 - Rotten tomatoes only come from ripe vines, whether you pick or break them.
+- **Throw rotten tomatoes.** Right-click to throw one, or load them into a dispenser. It does no damage, but it splats on whatever it hits with a juicy squelch: perfect for pranks.
 - Farmer villagers plant {planted.map((i) => nameOf(i)).join(', ')}{planted.includes('farmersdelight:rice') ? '' : ', but not rice'} ([Villagers](/mechanics/villagers/)).

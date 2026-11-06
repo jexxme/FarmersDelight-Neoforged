@@ -1,7 +1,7 @@
 {
 	"versions": [
 		{
-			"tag": "26.3-1.3.4+neoforged.1",
+			"tag": "26.3-1.3.4+neoforged.2",
 			"minecraft": "26.3",
 			"minecraftRange": "[26.3,26.4)",
 			"gameVersions": "26.3",
@@ -9,7 +9,7 @@
 			"neoforgeRange": "[26.3.0.101,)"
 		},
 		{
-			"tag": "26.2-1.3.4+neoforged.1",
+			"tag": "26.2-1.3.4+neoforged.2",
 			"minecraft": "26.2",
 			"minecraftRange": "[26.2,26.3)",
 			"gameVersions": "26.2",
@@ -17,7 +17,7 @@
 			"neoforgeRange": "[26.2.0.93,)"
 		},
 		{
-			"tag": "26.1.2-1.3.4+neoforged.1",
+			"tag": "26.1.2-1.3.4+neoforged.2",
 			"minecraft": "26.1.2",
 			"minecraftRange": "[26.1.2,26.2)",
 			"gameVersions": "26.1.2",
@@ -25,7 +25,7 @@
 			"neoforgeRange": "[26.1.2.126,)"
 		},
 		{
-			"tag": "26.1.1-1.3.4+neoforged.1",
+			"tag": "26.1.1-1.3.4+neoforged.2",
 			"minecraft": "26.1.1",
 			"minecraftRange": "[26.1,26.1.2)",
 			"gameVersions": "26.1,26.1.1",
@@ -33,7 +33,7 @@
 			"neoforgeRange": "[26.1.0.19-beta,26.1.2)"
 		}
 	],
-	"modVersion": "1.3.4+neoforged.1",
+	"modVersion": "1.3.4+neoforged.2",
 	"minecraft": "26.3",
 	"neoforge": "26.3.0.101",
 	"modId": "farmersdelight",

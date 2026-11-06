@@ -233,13 +233,9 @@ export const effect = {
 	soups: at('common/FoodValues.java:273-278'),
 	soupEvent: at('common/event/CommonEvents.java:36-54'),
 	rabbitSkip: at('common/event/CommonEvents.java:41-43'),
-	rabbitBuff: at('common/event/CommonModBusEvents.java:46-48'),
+	rabbitBuff: at('common/event/CommonModBusEvents.java:46-51'),
 	rabbitTooltip: at('client/event/TooltipEvents.java:33-48'),
 	hud: at('client/gui/HUDOverlays.java:79-98'),
-	comfort: at('common/effect/ComfortEffect.java:24-43'),
-	comfortInterval: f(80, 'common/effect/ComfortEffect.java:40-43'),
-	comfortHeal: f(1.0, 'common/effect/ComfortEffect.java:34-36'),
-	comfortHud: at('client/gui/HUDOverlays.java:101-124'),
 };
 
 export const feed = {

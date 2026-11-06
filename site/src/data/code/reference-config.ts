@@ -2,9 +2,9 @@
 // src/main/java/vectorwing/farmersdelight) for maintainers. Read from the mod's Java; see docs-facts-items.md section 4.
 // `when`: when a change takes effect. 'reload' = when the world loads or after /reload (the option is a condition on
 // data files), 'restart' = at game start (it changes item defaults, so client and server must match), 'new' = only in
-// newly generated chunks. Without it, changes apply right away. `broken`: listed in the known-issues note on the page (1.3.4).
+// newly generated chunks. Without it, changes apply right away.
 type Use = { src: string; lines: string };
-export type ConfigNote = { text: string; uses: Use[]; link?: string; when?: 'reload' | 'restart' | 'new'; broken?: boolean };
+export type ConfigNote = { text: string; uses: Use[]; link?: string; when?: 'reload' | 'restart' | 'new' };
 
 export const configNotes: Record<string, ConfigNote> = {
 	enableFarmerFDTrades: {
@@ -20,13 +20,12 @@ export const configNotes: Record<string, ConfigNote> = {
 		when: 'reload',
 	},
 	enableRopeReeling: {
-		text: 'Sneak and use an empty hand on a rope to pull the rope below it back up into your inventory.',
+		text: 'Sneak and use an empty hand on a rope to reel the bottom piece of the column back into your inventory.',
 		uses: [
 			{ src: 'common/block/RopeBlock.java', lines: '65' },
 			{ src: 'common/block/RopeBlock.java', lines: '55-61' },
 		],
 		link: '/mechanics/straw-and-rope/',
-		broken: true,
 	},
 	canvasSignDarkBackgroundList: {
 		text: 'Canvas Signs in these colours start with white text instead of black, so the text stays readable.',
@@ -78,9 +77,9 @@ export const configNotes: Record<string, ConfigNote> = {
 		link: '/reference/food/',
 	},
 	enableRabbitStewBuff: {
-		text: 'Gives Rabbit Stew better food values, to match what it costs to make.',
+		text: 'Gives Rabbit Stew better food values and Nourishment, to match what it costs to make.',
 		uses: [
-			{ src: 'common/event/CommonModBusEvents.java', lines: '46-48' },
+			{ src: 'common/event/CommonModBusEvents.java', lines: '46-51' },
 			{ src: 'common/event/CommonEvents.java', lines: '41-43' },
 		],
 		link: '/differences/',
@@ -122,7 +121,7 @@ export const configNotes: Record<string, ConfigNote> = {
 	},
 	generateFDCropsOnVillageFarms: {
 		text: "Some village farm plots grow Farmer's Delight crops instead of wheat and potatoes.",
-		uses: [{ src: 'common/world/VillageStructures.java', lines: '36' }],
+		uses: [{ src: 'common/world/VillageStructures.java', lines: '37' }],
 		link: '/mechanics/villagers/',
 		when: 'new',
 	},
@@ -133,11 +132,6 @@ export const configNotes: Record<string, ConfigNote> = {
 	enableNourishmentHungerOverlay: {
 		text: 'Gilds your hunger bar while you have Nourishment.',
 		uses: [{ src: 'client/gui/HUDOverlays.java', lines: '79-98' }],
-		link: '/mechanics/effects/',
-	},
-	enableComfortHealthOverlay: {
-		text: "Shows an overlay on your hearts while you have Comfort. No food gives Comfort any more, so you won't see it in normal play.",
-		uses: [{ src: 'client/gui/HUDOverlays.java', lines: '101-124' }],
 		link: '/mechanics/effects/',
 	},
 	enableFoodEffectTooltip: {

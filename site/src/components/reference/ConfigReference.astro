@@ -5,7 +5,7 @@
 import { Code } from '@astrojs/starlight/components';
 import { config, url, nameOf, pct, vanillaFoods } from '../../lib/data';
 import { configNotes } from '../../data/code/reference-config';
-import { stackableSoups } from '../../data/code/reference';
+import { stackableSoups, timeText } from '../../data/code/reference';
 import { ticksPerRandomTick } from '../../data/code/farming';
 import { readRepoJson } from './repo';
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 const { file, toml = false } = Astro.props;
 const lang: Record<string, string> = readRepoJson('src/main/resources/assets/farmersdelight/lang/en_us.json');
 const label = (key: string) => lang[`farmersdelight.configuration.${key}`] ?? key;
-// The Comfort overlay option is left out: no food gives Comfort any more
+// The heart overlay option is left out: nothing in the mod gives its effect any more.
 const rows = config.filter((c) => c.file === file && c.key !== 'enableComfortHealthOverlay');
 const sections = [...new Set(rows.map((c) => c.section as string))];
 
@@ -40,7 +40,11 @@ const rabbit = vanillaFoods.find((v) => v.id === 'minecraft:rabbit_stew');
 const extra: Record<string, (c: any) => string> = {
 	richSoilBoostChance: () => `A block gets its turn on average every ${turnSeconds} seconds.`,
 	cuttingBoardFortuneBonus: (c) => `With the default, a Fortune III knife adds ${pct(c.default * 3)}.`,
-	enableRabbitStewBuff: () => (rabbit ? `With it on, Rabbit Stew restores ${rabbit.nutrition} hunger and ${+rabbit.saturation.toFixed(1)} saturation.` : ''),
+	enableRabbitStewBuff: () => {
+		if (!rabbit) return '';
+		const nour = rabbit.consumable?.effects?.find((e: any) => e.id === 'farmersdelight:nourishment')?.duration;
+		return `With it on, Rabbit Stew restores ${rabbit.nutrition} hunger and ${+rabbit.saturation.toFixed(1)} saturation${nour ? ` and gives ${timeText(nour)} of Nourishment` : ''}.`;
+	},
 	enableStackableSoupItems: () => `They stack to ${stackableSoups.value}.`,
 };
 const whenText = {

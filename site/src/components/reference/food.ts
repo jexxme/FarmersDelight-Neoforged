@@ -1,7 +1,6 @@
 // Food rows for the food reference, built from items.json, vanilla-foods.json and soup-effects.json.
 import { itemList, vanillaFoods, soupEffects, iconOf, pageOf, nameOf, url, CATEGORIES, config } from '../../lib/data';
 import type { FoodRow, FoodEffect } from '../islands/ref-food';
-import { foodIssueNote } from '../../data/code/reference';
 
 const NOUR = 'farmersdelight:nourishment';
 const effectIcon = (id: string) => url(`/gui/effect/${id.split(':')[1]}.png`);
@@ -57,11 +56,10 @@ export function foodRows(): FoodRow[] {
 				stack: i.stack,
 				container: rem ? { id: rem, name: nameOf(rem), icon: iconOf(rem)?.src ?? null } : null,
 				nourishment: eff.find((e) => e.id === NOUR)?.ticks ?? 0,
-				issue: foodIssueNote[i.id] ?? null,
 			};
 		});
 	// Vanilla soups: Nourishment added on eating (enableVanillaSoupExtraEffects). Rabbit Stew is skipped while
-	// enableRabbitStewBuff is on (a known issue in 1.3.4, see knownIssues in data/code/reference.ts).
+	// enableRabbitStewBuff is on: the buff gives it its own Nourishment, already in its exported effects.
 	const soupsOn = cfg('enableVanillaSoupExtraEffects') === true;
 	const rabbitBuff = cfg('enableRabbitStewBuff') === true;
 	const vanilla: FoodRow[] = vanillaFoods
@@ -91,7 +89,6 @@ export function foodRows(): FoodRow[] {
 				stack: v.stack,
 				container: null,
 				nourishment: eff.find((e) => e.id === NOUR)?.ticks ?? 0,
-				issue: null,
 			};
 		});
 	return [...fd, ...vanilla];

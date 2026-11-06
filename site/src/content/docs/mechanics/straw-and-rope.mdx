@@ -3,7 +3,6 @@ title: Straw, rope & nets
 description: Where to get straw in Farmer's Delight Neoforged, and how rope, rope fences, safety nets, bales, tatami, canvas and canvas rugs work.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
 import RecipeList from '../../../components/recipes/RecipeList.astro';
@@ -33,12 +32,10 @@ Unripe wheat and rice give no straw. The [Cutting Board](/mechanics/cutting-boar
 <Item id="rope" /> is a thin column you can climb like a ladder, with nothing to bump into. It doesn't need support, so you can hang it from a ceiling or stretch it through mid-air.
 
 - **Placing.** Put against the side of a block, rope ties onto it; it also links up with walls, iron bars and other rope next to it.
-- **Hanging it down.** Clicking a rope with more rope is meant to add it at the bottom of the column (through water too, but not lava).
-- **Pulling it up.** Sneak and right-click a rope with an empty hand to take back the bottom piece. Server owners can turn this off in the [config](/reference/config/).
-- **Bells.** Rope right under a bell gets tied to it. Right-clicking the column with an empty hand rings the bell, up to {rope.bell.value} ropes above you.
+- **Hanging it down.** Right-click any rope in a column with more rope in your hand and the new piece goes on at the bottom, so you can lower a long rope from the top without climbing down. It extends through water, but not through lava.
+- **Pulling it up.** Sneak and right-click a rope with an empty hand to reel in the bottom piece; it goes straight into your inventory. Server owners can turn this off in the [config](/reference/config/).
+- **Bells.** Rope right under a bell gets tied to it. Right-click the column with an empty hand (without sneaking) to ring the bell at the top, up to {rope.bell.value} ropes above you. A bell pull for your village or base.
 - **Tomatoes.** [Tomato vines](/mechanics/crops/#climbing-rope) climb rope and give you a tall tomato wall.
-
-<Aside type="caution" title="Known issue in 1.3.4">Clicking rope with rope doesn't add to the column, and pulling rope up and ringing a bell through rope don't work. Sneak while you place: sneak-clicking the underside of a rope adds one at the bottom, and you can break rope to get it back.</Aside>
 
 ### Rope fence and gate
 

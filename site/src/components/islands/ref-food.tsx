@@ -19,8 +19,6 @@ export type FoodRow = {
 	stack: number;
 	container: { id: string; name: string; icon: string | null } | null;
 	nourishment: number;
-	/** Set when the food doesn't do what its tooltip says right now. */
-	issue: string | null;
 };
 type Key = 'name' | 'nutrition' | 'saturation' | 'ratio' | 'seconds' | 'nourishment' | 'stack' | 'perStack' | 'satStack';
 
@@ -172,11 +170,6 @@ export default function FoodTable({ rows, cats, maxS, shank }: { rows: FoodRow[]
 										</span>
 									))}
 									{r.alwaysEdible && <span class="chip plain">Always edible</span>}
-									{r.issue && (
-										<a class="chip issue" href="../../differences/#known-issues-in-134" title={r.issue}>
-											Known issue in 1.3.4
-										</a>
-									)}
 								</td>
 								<td class="num">{r.stack}</td>
 							</tr>
@@ -216,8 +209,6 @@ a.food-name[href]:hover > span { color: var(--sl-color-text-accent); text-decora
 .food .chip { display: inline-flex; align-items: center; gap: 4px; margin: 2px 8px 2px 0; padding: 0 6px 0 2px; border: 2px solid var(--fd-border); font-size: 20px; white-space: nowrap; color: var(--sl-color-white); background: var(--sl-color-black); }
 .food .chip.gold { border-color: var(--fd-gold); }
 .food .chip.plain { padding-left: 6px; color: var(--sl-color-gray-2); }
-.food .chip.issue { padding-left: 6px; border-color: var(--fd-gold); color: var(--fd-gold); text-decoration: none; }
-.food .chip.issue:hover { color: #fff; }
 .food .chip img { image-rendering: pixelated; }
 .food .chip i { font-style: normal; color: var(--sl-color-gray-3); }
 .food .chip em { font-style: normal; color: var(--fd-gold); }

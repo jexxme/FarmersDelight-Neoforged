@@ -1,25 +1,9 @@
 ---
 title: Differences from the original
-description: Coming from vectorwing's Farmer's Delight? What stays the same, what's new or fixed, and what doesn't work right yet, with workarounds.
+description: Coming from vectorwing's Farmer's Delight? What stays the same, and what's new or fixed.
 ---
-import { Aside } from '@astrojs/starlight/components';
 import Item from '../../components/mc/Item.astro';
-import { knownIssues, issuesVersion, nourishmentTiers, timeText } from '../../data/code/reference';
-import { items, blocks, meta, vanillaFoods, soupEffects } from '../../lib/data';
-
-export const food = (id) => items[`farmersdelight:${id}`];
-export const nour = (id) => food(id).consumable.effects.find((e) => e.id === 'farmersdelight:nourishment')?.duration ?? 0;
-export const sat = (x) => +x.toFixed(1);
-export const rabbit = vanillaFoods.find((v) => v.id === 'minecraft:rabbit_stew');
-export const rabbitSoup = soupEffects.find((s) => s.item === 'minecraft:rabbit_stew');
-export const onion = food('onion_soup').food;
-export const pie = food('shepherds_pie').food;
-export const sameAsPie = onion.nutrition === pie.nutrition && onion.saturation === pie.saturation && nour('onion_soup') === nour('shepherds_pie');
-export const medium = nourishmentTiers.value.find(([n]) => n === 'Medium')[1];
-export const tier = knownIssues.nourishmentTier.value.map((id) => id.split(':')[1]);
-export const names = tier.map((id) => items[`farmersdelight:${id}`].name);
-export const tierNames = names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0];
-export const medleyFull = Math.max(...blocks[knownIssues.riceRollMedley.value].properties.servings.map(Number));
+import { meta } from '../../lib/data';
 
 Farmer's Delight Neoforged is vectorwing's Farmer's Delight, brought to Minecraft 26.x on NeoForge. It has the content of Farmer's Delight {meta.modVersion.split('+')[0]}, so if you know the original, you already know this mod. This page covers the few places where it's different.
 
@@ -43,21 +27,20 @@ The crops, meals, blocks and recipes are the same, with the same names. Switchin
   - Modpacks can make their own grasses drop <Item id="straw" /> by adding them to one tag.
   - Updated translations: Russian, Rusyn, Mexican Spanish, Indonesian, Turkish, Ukrainian and Brazilian Portuguese.
 
+- **Village farms** in every kind of village grow Farmer's Delight crops ([Villagers](/mechanics/villagers/#crops-on-village-farms)). In the original, plains and taiga farms never get cabbages and the other crops are rare.
+
 Everything else that changed, release by release, is in the [changelog](/changelog/).
 
-## Known issues in 1.3.4
+## Fixed in this release
 
-These all work again in the next update. Until then, here's what to expect in {issuesVersion} and how to work around it.
+{meta.modVersion} fixes these problems from the first Neoforged release:
 
-- **Placed pies can't be eaten by hand.** Use a knife on the pie to cut off slices, and eat those. Fixed in the next update.
-- **<Item id="milk_bottle" />, <Item id="hot_cocoa" /> and <Item id="melon_juice" /> do nothing when you drink them.** Use a <Item id="minecraft:milk_bucket" /> or a Potion of Healing instead. Fixed in the next update.
-- **The <Item id="rice_roll_medley_block" /> can't be served.** Make the rolls on their own; break a placed medley to get it back (it still has all {medleyFull} servings). Fixed in the next update.
-- **<Item id="minecraft:rabbit_stew" /> gives no Nourishment**, though its tooltip lists {timeText(rabbitSoup.duration)}. Turning off **Rabbit Stew Buff** in the [config](/reference/config/#enableRabbitStewBuff) brings it back, with vanilla food values. Fixed in the next update.
-- **<Item id="onion_soup" /> has the wrong stats:** {onion.nutrition} hunger, {sat(onion.saturation)} saturation and {timeText(nour('onion_soup'))} of Nourishment{sameAsPie ? ", the same as Shepherd's Pie" : ''}. Fixed in the next update.
-- **{tierNames} give {timeText(nour(tier[0]))} of Nourishment instead of {timeText(medium)}.** Fixed in the next update.
-- **A thrown <Item id="rotten_tomato" /> acts like a snowball**, without its splat. Fired from a Dispenser it works normally. Fixed in the next update.
-- **Ropes don't react to an empty hand or a rope in hand:** sneaking to reel a rope back up, clicking with rope to extend it downward and ringing a bell hung on a rope don't work. Break ropes one by one, and sneak while placing rope. Fixed in the next update.
-- **Bone meal used by hand on an unripe tomato vine does nothing.** Dispensers and Rich Soil still grow it. Fixed in the next update.
-- **Village farms almost never grow Farmer's Delight crops**, even with the setting on. The original mod has the same bug. Fixed in the next update.
-- **JEI has no info page for the <Item id="copper_knife" />.** REI has it. Fixed in the next update.
-
+- Placed pies can be eaten with an empty hand ([Pies](/mechanics/pies/#eating-from-the-pie)).
+- <Item id="milk_bottle" />, <Item id="hot_cocoa" /> and <Item id="melon_juice" /> do what they say ([Drinks](/mechanics/drinks/#remedies)).
+- The <Item id="rice_roll_medley_block" /> can be served ([Feasts](/mechanics/feasts/#rice-roll-medley)).
+- <Item id="minecraft:rabbit_stew" /> gives Nourishment with the Rabbit Stew buff on ([Nourishment](/mechanics/effects/#vanilla-soups)).
+- <Item id="onion_soup" />, <Item id="chicken_soup" />, <Item id="fried_rice" /> and <Item id="grilled_salmon" /> have their original food values and Nourishment again.
+- A thrown <Item id="rotten_tomato" /> splats like it should.
+- Rope extends downward, reels back in and rings bells ([Rope](/mechanics/straw-and-rope/#rope)).
+- Bone meal used by hand grows unripe tomato vines.
+- JEI shows the knife info page for the <Item id="copper_knife" /> too.

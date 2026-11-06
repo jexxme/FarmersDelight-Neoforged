@@ -235,7 +235,7 @@ export const village = {
 			cold: { lists: ['farm_snowy'], rules: [['wheat', 0.3, 'cabbages'], ['wheat', 0.3, 'onions'], ['potatoes', 0.2, 'cabbages'], ['potatoes', 0.2, 'onions']] },
 			arid: { lists: ['farm_savanna', 'farm_desert'], rules: [['wheat', 0.3, 'cabbages'], ['wheat', 0.3, 'tomatoes']] },
 		} as Record<string, { lists: string[]; rules: [string, number, string][] }>,
-		'common/world/VillageStructures.java:36-61',
+		'common/world/VillageStructures.java:37-63',
 	),
 	poi: c(null, 'common/mixin/VillagersTargetRichSoilMixin.java:21-29'),
 	heapsConfig: c(null, 'common/Configuration.java:109-112'),
@@ -301,36 +301,29 @@ export const vanillaFarmRules = c(
 	'data/minecraft/worldgen/processor_list/farm_*.json',
 	true,
 );
+/** Vanilla's farm processors draw at most this many random numbers per block; FD's processor discards that many first. */
+export const vanillaFarmDraws = c(3, 'common/world/VillageStructures.java:84-104');
 /**
  * Share of a farm's wheat plots that end up as each crop. Each rule processor makes a fresh random source seeded from
- * the block position (see ruleProcessorSrc), so the FD processor appended after the vanilla one replays the same
- * random numbers; a rule only draws when its input block matches (randomMatchSrc), first match wins.
- * Computed exactly by splitting each draw at every threshold. The page only uses it to say which crops can appear.
+ * the block position (see ruleProcessorSrc); a rule only draws when its input block matches (randomMatchSrc), first
+ * match wins. FD's processor starts with never-matching rules that use up the numbers vanilla's processor drew
+ * (vanillaFarmDraws), so its own rules roll independently of vanilla's. Exact expected shares.
  */
-export function villageFarmOdds(list: string, fd: [string, number, string][]) {
-	const van = vanillaFarmRules.value[list] ?? [];
-	const cuts = [...new Set([0, 1, ...van.map((r) => r[1]), ...fd.map((r) => r[1])])].sort((a, b) => a - b);
-	const cells = cuts.slice(0, -1).map((a, i) => ({ mid: (a + cuts[i + 1]) / 2, w: cuts[i + 1] - a }));
-	const D = Math.max(van.length, fd.length);
-	const out: Record<string, number> = {};
-	const run = (rules: [string, number, string][], state: string, draws: number[]) => {
-		let k = 0;
-		for (const [input, p, output] of rules) {
-			if (state !== input) continue;
-			if (draws[k++] < p) return output;
+export function villageFarmShares(list: string, fd: [string, number, string][]) {
+	const apply = (dist: Record<string, number>, rules: [string, number, string][]) => {
+		const out: Record<string, number> = {};
+		for (const [state, w] of Object.entries(dist)) {
+			let left = w;
+			for (const [input, p, output] of rules) {
+				if (input !== state) continue;
+				out[output] = (out[output] ?? 0) + left * p;
+				left *= 1 - p;
+			}
+			out[state] = (out[state] ?? 0) + left;
 		}
-		return state;
+		return out;
 	};
-	const rec = (draws: number[], w: number) => {
-		if (draws.length === D) {
-			const s = run(fd, run(van, 'wheat', draws), draws);
-			out[s] = (out[s] ?? 0) + w;
-			return;
-		}
-		for (const c of cells) rec([...draws, c.mid], w * c.w);
-	};
-	rec([], 1);
-	return out;
+	return apply(apply({ wheat: 1 }, vanillaFarmRules.value[list] ?? []), fd);
 }
 export const ruleProcessorSrc = c(null, 'net/minecraft/world/level/levelgen/structure/templatesystem/RuleProcessor.java:32-40', true);
 export const randomMatchSrc = c(null, 'net/minecraft/world/level/levelgen/structure/templatesystem/RandomBlockMatchTest.java:29-30', true);

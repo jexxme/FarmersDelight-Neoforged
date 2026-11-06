@@ -770,7 +770,21 @@
           "nutrition": 14,
           "saturation": 21.0
         },
-        "minecraft:consumable": {},
+        "minecraft:consumable": {
+          "on_consume_effects": [
+            {
+              "effects": [
+                {
+                  "id": "farmersdelight:nourishment",
+                  "duration": 6000,
+                  "show_particles": false,
+                  "show_icon": false
+                }
+              ],
+              "type": "minecraft:apply_effects"
+            }
+          ]
+        },
         "minecraft:max_stack_size": 16,
         "minecraft:use_remainder": {
           "id": "minecraft:bowl"
@@ -5968,7 +5982,7 @@
               "effects": [
                 {
                   "id": "farmersdelight:nourishment",
-                  "duration": 6000,
+                  "duration": 3600,
                   "show_particles": false,
                   "show_icon": false
                 }
@@ -6106,7 +6120,7 @@
               "effects": [
                 {
                   "id": "farmersdelight:nourishment",
-                  "duration": 6000,
+                  "duration": 3600,
                   "show_particles": false,
                   "show_icon": false
                 }
@@ -6278,8 +6292,8 @@
         "minecraft:rarity": "common",
         "minecraft:interact_animation": {},
         "minecraft:food": {
-          "nutrition": 14,
-          "saturation": 21.0
+          "nutrition": 12,
+          "saturation": 19.2
         },
         "minecraft:lore": [],
         "minecraft:item_model": "farmersdelight:onion_soup",
@@ -6289,7 +6303,7 @@
               "effects": [
                 {
                   "id": "farmersdelight:nourishment",
-                  "duration": 6000,
+                  "duration": 3600,
                   "show_particles": false,
                   "show_icon": false
                 }
@@ -6740,7 +6754,7 @@
               "effects": [
                 {
                   "id": "farmersdelight:nourishment",
-                  "duration": 6000,
+                  "duration": 3600,
                   "show_particles": false,
                   "show_icon": false
                 }

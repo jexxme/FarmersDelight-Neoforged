@@ -3,7 +3,6 @@ title: Drinks
 description: Every Farmer's Delight drink, what it does when you drink it, the bottle or bowl you get back, and how to make it.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import RecipeList from '../../../components/recipes/RecipeList.astro';
 import FoodStats from '../../../components/data/FoodStats.astro';
@@ -23,7 +22,7 @@ export const describe = (o) =>
 				? 'Puts out fire'
 				: o.type;
 export const stacks = [...new Set(drinks.map((d) => d.stack))];
-export const alwaysOk = drinks.filter((d) => d.food?.alwaysEdible);
+export const alwaysOk = drinks.filter((d) => !d.food || d.food.alwaysEdible);
 
 The mod has {tab.length} drinks, plus {drinks.length - tab.length} more foods that you drink rather than eat. You always
 get the container back, usually a <Item id="minecraft:glass_bottle" />, and every drink stacks to {stacks.join(' or ')}.
@@ -48,9 +47,18 @@ get the container back, usually a <Item id="minecraft:glass_bottle" />, and ever
 	</tbody>
 </table>
 
-<Aside type="caution" title="Known issue in 1.3.4">
-{noFood.map((d, i) => <>{i ? (i === noFood.length - 1 ? ' and ' : ', ') : ''}<Item id={d.id} /></>)} do nothing when you drink them: no effect is cleared and nothing is healed, though you still get the bottle back. To clear effects, drink a vanilla milk bucket instead.
-</Aside>
+## Remedies
+
+{noFood.map((d, i) => <>{i ? (i === noFood.length - 1 ? ' and ' : ', ') : ''}<Item id={d.id} /></>)} don't fill your
+hunger at all. They're remedies, and you can drink them whenever you like, even on a full hunger bar:
+
+<ul>
+	{noFood.map((d) => <li><Item id={d.id} />: {d.consumable.other.map((o) => describe(o).toLowerCase()).join(', ')}.</li>)}
+</ul>
+
+A Milk Bottle is a bite-sized milk bucket: one bottle takes away a single effect instead of all of them, so you can shake
+off Poison without losing your other buffs (if you're lucky with the pick). Hot Cocoa only ever touches harmful
+effects, so it never costs you a good one.
 
 ## Recipes
 

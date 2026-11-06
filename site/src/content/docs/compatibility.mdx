@@ -2,7 +2,6 @@
 title: Compatibility
 description: Which Minecraft versions Farmer's Delight Neoforged runs on, and how it works with JEI, REI, AppleSkin, Create, Serene Seasons and other mods.
 ---
-import { Aside } from '@astrojs/starlight/components';
 import Item from '../../components/mc/Item.astro';
 import AddonRecipes from '../../components/reference/AddonRecipes.astro';
 import { rangeText, foreignTagText, modNames } from '../../data/code/reference';
@@ -52,12 +51,7 @@ It replaces the original Farmer's Delight, so remove that one first. Worlds and 
 | **AppleSkin** | Yes |
 | **CraftTweaker** | Not yet: CraftTweaker isn't out for Minecraft 26.x |
 
-**JEI and REI** both show the Cooking Pot, Cutting Board and Organic Compost recipes, and list the Stove and Skillet for campfire cooking. Click the arrow in the Cooking Pot to see its recipes, or use the viewer's transfer button to move a recipe's ingredients into the pot. Info pages explain wheat dough, straw, ham, knives and the wild crops.
-REI has info pages for all {knives.length} knives.
-
-<Aside type="caution" title="Known issue in 1.3.4">
-JEI has no info page for the <Item id="copper_knife" />. Fixed in the next update.
-</Aside>
+**JEI and REI** both show the Cooking Pot, Cutting Board and Organic Compost recipes, and list the Stove and Skillet for campfire cooking. Click the arrow in the Cooking Pot to see its recipes, or use the viewer's transfer button to move a recipe's ingredients into the pot. Info pages explain wheat dough, straw, ham, knives and the wild crops; every one of the {knives.length} knives has its info page in both.
 
 **AppleSkin** reads food values from the game, so it shows hunger and saturation for every Farmer's Delight food without any special support. While you have Nourishment, Farmer's Delight gilds your hunger bar itself; you can turn that off in the [client settings](/reference/config/#enableNourishmentHungerOverlay).
 

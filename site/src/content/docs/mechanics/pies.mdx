@@ -1,9 +1,9 @@
 ---
 title: Pies & cakes
-description: Placing pies, cutting slices with a knife, slicing vanilla cakes and candle cakes, and why you should never break a pie with your fist.
+description: Placing pies, eating them off the plate, cutting slices with a knife, slicing vanilla cakes and candle cakes, and why you should never break a pie with your fist.
 ---
 
-import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
 import RecipeList from '../../../components/recipes/RecipeList.astro';
@@ -25,8 +25,8 @@ export const biteLabels = Object.fromEntries(Array.from({ length: pie.bites.valu
 
 <Render name="blocks/apple_pie" float="right" size={180} caption="Apple Pie, placed" />
 
-Pies are food you place. Set one down and it becomes a block with {pie.bites.value} slices that you cut off with a
-[knife](/mechanics/knives/). The mod has {pies.length} pies, and it lets you slice the vanilla <Item id="minecraft:cake" />
+Pies are food you place. Set one down and it becomes a block with {pie.bites.value} slices that you eat straight off
+the plate or cut off with a [knife](/mechanics/knives/). The mod has {pies.length} pies, and it lets you slice the vanilla <Item id="minecraft:cake" />
 the same way: a whole cake gives {pie.pastry.value.cake} slices.
 
 ## Cutting slices
@@ -35,10 +35,6 @@ Place the pie on a solid block. Then right-click it holding any knife: one slice
 one bite more. The last slice removes the block. A vanilla <Item id="minecraft:pumpkin_pie" /> places as a pie block too
 {sneak.default ? <>when you sneak and right-click a block with it</> : <>when you right-click a block with it; aim at the air to eat it instead</>}.
 
-<Aside type="caution" title="Known issue in 1.3.4">
-You can't eat a placed pie with an empty hand. Cut slices with a knife and eat those.
-</Aside>
-
 <Tabs>
 	{pies.map((b) => (
 		<TabItem label={nameOf(itemOf(b))}>
@@ -46,6 +42,12 @@ You can't eat a placed pie with an empty hand. Cut slices with a knife and eat t
 		</TabItem>
 	))}
 </Tabs>
+
+## Eating from the pie
+
+Right-click a placed pie with an empty hand to eat one bite. A bite feeds you exactly like eating one slice, Speed
+included, and the pie loses a slice; the last bite removes the block. You have to be hungry, just like eating anything
+else. It's the quickest way to share a pie: put it on the table and everyone helps themselves.
 
 ## Slices
 
