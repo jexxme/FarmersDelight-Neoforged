@@ -32,19 +32,13 @@ export default defineConfig({
 		starlight({
 			title: "Farmer's Delight Neoforged",
 			description: "The complete, data-driven guide to Farmer's Delight Neoforged for Minecraft 26.x: every item, recipe, mechanic and number, generated from the mod itself.",
-			logo: { src: './src/assets/logo.png', alt: '' },
+			logo: { src: './src/assets/banner.png', alt: "Farmer's Delight Neoforged", replacesTitle: true },
 			favicon: '/favicon.png',
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/jexxme/FarmersDelight-Neoforged' },
 			],
 			editLink: { baseUrl: 'https://github.com/jexxme/FarmersDelight-Neoforged/edit/26.3/site/' },
 			customCss: [
-				'@fontsource-variable/literata',
-				'@fontsource-variable/literata/wght-italic.css',
-				'@fontsource/young-serif',
-				'@fontsource/ibm-plex-mono/400.css',
-				'@fontsource/ibm-plex-mono/500.css',
-				'@fontsource/pixelify-sans/400.css',
 				'./src/styles/theme.css',
 				'./src/styles/mc.css',
 			],

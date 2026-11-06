@@ -1,190 +1,419 @@
 /*
- * Print-cookbook look: flat paper and ink, one tomato accent, square corners, hairline rules instead of cards,
- * no gradients, no shadows. Young Serif for headings, Literata for reading, IBM Plex Mono for labels and numbers.
- * Minecraft GUI pieces (mc.css) are the one place with bevels, because that is how the game draws them.
+ * Farmer's Delight / Minecraft look, taken from the mod's logo (branding/make_branding.py):
+ * oak-plank wood, checkered canvas-sign paper with a dark brown frame, the orange "Neoforged" sign,
+ * opaque 1-pixel drop shadows, and pixel lettering (FD Pixel, scripts/make-font.mjs).
+ * FD Pixel is drawn on a 10 px em: text sizes are multiples of 10 px so every font pixel lands on whole screen pixels.
  */
+@font-face {
+	font-family: 'FD Pixel';
+	src: url('/FarmersDelight-Neoforged/fonts/fd-pixel.otf') format('opentype');
+	font-display: block;
+}
+
 :root {
-	--sl-font: 'Literata Variable', Georgia, serif;
-	--sl-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-	--fd-font-display: 'Young Serif', Georgia, serif;
-	--fd-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-	--fd-font-pixel: 'Pixelify Sans', ui-monospace, monospace;
+	--fd-px: 2px; /* one font pixel at body size */
+	--sl-font: 'FD Pixel', ui-monospace, monospace;
+	--sl-font-mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+	--fd-font-display: 'FD Pixel', ui-monospace, monospace;
+	--fd-font-mono: 'FD Pixel', ui-monospace, monospace;
+	--fd-font-pixel: 'FD Pixel', ui-monospace, monospace;
 
-	/* dark */
-	--sl-color-accent-low: #3a1a12;
-	--sl-color-accent: #e5643f;
-	--sl-color-accent-high: #f6c3b0;
-	--sl-color-white: #efe7d9;
-	--sl-color-gray-1: #e2d8c7;
-	--sl-color-gray-2: #c2b6a2;
-	--sl-color-gray-3: #968a76;
-	--sl-color-gray-4: #675d4e;
-	--sl-color-gray-5: #403830;
-	--sl-color-gray-6: #29241f;
-	--sl-color-gray-7: #1e1b17;
-	--sl-color-black: #161412;
+	--sl-text-2xs: 20px;
+	--sl-text-xs: 20px;
+	--sl-text-sm: 20px;
+	--sl-text-base: 20px;
+	--sl-text-lg: 20px;
+	--sl-text-xl: 30px;
+	--sl-text-2xl: 30px;
+	--sl-text-3xl: 40px;
+	--sl-text-4xl: 40px;
+	--sl-text-5xl: 50px;
+	--sl-text-6xl: 60px;
+	--sl-text-body: 20px;
+	--sl-text-body-sm: 20px;
+	--sl-text-code: 15px;
+	--sl-text-code-sm: 14px;
+	--sl-text-h1: 40px;
+	--sl-text-h2: 30px;
+	--sl-text-h3: 20px;
+	--sl-text-h4: 20px;
+	--sl-text-h5: 20px;
+	--sl-line-height: 1.5;
+	--sl-line-height-headings: 1.5;
+	--sl-nav-height: 5.5rem;
+	--sl-sidebar-width: 20rem;
+	--sl-content-width: 52rem;
 
-	--fd-green: #93bf63;
-	--fd-gold: #e0aa2a;
-	--fd-surface: #1e1b17;
-	--fd-surface-2: #25211c;
-	--fd-border: #3a332b;
-	--fd-rule: #efe7d9;
+	/* Sign palette (the logo's "Farmer's Delight" sign) */
+	--fd-paper: #d4bea4;
+	--fd-paper-2: #ceb597;
+	--fd-paper-edge: #c3a888;
+	--fd-frame-light: #b18e65;
+	--fd-frame: #483015;
+	--fd-ink: #553a1f;
+	--fd-ink-soft: #785836;
+	/* Orange "Neoforged" sign */
+	--fd-orange-paper: #f2ba84;
+	--fd-orange-edge: #e2a066;
+	--fd-orange: #c4763e;
+	--fd-orange-frame: #6e3214;
+	--fd-orange-ink: #682c10;
+
+	--fd-shadow: 4px 4px 0 #000;
+	--fd-hero-glow: none;
+	--fd-green-low: transparent;
+	--fd-gold-low: transparent;
 }
 
+/* Dark: the inside of a cabinet, lit by a stove */
+:root,
+:root[data-theme='dark'] {
+	--sl-color-accent-low: #4a2410;
+	--sl-color-accent: #f2ba84;
+	--sl-color-accent-high: #ffe3c2;
+	--sl-color-white: #f3e6d2;
+	--sl-color-gray-1: #eadbc4;
+	--sl-color-gray-2: #d4bea4;
+	--sl-color-gray-3: #b39a7b;
+	--sl-color-gray-4: #85694a;
+	--sl-color-gray-5: #5c4329;
+	--sl-color-gray-6: #3a2816;
+	--sl-color-gray-7: #2b1d10;
+	--sl-color-black: #21160c;
+	--sl-color-text-accent: #f2ba84;
+	--sl-color-bg-nav: #3a2816;
+	--sl-color-bg-sidebar: #1a1109;
+	--sl-color-hairline: #4a3420;
+	--sl-color-hairline-light: #5c4329;
+	--sl-color-hairline-shade: #000;
+
+	--fd-green: #9ccf5e;
+	--fd-gold: #ffcf4d;
+	--fd-surface: #2b1d10;
+	--fd-surface-2: #33230f;
+	--fd-border: #5c4329;
+	--fd-rule: #b18e65;
+	--fd-heading-ink: #f3e6d2;
+}
+
+/* Light: canvas-sign paper */
 :root[data-theme='light'] {
-	--sl-color-accent-low: #f3d9cf;
-	--sl-color-accent: #b3361d;
-	--sl-color-accent-high: #5a190b;
-	--sl-color-white: #1c1916;
-	--sl-color-gray-1: #2a251f;
-	--sl-color-gray-2: #463e34;
-	--sl-color-gray-3: #6d6253;
-	--sl-color-gray-4: #9a8e7c;
-	--sl-color-gray-5: #cbbfac;
-	--sl-color-gray-6: #e4dccd;
-	--sl-color-gray-7: #ebe4d6;
-	--sl-color-black: #f3ede2;
+	--sl-color-accent-low: #f2ba84;
+	--sl-color-accent: #8f3a12;
+	--sl-color-accent-high: #4a1d07;
+	--sl-color-white: #2a1a0b;
+	--sl-color-gray-1: #3b2712;
+	--sl-color-gray-2: #553a1f;
+	--sl-color-gray-3: #6e5032;
+	--sl-color-gray-4: #8c6c4a;
+	--sl-color-gray-5: #b18e65;
+	--sl-color-gray-6: #c3a888;
+	--sl-color-gray-7: #ceb597;
+	--sl-color-black: #d4bea4;
+	--sl-color-text-accent: #8f3a12;
+	--sl-color-bg-nav: #3a2816;
+	--sl-color-bg-sidebar: #c3a888;
+	--sl-color-hairline: #b18e65;
+	--sl-color-hairline-light: #c3a888;
+	--sl-color-hairline-shade: #483015;
 
-	--fd-green: #46682a;
-	--fd-gold: #8f6508;
-	--fd-surface: #ebe4d6;
-	--fd-surface-2: #e4dccd;
-	--fd-border: #cfc3ae;
-	--fd-rule: #1c1916;
+	--fd-green: #3d6b1c;
+	--fd-gold: #8a5a00;
+	--fd-surface: #ceb597;
+	--fd-surface-2: #c3a888;
+	--fd-border: #b18e65;
+	--fd-rule: #483015;
+	--fd-heading-ink: #483015;
 }
 
+html {
+	-webkit-font-smoothing: none;
+}
 body {
 	background: var(--sl-color-black);
-	font-feature-settings: 'onum' 1;
+	color: var(--sl-color-gray-2);
+	font-kerning: none;
+}
+:root[data-theme='light'] body {
+	color: var(--fd-ink);
 }
 
-/* Headings */
-.sl-markdown-content :is(h1, h2, h3):not(:where(.not-content *)),
-h1#_top {
-	font-family: var(--fd-font-display);
-	font-weight: 400;
-	letter-spacing: 0;
-}
-h1#_top {
-	font-size: clamp(2.2rem, 5vw, 3.1rem);
-	line-height: 1.05;
-}
-.sl-markdown-content h2:not(:where(.not-content *)) {
-	border-top: 2px solid var(--fd-rule);
-	padding-top: 0.6rem;
-	margin-top: 3rem;
-}
-.sl-markdown-content h3:not(:where(.not-content *)) {
-	font-size: var(--sl-text-h4);
-}
-.sl-markdown-content :is(h4, h5, h6) {
-	font-family: var(--fd-font-mono);
-	font-weight: 500;
-	font-size: var(--sl-text-sm);
-}
-
-/* Sidebar group labels and the header in mono/serif */
-.site-title {
-	font-family: var(--fd-font-display);
-	font-weight: 400;
-	font-size: var(--sl-text-h4);
+/* ---------------------------------------------------------------- header: an oak-plank board */
+header.header {
+	background: #9c7f4e url('/FarmersDelight-Neoforged/ui/oak-planks.png') 0 0 / 80px 80px repeat;
+	image-rendering: pixelated;
+	border-bottom: 0;
+	box-shadow: 0 5px 0 #000;
 }
 .site-title img {
 	image-rendering: pixelated;
+	height: 68px !important;
+	width: auto !important;
+	max-width: none;
 }
-nav.sidebar details > summary .group-label > span,
-.sidebar-content .group-label span {
-	font-family: var(--fd-font-mono);
-	font-weight: 500;
-	font-size: var(--sl-text-xs);
-	text-transform: uppercase;
-	letter-spacing: 0.04em;
+/* Search box and theme picker as Minecraft text fields */
+site-search > button,
+starlight-theme-select select {
+	background-color: #000 !important;
+	border: 2px solid #a0a0a0 !important;
+	border-radius: 0 !important;
+	color: #e0e0e0 !important;
+	font-family: var(--sl-font);
+	font-size: 20px;
+	box-shadow: none !important;
 }
-@media (max-width: 50rem) {
-	.site-title {
-		font-size: 1rem;
-		min-width: 0;
-	}
-	.site-title span {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
+site-search > button:hover {
+	border-color: #fff !important;
+}
+site-search kbd {
+	background: none !important;
+	border: 0 !important;
+	color: #a0a0a0 !important;
+	font-family: var(--sl-font);
+}
+header .social-icons a {
+	color: #fff;
+	filter: drop-shadow(2px 2px 0 #000);
+}
+header starlight-theme-select svg {
+	color: #e0e0e0;
 }
 
-/* Tables: rules only, mono headers, square */
-.sl-markdown-content table:not(:where(.not-content *)) {
-	border-collapse: collapse;
-	width: 100%;
+/* ---------------------------------------------------------------- sidebar */
+.sidebar-pane {
+	background: var(--sl-color-bg-sidebar);
+	border-inline-end: 5px solid #000 !important;
+}
+.sidebar-content a {
+	border-radius: 0 !important;
+}
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+	background: var(--fd-orange-paper) !important;
+	color: var(--fd-orange-ink) !important;
+	box-shadow: inset 0 0 0 2px var(--fd-orange-frame);
+}
+.sidebar-content summary .group-label span {
+	color: var(--sl-color-white);
+	text-shadow: var(--fd-px) 0 0 currentColor;
+	letter-spacing: var(--fd-px);
+}
+.sidebar-content .large {
+	font-size: 20px !important;
+}
+
+/* ---------------------------------------------------------------- headings */
+h1#_top {
+	display: inline-block;
+	font-family: var(--fd-font-display);
+	font-weight: 400;
+	font-size: 40px;
+	line-height: 1.25;
+	color: #483015;
+	padding: 6px 20px 2px;
+	border-style: solid;
+	border-width: 8px 12px 12px 8px;
+	border-image: url('/FarmersDelight-Neoforged/ui/sign.png') 2 3 3 2 fill / 8px 12px 12px 8px repeat;
+	image-rendering: pixelated;
+	max-width: 100%;
+}
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+	font-family: var(--fd-font-display);
+	font-weight: 400;
+	letter-spacing: 0;
+	color: var(--fd-heading-ink);
+}
+.sl-markdown-content h2:not(:where(.not-content *)) {
 	display: table;
-	font-size: var(--sl-text-sm);
-	border-top: 2px solid var(--fd-rule);
-	border-bottom: 1px solid var(--fd-rule);
+	font-size: 30px;
+	line-height: 1.4;
+	margin-top: 2.75em;
+	padding: 4px 14px 0;
+	color: var(--fd-orange-ink);
+	border-style: solid;
+	border-width: 6px 9px 9px 6px;
+	border-image: url('/FarmersDelight-Neoforged/ui/sign-orange.png') 2 3 3 2 fill / 6px 9px 9px 6px repeat;
+	image-rendering: pixelated;
+}
+.sl-markdown-content h3:not(:where(.not-content *)) {
+	font-size: 20px;
+	margin-top: 2em;
+	color: var(--sl-color-text-accent);
+	text-shadow: 2px 0 0 currentColor;
+	letter-spacing: 2px;
+}
+.sl-markdown-content h4:not(:where(.not-content *)) {
+	font-size: 20px;
+	color: var(--sl-color-gray-3);
+}
+
+/* Bold the Minecraft way: the glyph drawn twice, one font pixel apart */
+strong,
+b {
+	font-weight: 400;
+	text-shadow: var(--fd-px) 0 0 currentColor;
+	letter-spacing: var(--fd-px);
+}
+
+/* Links */
+.sl-markdown-content a:not(:where(.not-content *)) {
+	color: var(--sl-color-text-accent);
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 4px;
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	color: var(--sl-color-white);
+}
+
+/* Body text */
+.sl-markdown-content {
+	font-size: 20px;
+	line-height: 30px;
+}
+.sl-markdown-content code:not(pre code) {
+	font-family: var(--sl-font);
+	font-size: 20px;
+	background: var(--fd-surface-2);
+	color: var(--sl-color-white);
+	padding: 0 4px;
+	border-radius: 0;
+	border: 0;
+}
+
+/* Tables: a framed board with a dark header row */
+.sl-markdown-content table:not(:where(.not-content *)) {
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 20px;
+	border: 3px solid var(--fd-frame);
+	box-shadow: 4px 4px 0 #000;
+	background: var(--fd-surface);
 }
 .sl-markdown-content :is(th, td):not(:where(.not-content *)) {
 	border: 0;
-	border-bottom: 1px solid var(--fd-border);
-	padding: 0.45rem 0.75rem 0.45rem 0;
+	border-bottom: 2px solid var(--fd-border);
+	padding: 6px 12px;
 	background: none;
+	line-height: 30px;
 }
 .sl-markdown-content th:not(:where(.not-content *)) {
-	font-family: var(--fd-font-mono);
-	font-weight: 500;
-	font-size: var(--sl-text-xs);
-	color: var(--sl-color-gray-3);
+	background: var(--fd-frame);
+	color: var(--fd-paper);
+	font-weight: 400;
 	text-align: left;
-	border-bottom: 1px solid var(--fd-rule);
-}
-.sl-markdown-content td {
-	font-variant-numeric: tabular-nums lining-nums;
+	border-bottom: 3px solid #000;
 }
 @media (max-width: 50rem) {
-	.sl-markdown-content table {
+	.sl-markdown-content table:not(:where(.not-content *)) {
 		display: block;
 		overflow-x: auto;
 	}
 }
 
-/* Asides: a rule on the left, no tinted box */
+/* Asides: signs. Notes on canvas, cautions on the orange sign */
 .starlight-aside {
-	background: none;
-	border-inline-start-width: 3px;
 	border-radius: 0;
-	padding-inline-start: 1rem;
+	padding: 12px 18px 8px;
+	color: #483015;
+	border-style: solid !important;
+	border-width: 8px 12px 12px 8px !important;
+	border-image: url('/FarmersDelight-Neoforged/ui/sign.png') 2 3 3 2 fill / 8px 12px 12px 8px repeat !important;
+	image-rendering: pixelated;
+	background: none !important;
+}
+.starlight-aside--caution,
+.starlight-aside--danger {
+	border-image-source: url('/FarmersDelight-Neoforged/ui/sign-orange.png') !important;
+	color: #682c10;
+}
+.starlight-aside a,
+.starlight-aside code {
+	color: #6e3214 !important;
+}
+.starlight-aside code {
+	background: rgb(0 0 0 / 0.08) !important;
 }
 .starlight-aside__title {
-	font-family: var(--fd-font-mono);
-	font-size: var(--sl-text-xs);
-	font-weight: 500;
-	text-transform: uppercase;
-	letter-spacing: 0.04em;
+	font-family: var(--sl-font);
+	font-size: 20px;
+	color: #483015 !important;
+	text-shadow: 2px 0 0 currentColor;
+	letter-spacing: 2px;
+}
+.starlight-aside__icon {
+	display: none;
+}
+
+/* Starlight steps: square markers */
+.sl-steps > li::before {
+	border-radius: 0 !important;
+	font-family: var(--sl-font);
+	background: var(--fd-orange-paper) !important;
+	color: var(--fd-orange-ink) !important;
+	box-shadow: inset 0 0 0 2px var(--fd-orange-frame), 3px 3px 0 #000 !important;
+	border: 0 !important;
+}
+.sl-steps > li::after {
+	border-radius: 0 !important;
+	background: var(--fd-border) !important;
+	width: 4px !important;
 }
 
 /* Square everything Starlight draws */
-.sl-markdown-content :is(code, pre, .expressive-code .frame, figure),
+.sl-markdown-content :is(pre, .expressive-code .frame, figure),
 .card,
 .sl-link-card,
-site-search button,
-starlight-theme-select select,
-.pagination-links a {
+.pagination-links a,
+starlight-tabs [role='tab'] {
 	border-radius: 0 !important;
 }
-.sl-markdown-content code {
-	font-size: 0.88em;
+.pagination-links a {
+	border: 3px solid var(--fd-frame) !important;
+	box-shadow: 4px 4px 0 #000 !important;
+	background: var(--fd-surface) !important;
+}
+#starlight__on-this-page {
+	font-family: var(--sl-font);
+	font-size: 20px !important;
+	color: var(--sl-color-white);
 }
 
-/* Small shared helpers */
+/* Minecraft button (vanilla widget sprite, 9-slice) */
+.mc-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 40px;
+	padding: 4px 24px 6px;
+	border-style: solid;
+	border-width: 6px;
+	border-image: url('/FarmersDelight-Neoforged/ui/button.png') 3 fill / 6px stretch;
+	image-rendering: pixelated;
+	color: #fff !important;
+	text-shadow: 2px 2px 0 #3f3f3f;
+	font-family: var(--sl-font);
+	font-size: 20px;
+	text-decoration: none !important;
+	line-height: 1;
+	white-space: nowrap;
+}
+.mc-button:hover,
+.mc-button:focus-visible {
+	border-image-source: url('/FarmersDelight-Neoforged/ui/button-hover.png');
+	color: #ffffa0 !important;
+	outline: none;
+}
+
+/* Shared helpers used by components */
 .fd-kicker {
-	font-family: var(--fd-font-mono);
-	font-size: var(--sl-text-xs);
+	font-size: 20px;
 	color: var(--sl-color-gray-3);
-	font-weight: 500;
 	margin: 0;
 }
 .fd-source {
-	font-family: var(--fd-font-mono);
-	font-size: var(--sl-text-xs);
+	font-size: 20px;
 	color: var(--sl-color-gray-3);
 }
 img.pixel,
@@ -192,31 +421,25 @@ img.pixel,
 	image-rendering: pixelated;
 }
 .fd-val {
-	font-family: var(--fd-font-mono);
-	font-variant-numeric: tabular-nums;
 	white-space: nowrap;
 }
-
-/* Compatibility for components written against the earlier tokens */
-:root {
-	--fd-shadow: none;
-	--fd-hero-glow: none;
-	--fd-green-low: transparent;
-	--fd-gold-low: transparent;
+.fd-sign {
+	display: inline-block;
+	color: #483015;
+	padding: 6px 14px 2px;
+	border-style: solid;
+	border-width: 8px 12px 12px 8px;
+	border-image: url('/FarmersDelight-Neoforged/ui/sign.png') 2 3 3 2 fill / 8px 12px 12px 8px repeat;
+	image-rendering: pixelated;
 }
+.fd-sign.orange {
+	color: #682c10;
+	border-image-source: url('/FarmersDelight-Neoforged/ui/sign-orange.png');
+}
+.fd-board,
 .fd-card {
-	background: none;
-	border: 1px solid var(--fd-border);
+	background: var(--fd-surface);
+	border: 3px solid var(--fd-frame);
 	border-radius: 0;
-	box-shadow: none;
-}
-
-/* Starlight steps: square markers, mono numbers */
-.sl-steps > li::before {
-	border-radius: 0 !important;
-	font-family: var(--fd-font-mono);
-	font-weight: 500;
-}
-.sl-steps > li::after {
-	border-radius: 0 !important;
+	box-shadow: 4px 4px 0 #000;
 }

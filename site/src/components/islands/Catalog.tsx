@@ -109,31 +109,33 @@ export default function Catalog({ rows, cats, base }: { rows: Row[]; cats: Cat[]
 			)}
 			{filtered.length === 0 && <p>No items match. Try fewer words, or clear the filters.</p>}
 			<style>{`
-.catalog { margin-top: 1.5rem; }
-.cat-bar { display: flex; flex-wrap: wrap; gap: 0; align-items: stretch; position: sticky; top: var(--sl-nav-height); z-index: 5; background: var(--sl-color-black); padding: .5rem 0; border-bottom: 1px solid var(--fd-rule); }
-.cat-search { flex: 1 1 16rem; padding: .55rem .2rem; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--sl-color-white); font: inherit; font-size: 1.05rem; border-radius: 0; }
-.cat-search:focus { outline: none; border-bottom-color: var(--sl-color-accent); }
-.catalog select { padding: .4rem .5rem; border: 1px solid var(--fd-border); border-radius: 0; background: var(--sl-color-black); color: var(--sl-color-white); font-family: var(--fd-font-mono); font-size: var(--sl-text-xs); margin-left: .75rem; }
-.cat-check { display: inline-flex; gap: .35rem; align-items: center; font-family: var(--fd-font-mono); font-size: var(--sl-text-xs); color: var(--sl-color-gray-2); margin-left: .9rem; }
-.cat-chips { display: flex; flex-wrap: wrap; gap: 0 1.1rem; margin-top: .6rem; }
-.cat-chips button { border: 0; border-bottom: 2px solid transparent; background: none; color: var(--sl-color-gray-2); padding: .2rem 0; font: inherit; font-size: var(--sl-text-sm); cursor: pointer; border-radius: 0; }
-.cat-chips button:hover { color: var(--sl-color-white); }
-.cat-chips button span { font-family: var(--fd-font-mono); font-size: .8em; color: var(--sl-color-gray-4); margin-left: .25rem; }
-.cat-chips button.on { color: var(--sl-color-accent); border-bottom-color: var(--sl-color-accent); }
-.cat-chips .clear { color: var(--sl-color-gray-3); font-family: var(--fd-font-mono); font-size: var(--sl-text-xs); }
-.cat-count { font-family: var(--fd-font-mono); color: var(--sl-color-gray-3); font-size: var(--sl-text-xs); margin: .9rem 0 0; }
-.cat-h { font-family: var(--fd-font-display); font-weight: 400; font-size: var(--sl-text-h3); margin: 2.5rem 0 0; padding-top: .5rem; border-top: 2px solid var(--fd-rule); display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; scroll-margin-top: 8rem; color: var(--sl-color-white); }
-.cat-h span { font-family: var(--fd-font-mono); font-size: var(--sl-text-xs); color: var(--sl-color-gray-3); font-weight: 400; }
-.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); margin-top: .75rem; border-top: 1px solid var(--fd-border); border-left: 1px solid var(--fd-border); }
-.cat-tile { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding: .85rem .4rem .6rem; border-right: 1px solid var(--fd-border); border-bottom: 1px solid var(--fd-border); text-decoration: none; color: var(--sl-color-white); text-align: center; }
-.cat-tile:hover { background: var(--sl-color-accent-low); }
-.cat-tile:hover .cat-name { color: var(--sl-color-accent); }
-.cat-icon { width: 48px; height: 48px; display: grid; place-items: center; }
+.catalog { margin-top: 24px; }
+.cat-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; position: sticky; top: var(--sl-nav-height); z-index: 5; background: var(--sl-color-black); padding: 12px 0 10px; }
+.cat-search { flex: 1 1 18rem; padding: 6px 10px; border: 2px solid #a0a0a0; border-radius: 0; background: #000; color: #e0e0e0; font: inherit; font-size: 20px; }
+.cat-search::placeholder { color: #707070; }
+.cat-search:focus { outline: none; border-color: #fff; }
+.catalog select { padding: 4px 8px; border: 2px solid #a0a0a0; border-radius: 0; background: #000; color: #e0e0e0; font: inherit; font-size: 20px; }
+.cat-check { display: inline-flex; gap: 8px; align-items: center; color: var(--sl-color-gray-2); }
+.cat-check input { accent-color: #8f3a12; width: 18px; height: 18px; }
+.cat-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.cat-chips button { font: inherit; font-size: 20px; color: #fff; text-shadow: 2px 2px 0 #3f3f3f; padding: 2px 12px 4px; border-style: solid; border-width: 6px; border-image: url('/FarmersDelight-Neoforged/ui/button.png') 3 fill / 6px stretch; image-rendering: pixelated; background: none; cursor: pointer; border-radius: 0; }
+.cat-chips button:hover { border-image-source: url('/FarmersDelight-Neoforged/ui/button-hover.png'); color: #ffffa0; }
+.cat-chips button span { color: #c0c0c0; margin-left: 6px; }
+.cat-chips button.on { border-image-source: url('/FarmersDelight-Neoforged/ui/button-hover.png'); color: #ffff55; }
+.cat-chips .clear { color: #ffaaaa; }
+.cat-count { color: var(--sl-color-gray-3); margin: 12px 0 0; }
+.cat-h { font-family: var(--sl-font); font-weight: 400; font-size: 30px; margin: 40px 0 0; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; scroll-margin-top: 9rem; color: var(--fd-heading-ink, var(--sl-color-white)); }
+.cat-h span { font-size: 20px; color: var(--sl-color-gray-3); }
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 4px; margin-top: 12px; padding: 10px; background: #c6c6c6; box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555, 0 0 0 2px #000, 6px 6px 0 2px #000; }
+.cat-tile { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px 8px; text-decoration: none; color: #404040; text-align: center; }
+.cat-tile:hover { background: #d8d8d8; }
+.cat-tile:hover .cat-name { color: #000; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.cat-icon { width: 64px; height: 64px; display: grid; place-items: center; background: #8b8b8b; box-shadow: inset 4px 4px 0 #373737, inset -4px -4px 0 #fff; }
 .cat-icon img { width: 48px; height: 48px; }
-.cat-name { font-size: var(--sl-text-sm); line-height: 1.25; }
-.cat-food { font-family: var(--fd-font-mono); font-size: var(--sl-text-xs); color: var(--fd-gold); font-variant-numeric: tabular-nums; }
-.cat-food small { color: var(--sl-color-gray-3); }
-@media (max-width: 30rem) { .cat-grid { grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr)); } .cat-check { margin-left: 0; margin-right: .9rem; } .catalog select { margin-left: 0; } }
+.cat-name { font-size: 20px; line-height: 24px; }
+.cat-food { font-size: 20px; color: #a06000; }
+.cat-food small { color: #707070; font-size: 20px; }
+@media (max-width: 30rem) { .cat-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); } }
 `}</style>
 		</div>
 	);

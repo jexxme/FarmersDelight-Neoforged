@@ -1,357 +1,363 @@
 ---
-// Home page, laid out like the front of a cookbook: masthead, a plate, the contents, the pantry, a colophon.
+// Home page as a Minecraft title screen (panorama, logo, splash text, stone buttons), followed by the chapters on
+// canvas signs and the whole mod in a creative-inventory panel with one tab per category.
 import Slot from './mc/Slot.astro';
-import { meta, url, itemList, CATEGORIES, renderOf } from '../lib/data';
+import { meta, url, itemList, CATEGORIES, iconOf } from '../lib/data';
 
 const cats = Object.entries(CATEGORIES)
 	.map(([key, v]) => ({ key, ...v, items: itemList.filter((i) => i.category === key) }))
 	.filter((c) => c.items.length);
+const tabIcon: Record<string, string> = {
+	workstations: 'farmersdelight:cooking_pot', tools: 'farmersdelight:iron_knife', crops: 'farmersdelight:cabbage', farming: 'farmersdelight:rich_soil',
+	ingredients: 'farmersdelight:wheat_dough', meals: 'farmersdelight:beef_stew', feasts: 'farmersdelight:roast_chicken_block', snacks: 'farmersdelight:hamburger',
+	sweets: 'farmersdelight:honey_cookie', pies: 'farmersdelight:apple_pie', drinks: 'farmersdelight:hot_cocoa', storage: 'farmersdelight:oak_cabinet',
+	decoration: 'farmersdelight:canvas_sign', materials: 'farmersdelight:straw',
+};
 const foods = itemList.filter((i) => i.food).length;
 const oldest = meta.versions[meta.versions.length - 1].gameVersions.split(',')[0];
 const newest = meta.versions[0].minecraft;
+// Splash texts, all true for this release
+const splashes = [
+	`${meta.counts.recipes} recipes!`,
+	`${meta.counts.cooking} meals in one pot!`,
+	`${foods} things to eat!`,
+	`Minecraft ${oldest} to ${newest}!`,
+	'Now with REI!',
+	'Knives for ham!',
+	'Rich Soil!',
+];
 const chapters = [
-	{ title: 'Cooking', pages: [['Cooking Pot', 'mechanics/cooking-pot'], ['Heat sources', 'mechanics/heat-sources'], ['Stove', 'mechanics/stove'], ['Skillet', 'mechanics/skillet'], ['Cutting Board', 'mechanics/cutting-board'], ['Feasts', 'mechanics/feasts'], ['Pies & cakes', 'mechanics/pies'], ['Drinks', 'mechanics/drinks']] },
-	{ title: 'Farming', pages: [['Crops', 'mechanics/crops'], ['Wild crops', 'mechanics/wild-crops'], ['Rich Soil', 'mechanics/rich-soil'], ['Organic Compost', 'mechanics/organic-compost'], ['Mushroom Colonies', 'mechanics/mushroom-colonies'], ['Straw & rope', 'mechanics/straw-and-rope']] },
-	{ title: 'Tools & effects', pages: [['Knives', 'mechanics/knives'], ['Nourishment', 'mechanics/effects'], ['Animal feed', 'mechanics/animal-feed']] },
-	{ title: 'The world', pages: [['Storage & decoration', 'mechanics/storage-and-decoration'], ['Villagers', 'mechanics/villagers'], ['Loot', 'mechanics/loot']] },
-	{ title: 'Reference', pages: [['Food tables', 'reference/food'], ['Recipe planner', 'reference/recipe-planner'], ['All recipes', 'reference/recipes'], ['Configuration', 'reference/config'], ['Advancements', 'reference/advancements']] },
-	{ title: 'For pack makers', pages: [['Recipe formats', 'pack-makers/recipes'], ['Tags', 'pack-makers/tags'], ['Loot modifiers', 'pack-makers/loot-modifiers'], ['Worldgen', 'pack-makers/worldgen']] },
+	{ title: 'Cooking', icon: 'farmersdelight:cooking_pot', pages: [['Cooking Pot', 'mechanics/cooking-pot'], ['Heat sources', 'mechanics/heat-sources'], ['Stove', 'mechanics/stove'], ['Skillet', 'mechanics/skillet'], ['Cutting Board', 'mechanics/cutting-board'], ['Feasts', 'mechanics/feasts'], ['Pies & cakes', 'mechanics/pies'], ['Drinks', 'mechanics/drinks']] },
+	{ title: 'Farming', icon: 'farmersdelight:cabbage', pages: [['Crops', 'mechanics/crops'], ['Wild crops', 'mechanics/wild-crops'], ['Rich Soil', 'mechanics/rich-soil'], ['Organic Compost', 'mechanics/organic-compost'], ['Mushroom Colonies', 'mechanics/mushroom-colonies'], ['Straw & rope', 'mechanics/straw-and-rope']] },
+	{ title: 'Tools & effects', icon: 'farmersdelight:diamond_knife', pages: [['Knives', 'mechanics/knives'], ['Nourishment', 'mechanics/effects'], ['Animal feed', 'mechanics/animal-feed']] },
+	{ title: 'The world', icon: 'farmersdelight:oak_cabinet', pages: [['Storage & decoration', 'mechanics/storage-and-decoration'], ['Villagers', 'mechanics/villagers'], ['Loot', 'mechanics/loot']] },
+	{ title: 'Reference', icon: 'farmersdelight:beef_stew', pages: [['Food tables', 'reference/food'], ['Recipe planner', 'reference/recipe-planner'], ['All recipes', 'reference/recipes'], ['Configuration', 'reference/config'], ['Advancements', 'reference/advancements']] },
+	{ title: 'Pack makers', icon: 'farmersdelight:cutting_board', pages: [['Recipe formats', 'pack-makers/recipes'], ['Tags', 'pack-makers/tags'], ['Loot modifiers', 'pack-makers/loot-modifiers'], ['Worldgen', 'pack-makers/worldgen']] },
 ];
 ---
 <div class="landing not-content">
-	<header class="mast">
-		<p class="mast-meta">
-			<span>farmersdelight</span><span>{meta.modVersion}</span><span>Minecraft {oldest} – {newest}</span><span>NeoForge</span>
-		</p>
-		<h1>Farmer's Delight Neoforged</h1>
-		<div class="mast-cols">
-			<p class="mast-lede">
-				Everything about cooking, farming and feasting with Farmer's Delight on Minecraft 26.x. Each recipe, drop chance and food value on these pages was read from the mod itself, not copied from an old wiki.
-			</p>
-			<ul class="mast-links">
-				<li><a href={url('/getting-started/')}>Getting started</a><span>install, first crops, first meal</span></li>
-				<li><a href={url('/items/')}>All {meta.counts.items} items</a><span>every block and item, each with its page</span></li>
-				<li><span class="pair"><a href="https://modrinth.com/mod/farmers-delight-neoforged">Modrinth</a> or <a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged">CurseForge</a></span><span>download for your Minecraft version</span></li>
-			</ul>
+	<section class="title-screen" style={`background-image:url(${url('/shots/hero.jpg')})`}>
+		<div class="logo-wrap">
+			<img class="logo" src={url('/ui/banner.png')} alt="Farmer's Delight Neoforged" width="536" height="136" />
+			<span class="splash" data-splashes={JSON.stringify(splashes)}>{splashes[0]}</span>
 		</div>
-	</header>
-
-	<figure class="plate">
-		<img src={url('/shots/hero.jpg')} alt="A farmhouse with a vegetable garden built with Farmer's Delight" fetchpriority="high" />
-		<figcaption>A farmhouse and its vegetable garden, built with Farmer's Delight Neoforged.</figcaption>
-	</figure>
-
-	<p class="census">
-		The mod adds <b>{meta.counts.items}</b> items and blocks and <b>{meta.counts.recipes}</b> recipes: <b>{meta.counts.cooking}</b> meals for the
-		Cooking Pot, <b>{meta.counts.cutting}</b> ways to use the Cutting Board, and <b>{foods}</b> things to eat.
-	</p>
-
-	<section class="contents">
-		<img src={renderOf('scenes/kitchen')} alt="" width="512" height="512" loading="lazy" />
-		<div>
-			<h2>Contents</h2>
-			<ol>
-				{chapters.map((c, i) => (
-					<li>
-						<span class="no">{String(i + 1).padStart(2, '0')}</span>
-						<h3>{c.title}</h3>
-						<p>
-							{c.pages.map(([label, slug], j) => (
-								<>
-									{j > 0 && <span class="sep"> · </span>}
-									<a href={url(`/${slug}/`)}>{label}</a>
-								</>
-							))}
-						</p>
-					</li>
-				))}
-			</ol>
-		</div>
+		<nav class="menu" aria-label="Start">
+			<a class="mc-button wide" href={url('/getting-started/')}>Getting started</a>
+			<a class="mc-button wide" href={url('/items/')}>All {meta.counts.items} items &amp; blocks</a>
+			<div class="pair">
+				<a class="mc-button" href="https://modrinth.com/mod/farmers-delight-neoforged">Modrinth</a>
+				<a class="mc-button" href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged">CurseForge</a>
+			</div>
+		</nav>
+		<p class="corner left">Farmer's Delight Neoforged {meta.modVersion}</p>
+		<p class="corner right">Not an official Minecraft or vectorwing product</p>
 	</section>
 
-	<section class="pantry">
-		<h2>The pantry</h2>
-		<p class="pantry-note">Every item in the mod by kind. Hover for names, click for the item's page.</p>
-		<table>
-			<tbody>
-				{cats.map((c) => (
-					<tr>
-						<th scope="row">
-							<a href={url(`/items/#${c.key}`)}>{c.label}</a>
-							<span>{c.items.length}</span>
-						</th>
-						<td>
-							<div class="row">
-								{c.items.map((i) => (
-									<Slot id={i.id} scale={2} bare />
-								))}
-							</div>
-						</td>
-					</tr>
-				))}
-			</tbody>
-		</table>
+	<p class="intro">
+		The guide to cooking, farming and feasting with Farmer's Delight on Minecraft {oldest} to {newest}. Every recipe, drop chance and food
+		value here was read from the mod itself:{' '}<span class="hl">{meta.counts.items}</span> items,{' '}<span class="hl">{meta.counts.recipes}</span> recipes,{' '}
+		<span class="hl">{meta.counts.cooking}</span> Cooking Pot meals and{' '}<span class="hl">{foods}</span> foods.
+	</p>
+
+	<section class="chapters">
+		{chapters.map((c) => (
+			<div class="chapter fd-sign">
+				<h2>
+					<img src={iconOf(c.icon)?.src} alt="" width="32" height="32" />
+					{c.title}
+				</h2>
+				<ul>
+					{c.pages.map(([label, slug]) => (
+						<li>
+							<a href={url(`/${slug}/`)}>{label}</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		))}
+	</section>
+
+	<section class="pantry" aria-label="All items by category">
+		<div class="tabs" role="tablist">
+			{cats.map((c, i) => (
+				<button type="button" role="tab" class="tab" aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`tab-${c.key}`} data-tab={c.key} title={c.label}>
+					<img src={iconOf(tabIcon[c.key] ?? c.items[0].id)?.src} alt={c.label} width="32" height="32" />
+				</button>
+			))}
+		</div>
+		<div class="inv mc-panel" style="--s:2px">
+			{cats.map((c, i) => (
+				<div class="inv-page" id={`tab-${c.key}`} role="tabpanel" hidden={i !== 0}>
+					<p class="inv-title">
+						{c.label} <span>({c.items.length})</span>
+						<a href={url(`/items/#${c.key}`)}>open list</a>
+					</p>
+					<div class="inv-grid">
+						{c.items.map((it) => (
+							<Slot id={it.id} scale={3} />
+						))}
+						{Array.from({ length: (9 - (c.items.length % 9)) % 9 + (c.items.length <= 9 ? 9 : 0) }).map(() => (
+							<Slot scale={3} />
+						))}
+					</div>
+				</div>
+			))}
+		</div>
 	</section>
 
 	<section class="colophon">
-		<p class="lbl">How these pages are made</p>
 		<p>
-			A test inside the game exports the real item stats: food values, effects, durability, stack sizes. Scripts then read recipes,
-			loot tables and tags from the mod's data files, and a small renderer draws every icon and block from the mod's own models
-			and textures. When the mod changes, the pages are rebuilt. <a href={url('/about/')}>More about this</a>.
+			<b>How these pages are made.</b> A test inside the game exports the real item stats, scripts read recipes, loot tables and tags
+			from the mod's data, and a small renderer draws every icon and block from the mod's own models and textures. When the mod changes,
+			the pages are rebuilt. <a href={url('/about/')}>More about this</a>
 		</p>
 	</section>
 </div>
+
+<script>
+	// Pick a splash text, like the title screen does
+	for (const el of document.querySelectorAll<HTMLElement>('.splash[data-splashes]')) {
+		const list = JSON.parse(el.dataset.splashes!);
+		el.textContent = list[Math.floor(Math.random() * list.length)];
+	}
+	// Creative-inventory tabs
+	for (const tab of document.querySelectorAll<HTMLButtonElement>('.pantry .tab')) {
+		tab.addEventListener('click', () => {
+			for (const t of document.querySelectorAll<HTMLButtonElement>('.pantry .tab')) t.setAttribute('aria-selected', String(t === tab));
+			for (const p of document.querySelectorAll<HTMLElement>('.pantry .inv-page')) p.hidden = p.id !== `tab-${tab.dataset.tab}`;
+		});
+	}
+</script>
 
 <style>
 	:global(body:has(.landing) .content-panel:has(h1#_top)) {
 		display: none;
 	}
 	.landing {
-		--rule: var(--fd-rule);
 		padding-top: 1rem;
 	}
-	.mast {
-		border-top: 4px solid var(--rule);
-		padding-top: 0.75rem;
-	}
-	.mast-meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0 1.25rem;
-		margin: 0;
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
-		color: var(--sl-color-gray-3);
-	}
-	.mast h1 {
-		font-family: var(--fd-font-display);
-		font-weight: 400;
-		font-size: clamp(2.6rem, 8.5vw, 6.2rem);
-		line-height: 0.92;
-		letter-spacing: -0.02em;
-		margin: 1.25rem 0 1.5rem;
-		color: var(--sl-color-white);
-		max-width: 11ch;
-	}
-	.mast-cols {
-		display: grid;
-		grid-template-columns: 7fr 5fr;
-		gap: 2.5rem;
-		border-top: 1px solid var(--rule);
-		padding-top: 1rem;
-	}
-	.mast-lede {
-		font-size: 1.2rem;
-		line-height: 1.55;
-		margin: 0;
-		color: var(--sl-color-gray-1);
-	}
-	.mast-links {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-	.mast-links li {
+	.title-screen {
+		position: relative;
+		min-height: 560px;
+		background-size: cover;
+		background-position: 50% 40%;
 		display: flex;
 		flex-direction: column;
-		padding: 0.45rem 0;
-		border-bottom: 1px solid var(--fd-border);
+		align-items: center;
+		justify-content: center;
+		gap: 44px;
+		padding: 60px 16px 70px;
+		border: 4px solid #000;
+		box-shadow: 6px 6px 0 #000;
 	}
-	.mast-links li:first-child {
-		padding-top: 0;
+	.logo-wrap {
+		position: relative;
 	}
-	.mast-links a {
-		font-family: var(--fd-font-display);
-		font-size: 1.25rem;
-		color: var(--sl-color-accent);
-		text-decoration: none;
-	}
-	.mast-links .pair {
-		font-family: var(--fd-font-display);
-		font-size: 1.25rem;
-		color: var(--sl-color-gray-3);
-	}
-	.mast-links a:hover {
-		text-decoration: underline;
-	}
-	.mast-links span {
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
-		color: var(--sl-color-gray-3);
-	}
-	.plate {
-		margin: 2.5rem 0 0;
-	}
-	.plate img {
+	.logo {
 		display: block;
-		width: 100%;
-		aspect-ratio: 21 / 9;
-		object-fit: cover;
-		object-position: 50% 45%;
-	}
-	.plate figcaption {
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
-		color: var(--sl-color-gray-3);
-		padding-top: 0.4rem;
-	}
-	.census {
-		font-family: var(--fd-font-display);
-		font-size: clamp(1.35rem, 3vw, 2rem);
-		line-height: 1.3;
-		margin: 3.5rem 0;
-		max-width: 34ch;
-		color: var(--sl-color-white);
-	}
-	.census b {
-		font-weight: 400;
-		color: var(--sl-color-accent);
-	}
-	.contents {
-		display: grid;
-		grid-template-columns: 4fr 7fr;
-		gap: 2.5rem;
-		align-items: start;
-		border-top: 2px solid var(--rule);
-		padding-top: 1rem;
-	}
-	.contents img {
-		width: 100%;
+		width: min(536px, 84vw);
 		height: auto;
-		position: sticky;
-		top: calc(var(--sl-nav-height) + 1.5rem);
+		image-rendering: pixelated;
 	}
-	h2 {
-		font-family: var(--fd-font-display);
+	.splash {
+		position: absolute;
+		right: -40px;
+		bottom: -8px;
+		color: #ffff00;
+		font-size: 20px;
+		text-shadow: 2px 2px 0 #3f3f00;
+		white-space: nowrap;
+		transform: rotate(-20deg);
+		animation: splash 0.5s ease-in-out infinite alternate;
+		pointer-events: none;
+	}
+	@keyframes splash {
+		from {
+			transform: rotate(-20deg) scale(1);
+		}
+		to {
+			transform: rotate(-20deg) scale(1.08);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.splash {
+			animation: none;
+		}
+	}
+	.menu {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		width: min(400px, 100%);
+	}
+	.menu .wide {
+		width: 100%;
+	}
+	.pair {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+		margin-top: 16px;
+	}
+	.corner {
+		position: absolute;
+		bottom: 6px;
+		margin: 0;
+		color: #fff;
+		text-shadow: 2px 2px 0 #3f3f3f;
+		font-size: 20px;
+	}
+	.corner.left {
+		left: 10px;
+	}
+	.corner.right {
+		right: 10px;
+	}
+	.intro {
+		font-size: 20px;
+		line-height: 30px;
+		max-width: 48rem;
+		margin: 48px 0 40px;
+		color: var(--sl-color-gray-2);
+	}
+	.hl {
+		color: var(--fd-gold);
+	}
+	.chapters {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 28px 24px;
+	}
+	.chapter {
+		margin: 0;
+	}
+	.chapter h2 {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin: 0 0 6px;
+		font-size: 20px;
 		font-weight: 400;
-		font-size: var(--sl-text-h2);
-		margin: 0 0 0.75rem;
-		color: var(--sl-color-white);
+		color: #483015;
+		text-shadow: 2px 0 0 currentColor;
+		letter-spacing: 2px;
 	}
-	.contents ol {
+	.chapter h2 img {
+		image-rendering: pixelated;
+	}
+	.chapter ul {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
-	.contents li {
-		display: grid;
-		grid-template-columns: 2.5rem 1fr;
-		column-gap: 0.5rem;
-		padding: 0.8rem 0;
-		border-top: 1px solid var(--fd-border);
-	}
-	.no {
-		grid-row: span 2;
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-sm);
-		color: var(--sl-color-gray-3);
-		padding-top: 0.3rem;
-	}
-	.contents h3 {
-		font-family: var(--fd-font-display);
-		font-weight: 400;
-		font-size: 1.35rem;
+	.chapter li {
 		margin: 0;
-		color: var(--sl-color-white);
+		line-height: 30px;
 	}
-	.contents p {
-		margin: 0.2rem 0 0;
-		line-height: 1.7;
-	}
-	.contents a {
-		color: var(--sl-color-gray-1);
-		text-decoration-color: var(--fd-border);
-		text-underline-offset: 0.2em;
-	}
-	.contents a:hover {
-		color: var(--sl-color-accent);
-		text-decoration-color: var(--sl-color-accent);
-	}
-	.sep {
-		color: var(--sl-color-gray-4);
-	}
-	.pantry {
-		margin-top: 4rem;
-		border-top: 2px solid var(--rule);
-		padding-top: 1rem;
-	}
-	.pantry-note {
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
-		color: var(--sl-color-gray-3);
-		margin: 0 0 0.75rem;
-	}
-	.pantry table {
-		width: 100%;
-		border-collapse: collapse;
-	}
-	.pantry tr {
-		border-top: 1px solid var(--fd-border);
-	}
-	.pantry th {
-		width: 11rem;
-		text-align: left;
-		vertical-align: top;
-		padding: 0.55rem 1rem 0.55rem 0;
-		font-weight: 400;
-	}
-	.pantry th a {
-		display: block;
-		color: var(--sl-color-white);
+	.chapter a {
+		color: #6e3214;
 		text-decoration: none;
 	}
-	.pantry th a:hover {
-		color: var(--sl-color-accent);
+	.chapter a::before {
+		content: '> ';
+		color: #b18e65;
 	}
-	.pantry th span {
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
-		color: var(--sl-color-gray-3);
+	.chapter a:hover {
+		color: #000;
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
 	}
-	.pantry td {
-		padding: 0.4rem 0;
+	.pantry {
+		margin-top: 64px;
 	}
-	.row {
+	.tabs {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 2px;
+		padding-left: 4px;
+	}
+	.tab {
+		width: 56px;
+		height: 52px;
+		display: grid;
+		place-items: center;
+		background: #8b8b8b;
+		border: 0;
+		cursor: pointer;
+		box-shadow: inset 2px 2px 0 #aaa, inset -2px 0 0 #555, 0 -2px 0 #000, 2px 0 0 #000, -2px 0 0 #000;
+		margin-top: 6px;
+	}
+	.tab[aria-selected='true'] {
+		background: #c6c6c6;
+		height: 58px;
+		margin-top: 0;
+		box-shadow: inset 2px 2px 0 #fff, inset -2px 0 0 #555, 0 -2px 0 #000, 2px 0 0 #000, -2px 0 0 #000;
+		position: relative;
+		z-index: 1;
+	}
+	.tab img {
+		image-rendering: pixelated;
+	}
+	.inv {
+		display: block !important;
+		width: fit-content;
+		max-width: 100%;
+		padding: 12px 16px 16px !important;
+	}
+	.inv-title {
+		margin: 0 0 8px;
+		color: #404040;
+		font-size: 20px;
+		display: flex;
+		gap: 10px;
+		align-items: baseline;
+		flex-wrap: wrap;
+	}
+	.inv-title span {
+		color: #707070;
+	}
+	.inv-title a {
+		margin-left: auto;
+		color: #404040;
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+	}
+	.inv-grid {
+		display: grid;
+		grid-template-columns: repeat(9, 54px);
+	}
+	@media (max-width: 40rem) {
+		.inv-grid {
+			grid-template-columns: repeat(6, 54px);
+		}
 	}
 	.colophon {
-		display: grid;
-		grid-template-columns: 11rem 1fr;
-		gap: 1rem;
-		margin-top: 4rem;
-		padding-top: 0.75rem;
-		border-top: 1px solid var(--rule);
-		font-size: var(--sl-text-sm);
-		color: var(--sl-color-gray-2);
-	}
-	.colophon p {
-		margin: 0;
-		max-width: 60ch;
-	}
-	.lbl {
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
+		margin-top: 56px;
+		max-width: 48rem;
 		color: var(--sl-color-gray-3);
 	}
-	@media (max-width: 50rem) {
-		.mast-cols,
-		.contents,
-		.colophon {
+	.colophon a {
+		color: var(--sl-color-text-accent);
+	}
+	@media (max-width: 60rem) {
+		.chapters {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+	@media (max-width: 40rem) {
+		.chapters {
 			grid-template-columns: 1fr;
-			gap: 1.25rem;
 		}
-		.contents img {
-			position: static;
-			max-width: 22rem;
+		.title-screen {
+			min-height: 480px;
 		}
-		.plate img {
-			aspect-ratio: 4 / 3;
+		.corner.right {
+			display: none;
 		}
-		.pantry th {
-			width: 7rem;
+		.splash {
+			right: 0;
 		}
 	}
 </style>

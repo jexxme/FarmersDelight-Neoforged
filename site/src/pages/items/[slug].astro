@@ -68,7 +68,7 @@ const headings = [
 const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Delight Neoforged.${item.food ? ` Restores ${item.food.nutrition} hunger and ${+item.food.saturation.toFixed(2)} saturation.` : ''}`;
 ---
 <StarlightPage frontmatter={{ title: item.name, description, tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 } }} headings={headings}>
-	<div class="ip-hero">
+	<div class="ip-hero not-content">
 		<div class:list={['ip-art', { pixel: !heroIsRender }]}>
 			{hero && <img src={hero} alt={item.name} width={heroIsRender ? 200 : 128} height={heroIsRender ? 200 : 128} />}
 		</div>
@@ -101,7 +101,7 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 	</div>
 
 	<h2 id="stats">Stats</h2>
-	<dl class="ip-stats">
+	<dl class="ip-stats not-content">
 		{stats.map(([k, v]) => (
 			<div>
 				<dt>{k}</dt>
@@ -155,7 +155,7 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 				<h2 id="uses">Used in</h2>
 				<p class="ip-count">{used.length} recipe{used.length === 1 ? '' : 's'} use {item.name}.</p>
 				{usedCooking.length > 0 && (
-					<div class="ip-uses">
+					<div class="ip-uses not-content">
 						{usedCooking.map((r) => (
 							<a class="ip-use" href={url(`/items/${r.result!.id.split(':')[1]}/`)}>
 								<Slot id={r.result!.id} scale={2} />
@@ -166,7 +166,7 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 				)}
 				{usedOther.length > 0 && usedOther.length <= 12 && <div class="ip-recipes">{usedOther.map((r) => <Recipe recipe={r} />)}</div>}
 				{usedOther.length > 12 && (
-					<div class="ip-uses">
+					<div class="ip-uses not-content">
 						{usedOther.map((r) => {
 							const out = r.result?.id ?? r.results?.[0]?.id;
 							return out ? (
@@ -183,7 +183,7 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 	}
 
 	<h2 id="technical">Technical</h2>
-	<dl class="ip-stats tech">
+	<dl class="ip-stats tech not-content">
 		<div><dt>Item id</dt><dd><code>{item.id}</code></dd></div>
 		{item.block && <div><dt>Block id</dt><dd><code>{item.block.id}</code></dd></div>}
 		<div><dt>Java class</dt><dd><code>{item.class}</code>{item.block && <> · <code>{item.block.class}</code></>}</dd></div>
@@ -206,7 +206,7 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		<div><dt>Give command</dt><dd><code>/give @s {item.id}</code></dd></div>
 	</dl>
 
-	<nav class="ip-siblings" aria-label={`More ${cat.label}`}>
+	<nav class="ip-siblings not-content" aria-label={`More ${cat.label}`}>
 		<p class="fd-kicker">More {cat.label.toLowerCase()}</p>
 		<div>
 			{siblings.map((s) => (
@@ -221,19 +221,19 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 <style>
 	.ip-hero {
 		display: grid;
-		grid-template-columns: 220px 1fr;
-		gap: 1.75rem;
+		grid-template-columns: 232px 1fr;
+		gap: 28px;
 		align-items: start;
-		border-top: 2px solid var(--fd-rule);
-		padding-top: 1rem;
+		margin-top: 8px;
 	}
 	.ip-art {
-		width: 220px;
-		height: 220px;
+		width: 232px;
+		height: 232px;
 		display: grid;
 		place-items: center;
-		background: var(--fd-surface);
-		border: 1px solid var(--fd-border);
+		background: #8b8b8b;
+		box-shadow: inset 6px 6px 0 #373737, inset -6px -6px 0 #fff, 0 0 0 6px #c6c6c6, 0 0 0 8px #000, 8px 8px 0 8px #000;
+		margin: 8px;
 	}
 	.ip-art img {
 		max-width: 88%;
@@ -253,20 +253,21 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		margin: 0 !important;
 	}
 	.ip-cat {
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
-		color: var(--sl-color-gray-3);
+		display: inline-block;
+		padding: 2px 12px 0;
+		color: #682c10;
 		text-decoration: none;
-	}
-	.ip-cat::before {
-		content: 'Category: ';
+		border-style: solid;
+		border-width: 4px 6px 6px 4px;
+		border-image: url('/FarmersDelight-Neoforged/ui/sign-orange.png') 2 3 3 2 fill / 4px 6px 6px 4px repeat;
+		image-rendering: pixelated;
 	}
 	.ip-cat:hover {
-		color: var(--sl-color-accent);
+		color: #000;
 	}
 	.ip-tip {
-		color: #5d68e8;
-		font-family: var(--fd-font-pixel);
+		color: #5555ff;
+		text-shadow: 2px 2px 0 #15153f;
 	}
 	.ip-effects {
 		display: flex;
@@ -278,45 +279,57 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		font-size: var(--sl-text-sm);
 	}
 	.ip-mech {
-		font-family: var(--fd-font-display);
-		font-size: 1.15rem;
-		text-decoration: none;
-	}
-	.ip-mech:hover {
+		color: var(--sl-color-text-accent);
 		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
 	}
+	/* Stats drawn as a Minecraft item tooltip */
 	.ip-stats {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		column-gap: 2rem;
-		margin: 0;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 32px;
+		margin: 8px 0 0;
+		padding: 10px 16px 12px;
+		background: #100010f0;
+		box-shadow: inset 0 0 0 2px #100010, inset 0 0 0 4px #2d0a63, 0 0 0 2px #100010, 6px 6px 0 2px #000;
+		color: #fff;
+		text-shadow: 2px 2px 0 #3f3f3f;
 	}
 	.ip-stats > div {
-		display: grid;
-		grid-template-columns: 8.5rem 1fr;
-		gap: 0.75rem;
-		padding: 0.4rem 0;
-		border-bottom: 1px solid var(--fd-border);
+		display: flex;
+		gap: 10px;
+		justify-content: space-between;
 		margin: 0;
+		line-height: 30px;
 	}
 	.ip-stats dt {
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
-		color: var(--sl-color-gray-3);
-		padding-top: 0.2rem;
+		color: #aaaaaa;
 	}
 	.ip-stats dd {
 		margin: 0;
-		color: var(--sl-color-white);
-		font-variant-numeric: tabular-nums lining-nums;
+		color: #fff;
+		text-align: right;
 	}
 	.ip-stats.tech {
 		grid-template-columns: 1fr;
 	}
+	.ip-stats.tech > div {
+		display: grid;
+		grid-template-columns: 10rem 1fr;
+	}
 	.ip-stats.tech dd {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.2rem 0.6rem;
+		gap: 0 12px;
+		text-align: left;
+		color: #55ffff;
+	}
+	.ip-stats.tech code {
+		background: none !important;
+		color: inherit;
+		padding: 0;
+		text-shadow: 2px 2px 0 #153f3f;
 	}
 	.prop {
 		font-size: var(--sl-text-xs);
@@ -334,14 +347,14 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
 		margin-top: 0.75rem;
-		border-top: 1px solid var(--fd-border);
+		border-top: 2px solid var(--fd-border);
 	}
 	.ip-use {
 		display: flex;
 		align-items: center;
 		gap: 0.6rem;
 		padding: 0.3rem 0.5rem 0.3rem 0;
-		border-bottom: 1px solid var(--fd-border);
+		border-bottom: 2px solid var(--fd-border);
 		text-decoration: none;
 		color: var(--sl-color-white);
 		font-size: var(--sl-text-sm);
@@ -351,20 +364,20 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		color: var(--sl-color-accent);
 	}
 	.ip-count {
-		font-family: var(--fd-font-mono);
-		font-size: var(--sl-text-xs);
 		color: var(--sl-color-gray-3);
 	}
 	.ip-siblings {
-		margin-top: 3.5rem;
-		padding-top: 0.6rem;
-		border-top: 2px solid var(--fd-rule);
+		margin-top: 56px;
 	}
 	.ip-siblings > div {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 2px;
-		margin-top: 0.5rem;
+		margin-top: 8px;
+		padding: 8px;
+		width: fit-content;
+		max-width: 100%;
+		background: #c6c6c6;
+		box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555, 0 0 0 2px #000, 6px 6px 0 2px #000;
 	}
 	.ip-siblings a.cur {
 		outline: 2px solid var(--sl-color-accent);
