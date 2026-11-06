@@ -79,7 +79,10 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 			{render ? <img src={render} alt={item.name} width="200" height="200" /> : icon && <img class="pixel" src={icon.src} alt={item.name} width="128" height="128" />}
 		</div>
 		<div class="ip-info">
-			<p class="i-name" data-pagefind-ignore>{item.name}</p>
+			<div class="i-head">
+				<p class="i-name" data-pagefind-ignore>{item.name}</p>
+				<a class="i-cat" href={url(`/items/#${item.category}`)} title={`All ${cat.label.toLowerCase()}`}>{cat.label}</a>
+			</div>
 			{item.tooltip.map((t) => <p class="t-blue">{t}</p>)}
 			{item.food && (
 				<p class="t-food">
@@ -100,10 +103,11 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 				</div>
 			)}
 			<ul class="i-facts">{facts.map((l) => <li>{l.text}</li>)}</ul>
-			<p class="ip-links">
-				<a class="ip-cat" href={url(`/items/#${item.category}`)}>{cat.label}</a>
-				{mech && <a class="ip-mech" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>}
-			</p>
+			{mech && (
+				<p class="ip-links">
+					<a class="mc-button" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>
+				</p>
+			)}
 		</div>
 	</section>
 
@@ -281,38 +285,32 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		margin: 0;
 		break-inside: avoid;
 	}
-	.ip-links {
+	/* Name with its category under it, like the tab name in the creative inventory */
+	.i-head {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 8px 20px;
-		align-items: center;
-		margin-top: auto !important;
-		padding-top: 6px;
+		flex-direction: column;
 	}
-	.ip-cat {
-		display: inline-block;
-		padding: 2px 12px 0;
-		color: #682c10;
+	.i-cat {
+		width: fit-content;
+		color: #707070;
 		text-decoration: none;
-		border-style: solid;
-		border-width: 4px 6px 6px 4px;
-		border-image: url('/FarmersDelight-Neoforged/ui/sign-orange.png') 2 3 3 2 fill / 4px 6px 6px 4px repeat;
-		image-rendering: pixelated;
 	}
-	.ip-cat:hover {
-		color: #000;
-	}
-	.ip-mech {
+	.i-cat:hover {
 		color: #303030;
 		text-decoration: underline;
 		text-decoration-thickness: 2px;
 		text-underline-offset: 4px;
 	}
-	.ip-mech:hover {
-		color: #000;
+	/* The one action, as a Minecraft button at the bottom of the panel */
+	.ip-links {
+		margin-top: auto !important;
+		padding-top: 6px;
 	}
-	.ip-mech::after {
-		content: ' →';
+	.ip-links .mc-button {
+		max-width: 100%;
+		box-sizing: border-box;
+		white-space: normal;
+		text-align: center;
 	}
 
 	/* ---- sections ---- */
