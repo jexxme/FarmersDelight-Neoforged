@@ -1,0 +1,21 @@
+---
+title: Recipe planner
+description: Pick any craftable Farmer's Delight item and see every ingredient down to raw materials, with the station for each step and a shopping list.
+tableOfContents: false
+---
+import RecipePlanner from '../../../components/reference/RecipePlanner.astro';
+import Item from '../../../components/mc/Item.astro';
+import { meta } from '../../../lib/data';
+
+Pick an item, set how many you want, and the planner breaks it down into the recipes behind it, all the way to things you farm, mine or loot.
+It starts with a <Item id="roast_chicken_block" />. The tree uses the {meta.counts.recipes} recipes that load in a plain game (no add-on mods).
+
+<RecipePlanner />
+
+## How the planner decides
+
+- **Raw materials.** Vanilla items, crops, wild plants and mob drops start as raw materials. Use the menu on any row to make them from a Farmer's Delight recipe instead, or to turn a made item back into a raw one.
+- **Which recipe.** When an item has several recipes, the planner prefers the main one over "from slices", "from crate" and salvaging recipes. Switch per row.
+- **Tags.** An ingredient that accepts several items (a tag such as `#c:crops/onion`, or a list) shows one of them with "any of N". Pick a different item in the small menu; the shopping list follows.
+- **Loops.** Recipes that would need the item you are making (crates and their crops, pies and their slices) are left out of that branch.
+- **Quantities** are multiplied down the tree and rounded up to whole crafts. Cooking Pot meals add their serving container (usually a bowl) as an ingredient. Cutting Board tools lose durability but are not used up, so they are listed under stations.

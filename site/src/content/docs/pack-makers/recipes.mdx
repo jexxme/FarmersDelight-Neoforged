@@ -1,0 +1,122 @@
+---
+title: Recipe formats
+description: JSON formats for Farmer's Delight's cooking, cutting, food serving and dough recipes, the item_ability ingredient and its load conditions, with defaults from the code and real files.
+---
+import { Aside } from '@astrojs/starlight/components';
+import RepoFile from '../../../components/reference/RepoFile.astro';
+import Cite from '../../../components/reference/Cite.astro';
+import Recipe from '../../../components/recipes/Recipe.astro';
+import Item from '../../../components/mc/Item.astro';
+import { cooking, cutting, serializers, foodServing, dough, itemAbility, conditions } from '../../../data/code/reference';
+import { playableRecipes, config, seconds } from '../../../lib/data';
+
+export const cut = playableRecipes.filter((r) => r.type === 'farmersdelight:cutting');
+export const toolCounts = Object.entries(cut.reduce((m, r) => ((m[r.tool?.tag ? '#' + r.tool.tag : 'other'] = (m[r.tool?.tag ? '#' + r.tool.tag : 'other'] ?? 0) + 1), m), {})).sort((a, b) => b[1] - a[1]);
+export const cook = playableRecipes.filter((r) => r.type === 'farmersdelight:cooking');
+
+Farmer's Delight registers {serializers.value.length} recipe serializers: {serializers.value.map((s, i) => <>{i > 0 && ', '}<code>farmersdelight:{s}</code></>)} <Cite c={serializers} />.
+Only `cooking` and `cutting` take fields; the other two are fixed special recipes. Put your files in `data/<namespace>/recipe/`, and override a Farmer's Delight recipe by using its id (shown under every card on [All recipes](/reference/recipes/)).
+
+## farmersdelight:cooking
+
+A shapeless recipe for the [Cooking Pot](/mechanics/cooking-pot/) <Cite c={cooking.codec} />.
+
+| Field | Type | Required | Default |
+|---|---|---|---|
+| `ingredients` | list of ingredients, 1 to {cooking.maxIngredients.value} | yes | <Cite c={cooking.maxIngredients} short /> |
+| `result` | item stack: `id`, optional `count` and `components` | yes | |
+| `container` | item stack | no | the meal's crafting remainder (a bowl for bowl meals), or none <Cite c={cooking.container} short /> |
+| `experience` | float | no | <code>{cooking.experience.value.toFixed(1)}</code> <Cite c={cooking.experience} short /> |
+| `cookingtime` | int, ticks | no | <code>{cooking.cookingtime.value}</code> ({seconds(cooking.cookingtime.value)}) <Cite c={cooking.cookingtime} short /> |
+| `recipe_book_tab` | {cooking.tabs.value.map((t) => `"${t}"`).join(', ')} | no | <code>"{cooking.tab.value}"</code>; any other value makes the recipe fail to load <Cite c={cooking.tabs} short /> |
+| `group` | string | no | `""` <Cite c={cooking.group} short /> |
+
+The pot matches when the number of filled input slots equals the number of ingredients and each ingredient finds its own stack <Cite c={cooking.matches} />. Repeat an ingredient to need it twice.
+Of the {cook.length} cooking recipes, {cook.filter((r) => r.cookingtime === cooking.cookingtime.value).length} use the default time.
+
+<div class="fd-pair">
+<RepoFile path="src/generated/resources/data/farmersdelight/recipe/cooking/beef_stew.json" />
+<Recipe id="cooking/beef_stew" />
+</div>
+
+No `cookingtime`, so it cooks for {seconds(cooking.cookingtime.value)}; no `container`, so <Item id="beef_stew" /> is served in its crafting remainder. A vanilla soup has no remainder set by the mod, so its recipe names the bowl:
+
+<RepoFile path="src/generated/resources/data/farmersdelight/recipe/cooking/beetroot_soup.json" />
+
+## farmersdelight:cutting
+
+A recipe for the [Cutting Board](/mechanics/cutting-board/) <Cite c={cutting.codec} />.
+
+| Field | Type | Required | Default |
+|---|---|---|---|
+| `ingredients` | list with exactly {cutting.ingredients.value} ingredient | yes | <Cite c={cutting.ingredients} short /> |
+| `tool` | ingredient: item, tag, `farmersdelight:item_ability`, `neoforge:compound`… | yes | |
+| `result` | list of up to {cutting.maxResults.value} results | yes | <Cite c={cutting.maxResults} short /> |
+| `result[].item` | item stack: `id`, optional `count` and `components` | yes | |
+| `result[].chance` | float | no | <code>{cutting.chance.value.toFixed(1)}</code> <Cite c={cutting.chance} short /> |
+| `sound` | sound event id | no | chosen from the tool <Cite c={cutting.sound} short /> |
+| `group` | string | no | `""` |
+
+Each unit of a result's `count` is rolled on its own and lost when a random number is above `chance` plus `cuttingBoardFortuneBonus` × the tool's Fortune level (`cuttingBoardFortuneBonus` defaults to <code>{config.find((c) => c.key === 'cuttingBoardFortuneBonus').default}</code>) <Cite c={cutting.roll} />.
+The tool loses durability; the board takes one input item per cut.
+
+Tools used by the {cut.length} cutting recipes: {toolCounts.map(([t, n]) => `${t} ${n}`).join(', ')}.
+
+<div class="fd-pair">
+<RepoFile path="src/generated/resources/data/farmersdelight/recipe/cutting/gravel.json" />
+<Recipe id="cutting/gravel" />
+</div>
+
+A custom `sound` (stripping logs with an axe):
+
+<RepoFile path="src/generated/resources/data/farmersdelight/recipe/cutting/acacia_log.json" />
+
+## The item_ability ingredient
+
+`farmersdelight:item_ability` matches any item that can perform a NeoForge item ability <Cite c={itemAbility.registered} /> <Cite c={itemAbility.codec} />.
+
+| Field | Type | Required |
+|---|---|---|
+| `neoforge:ingredient_type` | `"farmersdelight:item_ability"` | yes |
+| `action` | item ability name, such as `shears_dig` | yes |
+
+NeoForge for 26.3 removed the vanilla tool abilities, so vanilla tools no longer report them. For those names the ingredient checks a tool tag instead <Cite c={itemAbility.fallbacks} />:
+
+<table>
+<thead><tr><th>`action`</th><th>Also matches</th></tr></thead>
+<tbody>{itemAbility.fallbacks.value.map(([a, t]) => <tr><td><code>{a}</code></td><td><code>#{t}</code></td></tr>)}</tbody>
+</table>
+
+The salvaging recipes combine the ability with a tag in a `neoforge:compound`, so both modded shears and `#c:tools/shear` work:
+
+<div class="fd-pair">
+<RepoFile path="src/generated/resources/data/farmersdelight/recipe/salvaging/saddle.json" />
+<Recipe id="salvaging/saddle" />
+</div>
+
+## farmersdelight:food_serving and farmersdelight:dough
+
+Both have no fields; ship them as-is or leave them out.
+
+- **food_serving**: a Cooking Pot item that holds a meal, plus exactly one matching container, crafts one serving; the pot comes back with one serving less <Cite c={foodServing} />.
+- **dough**: exactly one <Item id="minecraft:wheat" /> plus water buckets (`#c:buckets/water`) and nothing else makes <Item id="wheat_dough" />; the buckets stay <Cite c={dough} />.
+
+<RepoFile path="src/generated/resources/data/farmersdelight/recipe/food_serving.json" />
+<RepoFile path="src/generated/resources/data/farmersdelight/recipe/wheat_dough_from_water.json" />
+
+## Load conditions
+
+Farmer's Delight adds {conditions.registered.value.length} load conditions <Cite c={conditions.registered} />. Use them in a file's `neoforge:conditions` list, on recipes or any other data file NeoForge loads with conditions.
+
+| Condition | Fields | True when |
+|---|---|---|
+| `farmersdelight:vanilla_crates_enabled` | none | config <code>{conditions.crates.value}</code> is on <Cite c={conditions.crates} short /> |
+| `farmersdelight:config_enabled` | `option`: one of {conditions.configOptions.value.map((o, i) => <>{i > 0 && ', '}<code>{o}</code></>)} | that config option is on; any other option makes the file fail to load <Cite c={conditions.configOptions} short /> |
+
+<RepoFile path="src/generated/resources/data/farmersdelight/recipe/beetroot_crate.json" />
+<RepoFile path="src/generated/resources/data/farmersdelight/villager_trade/farmer/1/onion_emerald.json" />
+
+<style>{`
+.fd-pair { display: flex; flex-wrap: wrap; gap: 20px 30px; align-items: center; }
+.fd-pair > .fd-repofile { flex: 1 1 18rem; min-width: 0; }
+`}</style>

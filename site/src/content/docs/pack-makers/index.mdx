@@ -1,0 +1,55 @@
+---
+title: For pack makers
+description: Everything a modpack or add-on author can change in Farmer's Delight Neoforged with data packs, and where each part is documented.
+---
+import Cite from '../../../components/reference/Cite.astro';
+import { serializers, conditions, lootModifiers, biomeModifier, consumeEffects, itemAbility } from '../../../data/code/reference';
+import { meta, tags, modifiers, worldgen, config, recipes } from '../../../lib/data';
+
+export const fdTags = tags.files.filter((f) => f.tag.startsWith('farmersdelight:')).length;
+export const loaded = recipes.filter((r) => r.loaded).length;
+
+Almost all of Farmer's Delight is data: recipes, tags, loot tables, loot modifiers, worldgen, villager trades and advancements are JSON files in the mod jar under the <code>{meta.modId}</code> namespace.
+A data pack can add to them, replace them or switch them off, with no code. Everything on these pages is read from the mod's files and Java for version {meta.modVersion}.
+
+| Page | What it covers | Size |
+|---|---|---|
+| [Recipe formats](/pack-makers/recipes/) | JSON for `farmersdelight:cooking` and `farmersdelight:cutting`, the two special recipes, the `farmersdelight:item_ability` ingredient and the {conditions.registered.value.length} load conditions | {serializers.value.length} serializers |
+| [Tags](/pack-makers/tags/) | Every tag file, the members in game and the code that reads each tag | {tags.files.length} files, {fdTags} own |
+| [Loot modifiers](/pack-makers/loot-modifiers/) | The {lootModifiers.registered.value.length} modifier types, all shipped modifiers and how to turn one off | {modifiers.length} files |
+| [Worldgen](/pack-makers/worldgen/) | The `farmersdelight:add_features_by_filter` biome modifier, wild crop patches and how to move them | {worldgen.length} modifiers |
+| [All recipes](/reference/recipes/) | Every recipe id, to override or remove | {loaded} recipes |
+| [Configuration](/reference/config/) | Options that switch data on and off (chest loot, trades, vanilla crates) | {config.length} options |
+
+## How overriding works
+
+- **Replace a file:** put a file at the same path in your data pack, for example `data/farmersdelight/recipe/cooking/beef_stew.json`. Data packs above the mod in the pack list win.
+- **Remove a file:** NeoForge skips any data file whose `neoforge:conditions` fail <Cite c={conditions.skip} />. A replacement with <code>{JSON.stringify({ 'neoforge:conditions': [{ type: conditions.never.value }] })}</code> turns the file off.
+- **Add to a tag:** a tag file at the same path is merged with the mod's unless it sets `"replace": true`.
+- **Load only with Farmer's Delight:** use NeoForge's `neoforge:mod_loaded` condition with <code>"modid": "{meta.modId}"</code> on your own files.
+
+## For add-on authors
+
+These registry entries are yours to use from data:
+
+| What | Ids |
+|---|---|
+| Recipe types | `farmersdelight:cooking`, `farmersdelight:cutting` |
+| Ingredient type | <code>farmersdelight:{itemAbility.registered.value}</code> |
+| Load conditions | {conditions.registered.value.map((c, i) => <>{i > 0 && ', '}<code>farmersdelight:{c}</code></>)} |
+| Loot modifier types | {lootModifiers.registered.value.map((c, i) => <>{i > 0 && ', '}<code>farmersdelight:{c}</code></>)} |
+| Biome modifier type | `farmersdelight:add_features_by_filter` |
+| Feature types | {biomeModifier.features.value.map((c, i) => <>{i > 0 && ', '}<code>farmersdelight:{c}</code></>)} |
+| Placement modifier | <code>farmersdelight:{biomeModifier.placementRegistered.value}</code> |
+| Consume effects | {consumeEffects.registered.value.map((c, i) => <>{i > 0 && ', '}<code>farmersdelight:{c}</code></>)} <Cite c={consumeEffects.registered} short /> |
+
+The consume effects work in any item's `minecraft:consumable` component, so your own drinks can behave like Farmer's Delight's:
+
+| Effect | Fields |
+|---|---|
+| `farmersdelight:remove_random_effects` | `excluded`: mob-effect tag (required), `harmful_only`: boolean (default `false`) <Cite c={consumeEffects.removeRandom} short /> |
+| `farmersdelight:heal` | `amount`: float, health points (required) <Cite c={consumeEffects.heal} short /> |
+| `farmersdelight:extinguish` | none <Cite c={consumeEffects.extinguish} short /> |
+
+To make your items work with knives, cooking pots and heat, add them to the tags on [Tags](/pack-makers/tags/): for example `#c:tools/knife` for Cutting Board knife recipes, `#farmersdelight:heat_sources` for blocks that heat a pot, and `#farmersdelight:serving_containers` for containers.
+

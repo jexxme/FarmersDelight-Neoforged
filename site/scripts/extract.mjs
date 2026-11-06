@@ -424,6 +424,8 @@ function vanillaSoupEffects() {
 }
 const soupEffects = vanillaSoupEffects();
 soupEffects.forEach((s) => referenced.add(s.item));
+// Workstation icons the recipe cards show next to vanilla recipe types
+['minecraft:crafting_table', 'minecraft:furnace', 'minecraft:smoker', 'minecraft:blast_furnace', 'minecraft:campfire', 'minecraft:smithing_table', 'minecraft:composter'].forEach((i) => referenced.add(i));
 
 // ------------------------------------------------------------------ items
 const compostChance = (layers) => {

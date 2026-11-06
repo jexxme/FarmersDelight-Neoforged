@@ -1,0 +1,51 @@
+---
+// One "## " section of a repository markdown file from docs-text.json, rendered to HTML.
+// <DocSection doc="upstreamIssues" section="Fixed" />  (section = start of the heading text)
+import docsText from '../../data/gen/docs-text.json';
+import { renderMarkdown, sections } from './markdown';
+interface Props {
+	doc: keyof typeof docsText;
+	section: string;
+	upstreamRefs?: boolean;
+}
+const { doc, section, upstreamRefs = false } = Astro.props;
+const s = sections(docsText[doc]).find((x) => x.title.startsWith(section));
+if (!s) throw new Error(`No section "${section}" in ${doc}`);
+const html = await renderMarkdown(s.body, { upstreamRefs });
+---
+<div class="fd-docsec" set:html={html} />
+<style>
+	.fd-docsec :global(table) {
+		display: table;
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 20px;
+		line-height: 30px;
+		border: 3px solid var(--fd-frame);
+		box-shadow: 4px 4px 0 #000;
+		background: var(--fd-surface);
+	}
+	.fd-docsec :global(th),
+	.fd-docsec :global(td) {
+		border: 0;
+		border-bottom: 2px solid var(--fd-border);
+		padding: 6px 12px;
+		vertical-align: top;
+	}
+	.fd-docsec :global(th) {
+		background: var(--fd-frame);
+		color: var(--fd-paper);
+		font-weight: 400;
+		text-align: left;
+		border-bottom: 3px solid #000;
+	}
+	.fd-docsec :global(td:first-child) {
+		white-space: nowrap;
+	}
+	@media (max-width: 50rem) {
+		.fd-docsec :global(table) {
+			display: block;
+			overflow-x: auto;
+		}
+	}
+</style>

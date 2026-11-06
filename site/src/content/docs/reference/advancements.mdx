@@ -1,0 +1,11 @@
+---
+title: Advancements
+description: The Farmer's Delight advancement tab as a tree, with what each advancement asks for.
+---
+import AdvancementTree from '../../../components/reference/AdvancementTree.astro';
+import { meta } from '../../../lib/data';
+
+Farmer's Delight adds its own advancement tab with {meta.counts.advancements} advancements. Each line in the tree leads from an advancement to the ones it unlocks.
+The list below the tree gives the description, the frame and what counts: "Any of" means one of the listed criteria is enough, "Needs all" means every one.
+
+<AdvancementTree />

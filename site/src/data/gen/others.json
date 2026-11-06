@@ -2431,6 +2431,36 @@
 		"food": null,
 		"stack": null
 	},
+	"minecraft:crafting_table": {
+		"id": "minecraft:crafting_table",
+		"name": "Crafting Table",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:smoker": {
+		"id": "minecraft:smoker",
+		"name": "Smoker",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:blast_furnace": {
+		"id": "minecraft:blast_furnace",
+		"name": "Blast Furnace",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:smithing_table": {
+		"id": "minecraft:smithing_table",
+		"name": "Smithing Table",
+		"food": null,
+		"stack": null
+	},
+	"minecraft:composter": {
+		"id": "minecraft:composter",
+		"name": "Composter",
+		"food": null,
+		"stack": null
+	},
 	"minecraft:golden_apple": {
 		"id": "minecraft:golden_apple",
 		"name": "Golden Apple",

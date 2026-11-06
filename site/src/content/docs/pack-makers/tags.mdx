@@ -1,0 +1,22 @@
+---
+title: Tags
+description: Every tag Farmer's Delight defines or adds to, with the entries in its files, the members in game and what reads each tag.
+tableOfContents: false
+---
+import { Aside } from '@astrojs/starlight/components';
+import TagBrowser from '../../../components/reference/TagBrowser.astro';
+import Src from '../../../components/mc/Src.astro';
+import { emptyEffectTags, emptyEffectTagsSrc } from '../../../data/code/reference-tags';
+import { tags } from '../../../lib/data';
+
+Farmer's Delight ships {tags.files.length} tag files: its own `farmersdelight:` tags, and entries it adds to `c:`, `minecraft:`, `neoforge:` and other mods' tags so their features work with its items.
+For each file you see the entries as written (a `#` entry pulls in another tag; entries marked optional are skipped when that mod is absent), the members the game ends up with, and the code that reads the tag.
+
+To change a tag, add a file at the same path in your data pack. Without `"replace": true` your entries are added to the mod's; with it, they replace them.
+
+<Aside title="Two empty tags you can fill">
+{emptyEffectTags.map((t, i) => <>{i > 0 && ' '}<code>#{t.tag}</code>: {t.text}</>)} Both are mob-effect tags declared in code with no file shipped, so they start empty <Src path={emptyEffectTagsSrc.src} lines={emptyEffectTagsSrc.lines} />.
+Put a file at `data/farmersdelight/tags/mob_effect/<name>.json` in a data pack to protect effects from the drinks.
+</Aside>
+
+<TagBrowser />

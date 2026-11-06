@@ -1,0 +1,75 @@
+---
+// Data for the recipe planner island: every recipe that loads in a plain game, reduced to what the tree needs.
+import Planner, { type PRecipe, type PItem } from '../islands/ref-planner';
+import './ref.css';
+import { playableRecipes, recipeTypeName, nameOf, iconOf, pageOf, items, type Ingredient } from '../../lib/data';
+interface Props {
+	start?: string;
+}
+const { start = 'farmersdelight:roast_chicken_block' } = Astro.props;
+
+const used = new Set<string>();
+const ing = (i: Ingredient) => {
+	const list = [...new Set(i.items)];
+	list.forEach((x) => used.add(x));
+	return { items: list, tag: i.tag ?? null, label: i.label ?? null };
+};
+const STATIONS: Record<string, string> = {
+	'farmersdelight:cooking': 'farmersdelight:cooking_pot',
+	'farmersdelight:cutting': 'farmersdelight:cutting_board',
+	campfire_cooking: 'minecraft:campfire',
+	smelting: 'minecraft:furnace',
+	smoking: 'minecraft:smoker',
+	blasting: 'minecraft:blast_furnace',
+	smithing_transform: 'minecraft:smithing_table',
+	crafting_shaped: 'minecraft:crafting_table',
+	crafting_shapeless: 'minecraft:crafting_table',
+};
+const recipes: PRecipe[] = [];
+for (const r of playableRecipes) {
+	if (r.special) continue;
+	const inputs: Ingredient[] =
+		r.type === 'smithing_transform' ? ([r.template, r.base, r.addition].filter(Boolean) as Ingredient[]) : r.grid ? (r.grid.flat().filter(Boolean) as Ingredient[]) : (r.ingredients ?? []);
+	// Group identical ingredients (same item list) into one line with a count
+	const groups: { key: string; ing: ReturnType<typeof ing>; n: number }[] = [];
+	for (const i of inputs) {
+		const key = (i.tag ?? '') + '|' + [...new Set(i.items)].join(',');
+		const g = groups.find((x) => x.key === key);
+		if (g) g.n++;
+		else groups.push({ key, ing: ing(i), n: 1 });
+	}
+	const outs = r.results ? r.results.map((o) => ({ id: o.id, count: o.count, chance: o.chance ?? 1 })) : r.result ? [{ id: r.result.id, count: r.result.count, chance: 1 }] : [];
+	outs.forEach((o) => used.add(o.id));
+	if (r.container) used.add(r.container.id);
+	const station = STATIONS[r.type] ?? 'minecraft:crafting_table';
+	used.add(station);
+	if (r.tool) r.tool.items.forEach((x) => used.add(x));
+	recipes.push({
+		id: r.id.replace(/^farmersdelight:/, ''),
+		type: recipeTypeName[r.type] ?? r.type,
+		station,
+		ins: groups.map((g) => ({ ...g.ing, n: g.n })),
+		outs,
+		container: r.type === 'farmersdelight:cooking' && r.container ? r.container.id : null,
+		tool: r.tool ? { items: [...new Set(r.tool.items)], tag: r.tool.tag ?? null, label: r.tool.label ?? null } : null,
+		time: r.cookingtime ?? null,
+	});
+}
+const info: Record<string, PItem> = {};
+for (const id of used) {
+	const it = items[id];
+	info[id] = {
+		name: nameOf(id).replace(/^\w/, (c) => c.toUpperCase()),
+		icon: iconOf(id)?.src ?? null,
+		href: pageOf(id),
+		cat: it?.category ?? null,
+		// Things you farm, find or get from mobs start as raw materials in the tree
+		gathered: !!it && (it.category === 'crops' || it.category === 'farming' || (it.modifiers?.length ?? 0) > 0 || (it.chests?.length ?? 0) > 0 && !it.madeBy?.length),
+	};
+}
+const choices = Object.values(items)
+	.filter((i) => recipes.some((r) => r.outs.some((o) => o.id === i.id)))
+	.map((i) => ({ id: i.id, name: i.name, cat: i.category }))
+	.sort((a, b) => a.name.localeCompare(b.name));
+---
+<Planner client:load recipes={recipes} info={info} choices={choices} start={start} />

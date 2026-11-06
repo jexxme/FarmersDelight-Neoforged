@@ -19,7 +19,8 @@ export default function SkilletCalc({ recipes }: { recipes: R[] }) {
 	const secs = Math.trunc(time / 20);
 	const factor = Math.fround(Math.fround(skillet.factor.value) - (fa > 0 ? Math.fround(fa * skillet.perFireAspect.value) : 0));
 	const raw = Math.trunc(Math.fround(secs * factor)) * 20;
-	const levels = [0, 1, 2, 3];
+	// Fire Aspect goes up to II in survival (vanilla data/minecraft/enchantment/fire_aspect.json: max_level 2)
+	const levels = [0, 1, 2];
 	const max = Math.max(ticks, 1);
 
 	return (
@@ -47,7 +48,7 @@ export default function SkilletCalc({ recipes }: { recipes: R[] }) {
 			<div class="row">
 				<span class="lbl">Fire Aspect</span>
 				<div class="opts">
-					{[0, 1, 2, 3, 4].map((l) => (
+					{levels.map((l) => (
 						<button type="button" class={`mc-button ${fa === l ? 'on' : ''}`} aria-pressed={fa === l} onClick={() => setFa(l)}>
 							{l === 0 ? 'none' : ['I', 'II', 'III', 'IV'][l - 1]}
 						</button>

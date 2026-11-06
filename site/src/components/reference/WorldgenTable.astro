@@ -1,0 +1,158 @@
+---
+// The nine biome modifiers (worldgen.json) with their filters, rarity and the biomes they resolve to in game.
+import RepoFile from './RepoFile.astro';
+import { worldgen, biomes, nameOf, iconOf, pageOf } from '../../lib/data';
+
+const MAIN = 'src/main/resources/data/farmersdelight/';
+const biomeName = (id: string) => biomes[id]?.name ?? id.replace(/^minecraft:/, '');
+const list = (v: any) => (v == null ? [] : Array.isArray(v) ? v : [v]);
+const label = (v: string) => (v.startsWith('#') ? v : biomeName(v));
+import './ref.css';
+---
+<div class="wg ref-board not-content">
+	{
+		worldgen.map((w) => {
+			const name = w.id.split(':')[1];
+			const ic = iconOf(w.id);
+			const companions = (w.parts ?? []).slice(1).map((p: any) => p?.block).filter(Boolean);
+			return (
+				<section class="wg-row ref-target" id={`wg-${name}`}>
+					<div class="wg-head">
+						{ic && (
+							<a href={pageOf(w.id) ?? undefined} data-tip-items={`${nameOf(w.id)}~${w.id}`}>
+								<img class="ref-icon" src={ic.src} alt="" width="32" height="32" loading="lazy" />
+							</a>
+						)}
+						<div>
+							<strong>{nameOf(w.id)}</strong>
+							<code>{w.placed}</code>
+						</div>
+					</div>
+					<dl>
+						<div>
+							<dt>allowed</dt>
+							<dd>{list(w.allowed).map((v) => <code>{label(v)}</code>)}</dd>
+						</div>
+						{w.denied && (
+							<div>
+								<dt>denied</dt>
+								<dd>{list(w.denied).map((v) => <code>{label(v)}</code>)}</dd>
+							</div>
+						)}
+						{(w.extra.min_temperature !== undefined || w.extra.max_temperature !== undefined) && (
+							<div>
+								<dt>base temp.</dt>
+								<dd>
+									<code>{w.extra.min_temperature ?? '…'}</code> to <code>{w.extra.max_temperature ?? '…'}</code>
+								</dd>
+							</div>
+						)}
+						<div>
+							<dt>patches</dt>
+							<dd>
+								1 in <b>{w.rarity}</b> chunks, <b>{w.count}</b> positions tried per patch
+							</dd>
+						</div>
+						{companions.length > 0 && (
+							<div>
+								<dt>with</dt>
+								<dd>{companions.map((c: string) => nameOf(c)).join(', ')}</dd>
+							</div>
+						)}
+						<div>
+							<dt>{w.biomes.length} biomes</dt>
+							<dd class="wg-biomes">{w.biomes.map(biomeName).join(', ')}</dd>
+						</div>
+					</dl>
+					<details class="ref-details">
+						<summary>Files</summary>
+						<RepoFile path={`${MAIN}neoforge/biome_modifier/${name}.json`} />
+						<RepoFile path={`${MAIN}worldgen/placed_feature/${w.placed.split(':')[1]}.json`} />
+					</details>
+				</section>
+			);
+		})
+	}
+</div>
+<style>
+	.wg {
+		margin: 20px 0 30px;
+		padding: 0 16px;
+	}
+	.wg-row {
+		display: grid;
+		grid-template-columns: 15rem 1fr;
+		gap: 4px 24px;
+		padding: 14px 0;
+		border-bottom: 2px solid var(--fd-border);
+		scroll-margin-top: 6rem;
+		font-size: 20px;
+		line-height: 30px;
+	}
+	.wg-row:last-child {
+		border-bottom: 0;
+	}
+	.wg-head {
+		display: flex;
+		gap: 10px;
+		align-items: flex-start;
+	}
+	.wg-head a {
+		display: grid;
+		place-items: center;
+		flex: none;
+		width: 36px;
+		height: 36px;
+		background: #8b8b8b;
+		box-shadow: inset 2px 2px 0 #373737, inset -2px -2px 0 #fff;
+	}
+	.wg-head strong {
+		display: block;
+		color: var(--fd-heading-ink);
+	}
+	.wg-head code,
+	dd code {
+		font-family: var(--sl-font);
+		font-size: 20px;
+		background: none;
+		padding: 0;
+		color: var(--sl-color-gray-3);
+		overflow-wrap: anywhere;
+	}
+	dd code + code::before {
+		content: ', ';
+		color: var(--sl-color-gray-4);
+	}
+	dl {
+		margin: 0;
+		display: grid;
+		gap: 0;
+	}
+	dl > div {
+		display: grid;
+		grid-template-columns: 9rem 1fr;
+		gap: 12px;
+	}
+	dt {
+		color: var(--sl-color-gray-4);
+	}
+	dd {
+		margin: 0;
+		color: var(--sl-color-gray-2);
+	}
+	dd b {
+		color: var(--sl-color-white);
+	}
+	details {
+		grid-column: 1 / -1;
+	}
+	@media (max-width: 45rem) {
+		.wg-row {
+			grid-template-columns: 1fr;
+		}
+		dl > div {
+			grid-template-columns: 1fr;
+			gap: 0;
+		}
+	}
+</style>

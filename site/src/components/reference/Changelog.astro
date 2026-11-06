@@ -1,0 +1,199 @@
+---
+// changelog.md from the repository (docs-text.json), split into releases: Farmer's Delight Neoforged releases
+// first, then vectorwing's Farmer's Delight releases (the newest open, older ones folded).
+import docsText from '../../data/gen/docs-text.json';
+import { renderMarkdown, sections, slug } from './markdown';
+import './ref.css';
+interface Props {
+	openUpstream?: number;
+}
+const { openUpstream = 5 } = Astro.props;
+const all = sections(docsText.changelog);
+const port = all.filter((s) => s.title.startsWith("Farmer's Delight Neoforged"));
+const upstream = all.filter((s) => !s.title.startsWith("Farmer's Delight Neoforged"));
+const render = async (s: { title: string; body: string }, port: boolean) => ({ ...s, id: slug(port ? s.title.replace("Farmer's Delight Neoforged ", 'neoforged-') : s.title), html: await renderMarkdown(s.body, { upstreamRefs: port }) });
+const portR = await Promise.all(port.map((s) => render(s, true)));
+const upR = await Promise.all(upstream.map((s) => render(s, false)));
+---
+<div class="cl not-content">
+	<nav class="cl-index" aria-label="Releases">
+		<p class="cl-k">Neoforged</p>
+		<ul>
+			{portR.map((s) => <li><a href={`#${s.id}`}>{s.title.replace("Farmer's Delight Neoforged ", '')}</a></li>)}
+		</ul>
+		<p class="cl-k">Farmer's Delight</p>
+		<ul class="cl-up">
+			{upR.map((s) => <li><a href={`#${s.id}`}>{s.title}</a></li>)}
+		</ul>
+	</nav>
+	<div class="cl-body">
+		<h2 class="cl-group fd-sign orange">Farmer's Delight Neoforged</h2>
+		{
+			portR.map((s) => (
+				<section id={s.id} class="cl-rel port ref-board">
+					<h3>
+						{s.title.replace("Farmer's Delight Neoforged ", '')}
+						<span>Neoforged release</span>
+					</h3>
+					<div class="cl-md sl-markdown-content" set:html={s.html} />
+				</section>
+			))
+		}
+		<h2 class="cl-group fd-sign">Farmer's Delight (vectorwing)</h2>
+		<p class="cl-note">Releases of the original mod. Each Neoforged release carries the content of the Farmer's Delight version in its name. Lines marked (1.20), (1.21) and so on are about other Minecraft versions of the original.</p>
+		{
+			upR.map((s, i) =>
+				i < openUpstream ? (
+					<section id={s.id} class="cl-rel">
+						<h3>{s.title}</h3>
+						<div class="cl-md sl-markdown-content" set:html={s.html} />
+					</section>
+				) : (
+					<details id={s.id} class="cl-rel ref-details">
+						<summary>
+							<h3>{s.title}</h3>
+						</summary>
+						<div class="cl-md sl-markdown-content" set:html={s.html} />
+					</details>
+				),
+			)
+		}
+	</div>
+</div>
+<script>
+	// Opening a folded release from the index or a #hash link
+	const open = () => {
+		const el = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+		if (el instanceof HTMLDetailsElement) el.open = true;
+	};
+	addEventListener('hashchange', open);
+	open();
+</script>
+<style>
+	.cl {
+		display: grid;
+		grid-template-columns: 11rem minmax(0, 1fr);
+		gap: 30px;
+		margin-top: 30px;
+	}
+	.cl-index {
+		position: sticky;
+		top: calc(var(--sl-nav-height) + 20px);
+		align-self: start;
+		max-height: calc(100vh - var(--sl-nav-height) - 40px);
+		overflow-y: auto;
+		font-size: 20px;
+		line-height: 30px;
+	}
+	.cl-index ul {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 20px;
+	}
+	.cl-index li {
+		margin: 0;
+	}
+	.cl-index a {
+		display: block;
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+	}
+	.cl-index a:hover {
+		color: var(--sl-color-text-accent);
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+	}
+	.cl-k {
+		margin: 0 0 4px;
+		color: var(--sl-color-gray-4);
+		border-bottom: 2px solid var(--fd-border);
+	}
+	.cl-group {
+		font-family: var(--fd-font-display);
+		font-weight: 400;
+		font-size: 30px;
+		line-height: 40px;
+		margin: 0 0 20px;
+	}
+	.cl-group:not(:first-child) {
+		margin-top: 50px;
+	}
+	.cl-note {
+		font-size: 20px;
+		line-height: 30px;
+		color: var(--sl-color-gray-3);
+		margin: 0 0 20px;
+	}
+	.cl-rel {
+		padding: 10px 0;
+		border-bottom: 2px solid var(--fd-border);
+		scroll-margin-top: 6rem;
+	}
+	.cl-rel.port {
+		padding: 12px 18px;
+		margin-bottom: 20px;
+	}
+	.cl-rel h3 {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 16px;
+		margin: 0;
+		font-size: 20px;
+		line-height: 30px;
+		font-weight: 400;
+		color: var(--fd-heading-ink);
+		text-shadow: 2px 0 0 currentColor;
+		letter-spacing: 2px;
+	}
+	.cl-rel h3 span {
+		font-size: 20px;
+		color: var(--fd-green);
+		text-shadow: none;
+		letter-spacing: 0;
+	}
+	details.cl-rel summary h3 {
+		color: var(--sl-color-text-accent);
+	}
+	details.cl-rel summary:hover h3 {
+		color: var(--sl-color-white);
+	}
+	.cl-md {
+		font-size: 20px;
+		line-height: 30px;
+		margin-top: 8px;
+	}
+	.cl-md :global(h3) {
+		font-size: 20px;
+		font-weight: 400;
+		color: var(--sl-color-text-accent);
+		margin: 16px 0 4px;
+	}
+	.cl-md :global(ul) {
+		padding-left: 24px;
+		margin: 0;
+	}
+	.cl-md :global(li) {
+		margin: 2px 0;
+	}
+	.cl-md :global(a) {
+		color: var(--sl-color-text-accent);
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+	}
+	.cl-md :global(code) {
+		font-family: var(--sl-font);
+		font-size: 20px;
+		background: var(--fd-surface-2);
+		padding: 0 4px;
+	}
+	@media (max-width: 50rem) {
+		.cl {
+			grid-template-columns: 1fr;
+		}
+		.cl-index {
+			display: none;
+		}
+	}
+</style>

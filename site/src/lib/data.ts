@@ -119,7 +119,7 @@ export const recipeTypeName: Record<string, string> = {
 };
 
 // ------------------------------------------------------------ recipe queries
-export const playableRecipes = recipes.filter((r) => r.loaded && !r.id.includes('/integration/'));
+export const playableRecipes = recipes.filter((r) => r.loaded && !r.id.includes(':integration/'));
 export function recipesFor(id: string) {
 	return playableRecipes.filter((r) => r.result?.id === id || r.results?.some((x) => x.id === id));
 }

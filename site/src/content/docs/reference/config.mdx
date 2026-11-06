@@ -1,0 +1,36 @@
+---
+title: Configuration
+description: Every Farmer's Delight Neoforged config option with its type, default, range and the code it changes.
+---
+import { Aside } from '@astrojs/starlight/components';
+import ConfigReference from '../../../components/reference/ConfigReference.astro';
+import Cite from '../../../components/reference/Cite.astro';
+import { configFiles } from '../../../data/code/reference';
+import { config } from '../../../lib/data';
+
+export const common = config.filter((c) => c.file === configFiles.common.value);
+export const client = config.filter((c) => c.file === configFiles.client.value);
+
+Farmer's Delight has two config files: <code>{configFiles.common.value}</code> with {common.length} gameplay options <Cite c={configFiles.common} /> and <code>{configFiles.client.value}</code> with {client.length} display options <Cite c={configFiles.client} />.
+You can also edit them in game: the mod registers a config screen for the **Mods** list <Cite c={configFiles.screen} />.
+
+<Aside title="Keep client and server in step">
+NeoForge for 26.3 dropped the "common" config type, so the port registers <code>{configFiles.common.value}</code> as a local config under its old file name; existing configs keep working <Cite c={configFiles.common} />.
+Two options change item defaults at startup, `enableRabbitStewBuff` and `enableStackableSoupItems`. Their own comments ask for the same value on the client and the server.
+</Aside>
+
+Comments are copied from the code. Open **What it affects** for what the option changes and the code that reads it.
+
+## {configFiles.common.value}
+
+<ConfigReference file={configFiles.common.value} />
+
+## {configFiles.client.value}
+
+<ConfigReference file={configFiles.client.value} />
+
+## Default files
+
+Generated from the defaults above. The game writes these files itself on first launch, with its own comments and formatting; this is what the values look like.
+
+<ConfigReference toml />

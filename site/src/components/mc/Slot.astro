@@ -12,13 +12,15 @@ interface Props {
 	note?: string;
 }
 const { id, ingredient, count = 1, chance, scale = 2, large = false, bare = false, note } = Astro.props;
-const list = ingredient ? [...new Set(ingredient.items)] : id ? [id] : [];
+// A slot cycles through at most 12 of an ingredient's items (the tooltip names the whole tag) to keep pages light
+const all = ingredient ? [...new Set(ingredient.items)] : id ? [id] : [];
+const list = all.slice(0, 12);
 const tagLine = ingredient?.tag
 	? `Any #${short(ingredient.tag)}`
 	: ingredient?.action
 		? `Any tool that can ${ingredient.action.replaceAll('_', ' ')}`
-		: ingredient && list.length > 1
-			? `Any of ${list.length} items`
+		: ingredient && all.length > 1
+			? `Any of ${all.length} items`
 			: '';
 const first = list[0];
 const link = list.length === 1 && first ? pageOf(first) : null;

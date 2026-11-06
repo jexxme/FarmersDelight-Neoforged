@@ -1,0 +1,119 @@
+---
+title: Compatibility
+description: Supported Minecraft and NeoForge versions, recipe viewers (JEI, REI), AppleSkin, and the data-only integrations with Create, Immersive Engineering and other mods.
+---
+import { Aside } from '@astrojs/starlight/components';
+import Cite from '../../components/reference/Cite.astro';
+import RepoFile from '../../components/reference/RepoFile.astro';
+import Recipe from '../../components/recipes/Recipe.astro';
+import Src from '../../components/mc/Src.astro';
+import Item from '../../components/mc/Item.astro';
+import { jei, rei, doughNeedsOne } from '../../data/code/reference';
+import { meta, recipes, tags } from '../../lib/data';
+
+export const integ = recipes.filter((r) => r.id.includes(':integration/'));
+export const byMod = Object.entries(integ.reduce((m, r) => ((m[r.id.split('/')[1]] = (m[r.id.split('/')[1]] ?? 0) + 1), m), {}));
+export const modName = { create: 'Create', immersiveengineering: 'Immersive Engineering', silentgear: 'Silent Gear' };
+export const foreign = [...new Set(tags.files.map((f) => f.tag.split(':')[0]).filter((ns) => !['farmersdelight', 'c', 'minecraft', 'neoforge'].includes(ns)))].sort();
+export const optional = [...new Set(tags.files.flatMap((f) => f.values.filter((v) => v.endsWith('?')).map((v) => v.replace(/^#/, '').split(':')[0])))].filter((ns) => ns !== 'farmersdelight').sort();
+export const rel = (tag) => `https://github.com/jexxme/FarmersDelight-Neoforged/releases/tag/${encodeURIComponent(tag)}`;
+
+## Minecraft and NeoForge versions
+
+There is one file per Minecraft version, all with the same content, version {meta.modVersion}. The mod id stays <code>{meta.modId}</code>, so worlds and add-ons made for Farmer's Delight keep working.
+
+<table class="fd-versions">
+<thead><tr><th>Minecraft</th><th>NeoForge</th><th>Built against</th><th>Release</th></tr></thead>
+<tbody>
+{meta.versions.map((v) => (
+<tr>
+<td><strong>{v.gameVersions.split(',').join(', ')}</strong><br /><small><code>{v.minecraftRange}</code></small></td>
+<td><code>{v.neoforgeRange}</code></td>
+<td><code>{v.neoforge}</code></td>
+<td><a href={rel(v.tag)}><code>{v.tag}</code></a></td>
+</tr>
+))}
+</tbody>
+</table>
+
+Ranges use Maven notation: `[a,b)` means from `a` up to but not including `b`; `[a,)` means `a` or newer.
+
+## Recipe viewers
+
+| Viewer | Status |
+|---|---|
+| **JEI** | Supported on every version |
+| **REI** | Supported on Minecraft 26.1.2 and newer (<Src path="README.md" lines="43" />) |
+| **EMI** | Not yet: EMI has no 26.x release. The plugin code is kept, commented out, in `integration/emi/` |
+
+### JEI
+
+- Recipe categories for the Cooking Pot, Cutting Board and Organic Compost decomposition <Cite c={jei.categories} />.
+- The Cooking Pot, Cutting Board and Organic Compost are their categories' stations; the Stove and Skillet are added to vanilla campfire cooking <Cite c={jei.catalysts} />.
+- Click the Cooking Pot's arrow to open its recipes <Cite c={jei.clickArea} />, and move a recipe's ingredients into the pot with JEI's transfer button <Cite c={jei.transfer} />.
+- Info pages for wheat dough, straw, ham, knives and the wild crops <Cite c={jei.info} />.
+
+Known gaps: the knife info page is missing for the <Item id="copper_knife" />, and the water dough recipe is shown with two wheat <Cite c={jei.doughDisplay} /> although it takes exactly one <Cite c={doughNeedsOne} />.
+
+### REI
+
+The same categories, stations, click area and recipe transfer <Cite c={rei.categories} /> <Cite c={rei.clickArea} /> <Cite c={rei.transfer} />. The info pages include all six knives <Cite c={rei.info} />, and the dough recipe shows one wheat <Cite c={rei.displays} />. The REI integration is adapted from Farmer's Delight Refabricated.
+
+## AppleSkin
+
+Works: AppleSkin reads food values from the game, so Farmer's Delight's food shows normally. The mod has no AppleSkin-specific code. Nourishment draws its own gilded hunger bar (client option `enableNourishmentHungerOverlay`).
+
+## CraftTweaker
+
+Not yet: CraftTweaker has no 26.x release. The integration code is kept, commented out, in `integration/crafttweaker/`. Data packs can do everything the CraftTweaker support did; see [Recipe formats](/pack-makers/recipes/).
+
+## Data-only integrations
+
+Some recipes only load when another mod is installed (`neoforge:mod_loaded`). They need no code, so they work as soon as that mod exists for your Minecraft version:
+
+<ul class="fd-mods">
+{byMod.map(([mod, n]) => <li><strong>{modName[mod] ?? mod}</strong> <span>{n} {n === 1 ? 'recipe' : 'recipes'}</span> <code>recipe/integration/{mod}/</code></li>)}
+</ul>
+
+Create also gets potato-cannon projectile data for Farmer's Delight crops and pies (`data/farmersdelight/create/`).
+
+<details>
+<summary>Example: Create milling of wild cabbages</summary>
+<RepoFile path="src/main/resources/data/farmersdelight/recipe/integration/create/milling/wild_cabbages.json" />
+</details>
+
+<details>
+<summary>Example: Immersive Engineering cloche for tomatoes</summary>
+<RepoFile path="src/main/resources/data/farmersdelight/recipe/integration/immersiveengineering/cloche/tomato.json" />
+</details>
+
+<details>
+<summary>Example: Silent Gear netherwood on the Cutting Board</summary>
+<div class="fd-pair">
+<RepoFile path="src/main/resources/data/farmersdelight/recipe/integration/silentgear/cutting/netherwood.json" />
+<Recipe id="integration/silentgear/cutting/netherwood" />
+</div>
+</details>
+
+## Tags for other mods
+
+Farmer's Delight fills common `c:` tags (crops, foods, seeds, tools, storage blocks…), so recipes from other mods that ask for "any onion" or "any knife" accept its items. It also adds its items to tags of these mods: {foreign.map((ns, i) => <>{i > 0 && ', '}<code>{ns}</code></>)}.
+Some of its own tags list other mods' items as optional entries, skipped when that mod is missing: {optional.map((ns, i) => <>{i > 0 && ', '}<code>{ns}</code></>)}. Every entry is on [Tags](/pack-makers/tags/).
+
+<Aside title="Coming from the original Farmer's Delight?">
+Remove it first; this port replaces it. Recipe ids match Farmer's Delight 1.21, so packs and scripts that refer to them keep working. See [Differences from upstream](/differences/).
+</Aside>
+
+<style>{`
+.fd-versions small { color: var(--sl-color-gray-3); font-size: 20px; }
+.fd-versions code { white-space: nowrap; }
+.fd-mods { list-style: none; padding: 0 16px; margin: 20px 0; background: var(--fd-surface); border: 3px solid var(--fd-frame); box-shadow: 4px 4px 0 #000; }
+.fd-mods li { display: flex; flex-wrap: wrap; gap: 0 20px; align-items: baseline; padding: 8px 0; margin: 0; border-bottom: 2px solid var(--fd-border); }
+.fd-mods li:last-child { border-bottom: 0; }
+.fd-mods strong { color: var(--fd-heading-ink); }
+.fd-mods span, .fd-mods code { color: var(--sl-color-gray-3); }
+.fd-pair { display: flex; flex-wrap: wrap; gap: 20px 30px; align-items: center; }
+.fd-pair > .fd-repofile { flex: 1 1 18rem; min-width: 0; }
+.sl-markdown-content details { margin: 10px 0; }
+.sl-markdown-content details > summary { cursor: pointer; color: var(--sl-color-text-accent); }
+`}</style>

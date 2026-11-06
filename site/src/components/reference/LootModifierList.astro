@@ -1,0 +1,148 @@
+---
+// The loot modifiers Farmer's Delight ships (modifiers.json), grouped by type, each with its real file.
+import RepoFile from './RepoFile.astro';
+import { modifiers, nameOf, iconOf, pageOf, pct, short } from '../../lib/data';
+import { describeModifier, chestName } from '../../lib/describe';
+
+const DIR = 'src/generated/resources/data/farmersdelight/loot_modifiers/';
+const types = [...new Set(modifiers.map((m) => m.type))];
+const typeNote: Record<string, string> = {
+	'farmersdelight:add_loot_table': 'Chest loot: rolls a Farmer\'s Delight table into a vanilla chest table',
+	'farmersdelight:add_item': 'Mob and block drops',
+	'farmersdelight:replace_item': 'Replaced drops',
+	'farmersdelight:pastry_slicing': 'Pies and cake broken with a knife',
+};
+function when(m: any): string {
+	if (m.type === 'farmersdelight:add_loot_table') return `Opening <strong>${chestName(m.target)}</strong> chests also rolls <code>${m.table}</code>.`;
+	const d = describeModifier(m);
+	if (!d.startsWith('Added by')) return d;
+	// Read the condition tree for mobs, blocks, killer and tool
+	const ents: string[] = [];
+	const blocks: string[] = [];
+	let player = false;
+	let knife = false;
+	const walk = (c: any) => {
+		if (!c || typeof c !== 'object') return;
+		if (c.type === 'minecraft:entity_properties' && c.entity === 'this' && c.predicate?.['minecraft:entity_type']) ents.push(c.predicate['minecraft:entity_type']);
+		if (c.type === 'minecraft:match_block' && typeof c.blocks === 'string') blocks.push(c.blocks);
+		if (c.type === 'minecraft:killed_by_player') player = true;
+		if (JSON.stringify(c.predicate ?? {}).includes('tools/knives')) knife = true;
+		(c.terms ?? []).forEach(walk);
+		if (c.term) walk(c.term);
+	};
+	walk(m.raw.condition);
+	const nameList = (ids: string[]) => {
+		const n = ids.map((e) => (e.startsWith('#') ? `#${short(e.slice(1))}` : e.includes('candle_cake') ? '' : nameOf(e).replace(/^\w/, (x) => x.toUpperCase()))).filter(Boolean);
+		return n.length > 4 ? `${n.slice(0, 4).join(', ')} and ${n.length - 4} more` : n.join(', ');
+	};
+	const ent = (e: string) => short(e).replaceAll('_', ' ').replace(/(^|\s)\w/g, (x) => x.toUpperCase());
+	let chance = 'always';
+	if (m.lootingChance) chance = `${pct(m.lootingChance.base)} (${pct(m.lootingChance.enchanted.base)} with Looting I, +${pct(m.lootingChance.enchanted.per_level_above_first)} per extra level)`;
+	else if (m.chance !== undefined) chance = pct(m.chance);
+	const what = `${m.count ?? 1} <strong>${nameOf(m.item)}</strong>`;
+	if (ents.length) return `Killing a <strong>${ents.map(ent).join(', ')}</strong>${player ? ' (killed by a player)' : ''}${knife ? ' with a knife' : ''} drops ${what}: ${chance}.`;
+	if (blocks.some((b) => b.includes('candle_cake'))) return `Breaking any of the ${blocks.length} candle cakes${knife ? ' with a knife' : ''} drops ${what}: ${chance}.`;
+	if (blocks.length) return `Breaking <strong>${nameList(blocks)}</strong>${knife ? ' with a knife' : ''} drops ${what}: ${chance}.`;
+	return `Adds ${what}: ${chance}.`;
+}
+const out = (m: any) => m.item ?? (m.type.endsWith('add_loot_table') ? 'minecraft:chest' : m.type.endsWith('replace_item') ? m.raw.added_item : m.type.endsWith('pastry_slicing') ? m.raw.slice : null);
+import './ref.css';
+---
+<div class="lm not-content">
+	{
+		types.map((t) => {
+			const list = modifiers.filter((m) => m.type === t);
+			return (
+				<section>
+					<h3 class="ref-h" id={`shipped-${t.split(':')[1]}`}>
+						{t} <span class="n">{list.length}</span>
+					</h3>
+					<p class="lm-note">{typeNote[t] ?? ''}</p>
+					<ul class="ref-board">
+						{list.map((m) => {
+							const item = out(m);
+							const ic = item ? iconOf(item) : null;
+							return (
+								<li id={m.id.split(':')[1]} class="ref-target">
+									<span class="lm-ic" data-tip-items={item ? `${nameOf(item)}~${item}` : undefined}>
+										{ic ? (
+											<a href={pageOf(item) ?? undefined}>
+												<img class="ref-icon" src={ic.src} alt="" width="32" height="32" loading="lazy" />
+											</a>
+										) : null}
+									</span>
+									<div>
+										<p class="lm-what" set:html={when(m)} />
+										<details class="ref-details">
+											<summary>
+												<code>{m.id.split(':')[1]}.json</code>
+											</summary>
+											<RepoFile path={`${DIR}${m.id.split(':')[1]}.json`} />
+										</details>
+									</div>
+								</li>
+							);
+						})}
+					</ul>
+				</section>
+			);
+		})
+	}
+</div>
+<style>
+	.lm-note {
+		margin: 0 0 10px;
+		font-size: 20px;
+		color: var(--sl-color-gray-3);
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0 16px;
+	}
+	li {
+		display: grid;
+		grid-template-columns: 36px 1fr;
+		gap: 14px;
+		margin: 0;
+		padding: 10px 0;
+		border-bottom: 2px solid var(--fd-border);
+		scroll-margin-top: 6rem;
+	}
+	li:last-child {
+		border-bottom: 0;
+	}
+	.lm-ic {
+		display: grid;
+		place-items: center;
+		width: 36px;
+		height: 36px;
+		background: #8b8b8b;
+		box-shadow: inset 2px 2px 0 #373737, inset -2px -2px 0 #fff;
+	}
+	.lm-what {
+		margin: 0;
+		font-size: 20px;
+		line-height: 30px;
+		color: var(--sl-color-gray-2);
+	}
+	.lm-what :global(strong) {
+		color: var(--sl-color-white);
+	}
+	.lm-what :global(a) {
+		color: var(--sl-color-text-accent);
+	}
+	.lm-what :global(code) {
+		font-family: var(--sl-font);
+		font-size: 20px;
+		background: var(--sl-color-black);
+		padding: 0 4px;
+	}
+	summary code {
+		font-family: var(--sl-font);
+		font-size: 20px;
+		background: none;
+		padding: 0;
+		color: inherit;
+	}
+</style>

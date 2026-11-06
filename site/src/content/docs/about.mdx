@@ -1,0 +1,61 @@
+---
+title: About these docs
+description: How the Farmer's Delight Neoforged docs are generated from the mod itself, the licence, and how to contribute.
+---
+import { Steps, Aside } from '@astrojs/starlight/components';
+import Src from '../../components/mc/Src.astro';
+import Render from '../../components/mc/Render.astro';
+import RepoFile from '../../components/reference/RepoFile.astro';
+import { meta, icons, renders } from '../../lib/data';
+
+export const iconCount = Object.values(icons).filter(Boolean).length;
+export const renderCount = Object.values(renders).filter(Boolean).length;
+
+<Render name="scenes/kitchen" caption="Rendered by the site's own model renderer from the mod's block models" float="right" size={256} />
+
+These docs are built from Farmer's Delight Neoforged {meta.modVersion} itself. Food values, recipes, loot, tags, config defaults and worldgen are read from the mod's data and code, and the icons and block pictures are drawn from its models and textures. Nothing is typed in from memory: when the mod changes, the site is regenerated.
+
+The current data covers {meta.counts.items} items, {meta.counts.blocks} blocks, {meta.counts.recipes} recipes, {meta.counts.lootModifiers} loot modifiers and {meta.counts.advancements} advancements, with {iconCount} item icons and {renderCount} renders.
+
+## How the site is made
+
+<Steps>
+
+1. **Runtime export.** The Gradle task `runDocsExport` starts a game-test server with the dev-only exporter `FDDocsExport`, which writes the values only a running game knows: every item's data components (food, consumable, stack size, durability, attributes), block properties and states, every loaded tag and the loaded recipe ids ([FDDocsExport.java](https://github.com/jexxme/FarmersDelight-Neoforged/blob/26.3/src/main/java/vectorwing/farmersdelight/gametest/FDDocsExport.java)). The exporter is registered only when its system property is set, so the released jar never runs it ([FarmersDelight.java](https://github.com/jexxme/FarmersDelight-Neoforged/blob/26.3/src/main/java/vectorwing/farmersdelight/FarmersDelight.java), [build.gradle](https://github.com/jexxme/FarmersDelight-Neoforged/blob/26.3/build.gradle)).
+
+2. **Extraction.** `site/scripts/extract.mjs` combines that export with the mod's generated and hand-written resources, `Configuration.java` and `FoodValues.java`, and writes the JSON files under `site/src/data/gen/` that every page reads.
+
+3. **Icons and renders.** A small software renderer (`site/scripts/lib/render.mjs`) reads Minecraft block and item models, resolves parents and textures, applies the model rotations and rasterises the faces with crisp pixels. It draws every inventory icon (`render-icons.mjs`) and the isometric block, growth-stage and scene pictures (`render-scenes.mjs`).
+
+4. **GUI pieces.** `copy-gui.mjs` copies the mod's own JEI textures for the Cooking Pot and Cutting Board recipe cards, its effect icons and a few vanilla HUD sprites. `make-ui.mjs` and `make-font.mjs` draw the sign boards and the pixel font, in the style of the mod's logo.
+
+5. **Code facts.** Numbers that live in Java (formulas, defaults in codecs) are kept in small modules in `site/src/data/code/`, each with the file and lines it was read from. They appear next to the claim as source links like this one: <Src path="common/crafting/CookingPotRecipe.java" lines="42" />. The links open the code on GitHub at the release tag. (The exporter itself was added after the {meta.modVersion} release, so its links point at the `26.3` branch.)
+
+</Steps>
+
+Run it yourself:
+
+```bash
+./gradlew runDocsExport   # runtime values -> site/src/data/runtime.json
+cd site
+npm run data              # extract, icons, renders, GUI textures, UI, font
+npm run dev               # local preview
+```
+
+## Licence
+
+Farmer's Delight Neoforged is MIT-licensed, like the original. vectorwing's copyright notice is kept:
+
+<RepoFile path="LICENSE" lang="text" lines="1-4" title="LICENSE (first lines)" />
+
+"Farmer's Delight" is vectorwing's project name. This is an independent port, not affiliated with or endorsed by vectorwing. Minecraft is a trademark of Mojang; this is not an official Minecraft product.
+
+## Contributing
+
+- Found a wrong number or a missing page? Open an issue on the [GitHub tracker](https://github.com/jexxme/FarmersDelight-Neoforged/issues), or use **Edit page** at the bottom of any page.
+- Writing for the site: [site/AUTHORING.md](https://github.com/jexxme/FarmersDelight-Neoforged/blob/26.3/site/AUTHORING.md) explains the rules (every value from data or code), the components and the page layout.
+- Working on the mod: [CONTRIBUTING.md](https://github.com/jexxme/FarmersDelight-Neoforged/blob/26.3/CONTRIBUTING.md) covers building, testing and how the Minecraft versions are maintained.
+
+<Aside title="Report mod bugs here, not upstream">
+Bugs in this port belong on the Farmer's Delight Neoforged tracker, not on vectorwing's.
+</Aside>

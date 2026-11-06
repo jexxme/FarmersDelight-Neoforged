@@ -1,0 +1,31 @@
+---
+title: Food reference
+description: Every Farmer's Delight food with hunger, saturation, eat time, effects and stack size, sortable and comparable with vanilla food.
+tableOfContents: false
+---
+import { Aside } from '@astrojs/starlight/components';
+import FoodReference from '../../../components/reference/FoodReference.astro';
+import Cite from '../../../components/reference/Cite.astro';
+import Item from '../../../components/mc/Item.astro';
+import { nourishmentTiers, rabbitStewSkip, vanillaSoups } from '../../../data/code/reference';
+import { duration, config, itemList } from '../../../lib/data';
+
+All {itemList.filter((i) => i.food || i.consumable).length} things you can eat or drink, with the values read from the game.
+Sort by any column, filter by category or effect, and tick **Compare with vanilla** to mix in Minecraft's own food.
+
+<FoodReference />
+
+## Reading the table
+
+- **Hunger** is the number of hunger points restored; one shank on the HUD is 2 points.
+- **Saturation** is the saturation added. Saturation can never be higher than your current hunger level, so a high value only pays off when you eat it hungry.
+- **Sat./pt** is saturation per hunger point. Higher means the food keeps you full longer for the hunger it fills.
+- **Effects** show duration as minutes:seconds and a chance when it is below 100%.
+  [Nourishment](/mechanics/effects/) stops the hunger bar from draining; it comes in {nourishmentTiers.value.length} lengths: {nourishmentTiers.value.map(([n, t]) => `${n.toLowerCase()} ${duration(t)}`).join(', ')} <Cite c={nourishmentTiers} />.
+- **Per stack** is hunger × stack size: how much food one inventory slot holds.
+- Meals and drinks give their container back when you finish them, even from a full stack.
+
+<Aside title="Vanilla soups and Rabbit Stew">
+With `enableVanillaSoupExtraEffects` on (default <code>{String(config.find((c) => c.key === 'enableVanillaSoupExtraEffects').default)}</code>), <Item id="minecraft:mushroom_stew" /> and <Item id="minecraft:beetroot_soup" /> also give Nourishment <Cite c={vanillaSoups} />.
+<Item id="minecraft:rabbit_stew" /> is listed there too, but with `enableRabbitStewBuff` on (default <code>{String(config.find((c) => c.key === 'enableRabbitStewBuff').default)}</code>) the mod gives it better food values and skips its Nourishment <Cite c={rabbitStewSkip} />. Its tooltip still lists Nourishment. The vanilla rows above show what you actually get with the default config.
+</Aside>
