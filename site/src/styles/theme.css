@@ -225,10 +225,10 @@ h1#_top {
 	color: var(--fd-heading-ink);
 }
 .sl-markdown-content h2:not(:where(.not-content *)) {
-	display: table;
+	display: inline-block;
 	font-size: 30px;
 	line-height: 1.4;
-	margin-top: 2.75em;
+	margin: 0;
 	padding: 4px 14px 0;
 	color: var(--fd-orange-ink);
 	border-style: solid;
@@ -238,7 +238,7 @@ h1#_top {
 }
 .sl-markdown-content h3:not(:where(.not-content *)) {
 	font-size: 20px;
-	margin-top: 2em;
+	margin: 0;
 	color: var(--sl-color-text-accent);
 	text-shadow: 2px 0 0 currentColor;
 	letter-spacing: 2px;
@@ -453,9 +453,7 @@ img.pixel,
 .sl-markdown-content table:not(:where(.not-content *)) {
 	max-width: 100%;
 }
-.sl-markdown-content td {
-	overflow-wrap: anywhere;
-}
+
 
 /* Scrollbars like the creative-inventory scroller: a grey bevelled thumb in a dark slot */
 /* Firefox (Chromium ignores ::-webkit-scrollbar once scrollbar-color is set, so only use it where those don't exist) */
@@ -490,4 +488,48 @@ img.pixel,
 :root[data-theme='light'] ::-webkit-scrollbar-track {
 	background: #b18e65;
 	box-shadow: inset 2px 2px 0 #483015;
+}
+
+/* Heading rhythm: the sign sits on one line with its anchor link; even space above, a little below */
+.sl-markdown-content .sl-heading-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.sl-markdown-content .sl-heading-wrapper.level-h2 {
+	margin-top: 56px;
+	margin-bottom: 4px;
+}
+.sl-markdown-content .sl-heading-wrapper.level-h3 {
+	margin-top: 36px;
+}
+.sl-markdown-content .sl-heading-wrapper.level-h4 {
+	margin-top: 28px;
+}
+.sl-markdown-content .sl-heading-wrapper + * {
+	margin-top: 16px !important;
+}
+
+/* Wide tables scroll inside the column instead of running under the side panel; words never break mid-word */
+.sl-markdown-content table:not(:where(.not-content *)) {
+	display: block;
+	width: max-content;
+	max-width: 100%;
+	overflow-x: auto;
+}
+.sl-markdown-content td {
+	overflow-wrap: normal;
+	min-width: 4ch;
+}
+
+/* Headings written without Starlight's anchor wrapper (generated item pages) get the same rhythm */
+.sl-markdown-content > h2:not(:where(.not-content *)) {
+	margin-top: 56px;
+	margin-bottom: 4px;
+}
+.sl-markdown-content > h2 + * {
+	margin-top: 16px !important;
+}
+.sl-markdown-content > h3:not(:where(.not-content *)) {
+	margin-top: 36px;
 }

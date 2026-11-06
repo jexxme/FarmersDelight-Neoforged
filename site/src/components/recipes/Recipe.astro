@@ -155,11 +155,18 @@ const station: Record<string, string[]> = {
 		vertical-align: top;
 		max-width: 100%;
 	}
+	/* The JEI texture sits on a GUI panel, like JEI's own recipe screen: grey frame, bevel, black outline */
 	.stage {
 		position: relative;
-		border-radius: 2px;
-		outline: 2px solid #000;
-		box-shadow: inset 2px 2px 0 #fff;
+		margin: 10px;
+		box-shadow:
+			0 0 0 8px #c6c6c6,
+			-2px -2px 0 8px #fff,
+			2px 2px 0 8px #555,
+			0 0 0 10px #000;
+	}
+	.fd-recipe:has(.stage) figcaption {
+		margin-top: 8px;
 	}
 	.row {
 		display: flex !important;
