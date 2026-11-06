@@ -198,9 +198,40 @@ starlight-theme-select select {
 	height: 40px;
 	padding-block: 0 !important;
 }
+/* Search, GitHub and theme read as one toolbar: three black text-field boxes, same height, same gaps */
+@media (min-width: 50rem) {
+	header .header {
+		column-gap: 8px;
+	}
+	header .right-group {
+		gap: 8px;
+	}
+	header .social-icons::after {
+		display: none;
+	}
+	header .social-icons a {
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		place-items: center;
+		background: #000;
+		border: 2px solid #a0a0a0;
+		filter: none;
+	}
+	header .social-icons a:hover {
+		border-color: #fff;
+	}
+	header starlight-theme-select select {
+		margin-inline: 0;
+		width: 108px;
+		padding-inline: 30px 22px !important;
+	}
+}
 header .social-icons svg {
-	width: 30px;
-	height: 30px;
+	width: 24px;
+	height: 24px;
 }
 
 /* Opening search hides the page scrollbar; keep its space so the page doesn't jump sideways */
@@ -262,10 +293,10 @@ site-search button[data-close-modal] {
 	border-color: #fff;
 }
 #starlight__search .pagefind-ui__search-input::placeholder {
-	color: #707070;
+	color: #a0a0a0;
 }
 #starlight__search .pagefind-ui__form::before {
-	background-color: #a0a0a0;
+	background-color: #e0e0e0;
 }
 #starlight__search .pagefind-ui__search-clear::before {
 	background-color: #e0e0e0;
