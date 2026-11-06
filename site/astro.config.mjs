@@ -39,8 +39,11 @@ export default defineConfig({
 			],
 			editLink: { baseUrl: 'https://github.com/jexxme/FarmersDelight-Neoforged/edit/26.3/site/' },
 			customCss: [
-				'@fontsource-variable/inter',
-				'@fontsource-variable/fraunces',
+				'@fontsource-variable/literata',
+				'@fontsource-variable/literata/wght-italic.css',
+				'@fontsource/young-serif',
+				'@fontsource/ibm-plex-mono/400.css',
+				'@fontsource/ibm-plex-mono/500.css',
 				'@fontsource/pixelify-sans/400.css',
 				'./src/styles/theme.css',
 				'./src/styles/mc.css',

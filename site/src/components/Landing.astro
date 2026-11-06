@@ -1,102 +1,105 @@
 ---
-// The home page: hero, numbers straight from the data, sections with renders, category browser.
+// Home page, laid out like the front of a cookbook: masthead, a plate, the contents, the pantry, a colophon.
 import Slot from './mc/Slot.astro';
-import { meta, url, itemList, CATEGORIES, renderOf, items } from '../lib/data';
+import { meta, url, itemList, CATEGORIES, renderOf } from '../lib/data';
 
 const cats = Object.entries(CATEGORIES)
 	.map(([key, v]) => ({ key, ...v, items: itemList.filter((i) => i.category === key) }))
 	.filter((c) => c.items.length);
-const meals = itemList.filter((i) => i.food).length;
-const sections = [
-	{ title: 'Cook', text: 'The Cooking Pot, Stove, Skillet and Cutting Board, with every recipe drawn the way the game shows it.', href: '/mechanics/cooking-pot/', render: 'scenes/kitchen' },
-	{ title: 'Farm', text: 'Four new crops, wild crops in the world, compost that turns into Rich Soil, and mushroom colonies.', href: '/mechanics/crops/', render: 'scenes/garden' },
-	{ title: 'Feast', text: 'Placeable feasts and pies to share, and Nourishment, which keeps your hunger bar from draining.', href: '/mechanics/feasts/', render: 'scenes/feast-table' },
-];
-const tools = [
-	{ title: 'Food reference', text: 'Every food, sortable by hunger, saturation and effects, side by side with vanilla.', href: '/reference/food/', icon: 'farmersdelight:beef_stew' },
-	{ title: 'Recipe planner', text: 'Pick a dish and see everything you need, down to the raw crops.', href: '/reference/recipe-planner/', icon: 'farmersdelight:roast_chicken_block' },
-	{ title: 'All items', text: `All ${meta.counts.items} items and blocks with filters, each with its own page.`, href: '/items/', icon: 'farmersdelight:cooking_pot' },
-	{ title: 'For pack makers', text: 'Recipe JSON formats, every tag, loot modifiers and worldgen, with real examples.', href: '/pack-makers/', icon: 'farmersdelight:cutting_board' },
+const foods = itemList.filter((i) => i.food).length;
+const oldest = meta.versions[meta.versions.length - 1].gameVersions.split(',')[0];
+const newest = meta.versions[0].minecraft;
+const chapters = [
+	{ title: 'Cooking', pages: [['Cooking Pot', 'mechanics/cooking-pot'], ['Heat sources', 'mechanics/heat-sources'], ['Stove', 'mechanics/stove'], ['Skillet', 'mechanics/skillet'], ['Cutting Board', 'mechanics/cutting-board'], ['Feasts', 'mechanics/feasts'], ['Pies & cakes', 'mechanics/pies'], ['Drinks', 'mechanics/drinks']] },
+	{ title: 'Farming', pages: [['Crops', 'mechanics/crops'], ['Wild crops', 'mechanics/wild-crops'], ['Rich Soil', 'mechanics/rich-soil'], ['Organic Compost', 'mechanics/organic-compost'], ['Mushroom Colonies', 'mechanics/mushroom-colonies'], ['Straw & rope', 'mechanics/straw-and-rope']] },
+	{ title: 'Tools & effects', pages: [['Knives', 'mechanics/knives'], ['Nourishment', 'mechanics/effects'], ['Animal feed', 'mechanics/animal-feed']] },
+	{ title: 'The world', pages: [['Storage & decoration', 'mechanics/storage-and-decoration'], ['Villagers', 'mechanics/villagers'], ['Loot', 'mechanics/loot']] },
+	{ title: 'Reference', pages: [['Food tables', 'reference/food'], ['Recipe planner', 'reference/recipe-planner'], ['All recipes', 'reference/recipes'], ['Configuration', 'reference/config'], ['Advancements', 'reference/advancements']] },
+	{ title: 'For pack makers', pages: [['Recipe formats', 'pack-makers/recipes'], ['Tags', 'pack-makers/tags'], ['Loot modifiers', 'pack-makers/loot-modifiers'], ['Worldgen', 'pack-makers/worldgen']] },
 ];
 ---
 <div class="landing not-content">
-	<section class="hero">
-		<img class="hero-bg" src={url('/shots/hero.jpg')} alt="" fetchpriority="high" />
-		<div class="hero-inner">
-			<p class="eyebrow">Minecraft {meta.minecraft} · NeoForge · v{meta.modVersion}</p>
-			<h1>Farmer's Delight<br /><span>Neoforged</span></h1>
-			<p class="lede">The complete guide to cooking, farming and feasting. Every item, recipe, mechanic and number, generated straight from the mod.</p>
-			<div class="ctas">
-				<a class="btn primary" href={url('/getting-started/')}>Get started</a>
-				<a class="btn" href={url('/items/')}>Browse all items</a>
-				<a class="btn ghost" href="https://modrinth.com/mod/farmers-delight-neoforged">Download</a>
-			</div>
-		</div>
-	</section>
-
-	<section class="stats" aria-label="The mod in numbers">
-		<div><strong>{meta.counts.items}</strong><span>items &amp; blocks</span></div>
-		<div><strong>{meta.counts.recipes}</strong><span>recipes</span></div>
-		<div><strong>{meta.counts.cooking}</strong><span>Cooking Pot meals</span></div>
-		<div><strong>{meals}</strong><span>foods</span></div>
-		<div><strong>{meta.counts.cutting}</strong><span>Cutting Board recipes</span></div>
-	</section>
-
-	<section class="pillars">
-		{sections.map((s) => (
-			<a class="pillar fd-card" href={url(s.href)}>
-				<img src={renderOf(s.render)} alt="" width="512" height="512" loading="lazy" />
-				<div>
-					<h2>{s.title}</h2>
-					<p>{s.text}</p>
-					<span class="more">Read more →</span>
-				</div>
-			</a>
-		))}
-	</section>
-
-	<section class="tools">
-		{tools.map((t) => (
-			<a class="tool fd-card" href={url(t.href)}>
-				<Slot id={t.icon} scale={2} />
-				<div>
-					<h3>{t.title}</h3>
-					<p>{t.text}</p>
-				</div>
-			</a>
-		))}
-	</section>
-
-	<section class="browse">
-		<h2>Everything in the mod</h2>
-		<div class="cats">
-			{cats.map((c) => (
-				<a class="cat fd-card" href={url(`/items/#${c.key}`)}>
-					<div class="cat-top">
-						<h3>{c.label}</h3>
-						<span>{c.items.length}</span>
-					</div>
-					<div class="cat-icons">
-						{c.items.slice(0, 8).map((i) => (
-							<Slot id={i.id} scale={1.5} bare />
-						))}
-					</div>
-				</a>
-			))}
-		</div>
-	</section>
-
-	<section class="trust fd-card">
-		<div>
-			<h2>Every number is real</h2>
-			<p>
-				These docs don't copy values from an old wiki. Food values, effects, durability and stack sizes are exported from a running game,
-				recipes, loot and tags are read from the mod's data, and the icons and 3D renders are drawn from its block models and textures. When the
-				mod changes, the docs regenerate.
+	<header class="mast">
+		<p class="mast-meta">
+			<span>farmersdelight</span><span>{meta.modVersion}</span><span>Minecraft {oldest} – {newest}</span><span>NeoForge</span>
+		</p>
+		<h1>Farmer's Delight Neoforged</h1>
+		<div class="mast-cols">
+			<p class="mast-lede">
+				Everything about cooking, farming and feasting with Farmer's Delight on Minecraft 26.x. Each recipe, drop chance and food value on these pages was read from the mod itself, not copied from an old wiki.
 			</p>
-			<a href={url('/about/')}>How the docs are made →</a>
+			<ul class="mast-links">
+				<li><a href={url('/getting-started/')}>Getting started</a><span>install, first crops, first meal</span></li>
+				<li><a href={url('/items/')}>All {meta.counts.items} items</a><span>every block and item, each with its page</span></li>
+				<li><span class="pair"><a href="https://modrinth.com/mod/farmers-delight-neoforged">Modrinth</a> or <a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged">CurseForge</a></span><span>download for your Minecraft version</span></li>
+			</ul>
 		</div>
-		<img src={renderOf('scenes/pot-on-stove')} alt="" width="220" height="220" loading="lazy" />
+	</header>
+
+	<figure class="plate">
+		<img src={url('/shots/hero.jpg')} alt="A farmhouse with a vegetable garden built with Farmer's Delight" fetchpriority="high" />
+		<figcaption>A farmhouse and its vegetable garden, built with Farmer's Delight Neoforged.</figcaption>
+	</figure>
+
+	<p class="census">
+		The mod adds <b>{meta.counts.items}</b> items and blocks and <b>{meta.counts.recipes}</b> recipes: <b>{meta.counts.cooking}</b> meals for the
+		Cooking Pot, <b>{meta.counts.cutting}</b> ways to use the Cutting Board, and <b>{foods}</b> things to eat.
+	</p>
+
+	<section class="contents">
+		<img src={renderOf('scenes/kitchen')} alt="" width="512" height="512" loading="lazy" />
+		<div>
+			<h2>Contents</h2>
+			<ol>
+				{chapters.map((c, i) => (
+					<li>
+						<span class="no">{String(i + 1).padStart(2, '0')}</span>
+						<h3>{c.title}</h3>
+						<p>
+							{c.pages.map(([label, slug], j) => (
+								<>
+									{j > 0 && <span class="sep"> · </span>}
+									<a href={url(`/${slug}/`)}>{label}</a>
+								</>
+							))}
+						</p>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<section class="pantry">
+		<h2>The pantry</h2>
+		<p class="pantry-note">Every item in the mod by kind. Hover for names, click for the item's page.</p>
+		<table>
+			<tbody>
+				{cats.map((c) => (
+					<tr>
+						<th scope="row">
+							<a href={url(`/items/#${c.key}`)}>{c.label}</a>
+							<span>{c.items.length}</span>
+						</th>
+						<td>
+							<div class="row">
+								{c.items.map((i) => (
+									<Slot id={i.id} scale={2} bare />
+								))}
+							</div>
+						</td>
+					</tr>
+				))}
+			</tbody>
+		</table>
+	</section>
+
+	<section class="colophon">
+		<p class="lbl">How these pages are made</p>
+		<p>
+			A test inside the game exports the real item stats: food values, effects, durability, stack sizes. Scripts then read recipes,
+			loot tables and tags from the mod's data files, and a small renderer draws every icon and block from the mod's own models
+			and textures. When the mod changes, the pages are rebuilt. <a href={url('/about/')}>More about this</a>.
+		</p>
 	</section>
 </div>
 
@@ -105,297 +108,250 @@ const tools = [
 		display: none;
 	}
 	.landing {
-		display: flex;
-		flex-direction: column;
-		gap: 2.5rem;
+		--rule: var(--fd-rule);
+		padding-top: 1rem;
 	}
-	.hero {
-		position: relative;
-		border-radius: 1.25rem;
-		overflow: hidden;
-		min-height: 26rem;
-		display: flex;
-		align-items: flex-end;
-		box-shadow: var(--fd-shadow);
-		border: 1px solid var(--fd-border);
+	.mast {
+		border-top: 4px solid var(--rule);
+		padding-top: 0.75rem;
 	}
-	.hero-bg {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: 50% 40%;
-	}
-	.hero::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(90deg, rgb(15 12 8 / 0.88) 0%, rgb(15 12 8 / 0.55) 45%, rgb(15 12 8 / 0) 75%), linear-gradient(0deg, rgb(15 12 8 / 0.6), transparent 50%);
-	}
-	.hero-inner {
-		position: relative;
-		z-index: 1;
-		padding: 2.5rem;
-		max-width: 36rem;
-		color: #fbf5ea;
-	}
-	.eyebrow {
-		font-size: var(--sl-text-sm);
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: #ffd2c2;
-		font-weight: 600;
-		margin: 0;
-	}
-	.hero h1 {
-		font-family: var(--fd-font-display);
-		font-size: clamp(2.6rem, 6vw, 4.2rem);
-		line-height: 0.98;
-		margin: 0.6rem 0 1rem;
-		font-weight: 700;
-		color: #fff;
-		text-shadow: 0 2px 18px rgb(0 0 0 / 0.5);
-	}
-	.hero h1 span {
-		color: #ff9a7a;
-		font-style: italic;
-		font-weight: 600;
-	}
-	.lede {
-		font-size: var(--sl-text-lg);
-		line-height: 1.5;
-		color: #efe6d6;
-		margin: 0 0 1.5rem;
-	}
-	.ctas {
+	.mast-meta {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.6rem;
+		gap: 0 1.25rem;
+		margin: 0;
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
 	}
-	.btn {
-		padding: 0.65rem 1.1rem;
-		border-radius: 0.65rem;
-		font-weight: 650;
-		text-decoration: none;
-		background: rgb(255 255 255 / 0.12);
-		color: #fff;
-		border: 1px solid rgb(255 255 255 / 0.25);
-		backdrop-filter: blur(6px);
-		transition: transform 0.12s, background 0.12s;
+	.mast h1 {
+		font-family: var(--fd-font-display);
+		font-weight: 400;
+		font-size: clamp(2.6rem, 8.5vw, 6.2rem);
+		line-height: 0.92;
+		letter-spacing: -0.02em;
+		margin: 1.25rem 0 1.5rem;
+		color: var(--sl-color-white);
+		max-width: 11ch;
 	}
-	.btn:hover {
-		transform: translateY(-1px);
-		background: rgb(255 255 255 / 0.2);
-	}
-	.btn.primary {
-		background: #e8603e;
-		border-color: #e8603e;
-	}
-	.btn.primary:hover {
-		background: #f0704f;
-	}
-	.btn.ghost {
-		background: transparent;
-	}
-	.stats {
+	.mast-cols {
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 0.75rem;
+		grid-template-columns: 7fr 5fr;
+		gap: 2.5rem;
+		border-top: 1px solid var(--rule);
+		padding-top: 1rem;
 	}
-	.stats div {
+	.mast-lede {
+		font-size: 1.2rem;
+		line-height: 1.55;
+		margin: 0;
+		color: var(--sl-color-gray-1);
+	}
+	.mast-links {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.mast-links li {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		padding: 1rem 0.5rem;
-		border-radius: 0.9rem;
-		background: var(--fd-surface);
-		border: 1px solid var(--fd-border);
+		padding: 0.45rem 0;
+		border-bottom: 1px solid var(--fd-border);
 	}
-	.stats strong {
+	.mast-links li:first-child {
+		padding-top: 0;
+	}
+	.mast-links a {
 		font-family: var(--fd-font-display);
-		font-size: 2.2rem;
-		line-height: 1;
+		font-size: 1.25rem;
+		color: var(--sl-color-accent);
+		text-decoration: none;
+	}
+	.mast-links .pair {
+		font-family: var(--fd-font-display);
+		font-size: 1.25rem;
+		color: var(--sl-color-gray-3);
+	}
+	.mast-links a:hover {
+		text-decoration: underline;
+	}
+	.mast-links span {
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+	.plate {
+		margin: 2.5rem 0 0;
+	}
+	.plate img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 21 / 9;
+		object-fit: cover;
+		object-position: 50% 45%;
+	}
+	.plate figcaption {
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		padding-top: 0.4rem;
+	}
+	.census {
+		font-family: var(--fd-font-display);
+		font-size: clamp(1.35rem, 3vw, 2rem);
+		line-height: 1.3;
+		margin: 3.5rem 0;
+		max-width: 34ch;
+		color: var(--sl-color-white);
+	}
+	.census b {
+		font-weight: 400;
 		color: var(--sl-color-accent);
 	}
-	.stats span {
-		font-size: var(--sl-text-sm);
-		color: var(--sl-color-gray-3);
-		text-align: center;
-	}
-	.pillars {
+	.contents {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1rem;
+		grid-template-columns: 4fr 7fr;
+		gap: 2.5rem;
+		align-items: start;
+		border-top: 2px solid var(--rule);
+		padding-top: 1rem;
 	}
-	.pillar {
-		display: flex;
-		flex-direction: column;
-		text-decoration: none;
-		color: inherit;
-		overflow: hidden;
-		transition: transform 0.15s, border-color 0.15s;
-	}
-	.pillar:hover {
-		transform: translateY(-3px);
-		border-color: var(--sl-color-accent);
-	}
-	.pillar img {
+	.contents img {
 		width: 100%;
 		height: auto;
-		aspect-ratio: 1.35;
-		object-fit: contain;
-		padding: 1rem 1rem 0;
-		background: var(--fd-hero-glow);
-		filter: drop-shadow(0 14px 14px rgb(0 0 0 / 0.3));
+		position: sticky;
+		top: calc(var(--sl-nav-height) + 1.5rem);
 	}
-	.pillar div {
-		padding: 0.5rem 1.25rem 1.25rem;
-	}
-	.pillar h2 {
+	h2 {
 		font-family: var(--fd-font-display);
-		font-size: 1.6rem;
-		margin: 0;
-		color: var(--sl-color-white);
-	}
-	.pillar p {
-		color: var(--sl-color-gray-2);
-		margin: 0.35rem 0 0.6rem;
-	}
-	.more {
-		color: var(--sl-color-accent);
-		font-weight: 650;
-		font-size: var(--sl-text-sm);
-	}
-	.tools {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 0.75rem;
-	}
-	.tool {
-		display: flex;
-		gap: 1rem;
-		align-items: center;
-		padding: 1rem 1.25rem;
-		text-decoration: none;
-		color: inherit;
-		transition: border-color 0.15s;
-	}
-	.tool:hover {
-		border-color: var(--sl-color-accent);
-	}
-	.tool h3 {
-		margin: 0;
-		font-size: var(--sl-text-lg);
-		color: var(--sl-color-white);
-	}
-	.tool p {
-		margin: 0.15rem 0 0;
-		font-size: var(--sl-text-sm);
-		color: var(--sl-color-gray-3);
-	}
-	.browse h2,
-	.trust h2 {
-		font-family: var(--fd-font-display);
+		font-weight: 400;
 		font-size: var(--sl-text-h2);
-		margin: 0 0 1rem;
+		margin: 0 0 0.75rem;
 		color: var(--sl-color-white);
 	}
-	.cats {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-		gap: 0.75rem;
-	}
-	.cat {
-		padding: 0.9rem 1rem;
-		text-decoration: none;
-		color: inherit;
-		transition: border-color 0.15s, transform 0.15s;
-	}
-	.cat:hover {
-		border-color: var(--sl-color-accent);
-		transform: translateY(-2px);
-	}
-	.cat-top {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-	}
-	.cat h3 {
+	.contents ol {
+		list-style: none;
 		margin: 0;
-		font-size: var(--sl-text-base);
+		padding: 0;
+	}
+	.contents li {
+		display: grid;
+		grid-template-columns: 2.5rem 1fr;
+		column-gap: 0.5rem;
+		padding: 0.8rem 0;
+		border-top: 1px solid var(--fd-border);
+	}
+	.no {
+		grid-row: span 2;
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+		padding-top: 0.3rem;
+	}
+	.contents h3 {
+		font-family: var(--fd-font-display);
+		font-weight: 400;
+		font-size: 1.35rem;
+		margin: 0;
 		color: var(--sl-color-white);
 	}
-	.cat-top span {
+	.contents p {
+		margin: 0.2rem 0 0;
+		line-height: 1.7;
+	}
+	.contents a {
+		color: var(--sl-color-gray-1);
+		text-decoration-color: var(--fd-border);
+		text-underline-offset: 0.2em;
+	}
+	.contents a:hover {
+		color: var(--sl-color-accent);
+		text-decoration-color: var(--sl-color-accent);
+	}
+	.sep {
+		color: var(--sl-color-gray-4);
+	}
+	.pantry {
+		margin-top: 4rem;
+		border-top: 2px solid var(--rule);
+		padding-top: 1rem;
+	}
+	.pantry-note {
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-xs);
 		color: var(--sl-color-gray-3);
-		font-variant-numeric: tabular-nums;
-		font-size: var(--sl-text-sm);
+		margin: 0 0 0.75rem;
 	}
-	.cat-icons {
+	.pantry table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.pantry tr {
+		border-top: 1px solid var(--fd-border);
+	}
+	.pantry th {
+		width: 11rem;
+		text-align: left;
+		vertical-align: top;
+		padding: 0.55rem 1rem 0.55rem 0;
+		font-weight: 400;
+	}
+	.pantry th a {
+		display: block;
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	.pantry th a:hover {
+		color: var(--sl-color-accent);
+	}
+	.pantry th span {
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+	.pantry td {
+		padding: 0.4rem 0;
+	}
+	.row {
 		display: flex;
-		gap: 0.2rem;
-		margin-top: 0.6rem;
 		flex-wrap: wrap;
+		gap: 2px;
 	}
-	.trust {
-		display: flex;
-		gap: 2rem;
-		align-items: center;
-		padding: 1.75rem 2rem;
-		background-image: var(--fd-hero-glow);
-	}
-	.trust p {
+	.colophon {
+		display: grid;
+		grid-template-columns: 11rem 1fr;
+		gap: 1rem;
+		margin-top: 4rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid var(--rule);
+		font-size: var(--sl-text-sm);
 		color: var(--sl-color-gray-2);
-		max-width: 42rem;
 	}
-	.trust a {
-		font-weight: 650;
+	.colophon p {
+		margin: 0;
+		max-width: 60ch;
 	}
-	.trust img {
-		flex: none;
-		filter: drop-shadow(0 14px 14px rgb(0 0 0 / 0.35));
+	.lbl {
+		font-family: var(--fd-font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
 	}
-	@media (max-width: 60rem) {
-		.pillars {
+	@media (max-width: 50rem) {
+		.mast-cols,
+		.contents,
+		.colophon {
 			grid-template-columns: 1fr;
+			gap: 1.25rem;
 		}
-		.pillar {
-			flex-direction: row;
-			align-items: center;
+		.contents img {
+			position: static;
+			max-width: 22rem;
 		}
-		.pillar img {
-			width: 40%;
-			padding: 0.75rem;
+		.plate img {
+			aspect-ratio: 4 / 3;
 		}
-		.stats {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-	@media (max-width: 40rem) {
-		.hero {
-			min-height: 30rem;
-		}
-		.hero-inner {
-			padding: 1.5rem;
-		}
-		.hero::after {
-			background: linear-gradient(0deg, rgb(15 12 8 / 0.92) 25%, rgb(15 12 8 / 0.2) 80%);
-		}
-		.tools {
-			grid-template-columns: 1fr;
-		}
-		.stats {
-			grid-template-columns: repeat(2, 1fr);
-		}
-		.pillar {
-			flex-direction: column;
-		}
-		.pillar img {
-			width: 100%;
-		}
-		.trust {
-			flex-direction: column-reverse;
-			padding: 1.25rem;
+		.pantry th {
+			width: 7rem;
 		}
 	}
 </style>

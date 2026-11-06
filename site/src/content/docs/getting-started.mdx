@@ -3,7 +3,7 @@ title: Getting started
 description: Install Farmer's Delight Neoforged, find your first crops, build a kitchen and cook your first meal.
 ---
 
-import { Steps, Card, CardGrid, LinkCard, Aside } from '@astrojs/starlight/components';
+import { Steps, Aside } from '@astrojs/starlight/components';
 import Item from '../../components/mc/Item.astro';
 import Render from '../../components/mc/Render.astro';
 import Shot from '../../components/mc/Shot.astro';
@@ -41,10 +41,7 @@ Use the file that matches your Minecraft version:
 	</tbody>
 </table>
 
-<CardGrid>
-	<LinkCard title="Modrinth" description="Download for every supported version." href="https://modrinth.com/mod/farmers-delight-neoforged" />
-	<LinkCard title="CurseForge" description="Also available on CurseForge." href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged" />
-</CardGrid>
+Download it from [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged).
 
 <Aside type="tip" title="Coming from the original Farmer's Delight?">
 	The mod id is still <code>farmersdelight</code> and recipe ids match Farmer's Delight 1.21, so your worlds' item names, datapacks
@@ -83,30 +80,36 @@ Use the file that matches your Minecraft version:
 
 ## Ideas worth knowing
 
-<CardGrid>
-	<Card title="Nourishment" icon="star">
-		Meals give Nourishment for {duration(Math.min(...nourish))} to {duration(Math.max(...nourish))} (minutes:seconds). While it lasts, your hunger bar doesn't go down.
-		[How it works](/mechanics/effects/)
-	</Card>
-	<Card title="Rich Soil" icon="seti:config">
-		Organic Compost slowly turns into Rich Soil, which gives crops a chance of a free bone meal growth now and then.
-		[Composting](/mechanics/organic-compost/)
-	</Card>
-	<Card title="Knives" icon="seti:pipeline">
-		Kill pigs with a knife for ham, cut grass for straw, and slice cakes and pies.
-		[Knives](/mechanics/knives/)
-	</Card>
-	<Card title="Feasts" icon="open-book">
-		Some meals are placed as a block and served into bowls, several servings each.
-		[Feasts](/mechanics/feasts/)
-	</Card>
-</CardGrid>
+<dl class="ideas">
+	<div>
+		<dt><Item id="beef_stew" label="Nourishment" /></dt>
+		<dd>Meals give Nourishment for {duration(Math.min(...nourish))} to {duration(Math.max(...nourish))} (minutes:seconds). While it lasts, your hunger bar doesn't go down. [How it works](/mechanics/effects/).</dd>
+	</div>
+	<div>
+		<dt><Item id="rich_soil" /></dt>
+		<dd>Organic Compost slowly turns into Rich Soil, which now and then gives the crop on it a free bone-meal growth. [Composting](/mechanics/organic-compost/).</dd>
+	</div>
+	<div>
+		<dt><Item id="iron_knife" label="Knives" /></dt>
+		<dd>Kill pigs with a knife for ham, cut grass for straw, and slice cakes and pies. [Knives](/mechanics/knives/).</dd>
+	</div>
+	<div>
+		<dt><Item id="roast_chicken_block" label="Feasts" /></dt>
+		<dd>Some meals are placed as a block and served into bowls, several servings each. [Feasts](/mechanics/feasts/).</dd>
+	</div>
+</dl>
 
 ## Where next
 
-<CardGrid>
-	<LinkCard title="Your first meal, step by step" href="/guides/first-meal/" />
-	<LinkCard title="Farming progression" href="/guides/farming-progression/" />
-	<LinkCard title="Food reference" description="Which food is best, sorted every way." href="/reference/food/" />
-	<LinkCard title="Recipe planner" description="Everything you need for a dish, down to the crops." href="/reference/recipe-planner/" />
-</CardGrid>
+- [Your first meal, step by step](/guides/first-meal/)
+- [Farming progression](/guides/farming-progression/): from wild crops to Rich Soil and mushroom colonies
+- [Food reference](/reference/food/): which food is best, sorted every way
+- [Recipe planner](/reference/recipe-planner/): everything you need for a dish, down to the crops
+
+<style>{`
+.ideas { margin: 1rem 0 0; border-top: 1px solid var(--fd-rule); }
+.ideas > div { display: grid; grid-template-columns: 12rem 1fr; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--fd-border); margin: 0; }
+.ideas dt { font-weight: 400; }
+.ideas dd { margin: 0; }
+@media (max-width: 40rem) { .ideas > div { grid-template-columns: 1fr; gap: .2rem; } }
+`}</style>

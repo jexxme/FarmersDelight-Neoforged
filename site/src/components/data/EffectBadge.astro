@@ -28,29 +28,32 @@ const Tag = fd ? 'a' : 'span';
 		display: inline-flex;
 		align-items: center;
 		gap: 0.35rem;
-		padding: 0.15rem 0.55rem 0.15rem 0.3rem;
-		border-radius: 2rem;
-		background: var(--fd-surface-2);
+		padding: 0.1rem 0.45rem 0.1rem 0.25rem;
 		border: 1px solid var(--fd-border);
+		border-radius: 0;
 		font-size: var(--sl-text-sm);
 		text-decoration: none;
 		color: var(--sl-color-white);
 		white-space: nowrap;
 		line-height: 1.4;
 	}
+	a.fd-effect:hover {
+		border-color: var(--sl-color-accent);
+	}
 	.fd-effect.fd {
-		background: var(--fd-gold-low);
-		border-color: color-mix(in srgb, var(--fd-gold) 40%, transparent);
+		border-color: var(--fd-gold);
 	}
 	img {
 		image-rendering: pixelated;
 	}
-	.dur {
+	.dur,
+	.chance {
+		font-family: var(--fd-font-mono);
+		font-size: 0.85em;
 		font-variant-numeric: tabular-nums;
-		color: var(--sl-color-gray-2);
+		color: var(--sl-color-gray-3);
 	}
 	.chance {
 		color: var(--fd-gold);
-		font-weight: 600;
 	}
 </style>

@@ -17,7 +17,7 @@ const propLabel: Record<string, string> = { age: 'Age', servings: 'Servings', bi
 ---
 {
 	keys.length > 1 && (
-		<figure class="fd-stages fd-card">
+		<figure class="fd-stages">
 			<figcaption class="fd-kicker">{title ?? `${prop ? propLabel[prop] : 'States'} (${keys.length} states)`}</figcaption>
 			<ol>
 				{keys.map((k) => {
@@ -35,8 +35,10 @@ const propLabel: Record<string, string> = { age: 'Age', servings: 'Servings', bi
 }
 <style>
 	.fd-stages {
-		padding: 0.9rem 1rem 0.6rem;
+		padding: 0.6rem 0 0.4rem;
 		margin: 1.5rem 0;
+		border-top: 1px solid var(--fd-rule);
+		border-bottom: 1px solid var(--fd-border);
 	}
 	ol {
 		list-style: none;
@@ -67,10 +69,10 @@ const propLabel: Record<string, string> = { age: 'Age', servings: 'Servings', bi
 		width: 100%;
 		height: auto;
 		max-width: 96px;
-		filter: drop-shadow(0 6px 6px rgb(0 0 0 / 0.3));
 	}
 	span {
 		display: block;
+		font-family: var(--fd-font-mono);
 		font-size: var(--sl-text-xs);
 		color: var(--sl-color-gray-3);
 		font-variant-numeric: tabular-nums;

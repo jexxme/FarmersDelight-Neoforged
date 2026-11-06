@@ -1,92 +1,105 @@
-/* Farmhouse kitchen theme: warm charcoal and cast iron at night, parchment and linen by day, tomato as the accent. */
+/*
+ * Print-cookbook look: flat paper and ink, one tomato accent, square corners, hairline rules instead of cards,
+ * no gradients, no shadows. Young Serif for headings, Literata for reading, IBM Plex Mono for labels and numbers.
+ * Minecraft GUI pieces (mc.css) are the one place with bevels, because that is how the game draws them.
+ */
 :root {
-	--sl-font: 'Inter Variable', system-ui, sans-serif;
-	--fd-font-display: 'Fraunces Variable', Georgia, serif;
+	--sl-font: 'Literata Variable', Georgia, serif;
+	--sl-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+	--fd-font-display: 'Young Serif', Georgia, serif;
+	--fd-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 	--fd-font-pixel: 'Pixelify Sans', ui-monospace, monospace;
 
-	/* dark (Starlight's default theme) */
-	--sl-color-accent-low: #3d1c14;
-	--sl-color-accent: #f0704f;
-	--sl-color-accent-high: #ffd2c2;
-	--sl-color-white: #fbf5ea;
-	--sl-color-gray-1: #eee5d6;
-	--sl-color-gray-2: #cfc3b0;
-	--sl-color-gray-3: #a3967f;
-	--sl-color-gray-4: #6b604f;
-	--sl-color-gray-5: #463d31;
-	--sl-color-gray-6: #2c261f;
-	--sl-color-gray-7: #1f1b16;
-	--sl-color-black: #17140f;
+	/* dark */
+	--sl-color-accent-low: #3a1a12;
+	--sl-color-accent: #e5643f;
+	--sl-color-accent-high: #f6c3b0;
+	--sl-color-white: #efe7d9;
+	--sl-color-gray-1: #e2d8c7;
+	--sl-color-gray-2: #c2b6a2;
+	--sl-color-gray-3: #968a76;
+	--sl-color-gray-4: #675d4e;
+	--sl-color-gray-5: #403830;
+	--sl-color-gray-6: #29241f;
+	--sl-color-gray-7: #1e1b17;
+	--sl-color-black: #161412;
 
-	--fd-green: #8bc35a;
-	--fd-green-low: #1f2d14;
-	--fd-gold: #f3b300;
-	--fd-gold-low: #3a2c05;
-	--fd-blue: #6cb4e8;
-	--fd-surface: #221d17;
-	--fd-surface-2: #2b251e;
-	--fd-border: #3d3428;
-	--fd-shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 10px 30px -12px rgb(0 0 0 / 0.6);
-	--fd-hero-glow: radial-gradient(60% 80% at 70% 20%, rgb(240 112 79 / 0.22), transparent 70%);
+	--fd-green: #93bf63;
+	--fd-gold: #e0aa2a;
+	--fd-surface: #1e1b17;
+	--fd-surface-2: #25211c;
+	--fd-border: #3a332b;
+	--fd-rule: #efe7d9;
 }
 
 :root[data-theme='light'] {
-	--sl-color-accent-low: #fbdcd1;
-	--sl-color-accent: #b8401f;
-	--sl-color-accent-high: #5c1d0c;
-	--sl-color-white: #1d1812;
-	--sl-color-gray-1: #2c251c;
-	--sl-color-gray-2: #463c2f;
-	--sl-color-gray-3: #6e6150;
-	--sl-color-gray-4: #9c8f7b;
-	--sl-color-gray-5: #cfc4b2;
-	--sl-color-gray-6: #ece4d5;
-	--sl-color-gray-7: #f6f1e7;
-	--sl-color-black: #fcf9f3;
+	--sl-color-accent-low: #f3d9cf;
+	--sl-color-accent: #b3361d;
+	--sl-color-accent-high: #5a190b;
+	--sl-color-white: #1c1916;
+	--sl-color-gray-1: #2a251f;
+	--sl-color-gray-2: #463e34;
+	--sl-color-gray-3: #6d6253;
+	--sl-color-gray-4: #9a8e7c;
+	--sl-color-gray-5: #cbbfac;
+	--sl-color-gray-6: #e4dccd;
+	--sl-color-gray-7: #ebe4d6;
+	--sl-color-black: #f3ede2;
 
-	--fd-green: #4f7f26;
-	--fd-green-low: #e3efd5;
-	--fd-gold: #a77a00;
-	--fd-gold-low: #fbefc8;
-	--fd-blue: #2d6fa3;
-	--fd-surface: #fffdf8;
-	--fd-surface-2: #f6f0e4;
-	--fd-border: #e2d7c4;
-	--fd-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 10px 24px -14px rgb(80 50 20 / 0.35);
-	--fd-hero-glow: radial-gradient(60% 80% at 70% 20%, rgb(184 64 31 / 0.14), transparent 70%);
+	--fd-green: #46682a;
+	--fd-gold: #8f6508;
+	--fd-surface: #ebe4d6;
+	--fd-surface-2: #e4dccd;
+	--fd-border: #cfc3ae;
+	--fd-rule: #1c1916;
 }
 
-:root[data-theme='light'] body {
-	background: linear-gradient(180deg, #fcf9f3, #f8f3ea 600px) fixed;
+body {
+	background: var(--sl-color-black);
+	font-feature-settings: 'onum' 1;
 }
 
-/* Headings in a warm serif */
-.sl-markdown-content :is(h1, h2, h3),
-h1#_top,
-.hero h1 {
+/* Headings */
+.sl-markdown-content :is(h1, h2, h3):not(:where(.not-content *)),
+h1#_top {
 	font-family: var(--fd-font-display);
-	font-optical-sizing: auto;
-	letter-spacing: -0.01em;
+	font-weight: 400;
+	letter-spacing: 0;
 }
 h1#_top {
-	font-weight: 650;
+	font-size: clamp(2.2rem, 5vw, 3.1rem);
+	line-height: 1.05;
 }
-.sl-markdown-content h2 {
-	font-weight: 620;
-	padding-top: 0.4rem;
+.sl-markdown-content h2:not(:where(.not-content *)) {
+	border-top: 2px solid var(--fd-rule);
+	padding-top: 0.6rem;
+	margin-top: 3rem;
 }
-.sl-markdown-content h3 {
-	font-weight: 600;
+.sl-markdown-content h3:not(:where(.not-content *)) {
+	font-size: var(--sl-text-h4);
+}
+.sl-markdown-content :is(h4, h5, h6) {
+	font-family: var(--fd-font-mono);
+	font-weight: 500;
+	font-size: var(--sl-text-sm);
 }
 
-/* Site title */
+/* Sidebar group labels and the header in mono/serif */
 .site-title {
 	font-family: var(--fd-font-display);
-	font-weight: 650;
-	letter-spacing: -0.01em;
+	font-weight: 400;
+	font-size: var(--sl-text-h4);
 }
 .site-title img {
 	image-rendering: pixelated;
+}
+nav.sidebar details > summary .group-label > span,
+.sidebar-content .group-label span {
+	font-family: var(--fd-font-mono);
+	font-weight: 500;
+	font-size: var(--sl-text-xs);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
 }
 @media (max-width: 50rem) {
 	.site-title {
@@ -100,31 +113,31 @@ h1#_top {
 	}
 }
 
-/* Tables: softer, zebra rows */
-.sl-markdown-content table {
-	border-collapse: separate;
-	border-spacing: 0;
-	border: 1px solid var(--fd-border);
-	border-radius: 0.6rem;
-	overflow: hidden;
-	display: table;
+/* Tables: rules only, mono headers, square */
+.sl-markdown-content table:not(:where(.not-content *)) {
+	border-collapse: collapse;
 	width: 100%;
+	display: table;
 	font-size: var(--sl-text-sm);
+	border-top: 2px solid var(--fd-rule);
+	border-bottom: 1px solid var(--fd-rule);
 }
-.sl-markdown-content :is(th, td) {
+.sl-markdown-content :is(th, td):not(:where(.not-content *)) {
+	border: 0;
 	border-bottom: 1px solid var(--fd-border);
-	border-inline: 0;
-	padding: 0.5rem 0.75rem;
+	padding: 0.45rem 0.75rem 0.45rem 0;
+	background: none;
 }
-.sl-markdown-content tr:last-child td {
-	border-bottom: 0;
+.sl-markdown-content th:not(:where(.not-content *)) {
+	font-family: var(--fd-font-mono);
+	font-weight: 500;
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+	text-align: left;
+	border-bottom: 1px solid var(--fd-rule);
 }
-.sl-markdown-content th {
-	background: var(--fd-surface-2);
-	font-weight: 600;
-}
-.sl-markdown-content tbody tr:nth-child(even) td {
-	background: color-mix(in srgb, var(--fd-surface-2) 45%, transparent);
+.sl-markdown-content td {
+	font-variant-numeric: tabular-nums lining-nums;
 }
 @media (max-width: 50rem) {
 	.sl-markdown-content table {
@@ -133,55 +146,77 @@ h1#_top {
 	}
 }
 
-/* Asides tuned to the palette */
-.starlight-aside--tip {
-	--sl-color-asides-text-accent: var(--fd-green);
-	--sl-color-asides-border: var(--fd-green);
-	background-color: var(--fd-green-low);
+/* Asides: a rule on the left, no tinted box */
+.starlight-aside {
+	background: none;
+	border-inline-start-width: 3px;
+	border-radius: 0;
+	padding-inline-start: 1rem;
 }
-
-/* Generic card surface used by components */
-.fd-card {
-	background: var(--fd-surface);
-	border: 1px solid var(--fd-border);
-	border-radius: 0.9rem;
-	box-shadow: var(--fd-shadow);
-}
-
-.fd-kicker {
+.starlight-aside__title {
+	font-family: var(--fd-font-mono);
 	font-size: var(--sl-text-xs);
+	font-weight: 500;
 	text-transform: uppercase;
-	letter-spacing: 0.08em;
-	color: var(--sl-color-gray-3);
-	font-weight: 600;
+	letter-spacing: 0.04em;
 }
 
+/* Square everything Starlight draws */
+.sl-markdown-content :is(code, pre, .expressive-code .frame, figure),
+.card,
+.sl-link-card,
+site-search button,
+starlight-theme-select select,
+.pagination-links a {
+	border-radius: 0 !important;
+}
+.sl-markdown-content code {
+	font-size: 0.88em;
+}
+
+/* Small shared helpers */
+.fd-kicker {
+	font-family: var(--fd-font-mono);
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+	font-weight: 500;
+	margin: 0;
+}
 .fd-source {
+	font-family: var(--fd-font-mono);
 	font-size: var(--sl-text-xs);
 	color: var(--sl-color-gray-3);
 }
-.fd-source code {
-	font-size: 0.95em;
-}
-
-/* Pixel art never smooths */
 img.pixel,
 .pixel img {
 	image-rendering: pixelated;
 }
-
-/* Number + unit chips, e.g. "200 ticks · 10 s" */
 .fd-val {
+	font-family: var(--fd-font-mono);
 	font-variant-numeric: tabular-nums;
-	font-weight: 600;
-	color: var(--sl-color-white);
 	white-space: nowrap;
 }
-.fd-val small {
-	font-weight: 450;
-	color: var(--sl-color-gray-3);
+
+/* Compatibility for components written against the earlier tokens */
+:root {
+	--fd-shadow: none;
+	--fd-hero-glow: none;
+	--fd-green-low: transparent;
+	--fd-gold-low: transparent;
+}
+.fd-card {
+	background: none;
+	border: 1px solid var(--fd-border);
+	border-radius: 0;
+	box-shadow: none;
 }
 
-.sl-markdown-content .fd-wide {
-	margin-inline: 0;
+/* Starlight steps: square markers, mono numbers */
+.sl-steps > li::before {
+	border-radius: 0 !important;
+	font-family: var(--fd-font-mono);
+	font-weight: 500;
+}
+.sl-steps > li::after {
+	border-radius: 0 !important;
 }
