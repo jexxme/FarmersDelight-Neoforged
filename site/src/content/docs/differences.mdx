@@ -23,7 +23,7 @@ Minecraft 26.x moved many things into data and components. The port follows:
 
 - **Canvas Signs use the vanilla sign block entities.** Old `canvas_sign` and `hanging_canvas_sign` block entities are aliased to vanilla's, so existing signs load <Cite c={port.aliases} /> <Cite c={port.signEntities} />. The old `basket` id is aliased to `bamboo_basket` too.
 - **Fuel, compost and villager food values are default item components** instead of data maps <Cite c={port.defaultComponents} />.
-- **Villager trades are data files**, switched on and off by the trade config options through a load condition. See [Recipe formats](/pack-makers/recipes/#load-conditions).
+- **Villager trades are data files**, switched on and off by the trade config options through a load condition.
 - **The common config is a local config** with the old file name <code>{configFiles.common.value}</code>, because NeoForge for 26.3 dropped the common type <Cite c={configFiles.common} />.
 - **Tool-ability ingredients fall back to tool tags** for the vanilla abilities NeoForge removed <Cite c={itemAbility.fallbacks} />.
 - **Drinks are built from consume effects** (`farmersdelight:remove_random_effects`, `farmersdelight:heal`, `farmersdelight:extinguish`).
@@ -66,7 +66,7 @@ These are how {meta.modVersion} behaves today. Each one is in the code as linked
 <dd>JEI's display <Cite c={jei.doughDisplay} /> differs from the recipe, which takes exactly one <Cite c={doughNeedsOne} />. JEI also has no info page for the <Item id="copper_knife" />; REI shows both correctly.</dd>
 
 <dt>Some content is registered but unused</dt>
-<dd>The tags `#farmersdelight:horse_feed_tempted` and `#farmersdelight:flint_tool_materials`, the loot function <code>farmersdelight:{port.smokerCook.value}</code> <Cite c={port.smokerCook} />, and the `farmersdelight:` biome whitelist and blacklist tags (see [Worldgen](/pack-makers/worldgen/)) are not read by anything.</dd>
+<dd>The tags `#farmersdelight:horse_feed_tempted` and `#farmersdelight:flint_tool_materials`, the loot function <code>farmersdelight:{port.smokerCook.value}</code> <Cite c={port.smokerCook} />, and the `farmersdelight:` biome whitelist and blacklist tags are not read by anything.</dd>
 </dl>
 
 <Aside title="Comfort">

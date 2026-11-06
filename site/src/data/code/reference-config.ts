@@ -52,7 +52,7 @@ export const configNotes: Record<string, ConfigNote> = {
 	enableVanillaCropCrates: {
 		text: 'Carrot, potato and beetroot crate recipes carry the farmersdelight:vanilla_crates_enabled load condition, which reads this option.',
 		uses: [{ src: 'common/crafting/condition/VanillaCrateEnabledCondition.java', lines: '19' }],
-		link: '/pack-makers/recipes/#load-conditions',
+		link: '/mechanics/storage-and-decoration/',
 	},
 	cuttingBoardFortuneBonus: {
 		text: 'Added to the chance of every Cutting Board result, per Fortune level on the tool.',

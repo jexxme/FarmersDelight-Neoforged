@@ -65,7 +65,7 @@ Works: AppleSkin reads food values from the game, so Farmer's Delight's food sho
 
 ## CraftTweaker
 
-Not yet: CraftTweaker has no 26.x release. The integration code is kept, commented out, in `integration/crafttweaker/`. Data packs can do everything the CraftTweaker support did; see [Recipe formats](/pack-makers/recipes/).
+Not yet: CraftTweaker has no 26.x release. The integration code is kept, commented out, in `integration/crafttweaker/`. Data packs can do everything the CraftTweaker support did.
 
 ## Data-only integrations
 
@@ -98,7 +98,7 @@ Create also gets potato-cannon projectile data for Farmer's Delight crops and pi
 ## Tags for other mods
 
 Farmer's Delight fills common `c:` tags (crops, foods, seeds, tools, storage blocks…), so recipes from other mods that ask for "any onion" or "any knife" accept its items. It also adds its items to tags of these mods: {foreign.map((ns, i) => <>{i > 0 && ', '}<code>{ns}</code></>)}.
-Some of its own tags list other mods' items as optional entries, skipped when that mod is missing: {optional.map((ns, i) => <>{i > 0 && ', '}<code>{ns}</code></>)}. Every entry is on [Tags](/pack-makers/tags/).
+Some of its own tags list other mods' items as optional entries, skipped when that mod is missing: {optional.map((ns, i) => <>{i > 0 && ', '}<code>{ns}</code></>)}.
 
 <Aside title="Coming from the original Farmer's Delight?">
 Remove it first; this port replaces it. Recipe ids match Farmer's Delight 1.21, so packs and scripts that refer to them keep working. See [Differences from upstream](/differences/).

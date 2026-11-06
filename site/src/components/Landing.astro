@@ -32,7 +32,6 @@ const chapters = [
 	{ title: 'Tools & effects', icon: 'farmersdelight:diamond_knife', pages: [['Knives', 'mechanics/knives'], ['Nourishment', 'mechanics/effects'], ['Animal feed', 'mechanics/animal-feed']] },
 	{ title: 'The world', icon: 'farmersdelight:oak_cabinet', pages: [['Storage & decoration', 'mechanics/storage-and-decoration'], ['Villagers', 'mechanics/villagers'], ['Loot', 'mechanics/loot']] },
 	{ title: 'Reference', icon: 'farmersdelight:beef_stew', pages: [['Food tables', 'reference/food'], ['Recipe planner', 'reference/recipe-planner'], ['All recipes', 'reference/recipes'], ['Configuration', 'reference/config'], ['Advancements', 'reference/advancements']] },
-	{ title: 'Pack makers', icon: 'farmersdelight:cutting_board', pages: [['Recipe formats', 'pack-makers/recipes'], ['Tags', 'pack-makers/tags'], ['Loot modifiers', 'pack-makers/loot-modifiers'], ['Worldgen', 'pack-makers/worldgen']] },
 ];
 ---
 <div class="landing not-content">
@@ -54,8 +53,7 @@ const chapters = [
 	</section>
 
 	<p class="intro">
-		The guide to cooking, farming and feasting with Farmer's Delight on Minecraft {oldest} to {newest}. Every recipe, drop chance and food
-		value here was read from the mod itself:{' '}<span class="hl">{meta.counts.items}</span> items,{' '}<span class="hl">{meta.counts.recipes}</span> recipes,{' '}
+		The guide to cooking, farming and feasting with Farmer's Delight on Minecraft {oldest} to {newest}:{' '}<span class="hl">{meta.counts.items}</span> items,{' '}<span class="hl">{meta.counts.recipes}</span> recipes,{' '}
 		<span class="hl">{meta.counts.cooking}</span> Cooking Pot meals and{' '}<span class="hl">{foods}</span> foods.
 	</p>
 
@@ -105,13 +103,6 @@ const chapters = [
 		</div>
 	</section>
 
-	<section class="colophon">
-		<p>
-			<b>How these pages are made.</b> A test inside the game exports the real item stats, scripts read recipes, loot tables and tags
-			from the mod's data, and a small renderer draws every icon and block from the mod's own models and textures. When the mod changes,
-			the pages are rebuilt. <a href={url('/about/')}>More about this</a>
-		</p>
-	</section>
 </div>
 
 <script>
@@ -332,14 +323,6 @@ const chapters = [
 		.inv-grid {
 			grid-template-columns: repeat(6, 54px);
 		}
-	}
-	.colophon {
-		margin-top: 56px;
-		max-width: 48rem;
-		color: var(--sl-color-gray-3);
-	}
-	.colophon a {
-		color: var(--sl-color-text-accent);
 	}
 	@media (max-width: 60rem) {
 		.chapters {

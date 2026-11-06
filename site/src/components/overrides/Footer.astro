@@ -1,14 +1,8 @@
 ---
 import Default from '@astrojs/starlight/components/Footer.astro';
-import { meta, url } from '../../lib/data';
 ---
 <Default><slot /></Default>
 <div class="fd-footer">
-	<p>
-		Every number on this site is generated from the mod's own code and data
-		(<strong>Farmer's Delight Neoforged {meta.modVersion}</strong>, Minecraft {meta.minecraft}, NeoForge {meta.neoforge}).
-		<a href={url('/about/')}>How these docs are made</a>.
-	</p>
 	<p>
 		MIT License · © 2020 vectorwing · © 2026 Jexxme and the Farmer's Delight Neoforged contributors.
 		An unofficial port, not affiliated with or endorsed by vectorwing or Mojang. Minecraft textures © Mojang Studios.

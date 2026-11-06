@@ -109,22 +109,11 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'For pack makers',
-					items: [
-						{ label: 'Overview', slug: 'pack-makers' },
-						{ label: 'Recipe formats', slug: 'pack-makers/recipes' },
-						{ label: 'Tags', slug: 'pack-makers/tags' },
-						{ label: 'Loot modifiers', slug: 'pack-makers/loot-modifiers' },
-						{ label: 'Worldgen', slug: 'pack-makers/worldgen' },
-					],
-				},
-				{
 					label: 'About',
 					items: [
 						{ label: 'Compatibility', slug: 'compatibility' },
 						{ label: 'Differences from upstream', slug: 'differences' },
 						{ label: 'Changelog', slug: 'changelog' },
-						{ label: 'About these docs', slug: 'about' },
 					],
 				},
 			],

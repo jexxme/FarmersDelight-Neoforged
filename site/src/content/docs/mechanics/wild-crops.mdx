@@ -136,5 +136,5 @@ Durations are given to the vanilla flower constructor in seconds <Src {...cite(w
 
 - Wild crops cannot be replaced by placing a block into them, unlike grass <Src {...cite('common/block/WildCropBlock.java:40-43')} />.
 - They burn well: flammability {wild.flammable.value.flammability}, fire spread {wild.flammable.value.spread} <Src {...cite(wild.flammable)} />.
-- The biome tags `farmersdelight:wild_*_whitelist` / `_blacklist` and `has_wild_*` still exist, but no biome modifier or code reads them. Editing them changes nothing; pack makers should override the biome modifiers instead ([Worldgen for pack makers](/pack-makers/worldgen/)).
+- The biome tags `farmersdelight:wild_*_whitelist` / `_blacklist` and `has_wild_*` still exist, but no biome modifier or code reads them. Editing them changes nothing; pack makers should override the biome modifiers instead.
 - Some biome lists include oceans and cave biomes because the allowed tag is `#minecraft:is_overworld`. Patches sit on the surface heightmap and still need the right ground, so they rarely succeed there.

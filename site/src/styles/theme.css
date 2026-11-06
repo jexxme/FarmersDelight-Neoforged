@@ -194,9 +194,10 @@ header starlight-theme-select svg {
 	box-shadow: inset 0 0 0 2px var(--fd-orange-frame);
 }
 .sidebar-content summary .group-label span {
-	color: var(--sl-color-white);
-	text-shadow: var(--fd-px) 0 0 currentColor;
-	letter-spacing: var(--fd-px);
+	color: var(--fd-orange-paper);
+}
+:root[data-theme='light'] .sidebar-content summary .group-label span {
+	color: var(--fd-orange-frame);
 }
 .sidebar-content .large {
 	font-size: 20px !important;
