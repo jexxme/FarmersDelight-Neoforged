@@ -1,3 +1,21 @@
+## Farmer's Delight Neoforged 1.3.4+neoforged.2
+
+- Documentation: a full guide to every block, item and mechanic, with recipes, food values and config options,
+  at the project's GitHub Pages site.
+- Fixes:
+  - Pies can be eaten again by clicking the placed pie.
+  - Ropes reel in when you sneak-click them, ring a bell above them, and extend downward when you click one
+    with rope in hand.
+  - Bone meal grows unripe tomato vines again.
+  - Milk Bottle, Hot Cocoa and Melon Juice work again: they did nothing when drunk.
+  - Serving the Rice Roll Medley no longer fails; it hands out its rolls.
+  - Thrown rotten tomatoes are rotten tomatoes again, not snowballs.
+  - Meals match Farmer's Delight 1.21: Onion Soup had Shepherd's Pie stats; Onion Soup, Chicken Soup, Fried
+    Rice and Grilled Salmon give 3 minutes of Nourishment, not 5; buffed Rabbit Stew gives its 5 minutes again.
+  - Village farms grow Farmer's Delight crops in every village type. Plains and taiga farms never got
+    cabbages, also in the original mod.
+  - JEI shows the knife info page for the copper knife.
+
 ## Farmer's Delight Neoforged 1.3.4+neoforged.1
 
 - Farmer's Delight 1.3.4: feasts pop when a piston pushes them instead of moving (no more duplication), and
