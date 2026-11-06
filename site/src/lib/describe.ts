@@ -1,5 +1,5 @@
 // Turns generated data into short readable sentences (loot chances, loot modifiers, links to mechanic pages).
-import { nameOf, short, pct, type Item } from './data';
+import { nameOf, short, pct, tags, blocks as blockData, type Item } from './data';
 
 const MECHANICS: [RegExp, string, string][] = [
 	[/^cooking_pot$/, '/mechanics/cooking-pot/', 'the Cooking Pot'],
@@ -46,9 +46,9 @@ export function chestChance(table: any, id: string) {
 		for (let r = a; r <= b; r++) poolMiss += (1 - p) ** r / (b - a + 1);
 		miss *= poolMiss;
 		const count = e.count?.min === e.count?.max ? `${e.count.min}` : `${e.count.min}–${e.count.max}`;
-		parts.push(`${count} per stack, ${pct(p, 1)} per roll, ${a === b ? a : `${a}–${b}`} roll${b === 1 ? '' : 's'}`);
+		parts.push(count);
 	}
-	return { chance: 1 - miss, text: `${parts.join('; ')}. About ${pct(1 - miss, 0)} of chests have it.` };
+	return { chance: 1 - miss, text: `in about ${pct(1 - miss, 0)} of these chests, ${[...new Set(parts)].join(' or ')} at a time.` };
 }
 
 const ent = (e: any) => (Array.isArray(e) ? e : [e]).map((x: string) => (x.startsWith('#') ? `#${short(x.slice(1))}` : nameOf(x.replace('minecraft:', 'minecraft:')) ?? short(x))).join(', ');
@@ -68,8 +68,12 @@ export function describeModifier(m: any): string {
 		return `Killing a <strong>${who}</strong>${fire}${knife} drops 1 ${item}: ${chance}.`;
 	}
 	if (m.type?.endsWith('add_item') && m.block) {
-		const blocks = typeof m.block.blocks === 'string' ? (m.block.blocks.startsWith('#') ? `#${short(m.block.blocks.slice(1))}` : nameOf(m.block.blocks)) : '';
-		const state = m.block.state ? ` (${Object.entries(m.block.state).map(([k, v]) => `${k} ${v}`).join(', ')})` : '';
+		// Name the blocks a player knows, not the tag: "Short Grass or Tall Grass"
+		const blockName = (b: string) => blockData[b]?.name ?? nameOf(b);
+		const list = (ids: string[]) => (ids.length <= 3 ? ids.map(blockName).join(' or ') : `${ids.slice(0, 3).map(blockName).join(', ')} and ${ids.length - 3} more`);
+		const raw = m.block.blocks;
+		const blocks = typeof raw === 'string' ? (raw.startsWith('#') ? list(tags.resolved.block?.[raw.slice(1)] ?? []) || short(raw.slice(1)) : blockName(raw)) : Array.isArray(raw) ? list(raw) : '';
+		const state = m.block.state && 'age' in m.block.state ? ' when fully grown' : '';
 		const tool = m.tool ? ` with ${String(m.tool).includes('knives') || String(m.tool).includes('straw_harvesters') ? 'a <a href="../../mechanics/knives/">knife</a>' : m.tool}` : '';
 		return `Breaking <strong>${blocks}</strong>${state}${tool} drops ${m.count ?? 1} ${item}: ${m.chance !== undefined ? pct(m.chance) : 'always'}.`;
 	}

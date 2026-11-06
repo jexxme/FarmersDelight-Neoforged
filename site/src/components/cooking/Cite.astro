@@ -1,36 +1,6 @@
 ---
-// Source link for a fact from src/data/code/cooking.ts (`path:lines`). Vanilla facts (`vanilla:File.java:12`) get a
-// plain label, since vanilla code is not in the repo.
-import Src from '../mc/Src.astro';
+// Source citations are kept in src/data/code for maintainers but are not shown in the player docs.
 interface Props {
-	f: { src: string } | string;
-	label?: string;
+	[key: string]: unknown;
 }
-const raw = typeof Astro.props.f === 'string' ? Astro.props.f : Astro.props.f.src;
-const vanilla = raw.startsWith('vanilla:');
-const s = vanilla ? raw.slice(8) : raw;
-const i = s.lastIndexOf(':');
-const hasLines = i > 0 && /^\d/.test(s.slice(i + 1));
-const path = hasLines ? s.slice(0, i) : s;
-const lines = hasLines ? s.slice(i + 1) : undefined;
 ---
-{
-	vanilla ? (
-		<span class="fd-vsrc" title={`Vanilla Minecraft 26.3: ${s}`}>vanilla {path}{lines ? `:${lines}` : ''}</span>
-	) : (
-		<Src path={path} lines={lines} label={Astro.props.label} />
-	)
-}
-<style>
-	.fd-vsrc {
-		display: inline-flex;
-		font-family: var(--fd-font-mono);
-		font-size: 20px;
-		padding: 0.05rem 0.4rem;
-		border-radius: 0;
-		border: 1px dashed var(--fd-border);
-		color: var(--sl-color-gray-3);
-		vertical-align: 0.1em;
-		white-space: nowrap;
-	}
-</style>

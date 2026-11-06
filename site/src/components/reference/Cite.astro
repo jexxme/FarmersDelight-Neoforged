@@ -1,34 +1,6 @@
 ---
-// Source link for a cited constant from src/data/code/reference*.ts. NeoForge facts get a plain label
-// (their source is the NeoForge sources jar, not this repository).
-import Src from '../mc/Src.astro';
-import type { Cited } from '../../data/code/reference';
+// Source citations are kept in src/data/code for maintainers but are not shown in the player docs.
 interface Props {
-	c: Cited<unknown>;
-	/** Only show the line numbers (for table cells, when the file is named nearby). */
-	short?: boolean;
+	[key: string]: unknown;
 }
-const { c, short = false } = Astro.props;
-const file = c.src.split('/').pop();
 ---
-{
-	c.neoforge ? (
-		<span class="fd-src-nf" title={`NeoForge 26.3.0.101 sources: ${c.src} lines ${c.lines}`}>
-			{short ? `L${c.lines}` : `NeoForge ${file}:${c.lines}`}
-		</span>
-	) : (
-		<Src path={c.src} lines={c.lines} label={short ? `L${c.lines}` : undefined} />
-	)
-}
-<style>
-	.fd-src-nf {
-		display: inline-flex;
-		font-family: var(--sl-font);
-		font-size: 20px;
-		line-height: 24px;
-		padding: 0 6px;
-		border: 2px dashed var(--fd-border);
-		color: var(--sl-color-gray-3);
-		white-space: nowrap;
-	}
-</style>

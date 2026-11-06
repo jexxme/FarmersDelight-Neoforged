@@ -31,7 +31,7 @@ const station: Record<string, string[]> = {
 	blasting: ['minecraft:blast_furnace'],
 };
 ---
-<figure class="fd-recipe" data-type={type}>
+<figure class="fd-recipe" data-type={type} title={r.id}>
 	{
 		type === 'farmersdelight:cooking' && (
 			<div class="stage" style={`width:${px(116)};height:${px(56)}`}>
@@ -141,7 +141,6 @@ const station: Record<string, string[]> = {
 				{r.cookingtime && <span class="stat" title={`${r.cookingtime} ticks`}>{seconds(r.cookingtime)}</span>}
 				{xp > 0 && <span class="stat xp">{+xp.toFixed(2)} xp</span>}
 				{r.container && type === 'farmersdelight:cooking' && <span class="hint">served in a {r.container.id.split(':')[1].replaceAll('_', ' ')}</span>}
-				<code title="Recipe id (for datapacks and /recipe)">{r.id.replace('farmersdelight:', '')}</code>
 			</figcaption>
 		)
 	}

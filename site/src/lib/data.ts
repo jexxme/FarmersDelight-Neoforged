@@ -75,7 +75,7 @@ export const bySlug = new Map(itemList.map((i) => [i.slug, i]));
 
 /** Name of any item id (FD or vanilla), from the game's language files. */
 export function nameOf(id: string): string {
-	return items[id]?.name ?? others[id]?.name ?? id.split(':')[1].replaceAll('_', ' ');
+	return items[id]?.name ?? others[id]?.name ?? id.split(':')[1].replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 export function iconOf(id: string): { src: string; flat: boolean } | null {
 	const kind = icons[id];

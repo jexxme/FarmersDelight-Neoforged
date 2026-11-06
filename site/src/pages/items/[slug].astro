@@ -45,12 +45,12 @@ if (item.attackSpeed != null) stats.push(['Attack speed', `${+(4 + item.attackSp
 if (item.attackKnockback) stats.push(['Attack knockback', `+${item.attackKnockback}`]);
 if (item.enchantability) stats.push(['Enchantability', String(item.enchantability)]);
 if (item.fireResistant) stats.push(['Fire resistant', 'Yes, survives lava and fire']);
-if (ticks) stats.push(['Time to eat', `${seconds(ticks)} (${ticks} ticks)${c!.animation === 'drink' ? ', drink' : ''}`]);
+if (ticks) stats.push([c!.animation === 'drink' ? 'Time to drink' : 'Time to eat', seconds(ticks)]);
 if (item.remainder) stats.push(['Leaves behind', nameOf(item.remainder)]);
 if (item.food?.alwaysEdible) stats.push(['Always edible', 'Yes, even when full']);
-if (item.fuel) stats.push(['Furnace fuel', `${item.fuel} ticks (smelts ${+fuelItems!.toFixed(2)} items)`]);
-if (item.compost != null) stats.push(['Composter', `${pct(item.compost, 0)} chance to add a layer`]);
-if (item.villagerFood) stats.push(['Villager food value', String(item.villagerFood)]);
+if (item.fuel) stats.push(['Furnace fuel', `smelts ${+fuelItems!.toFixed(2)} item${fuelItems === 1 ? '' : 's'}`]);
+if (item.compost != null) stats.push(['Composter', `${pct(item.compost, 0)} chance per item`]);
+
 if (item.block) {
 	stats.push(['Hardness', String(item.block.hardness)]);
 	stats.push(['Blast resistance', String(item.block.blastResistance)]);
@@ -63,7 +63,7 @@ const headings = [
 	...(made.length ? [{ depth: 2, slug: 'recipes', text: 'How to make it' }] : []),
 	...(chests.length || mods.length || myTrades.length || gen.length ? [{ depth: 2, slug: 'sources', text: 'Where to find it' }] : []),
 	...(used.length ? [{ depth: 2, slug: 'uses', text: 'Used in' }] : []),
-	{ depth: 2, slug: 'technical', text: 'Technical' },
+	{ depth: 2, slug: 'commands', text: 'Commands' },
 ];
 const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Delight Neoforged.${item.food ? ` Restores ${item.food.nutrition} hunger and ${+item.food.saturation.toFixed(2)} saturation.` : ''}`;
 ---
@@ -182,29 +182,38 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		)
 	}
 
-	<h2 id="technical">Technical</h2>
+	<h2 id="commands">Commands</h2>
 	<dl class="ip-stats tech not-content">
+		<div><dt>Give it to yourself</dt><dd><code>/give @s {item.id}</code></dd></div>
 		<div><dt>Item id</dt><dd><code>{item.id}</code></dd></div>
-		{item.block && <div><dt>Block id</dt><dd><code>{item.block.id}</code></dd></div>}
-		<div><dt>Java class</dt><dd><code>{item.class}</code>{item.block && <> · <code>{item.block.class}</code></>}</dd></div>
-		{blockProps.length > 0 && (
-			<div>
-				<dt>Block states</dt>
-				<dd>{blockProps.map(([k, v]) => <code class="prop">{k}: {v.join(' | ')}</code>)}</dd>
-			</div>
-		)}
-		<div>
-			<dt>Item tags</dt>
-			<dd>{(item.tags as string[]).length ? (item.tags as string[]).map((t) => <code class="prop">#{short(t)}</code>) : 'none'}</dd>
-		</div>
-		{item.block && (item.block.tags as string[]).length > 0 && (
-			<div>
-				<dt>Block tags</dt>
-				<dd>{(item.block.tags as string[]).map((t) => <code class="prop">#{short(t)}</code>)}</dd>
-			</div>
-		)}
-		<div><dt>Give command</dt><dd><code>/give @s {item.id}</code></dd></div>
 	</dl>
+	{
+		(blockProps.length > 0 || (item.tags as string[]).length > 0) && (
+			<details class="ip-more not-content">
+				<summary>Tags and block states</summary>
+				<dl class="ip-stats tech">
+					{blockProps.length > 0 && (
+						<div>
+							<dt>Block states</dt>
+							<dd>{blockProps.map(([k, v]) => <code class="prop">{k}: {v.join(' | ')}</code>)}</dd>
+						</div>
+					)}
+					{(item.tags as string[]).length > 0 && (
+						<div>
+							<dt>Item tags</dt>
+							<dd>{(item.tags as string[]).map((t) => <code class="prop">#{short(t)}</code>)}</dd>
+						</div>
+					)}
+					{item.block && (item.block.tags as string[]).length > 0 && (
+						<div>
+							<dt>Block tags</dt>
+							<dd>{(item.block.tags as string[]).map((t) => <code class="prop">#{short(t)}</code>)}</dd>
+						</div>
+					)}
+				</dl>
+			</details>
+		)
+	}
 
 	<nav class="ip-siblings not-content" aria-label={`More ${cat.label}`}>
 		<p class="fd-kicker">More {cat.label.toLowerCase()}</p>
@@ -333,6 +342,17 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 	}
 	.prop {
 		font-size: var(--sl-text-xs);
+	}
+	.ip-more {
+		margin-top: 16px;
+	}
+	.ip-more summary {
+		cursor: pointer;
+		color: var(--sl-color-gray-3);
+		width: fit-content;
+	}
+	.ip-more summary:hover {
+		color: var(--sl-color-text-accent);
 	}
 	.ip-recipes {
 		display: flex;

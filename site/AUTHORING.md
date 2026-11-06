@@ -11,8 +11,8 @@ Every number, chance, duration, tag member, recipe and default on the site must 
   durability...) are read from `src/data/gen/*.json` through `src/lib/data.ts`. Use the data in MDX expressions or
   components; don't type the value. Example: `{items['farmersdelight:beef_stew'].food.nutrition}`.
 - **Code facts** (logic constants in Java, such as compost chances or the skillet cook-time formula) go in a small
-  constants module under `src/data/code/<topic>.ts`, each with a `src` citation (`path:lines`), and are shown with a
-  `<Src>` link next to the claim. Read the Java to confirm before writing.
+  constants module under `src/data/code/<topic>.ts`, each with a `src` citation (`path:lines`) for maintainers.
+  The citation stays in the code; pages never show it. Read the Java to confirm before writing.
 - **Vanilla facts** (random tick speed, crop growth) may be cited from the vanilla 26.3 sources; say they are vanilla.
 - If you can't confirm something, leave it out or say plainly that it is unverified.
 
@@ -44,7 +44,6 @@ The generated files are committed, so CI only runs `npm run build`.
 | `data/Stages.astro` `<Stages block="cabbages" />` | Strip of renders, one per block state (age, servings, bites, composting). |
 | `mc/Render.astro` `<Render name="scenes/pot-on-stove" caption="…" />` | Isometric render. Names are in `src/data/gen/renders.json` (`blocks/*`, `stages/*`, `heat/*`, `scenes/*`). |
 | `mc/Shot.astro` `<Shot src="kitchen.jpg" caption="…" />` | In-game screenshot from `public/shots`. |
-| `mc/Src.astro` `<Src path="common/block/OrganicCompostBlock.java" lines="52-54" />` | Source link to GitHub at the release tag. Java paths are relative to `vectorwing/farmersdelight`. |
 | `mc/Sprite.astro` | Crop of a 256×256 GUI texture (`public/gui/*.png`). |
 
 Starlight's own components are available too: `import { Aside, Tabs, TabItem, Card, CardGrid, Steps, Badge, LinkCard } from '@astrojs/starlight/components';`
@@ -54,12 +53,24 @@ In MDX, don't import `url` from `lib/data` under that name: MDX exports its own 
 Interactive pieces are Preact islands in `src/components/islands/*.tsx` (`/** @jsxImportSource preact */`), used
 with `client:visible` (or `client:load` above the fold). Pass data in as props from the MDX/Astro side.
 
-## Style
+## Voice: a player's guide, not a tech doc
 
+The reader is a player who wants more depth than JEI gives: how things work, what's worth doing, the exact numbers.
+They don't read Java and don't care where a number comes from.
+
+- Write like a friendly, experienced player: second person, short sentences, practical. Lead with what to do.
+- Keep the depth, framed as gameplay: exact numbers, the conditions that matter, and the surprising edge cases as tips
+  ("Breaking a half-eaten feast loses the servings left on it, so finish it first").
+- Times in seconds and minutes, chances in percent, food in hunger and hearts. Ticks only in calculators that
+  deliberately show them, never in prose.
+- No code talk: no Java classes or methods, no file paths or line numbers, no source chips, no "codec", "mixin",
+  "block entity", "capability", "random tick" (say "every so often, on average every 68 seconds"),
+  "data component", "loot table", "returns PASS". Mention tags only when a player can act on them (e.g. "any knife").
+- Things that don't work right now: say so plainly and briefly, with a workaround if there is one, and no code reason.
+- Headings are plain words, never expressions (no `## {expr}`), sentence case, not numbered.
+- Each mechanic page: a short intro with a render or screenshot, how to use it, a visual (diagram, calculator or
+  render strip), recipes, then "Good to know" tips.
 - Links between pages use site paths (`/mechanics/cooking-pot/`); the base path is added at build time. Trailing slash.
-- Write for players first: what it does, how to use it, then the exact rules. Short sentences, no filler.
-- Each mechanic page: a short intro with a render, "How it works" with exact rules, a visual (diagram, calculator or
-  render strip), recipes, then "Details" for edge cases and source links.
 - Diagrams are inline SVG with `viewBox` (responsive), colours from CSS variables (`--sl-color-*`, `--fd-*`) so they
   work in light and dark mode, and readable at phone width.
 - Use `<Item>` the first time an item is mentioned in a section.

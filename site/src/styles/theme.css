@@ -456,3 +456,38 @@ img.pixel,
 .sl-markdown-content td {
 	overflow-wrap: anywhere;
 }
+
+/* Scrollbars like the creative-inventory scroller: a grey bevelled thumb in a dark slot */
+/* Firefox (Chromium ignores ::-webkit-scrollbar once scrollbar-color is set, so only use it where those don't exist) */
+@supports not selector(::-webkit-scrollbar) {
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: #c6c6c6 #1a1109;
+	}
+	:root[data-theme='light'] * {
+		scrollbar-color: #8b8b8b #b18e65;
+	}
+}
+::-webkit-scrollbar {
+	width: 14px;
+	height: 14px;
+}
+::-webkit-scrollbar-track {
+	background: #1a1109;
+	box-shadow: inset 2px 2px 0 #000;
+}
+::-webkit-scrollbar-thumb {
+	background: #c6c6c6;
+	border: 2px solid #000;
+	box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #d8d8d8;
+}
+::-webkit-scrollbar-corner {
+	background: #1a1109;
+}
+:root[data-theme='light'] ::-webkit-scrollbar-track {
+	background: #b18e65;
+	box-shadow: inset 2px 2px 0 #483015;
+}
