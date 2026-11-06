@@ -533,3 +533,104 @@ img.pixel,
 .sl-markdown-content > h3:not(:where(.not-content *)) {
 	margin-top: 36px;
 }
+
+/* ==================================================================================================
+ * Layout system (supersedes the heading and spacing rules above)
+ * Hierarchy: page title = canvas sign · section = plain 30px heading on a rule · sub-section = 20px accent.
+ * Rhythm on an 8px grid: blocks 20px apart, sections 64px, heading to text 12px, visuals 28px around.
+ * ================================================================================================== */
+.sl-markdown-content {
+	line-height: 28px;
+}
+.sl-markdown-content :is(p, li) {
+	line-height: 28px;
+}
+
+/* Section headings: no sign box, a full-width rule above instead */
+.sl-markdown-content h2:not(:where(.not-content *)) {
+	display: block;
+	width: 100%;
+	font-size: 30px;
+	line-height: 40px;
+	color: var(--fd-heading-ink);
+	padding: 16px 0 0;
+	border: 0;
+	border-top: 4px solid var(--fd-border);
+	border-image: none;
+	margin: 0;
+}
+.sl-markdown-content .sl-heading-wrapper.level-h2 {
+	margin-top: 64px;
+	margin-bottom: 0;
+}
+.sl-markdown-content > h2:not(:where(.not-content *)) {
+	margin-top: 64px;
+}
+.sl-markdown-content h3:not(:where(.not-content *)) {
+	font-size: 20px;
+	line-height: 28px;
+	color: var(--sl-color-text-accent);
+	text-shadow: 2px 0 0 currentColor;
+	letter-spacing: 2px;
+	margin: 0;
+}
+.sl-markdown-content .sl-heading-wrapper.level-h3 {
+	margin-top: 40px;
+}
+.sl-markdown-content .sl-heading-wrapper + *,
+.sl-markdown-content > :is(h2, h3) + * {
+	margin-top: 12px !important;
+}
+/* The anchor link only shows on hover, so it doesn't add noise next to every heading */
+.sl-markdown-content .sl-anchor-link {
+	opacity: 0;
+}
+.sl-markdown-content .sl-heading-wrapper:hover .sl-anchor-link,
+.sl-markdown-content .sl-anchor-link:focus-visible {
+	opacity: 1;
+}
+
+/* Visual blocks get room around them; text blocks stay close together */
+.sl-markdown-content > :is(figure, .fd-recipes, .fd-stages, .fd-shot, table, .not-content, astro-island, .expressive-code) {
+	margin-top: 28px !important;
+}
+.sl-markdown-content > :is(figure, .fd-recipes, .fd-stages, .fd-shot, table, .not-content, astro-island, .expressive-code) + :is(p, ul, ol) {
+	margin-top: 28px !important;
+}
+.sl-markdown-content > :is(p, ul, ol) + :is(p, ul, ol) {
+	margin-top: 16px;
+}
+.sl-markdown-content li + li {
+	margin-top: 6px;
+}
+
+/* Asides: compact */
+.starlight-aside {
+	margin-top: 28px !important;
+	padding: 8px 16px 6px;
+}
+.starlight-aside__content p {
+	line-height: 28px;
+}
+
+/* Sidebar: quieter, tighter */
+.sidebar-content ul ul {
+	margin-top: 2px;
+}
+.sidebar-content a {
+	padding-block: 1px !important;
+	line-height: 26px;
+}
+.sidebar-content summary {
+	padding-block: 4px !important;
+}
+.sidebar-content details + details,
+.sidebar-content li + li > details {
+	margin-top: 10px;
+}
+
+/* Right-hand "On this page": smaller weight than content */
+starlight-toc a,
+starlight-toc h2 {
+	line-height: 26px !important;
+}

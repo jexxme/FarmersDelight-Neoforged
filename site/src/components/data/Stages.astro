@@ -19,7 +19,7 @@ const propLabel: Record<string, string> = { age: 'Age', servings: 'Servings', bi
 ---
 {
 	keys.length > 1 && (
-		<figure class="fd-stages">
+		<figure class="fd-stages not-content">
 			<figcaption class="fd-kicker">{title ?? `${prop ? propLabel[prop] : 'States'} (${keys.length} states)`}</figcaption>
 			<ol>
 				{keys.map((k) => {
