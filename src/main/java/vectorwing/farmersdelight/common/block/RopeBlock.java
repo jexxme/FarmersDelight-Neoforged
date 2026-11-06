@@ -54,10 +54,10 @@ public class RopeBlock extends IronBarsBlock
 	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (stack.is(ModItems.ROPE.get())) {
-			// TODO: Find equivalent to InteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION.
-			return InteractionResult.SUCCESS;
+			// Skip reeling and bell ringing so the rope item itself extends the rope downward (1.21's SKIP_DEFAULT_BLOCK_INTERACTION).
+			return InteractionResult.PASS;
 		}
-		return InteractionResult.PASS;
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
 	@Override

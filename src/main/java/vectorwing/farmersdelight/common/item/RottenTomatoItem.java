@@ -9,7 +9,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
@@ -29,13 +28,7 @@ public class RottenTomatoItem extends Item implements ProjectileItem
 		ItemStack heldStack = player.getItemInHand(hand);
 		level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ENTITY_ROTTEN_TOMATO_THROW.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 		if (level instanceof ServerLevel serverLevel) {
-			// TODO: Check if this is equivalent to previous implementation.
-			Projectile.spawnProjectileFromRotation(Snowball::new, serverLevel, heldStack, player, 0.0F, 1.5F, 1.0F);
-
-//			RottenTomatoEntity projectile = new RottenTomatoEntity(level, player);
-//			projectile.setItem(heldStack);
-//			projectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
-//			level.addFreshEntity(projectile);
+			Projectile.spawnProjectileFromRotation(RottenTomatoEntity::new, serverLevel, heldStack, player, 0.0F, 1.5F, 1.0F);
 		}
 
 		player.awardStat(Stats.ITEM_USED.get(this));
