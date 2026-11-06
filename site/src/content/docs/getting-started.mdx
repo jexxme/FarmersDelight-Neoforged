@@ -6,7 +6,6 @@ description: Install Farmer's Delight Neoforged, see what it adds, and pick wher
 import { Aside } from '@astrojs/starlight/components';
 import Item from '../../components/mc/Item.astro';
 import Shot from '../../components/mc/Shot.astro';
-import EffectBadge from '../../components/data/EffectBadge.astro';
 import { meta, items, worldgen, iconOf } from '../../lib/data';
 import { rangeText, timeText } from '../../data/code/reference';
 
@@ -14,7 +13,7 @@ export const nourish = Object.values(items).flatMap((i) => i.consumable?.effects
 export const wildCount = worldgen.filter((w) => w.id.includes('wild_')).length;
 
 Farmer's Delight adds a kitchen to Minecraft. You grow four new crops, cook meals in a pot over a fire, cut ingredients
-on a board and set out feasts for your friends. The food is worth it: most meals grant <EffectBadge id="farmersdelight:nourishment" name="Nourishment" />,
+on a board and set out feasts for your friends. The food is worth it: most meals grant [Nourishment](/mechanics/effects/),
 which stops your hunger bar from going down while it lasts.
 
 <Shot src="kitchen.jpg" caption="A Farmer's Delight kitchen: stoves, a cooking pot, cabinets and a cutting board." />

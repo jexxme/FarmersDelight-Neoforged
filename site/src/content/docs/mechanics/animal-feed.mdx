@@ -6,7 +6,6 @@ description: Dog Food and Horse Feed, which animals take them, the healing and e
 import Item from '../../../components/mc/Item.astro';
 import Recipe from '../../../components/recipes/Recipe.astro';
 import EffectBadge from '../../../components/data/EffectBadge.astro';
-import FoodStats from '../../../components/data/FoodStats.astro';
 import { items, tags, recipesFor } from '../../../lib/data';
 import { feed, timeText } from '../../../data/code/cooking';
 
@@ -48,7 +47,7 @@ full health and gets a set of buffs for {timeText(feed.dogEffects.value[0].ticks
 ## Feeding your animals
 
 **Dog Food** works on the tamed animals listed above. Each feeding uses one Dog Food and gives you the <Item id="minecraft:bowl" /> back.
-It's also a normal bowl of food, so if you eat it yourself it fills <FoodStats nutrition={dog.food.nutrition} saturation={dog.food.saturation} compact />.
+It's also a normal bowl of food, so if you eat it yourself it restores {dog.food.nutrition / 2} hunger shanks.
 
 **Horse Feed** works on any tamed horse-like mount. Horses also follow you while you hold it, just like they do for
 {tempted.map((id, i) => <>{i ? (i === tempted.length - 1 ? ' and ' : ', ') : ''}<Item id={id} plural /></>)}. You can't eat it

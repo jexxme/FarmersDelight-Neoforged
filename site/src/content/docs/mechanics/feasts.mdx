@@ -9,12 +9,11 @@ import Render from '../../../components/mc/Render.astro';
 import Shot from '../../../components/mc/Shot.astro';
 import RecipeList from '../../../components/recipes/RecipeList.astro';
 import Stages from '../../../components/data/Stages.astro';
-import FoodStats from '../../../components/data/FoodStats.astro';
-import EffectBadge from '../../../components/data/EffectBadge.astro';
 import ServingLadder from '../../../components/cooking/ServingLadder.astro';
 import { tags, blocks, items, loot, nameOf, recipesFor } from '../../../lib/data';
-import { feast } from '../../../data/code/cooking';
+import { feast, timeText } from '../../../data/code/cooking';
 
+export const eatText = (f, effs) => [`${f.nutrition / 2} hunger shanks`, ...effs.map((e) => `${timeText(e.duration)} of ${e.name}`)].join(' and ');
 export const feasts = tags.resolved.block['farmersdelight:feasts'];
 export const maxOf = (id) => Math.max(...blocks[id].properties.servings.map(Number));
 export const servingOf = (id) => id.replace(/_block$/, '');
@@ -79,8 +78,7 @@ is left, such as a bone or a bowl. {noLeftovers.map((id) => <Item id={id} />)} {
 
 {sameServing ? (
 	<p>
-		Every serving from these {fourServing.length} feasts is worth the same: <FoodStats nutrition={firstServing.food.nutrition} saturation={firstServing.food.saturation} compact />{' '}
-		{firstServing.consumable.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}. Pick one to see how it looks as you serve it:
+		Every serving from these {fourServing.length} feasts is worth the same: {eatText(firstServing.food, firstServing.consumable.effects)}. Pick one to see how it looks as you serve it:
 	</p>
 ) : <p>Pick a feast to see how it looks as you serve it, and what each serving gives you:</p>}
 
@@ -90,7 +88,7 @@ is left, such as a bone or a bowl. {noLeftovers.map((id) => <Item id={id} />)} {
 		return (
 			<TabItem label={nameOf(id)}>
 				<Stages block={id.replace('farmersdelight:', '')} title={`${nameOf(id)}: servings left`} labels={ladderLabels(id)} />
-				{sameServing ? null : <p>Each <Item id={s.id} />: <FoodStats nutrition={s.food.nutrition} saturation={s.food.saturation} compact /> {s.consumable.effects.map((e) => <EffectBadge id={e.id} name={e.name} ticks={e.duration} amplifier={e.amplifier} probability={e.probability} />)}</p>}
+				{sameServing ? null : <p>Each <Item id={s.id} /> gives {eatText(s.food, s.consumable.effects)}.</p>}
 			</TabItem>
 		);
 	})}

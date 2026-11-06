@@ -4,7 +4,6 @@ description: What Nourishment really does, how long each food gives it, and the 
 ---
 
 import Item from '../../../components/mc/Item.astro';
-import EffectBadge from '../../../components/data/EffectBadge.astro';
 import FoodStats from '../../../components/data/FoodStats.astro';
 import NourishTable from '../../../components/islands/cooking-nourish-table.tsx';
 import { effects, itemList, iconOf, url as siteUrl, config, soupEffects, vanillaFoods, duration, CATEGORIES } from '../../../lib/data';
@@ -31,7 +30,7 @@ export const nourishOf = (s) => (s.item === 'minecraft:rabbit_stew' && rabbitCfg
 
 ## What it does
 
-<EffectBadge id={N.id} name={N.name} /> {rows.length} foods give it, for {timeText(tiers[0][1])} up to
+{rows.length} foods give Nourishment, for {timeText(tiers[0][1])} up to
 {timeText(tiers[tiers.length - 1][1])}.
 
 While you have Nourishment, your hunger bar doesn't go down, however much you run, jump or fight. If you're hurt, the
