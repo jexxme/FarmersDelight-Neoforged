@@ -635,20 +635,29 @@ write('tags.json', { resolved: fdTagsAll, files: fdTagFiles });
 write('advancements.json', advancements);
 write('vanilla-foods.json', vanillaFoods);
 write('soup-effects.json', soupEffects);
-// Supported Minecraft versions: release tags are "<mc>-<mod_version>". Use each Minecraft line's newest tag, so the
-// list is right before the current version is tagged too; the tag shown is the one this release gets.
+// Supported Minecraft versions: release tags are "<mc>-<mod_version>", where mod_version is "<FD version>-<n>"
+// (.github/workflows/release.yml); releases before that naming were tagged "<mc>-<FD version>+neoforged.<n>". Use each
+// Minecraft line's newest tag, so the list is right before the current version is tagged too. The tag shown is the
+// one this release has: the new-style tag, or the old-style tag of the same release, or (not tagged yet) the one it gets.
 const versions = [];
 try {
 	const git = (...a) => execFileSync('git', ['-C', REPO, ...a], { encoding: 'utf8' });
+	const RELEASE_TAG = /^(\d+(?:\.\d+)*)-(\d+(?:\.\d+)*)(?:\+neoforged\.|-)(\d+)$/;
+	const all = git('tag', '--list').split(/\r?\n/).filter((t) => RELEASE_TAG.test(t));
+	const order = (t) => t.replace(RELEASE_TAG, '$2.$3');
 	const newest = new Map();
-	for (const tag of git('tag', '--list', '*-*+neoforged.*').split(/\r?\n/).filter(Boolean)) {
-		const mc = tag.slice(0, tag.indexOf('-'));
+	for (const tag of all) {
+		const mc = tag.match(RELEASE_TAG)[1];
 		const prev = newest.get(mc);
-		if (!prev || tag.localeCompare(prev, undefined, { numeric: true }) > 0) newest.set(mc, tag);
+		if (!prev || order(tag).localeCompare(order(prev), undefined, { numeric: true }) > 0) newest.set(mc, tag);
 	}
+	const [, fd, n] = props.mod_version.match(/^(.*)-(\d+)$/) ?? [];
 	for (const [mc, tag] of newest) {
 		const p = Object.fromEntries(git('show', `${tag}:gradle.properties`).split(/\r?\n/).filter((l) => /^\w+=/.test(l)).map((l) => l.split(/=(.*)/s).slice(0, 2)));
-		versions.push({ tag: `${mc}-${props.mod_version}`, minecraft: p.minecraft_version, minecraftRange: p.minecraft_version_range, gameVersions: p.release_game_versions, neoforge: p.neo_version, neoforgeRange: p.neo_version_range });
+		const current = `${mc}-${props.mod_version}`;
+		const legacy = fd ? `${mc}-${fd}+neoforged.${n}` : null;
+		const release = all.includes(current) || !all.includes(legacy) ? current : legacy;
+		versions.push({ tag: release, minecraft: p.minecraft_version, minecraftRange: p.minecraft_version_range, gameVersions: p.release_game_versions, neoforge: p.neo_version, neoforgeRange: p.neo_version_range });
 	}
 } catch (e) {
 	console.log('versions: git not available, keeping the previous list');

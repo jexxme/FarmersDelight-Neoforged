@@ -4,8 +4,11 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 <Default><slot /></Default>
 <div class="fd-footer">
 	<p>
-		MIT License · © 2020 vectorwing · © 2026 Jexxme and the Farmer's Delight Neoforged contributors.
-		An unofficial port, not affiliated with or endorsed by vectorwing or Mojang. Minecraft textures © Mojang Studios.
+		Also by Jexxme: <a href="https://jexxme.github.io/VineAndBarrel/">Vine & Barrel</a>, a cozy brewing mod: beer, wine, mead and cider. It fits right in with Farmer's Delight.
+	</p>
+	<p>
+		Based on <a href="https://github.com/vectorwing/FarmersDelight">Farmer's Delight</a> by vectorwing. MIT License · © 2020 vectorwing · © 2026 Jexxme and the Farmer's Delight Neoforged contributors.
+		Not affiliated with or endorsed by vectorwing or Mojang. Minecraft textures © Mojang Studios.
 	</p>
 </div>
 <style>
@@ -15,6 +18,13 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 		border-top: 1px solid var(--fd-border);
 		font-size: var(--sl-text-xs);
 		color: var(--sl-color-gray-3);
+	}
+	/* Starlight's footer (edit link, prev/next) is empty on item pages but still takes ~120px; drop it when empty */
+	:global(main footer.sl-flex:not(:has(a))) {
+		display: none;
+	}
+	.fd-footer a {
+		color: var(--sl-color-text-accent);
 	}
 	.fd-footer p + p {
 		margin-top: 0.4rem;

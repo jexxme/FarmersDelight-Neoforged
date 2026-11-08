@@ -1,13 +1,14 @@
 ---
 title: Compatibility
-description: Which Minecraft versions Farmer's Delight Neoforged runs on, and how it works with JEI, REI, AppleSkin, Create, Serene Seasons and other mods.
+description: Which Minecraft versions Farmer's Delight Neoforged runs on, and how it works with JEI, REI, AppleSkin, Create, Serene Seasons, Vine & Barrel and other mods.
 ---
 import Item from '../../components/mc/Item.astro';
 import AddonRecipes from '../../components/reference/AddonRecipes.astro';
 import { rangeText, foreignTagText, modNames } from '../../data/code/reference';
 import { meta, tags, nameOf } from '../../lib/data';
+import { storeLinks, releaseUrl, versionLabel } from '../../data/code/downloads';
 
-export const rel = (tag) => `https://github.com/jexxme/FarmersDelight-Neoforged/releases/tag/${encodeURIComponent(tag)}`;
+export const links = (v) => [...storeLinks(v), { label: 'GitHub', href: releaseUrl(v) }];
 export const knives = tags.resolved.item['c:tools/knife'] ?? [];
 export const seasonFiles = tags.files.filter((f) => f.registry === 'item' && f.tag.startsWith('sereneseasons:') && f.tag.endsWith('_crops'));
 export const seasonOrder = ['spring', 'summer', 'autumn', 'winter'];
@@ -24,16 +25,15 @@ Farmer's Delight Neoforged runs on NeoForge and needs no other mods. This page i
 
 ## Minecraft versions
 
-There's one file per Minecraft version, all with the same content (version {meta.modVersion}). Install it on the client and the server.
+There's one file per Minecraft version, all with the same content ({versionLabel()}). Install it on the client and the server.
 
 <table>
-<thead><tr><th>Minecraft</th><th>NeoForge</th><th>Download</th></tr></thead>
+<thead><tr><th>Minecraft and NeoForge</th><th>Download</th></tr></thead>
 <tbody>
 {meta.versions.map((v) => (
 <tr>
-<td><strong>{v.gameVersions.split(',').join(', ')}</strong></td>
-<td>{rangeText(v.neoforgeRange)}</td>
-<td><a href={rel(v.tag)}>{v.tag}</a></td>
+<td><strong>{v.gameVersions.split(',').join(', ')}</strong><br />NeoForge {rangeText(v.neoforgeRange)}</td>
+<td>{links(v).map((l, i) => <>{i > 0 && ' · '}<a href={l.href} style="white-space:nowrap">{l.label}</a></>)}</td>
 </tr>
 ))}
 </tbody>
@@ -84,3 +84,21 @@ With **Serene Seasons**, the crops grow in these seasons:
 ))}
 </tbody>
 </table>
+
+## Works with Vine & Barrel
+
+[Vine & Barrel](https://jexxme.github.io/VineAndBarrel/) is a cozy brewing mod: beer, wine, mead and cider. It's a
+separate mod by the same author and works fine on its own. Install both and these extras switch on by themselves:
+
+- The <Item id="stove" /> and Farmer's Delight's other heat sources heat Vine & Barrel's Brew Kettle.
+- Grape and hop bushes climb <Item id="rope" label="ropes" /> like tomatoes do.
+- <Item id="rich_soil" /> and <Item id="rich_soil_farmland" /> speed up grapes, hops and barley.
+- <Item id="apple_cider" /> and <Item id="melon_juice" /> age in the Aging Barrel into Hard Cider and Melon Wine.
+- The <Item id="cooking_pot" /> cooks with its drinks and barley: Beer-Battered Fish, Wine-Braised Beef, Cider-Braised
+  Pork, White Wine Risotto and Barley Mutton Broth. Like Farmer's Delight's own meals, they come in a bowl and give
+  [Nourishment](/mechanics/effects/).
+- **Coq au Vin** is a feast from the pot: place it and serve four bowls.
+- **Beer Bread** is crafted from wheat and a Pale Ale or Wheat Beer.
+- A knife gets <Item id="straw" /> from ripe barley, and the <Item id="cutting_board" /> splits Wild Barley into barley and, sometimes, straw.
+
+The full list is on Vine & Barrel's [Farmer's Delight page](https://jexxme.github.io/VineAndBarrel/farmers-delight/).

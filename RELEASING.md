@@ -40,10 +40,11 @@ Stop the server and run `update-jar.bat` first, so the server runs the jar you a
 
 The release workflow (`.github/workflows/release.yml`) does the uploading. On each branch:
 
-- [ ] Bump `mod_version` in `gradle.properties` (`<upstream version>+neoforged.<n>`, the same on every branch) and add
+- [ ] Bump `mod_version` in `gradle.properties` (`<Farmer's Delight version>-<n>`, e.g. `1.3.4-3`; back to `-1` when
+      the Farmer's Delight version changes; the same on every branch) and add
       the entry at the top of `changelog.md`: that section becomes the release notes
 - [ ] `release_game_versions` lists exactly the Minecraft versions this jar runs on (`26.1` branch: `26.1,26.1.1`)
-- [ ] Tag and push: `git tag <minecraft_version>-<mod_version>` (e.g. `26.3-1.3.3+neoforged.1`), then `git push origin <tag>`.
+- [ ] Tag and push: `git tag <minecraft_version>-<mod_version>` (e.g. `26.3-1.3.4-3`), then `git push origin <tag>`.
       The workflow refuses a tag that doesn't match `gradle.properties`, builds and tests again, then publishes
 
 Once, before the first release:

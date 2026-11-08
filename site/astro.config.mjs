@@ -26,12 +26,14 @@ export default defineConfig({
 	site,
 	base,
 	trailingSlash: 'always',
+	// Start loading a page as soon as the pointer rests on (or focus reaches) a link to it, so clicks feel instant
+	prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
 	markdown: { rehypePlugins: [rehypeBaseLinks] },
 	integrations: [
 		preact(),
 		starlight({
 			title: "Farmer's Delight Neoforged",
-			description: "The complete, data-driven guide to Farmer's Delight Neoforged for Minecraft 26.x: every item, recipe, mechanic and number, generated from the mod itself.",
+			description: "The wiki for Farmer's Delight Neoforged, the maintained NeoForge continuation of vectorwing's Farmer's Delight for Minecraft 26.x: every item, recipe, mechanic and number, read straight from the mod.",
 			logo: { src: './src/assets/banner.png', alt: "Farmer's Delight Neoforged", replacesTitle: true },
 			favicon: '/favicon.png',
 			social: [
@@ -45,6 +47,7 @@ export default defineConfig({
 			components: {
 				Head: './src/components/overrides/Head.astro',
 				Footer: './src/components/overrides/Footer.astro',
+				ThemeSelect: './src/components/overrides/ThemeSelect.astro',
 			},
 			lastUpdated: false,
 			tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
@@ -54,7 +57,6 @@ export default defineConfig({
 					items: [
 						{ label: 'Getting started', slug: 'getting-started' },
 						{ label: 'Your first meal', slug: 'guides/first-meal' },
-						{ label: 'Farming progression', slug: 'guides/farming-progression' },
 					],
 				},
 				{
@@ -73,6 +75,7 @@ export default defineConfig({
 				{
 					label: 'Farming',
 					items: [
+						{ label: 'Farming guide', slug: 'guides/farming-progression' },
 						{ label: 'Crops', slug: 'mechanics/crops' },
 						{ label: 'Wild crops & worldgen', slug: 'mechanics/wild-crops' },
 						{ label: 'Rich Soil', slug: 'mechanics/rich-soil' },
@@ -114,6 +117,7 @@ export default defineConfig({
 						{ label: 'Compatibility', slug: 'compatibility' },
 						{ label: 'Differences from the original', slug: 'differences' },
 						{ label: 'Changelog', slug: 'changelog' },
+						{ label: 'Vine & Barrel', link: 'https://jexxme.github.io/VineAndBarrel/' },
 					],
 				},
 			],

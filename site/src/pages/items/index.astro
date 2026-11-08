@@ -3,6 +3,7 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import Catalog from '../../components/islands/Catalog.tsx';
 import { itemList, iconOf, CATEGORIES, url, meta } from '../../lib/data';
+import { versionLabel } from '../../data/code/downloads';
 
 const rows = itemList.map((i) => ({
 	id: i.id,
@@ -30,7 +31,7 @@ const cats = Object.entries(CATEGORIES)
 	}}
 >
 	<p>
-		All {rows.length} items in Farmer's Delight Neoforged {meta.modVersion}, in creative-tab order. Hover an item for its id, click it for its full page:
+		All {rows.length} items in Farmer's Delight Neoforged {versionLabel()}, in creative-tab order. Hover an item for its id, click it for its full page:
 		recipes, uses, where to find it, and every stat. Type to filter, or press <kbd>/</kbd> to search the whole site.
 	</p>
 	<Catalog client:load rows={rows} cats={cats} base={url('/items/')} />

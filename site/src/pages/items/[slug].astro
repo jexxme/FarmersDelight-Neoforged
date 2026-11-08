@@ -69,6 +69,7 @@ const headings = [
 	...(made.length ? [{ depth: 2, slug: 'recipes', text: 'How to make it' }] : []),
 	...(hasSources ? [{ depth: 2, slug: 'sources', text: 'Where to find it' }] : []),
 	...(used.length ? [{ depth: 2, slug: 'uses', text: 'Used in' }] : []),
+	...(siblings.length > 1 ? [{ depth: 2, slug: 'more', text: `More ${cat.label.toLowerCase()}` }] : []),
 ];
 const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Delight Neoforged.${item.food ? ` Restores ${item.food.nutrition} hunger and ${+item.food.saturation.toFixed(2)} saturation.` : ''}`;
 ---
@@ -77,36 +78,36 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		<div class="ip-slot">
 			{render ? <img src={render} alt={item.name} width="200" height="200" /> : icon && <img class="pixel" src={icon.src} alt={item.name} width="128" height="128" />}
 		</div>
-		<div class="ip-side">
-			<div class="ip-tooltip">
-				<p class="t-name">{item.name}</p>
-				{item.tooltip.map((t) => <p class="t-blue">{t}</p>)}
-				{item.food && (
-					<p class="t-food">
-						<span class="shanks">{shanks.map((s) => <img src={url(`/gui/mc/${s}.png`)} alt="" width="18" height="18" />)}</span>
-						<span>{item.food.nutrition} hunger, {+item.food.saturation.toFixed(1)} saturation</span>
-					</p>
-				)}
-				{effectLines.length > 0 && (
-					<>
-						<p class="t-gray">When eaten:</p>
-						{effectLines.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
-					</>
-				)}
-				{weapon.length > 0 && (
-					<>
-						<p class="t-gray">When in Main Hand:</p>
-						{weapon.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
-					</>
-				)}
-				<div class="t-facts">{facts.map((l) => <p class="t-gray">{l.text}</p>)}</div>
-				<p class="t-mod">Farmer's Delight</p>
-				<p class="t-id">{item.id}</p>
+		<div class="ip-info">
+			<div class="i-head">
+				<p class="i-name" data-pagefind-ignore>{item.name}</p>
+				<a class="i-cat" href={url(`/items/#${item.category}`)} title={`All ${cat.label.toLowerCase()}`}>{cat.label}</a>
 			</div>
-			<p class="ip-links">
-				<a class="ip-cat" href={url(`/items/#${item.category}`)}>{cat.label}</a>
-				{mech && <a class="ip-mech" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>}
-			</p>
+			{item.tooltip.map((t) => <p class="t-blue">{t}</p>)}
+			{item.food && (
+				<p class="t-food">
+					<span class="shanks">{shanks.map((s) => <img src={url(`/gui/mc/${s}.png`)} alt="" width="18" height="18" />)}</span>
+					<span>{item.food.nutrition} hunger, {+item.food.saturation.toFixed(1)} saturation</span>
+				</p>
+			)}
+			{effectLines.length > 0 && (
+				<div class="i-group">
+					<p class="t-gray">When eaten:</p>
+					{effectLines.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
+				</div>
+			)}
+			{weapon.length > 0 && (
+				<div class="i-group">
+					<p class="t-gray">When in Main Hand:</p>
+					{weapon.map((l) => <p class={`t-${l.tone} indent`}>{l.text}</p>)}
+				</div>
+			)}
+			<ul class="i-facts">{facts.map((l) => <li>{l.text}</li>)}</ul>
+			{mech && (
+				<p class="ip-links">
+					<a class="mc-button" href={url(mech.href)}>How {mech.label} work{/s$/.test(mech.label) ? '' : 's'}</a>
+				</p>
+			)}
 		</div>
 	</section>
 
@@ -162,59 +163,65 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 					{usedOutputs.map((o) => (
 						<Slot id={o} scale={3} />
 					))}
-					{Array.from({ length: (9 - (usedOutputs.length % 9)) % 9 }).map(() => (
-						<Slot scale={3} />
-					))}
+				</div>
+			</>
+		)
+	}
+
+	{
+		siblings.length > 1 && (
+			<>
+				<h2 id="more">More {cat.label.toLowerCase()}</h2>
+				<p>
+					All {siblings.length} {cat.label.toLowerCase()} in the mod, in creative-tab order. <a href={url(`/items/#${item.category}`)}>Open them in the item list</a>.
+				</p>
+				<div class="ip-inv grid9 not-content">
+					{siblings.map((s) =>
+						s.id === item.id ? (
+							<span class="sib cur">
+								<Slot id={s.id} scale={3} />
+							</span>
+						) : (
+							<Slot id={s.id} scale={3} />
+						),
+					)}
 				</div>
 			</>
 		)
 	}
 
 	<footer class="ip-foot not-content">
-		<p>
-			<span class="lbl">Command</span> <code>/give @s {item.id}</code>
-		</p>
-		{
-			(blockProps.length > 0 || (item.tags as string[]).length > 0) && (
-				<details>
-					<summary>Tags and block states</summary>
-					{blockProps.length > 0 && <p><span class="lbl">Block states</span> {blockProps.map(([k, v]) => <code>{k}: {v.join(' | ')}</code>)}</p>}
-					{(item.tags as string[]).length > 0 && <p><span class="lbl">Item tags</span> {(item.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
-					{item.block && (item.block.tags as string[]).length > 0 && <p><span class="lbl">Block tags</span> {(item.block.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
-				</details>
-			)
-		}
-		<nav aria-label={`More ${cat.label}`}>
-			<p class="lbl">More {cat.label.toLowerCase()}</p>
-			<div class="ip-inv">
-				{siblings.map((s) => (
-					<span class:list={['sib', { cur: s.id === item.id }]}>
-						<Slot id={s.id} scale={2} />
-					</span>
-				))}
-			</div>
-		</nav>
+		<details>
+			<summary>{[ 'Command', (item.tags as string[]).length > 0 && 'tags', blockProps.length > 0 && 'block states'].filter(Boolean).join(', ').replace(/, ([^,]+)$/, ' and $1')}</summary>
+			<p><span class="lbl">Command</span> <code>/give @s {item.id}</code></p>
+			{blockProps.length > 0 && <p><span class="lbl">Block states</span> {blockProps.map(([k, v]) => <code>{k}: {v.join(' | ')}</code>)}</p>}
+			{(item.tags as string[]).length > 0 && <p><span class="lbl">Item tags</span> {(item.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
+			{item.block && (item.block.tags as string[]).length > 0 && <p><span class="lbl">Block tags</span> {(item.block.tags as string[]).map((t) => <code>#{short(t)}</code>)}</p>}
+		</details>
 	</footer>
 </StarlightPage>
 
 <style>
 	/* ---- the item, as in the game ---- */
+	/* The item as one Minecraft GUI panel across the column: the slot on the left, its info as GUI text on the right */
 	.ip-hero {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 24px 32px;
-		align-items: flex-start;
 		margin-top: 24px;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 20px 28px;
+		align-items: start;
+		padding: 16px;
+		background: #c6c6c6;
+		box-shadow: inset 4px 4px 0 #fff, inset -4px -4px 0 #555, 0 0 0 2px #000, 6px 6px 0 2px #000;
+		color: #404040;
 	}
 	.ip-slot {
-		width: 216px;
-		height: 216px;
-		flex: none;
+		width: 168px;
+		height: 168px;
 		display: grid;
 		place-items: center;
 		background: #8b8b8b;
-		box-shadow: inset 6px 6px 0 #373737, inset -6px -6px 0 #fff, 0 0 0 4px #c6c6c6, 0 0 0 6px #000;
-		margin: 6px;
+		box-shadow: inset 4px 4px 0 #373737, inset -4px -4px 0 #fff;
 	}
 	.ip-slot img {
 		max-width: 86%;
@@ -224,44 +231,31 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		width: 128px;
 		image-rendering: pixelated;
 	}
-	.ip-side {
-		flex: 1 1 300px;
-		min-width: 0;
+	.ip-info {
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
+		gap: 10px;
+		min-height: 168px;
 	}
-	.ip-tooltip {
-		width: fit-content;
-		max-width: 100%;
-		padding: 10px 14px 12px;
-		background: #100010;
-		box-shadow: inset 0 0 0 2px #100010, inset 0 0 0 4px #2d0a63, 0 0 0 2px #100010;
-		color: #fff;
-		text-shadow: 2px 2px 0 #3f3f3f;
-		line-height: 26px;
-	}
-	.ip-tooltip p {
+	.ip-info p {
 		margin: 0;
 	}
-	.t-name {
-		color: #fff;
-		margin-bottom: 4px !important;
+	.i-name {
+		font-size: 30px;
+		line-height: 40px;
+		color: #303030;
 	}
 	.t-blue {
-		color: #5555ff;
-		text-shadow: 2px 2px 0 #15153f;
+		color: #2b2bc0;
 	}
 	.t-green {
-		color: #00aa00;
-		text-shadow: 2px 2px 0 #002a00;
+		color: #007a00;
 	}
 	.t-gray {
-		color: #aaaaaa;
-		text-shadow: 2px 2px 0 #2a2a2a;
+		color: #606060;
 	}
 	.t-gold {
-		color: #ffaa00;
+		color: #a05a00;
 	}
 	.indent {
 		padding-left: 12px;
@@ -271,56 +265,52 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 4px 10px;
-		margin: 2px 0 6px !important;
 	}
 	.shanks {
 		display: inline-flex;
-		gap: 0;
 	}
 	.shanks img {
 		image-rendering: pixelated;
 	}
-	.t-facts {
-		margin-top: 8px;
-	}
-	.t-mod {
-		color: #5555ff;
-		font-style: italic;
-		margin-top: 8px !important;
-		text-shadow: 2px 2px 0 #15153f;
-	}
-	.t-id {
-		color: #555;
-		text-shadow: 2px 2px 0 #151515;
-	}
-	.ip-links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px 20px;
-		align-items: center;
+	/* Facts flow into two columns when there's room */
+	.i-facts {
+		list-style: none;
 		margin: 0;
+		padding: 0;
+		columns: 2 14rem;
+		column-gap: 28px;
+		color: #606060;
 	}
-	.ip-cat {
-		display: inline-block;
-		padding: 2px 12px 0;
-		color: #682c10;
+	.i-facts li {
+		margin: 0;
+		break-inside: avoid;
+	}
+	/* Name with its category under it, like the tab name in the creative inventory */
+	.i-head {
+		display: flex;
+		flex-direction: column;
+	}
+	.i-cat {
+		width: fit-content;
+		color: #707070;
 		text-decoration: none;
-		border-style: solid;
-		border-width: 4px 6px 6px 4px;
-		border-image: url('/FarmersDelight-Neoforged/ui/sign-orange.png') 2 3 3 2 fill / 4px 6px 6px 4px repeat;
-		image-rendering: pixelated;
 	}
-	.ip-cat:hover {
-		color: #000;
-	}
-	.ip-mech {
-		color: var(--sl-color-text-accent);
+	.i-cat:hover {
+		color: #303030;
 		text-decoration: underline;
 		text-decoration-thickness: 2px;
 		text-underline-offset: 4px;
 	}
-	.ip-mech::after {
-		content: ' →';
+	/* The one action, as a Minecraft button at the bottom of the panel */
+	.ip-links {
+		margin-top: auto !important;
+		padding-top: 6px;
+	}
+	.ip-links .mc-button {
+		max-width: 100%;
+		box-sizing: border-box;
+		white-space: normal;
+		text-align: center;
 	}
 
 	/* ---- sections ---- */
@@ -343,18 +333,18 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 		margin-left: 2px;
 	}
 
+	/* Up to 9 columns, fewer when the column is narrow; empty slots after the last item are a tiled background, so
+	   every row is full at any width */
 	.ip-inv.grid9 {
 		display: grid;
-		grid-template-columns: repeat(9, auto);
-	}
-	@media (max-width: 40rem) {
-		.ip-inv.grid9 {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		.ip-inv.grid9 > :global(.mc-slot:not([data-tip-items])) {
-			display: none;
-		}
+		grid-template-columns: repeat(auto-fill, 54px);
+		grid-auto-rows: 54px;
+		box-sizing: content-box;
+		width: min(486px, round(down, 100% - 20px, 54px));
+		max-width: none;
+		background:
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='54' shape-rendering='crispEdges'%3E%3Crect width='54' height='54' fill='%238b8b8b'/%3E%3Crect y='51' width='54' height='3' fill='%23fff'/%3E%3Crect x='51' width='3' height='54' fill='%23fff'/%3E%3Crect width='54' height='3' fill='%23373737'/%3E%3Crect width='3' height='54' fill='%23373737'/%3E%3C/svg%3E") 0 0 / 54px 54px repeat content-box,
+			#c6c6c6;
 	}
 
 	/* ---- the quiet footer: command, tags, related items ---- */
@@ -404,17 +394,22 @@ const description = `${item.name}: ${cat.label.toLowerCase()} from Farmer's Deli
 	.ip-foot details p + p {
 		margin-top: 8px;
 	}
-	.ip-foot nav .lbl {
-		margin-bottom: 8px;
-	}
+	/* The item you're on, in its category's inventory */
 	.sib.cur :global(.mc-slot) {
-		outline: 2px solid #ffcf4d;
-		outline-offset: -2px;
+		outline: 3px solid #ffcf4d;
+		outline-offset: -3px;
 	}
+	/* Phones: slot on top, info below */
 	@media (max-width: 34rem) {
+		.ip-hero {
+			grid-template-columns: minmax(0, 1fr);
+		}
 		.ip-slot {
-			width: 168px;
-			height: 168px;
+			width: 136px;
+			height: 136px;
+		}
+		.ip-info {
+			min-height: 0;
 		}
 	}
 </style>

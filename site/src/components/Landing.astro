@@ -1,8 +1,14 @@
 ---
-// Home page as a Minecraft title screen (panorama, logo, splash text, stone buttons), followed by the chapters on
-// canvas signs and the whole mod in a creative-inventory panel with one tab per category.
+// Home page: the farm's title screen. The panorama in an oak frame, the logo hanging from two chains with a splash
+// text like the game's title screen, and the menu on a canvas sign. Then Vine & Barrel, the chapters on canvas signs
+// and the whole mod in a creative-inventory panel with one tab per category.
+import { Picture } from 'astro:assets';
 import Slot from './mc/Slot.astro';
-import { meta, url, itemList, CATEGORIES, iconOf } from '../lib/data';
+import hero from '../assets/shots/hero.jpg';
+import vabShot from '../assets/vab/cheers.jpg';
+import vabLogo from '../assets/vab/banner.png';
+import { meta, url, itemList, CATEGORIES, iconOf, tags } from '../lib/data';
+import { splitVersion } from '../data/code/downloads';
 
 const cats = Object.entries(CATEGORIES)
 	.map(([key, v]) => ({ key, ...v, items: itemList.filter((i) => i.category === key) }))
@@ -16,46 +22,93 @@ const tabIcon: Record<string, string> = {
 const foods = itemList.filter((i) => i.food).length;
 const oldest = meta.versions[meta.versions.length - 1].gameVersions.split(',')[0];
 const newest = meta.versions[0].minecraft;
-// Splash texts, all true for this release
+const { fd, n } = splitVersion(meta.modVersion);
+const feasts = tags.resolved.block['farmersdelight:feasts']?.length ?? 0;
+// Splash texts, all true for every file of this release (so nothing that only some Minecraft versions have)
 const splashes = [
 	`${meta.counts.recipes} recipes!`,
 	`${meta.counts.cooking} meals in one pot!`,
 	`${foods} things to eat!`,
+	`${meta.counts.cutting} things to cut!`,
+	`${feasts} feasts to share!`,
 	`Minecraft ${oldest} to ${newest}!`,
-	'Now with REI!',
+	'Same mod ID!',
+	'Your worlds come along!',
+	'Still cooking!',
 	'Knives for ham!',
 	'Rich Soil!',
 ];
+// The menu on the title screen: label, page, icon
+const menu: [string, string, string][] = [
+	['Getting started', '/getting-started/', 'farmersdelight:flint_knife'],
+	[`All ${meta.counts.items} items`, '/items/', 'farmersdelight:tomato'],
+	['Cooking Pot', '/mechanics/cooking-pot/', 'farmersdelight:cooking_pot'],
+	['Cutting Board', '/mechanics/cutting-board/', 'farmersdelight:cutting_board'],
+];
 const chapters = [
-	{ title: 'Cooking', icon: 'farmersdelight:cooking_pot', pages: [['Cooking Pot', 'mechanics/cooking-pot'], ['Heat sources', 'mechanics/heat-sources'], ['Stove', 'mechanics/stove'], ['Skillet', 'mechanics/skillet'], ['Cutting Board', 'mechanics/cutting-board'], ['Feasts', 'mechanics/feasts'], ['Pies & cakes', 'mechanics/pies'], ['Drinks', 'mechanics/drinks']] },
-	{ title: 'Farming', icon: 'farmersdelight:cabbage', pages: [['Crops', 'mechanics/crops'], ['Wild crops', 'mechanics/wild-crops'], ['Rich Soil', 'mechanics/rich-soil'], ['Organic Compost', 'mechanics/organic-compost'], ['Mushroom Colonies', 'mechanics/mushroom-colonies'], ['Straw & rope', 'mechanics/straw-and-rope']] },
+	{ title: 'Cooking', icon: 'farmersdelight:cooking_pot', pages: [['Your first meal', 'guides/first-meal'], ['Cooking Pot', 'mechanics/cooking-pot'], ['Heat sources', 'mechanics/heat-sources'], ['Stove', 'mechanics/stove'], ['Skillet', 'mechanics/skillet'], ['Cutting Board', 'mechanics/cutting-board'], ['Feasts', 'mechanics/feasts'], ['Pies & cakes', 'mechanics/pies'], ['Drinks', 'mechanics/drinks']] },
+	{ title: 'Farming', icon: 'farmersdelight:cabbage', pages: [['Farming guide', 'guides/farming-progression'], ['Crops', 'mechanics/crops'], ['Wild crops', 'mechanics/wild-crops'], ['Rich Soil', 'mechanics/rich-soil'], ['Organic Compost', 'mechanics/organic-compost'], ['Mushroom Colonies', 'mechanics/mushroom-colonies'], ['Straw & rope', 'mechanics/straw-and-rope']] },
 	{ title: 'Tools & effects', icon: 'farmersdelight:diamond_knife', pages: [['Knives', 'mechanics/knives'], ['Nourishment', 'mechanics/effects'], ['Animal feed', 'mechanics/animal-feed']] },
 	{ title: 'The world', icon: 'farmersdelight:oak_cabinet', pages: [['Storage & decoration', 'mechanics/storage-and-decoration'], ['Villagers', 'mechanics/villagers'], ['Loot', 'mechanics/loot']] },
 	{ title: 'Reference', icon: 'farmersdelight:beef_stew', pages: [['Food tables', 'reference/food'], ['Recipe planner', 'reference/recipe-planner'], ['All recipes', 'reference/recipes'], ['Configuration', 'reference/config'], ['Advancements', 'reference/advancements']] },
+	{ title: 'About', icon: 'farmersdelight:canvas_sign', pages: [['Compatibility', 'compatibility'], ["What's different", 'differences'], ['Changelog', 'changelog']] },
 ];
 ---
 <div class="landing not-content">
-	<section class="title-screen" style={`background-image:url(${url('/shots/hero.jpg')})`}>
-		<div class="logo-wrap">
+	<section class="title-screen">
+		<Picture
+			class="panorama"
+			src={hero}
+			formats={['avif', 'webp']}
+			fallbackFormat="jpg"
+			widths={[640, 960, 1440, 1920]}
+			sizes="(max-width: 62rem) 100vw, 59rem"
+			alt=""
+			loading="eager"
+			fetchpriority="high"
+		/>
+		<div class="sign fd-hang">
 			<img class="logo" src={url('/ui/banner.png')} alt="Farmer's Delight Neoforged" width="536" height="136" />
 			<span class="splash" data-splashes={JSON.stringify(splashes)}>{splashes[0]}</span>
 		</div>
-		<nav class="menu" aria-label="Start">
-			<a class="mc-button wide" href={url('/getting-started/')}>Getting started</a>
-			<a class="mc-button wide" href={url('/items/')}>All {meta.counts.items} items &amp; blocks</a>
-			<div class="pair">
-				<a class="mc-button" href="https://modrinth.com/mod/farmers-delight-neoforged">Modrinth</a>
-				<a class="mc-button" href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged">CurseForge</a>
-			</div>
+		<nav class="menu fd-sign" aria-label="Start">
+			<p class="menu-title">Fresh from the farm</p>
+			{menu.map(([label, href, icon]) => (
+				<a href={url(href)}>
+					<img src={iconOf(icon)?.src} alt="" width="32" height="32" />
+					<span>{label}</span>
+					<i aria-hidden="true"></i>
+				</a>
+			))}
 		</nav>
-		<p class="corner left">Farmer's Delight Neoforged {meta.modVersion}</p>
+		<p class="corner left">Farmer's Delight Neoforged {fd}{n && ` (${n})`}<span class="mc"> · Minecraft {oldest}–{newest}</span></p>
 		<p class="corner right">Not an official Minecraft or vectorwing product</p>
 	</section>
 
-	<p class="intro">
-		The guide to cooking, farming and feasting with Farmer's Delight on Minecraft {oldest} to {newest}:{' '}<span class="hl">{meta.counts.items}</span> items,{' '}<span class="hl">{meta.counts.recipes}</span> recipes,{' '}
-		<span class="hl">{meta.counts.cooking}</span> Cooking Pot meals and{' '}<span class="hl">{foods}</span> foods.
-	</p>
+	<section class="sister" aria-labelledby="sister-title">
+		<Picture
+			class="sister-shot"
+			src={vabShot}
+			formats={['avif', 'webp']}
+			fallbackFormat="jpg"
+			widths={[480, 720, 960]}
+			sizes="(max-width: 40rem) 100vw, 28rem"
+			alt="Friends raising beer and wine at a lantern-lit tavern table"
+			loading="lazy"
+		/>
+		<div class="sister-text">
+			<p class="sister-kicker">Also by Jexxme</p>
+			<h2 id="sister-title">
+				<img src={vabLogo.src} alt="Vine & Barrel" width={vabLogo.width * 3} height={vabLogo.height * 3} />
+			</h2>
+			<p class="sister-lead">A cozy brewing mod: beer, wine, mead and cider.</p>
+			<p>Grow the crops, boil them in a copper kettle, age them in oak barrels, and pour a round for your friends. With Farmer's Delight, the kettle heats on your Stove, grapes and hops climb your Rope, and the Cooking Pot learns five new meals and a feast.</p>
+			<div class="sister-links">
+				<a class="mc-button" href="https://jexxme.github.io/VineAndBarrel/">Vine & Barrel wiki</a>
+				<a class="sister-more" href={url('/compatibility/#works-with-vine--barrel')}>How the two work together</a>
+			</div>
+		</div>
+	</section>
 
 	<section class="chapters">
 		{chapters.map((c) => (
@@ -75,7 +128,15 @@ const chapters = [
 		))}
 	</section>
 
-	<section class="pantry" aria-label="All items by category">
+	<section class="pantry-wrap">
+		<div class="pantry-head">
+			<div>
+				<h2>Everything in the mod</h2>
+				<p>All {meta.counts.items} items and blocks, one tab per category. Hover a slot to see what it is, click it to open its page.</p>
+			</div>
+			<a class="mc-button" href={url('/items/')}>Browse all items</a>
+		</div>
+		<div class="pantry" aria-label="All items by category">
 		<div class="tabs" role="tablist">
 			{cats.map((c, i) => (
 				<button type="button" role="tab" class="tab" aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`tab-${c.key}`} data-tab={c.key} title={c.label}>
@@ -94,30 +155,71 @@ const chapters = [
 						{c.items.map((it) => (
 							<Slot id={it.id} scale={3} />
 						))}
-						{Array.from({ length: (9 - (c.items.length % 9)) % 9 + (c.items.length <= 9 ? 9 : 0) }).map(() => (
-							<Slot scale={3} />
-						))}
 					</div>
 				</div>
 			))}
+		</div>
 		</div>
 	</section>
 
 </div>
 
 <script>
-	// Pick a splash text, like the title screen does
+	// Pick a splash text, like the title screen does; clicking the sign picks another
 	for (const el of document.querySelectorAll<HTMLElement>('.splash[data-splashes]')) {
-		const list = JSON.parse(el.dataset.splashes!);
-		el.textContent = list[Math.floor(Math.random() * list.length)];
-	}
-	// Creative-inventory tabs
-	for (const tab of document.querySelectorAll<HTMLButtonElement>('.pantry .tab')) {
-		tab.addEventListener('click', () => {
-			for (const t of document.querySelectorAll<HTMLButtonElement>('.pantry .tab')) t.setAttribute('aria-selected', String(t === tab));
-			for (const p of document.querySelectorAll<HTMLElement>('.pantry .inv-page')) p.hidden = p.id !== `tab-${tab.dataset.tab}`;
+		const list: string[] = JSON.parse(el.dataset.splashes!);
+		// The long ones would run past the frame on a phone: slide the splash left a little (it stays on the wordmark),
+		// then shrink what still doesn't fit inside the first clipping box
+		let clip: HTMLElement | null = el.parentElement;
+		while (clip && getComputedStyle(clip).overflow === 'visible') clip = clip.parentElement;
+		const fit = () => {
+			el.style.fontSize = el.style.marginLeft = '';
+			if (!clip) return;
+			const r = el.getBoundingClientRect();
+			const box = clip.getBoundingClientRect();
+			const half = (r.width / 2) * 1.08; // at the animation's biggest
+			const mid = (r.left + r.right) / 2;
+			const over = mid + half - (box.right - 6);
+			if (over <= 0) return;
+			const shift = Math.min(over, 48, Math.max(0, mid - half - (box.left + 6)));
+			el.style.marginLeft = `${-shift}px`;
+			const k = (box.right - 6 - (mid - shift)) / half;
+			if (k < 1) el.style.fontSize = `${Math.max(12, Math.floor(parseFloat(getComputedStyle(el).fontSize) * k))}px`;
+		};
+		const show = (t: string) => {
+			el.textContent = t;
+			fit();
+		};
+		let i = Math.floor(Math.random() * list.length);
+		show(list[i]);
+		addEventListener('resize', fit);
+		document.fonts.ready.then(fit); // the pixel font is wider than the fallback
+		// (the swing itself comes from scripts/mc.ts, like every hanging sign)
+		el.closest<HTMLElement>('.sign')?.addEventListener('click', () => {
+			i = (i + 1 + Math.floor(Math.random() * (list.length - 1))) % list.length;
+			show(list[i]);
 		});
 	}
+	// Creative-inventory tabs: click, or arrow keys / Home / End like any tab list
+	const tabs = [...document.querySelectorAll<HTMLButtonElement>('.pantry .tab')];
+	const select = (tab: HTMLButtonElement, focus = false) => {
+		for (const t of tabs) {
+			t.setAttribute('aria-selected', String(t === tab));
+			t.tabIndex = t === tab ? 0 : -1;
+		}
+		for (const p of document.querySelectorAll<HTMLElement>('.pantry .inv-page')) p.hidden = p.id !== `tab-${tab.dataset.tab}`;
+		if (focus) tab.focus();
+	};
+	tabs.forEach((tab, i) => {
+		tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
+		tab.addEventListener('click', () => select(tab));
+		tab.addEventListener('keydown', (e) => {
+			const to = ({ ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 } as Record<string, number>)[e.key];
+			if (to === undefined) return;
+			e.preventDefault();
+			select(tabs[(to + tabs.length) % tabs.length], true);
+		});
+	});
 </script>
 
 <style>
@@ -127,47 +229,107 @@ const chapters = [
 	.landing {
 		padding-top: 1rem;
 	}
+	/* The title screen: the panorama in an oak-plank frame, a soft shade at the edges */
 	.title-screen {
 		position: relative;
-		min-height: 560px;
-		background-size: cover;
-		background-position: 50% 40%;
+		min-height: 580px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 44px;
-		padding: 60px 16px 70px;
-		border: 4px solid #000;
-		box-shadow: 6px 6px 0 #000;
+		gap: 40px;
+		padding: 96px 16px 72px;
+		border: 12px solid #9c7f4e;
+		border-image: url('/FarmersDelight-Neoforged/ui/oak-planks.png') 4 / 12px repeat;
+		image-rendering: pixelated;
+		box-shadow: 0 0 0 2px #000, 8px 8px 0 2px #000;
+		isolation: isolate;
+		overflow: hidden; /* the chains run up to the frame and stop there */
 	}
-	.logo-wrap {
+	.title-screen::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		box-shadow: inset 0 0 0 4px #000, inset 0 0 140px 30px rgb(20 10 2 / 0.4);
+	}
+	/* The panorama is a real <img> (not a CSS background) so the browser finds it early and picks the right size */
+	.title-screen :global(.panorama) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 40%;
+		z-index: -2;
+		image-rendering: auto;
+	}
+	/* The logo hangs from the frame on two chains (the swing: .fd-hang in theme.css); click it for another splash.
+	   The left chain holds the icon sign by its right post, the right one the name sign by its top edge, both the same
+	   distance from the middle. --s is the logo's
+	   pixel scale, so the chains stay on those pixels at every size. */
+	.sign {
+		--s: 4;
+		--L: 600px;
+		--k: 0.12;
 		position: relative;
+		cursor: pointer;
+		filter: drop-shadow(8px 8px 0 rgb(0 0 0 / 0.35));
 	}
+	.sign::before,
+	.sign::after {
+		content: '';
+		position: absolute;
+		height: var(--L);
+		width: 6px;
+		background: repeating-linear-gradient(#74747e 0 4px, #c4c4cc 4px 6px, #2a2a31 6px 8px, #4c4c55 8px 12px);
+		box-shadow: 2px 0 0 #2a2a31;
+	}
+	.sign::before {
+		bottom: 100%;
+		left: calc(32.5px * var(--s) - 3px);
+	}
+	.sign::after {
+		bottom: calc(100% - 4px * var(--s));
+		left: calc(101.5px * var(--s) - 3px);
+	}
+	/* The banner (134 x 34) at whole multiples only, so every pixel stays square: 4x, 3x, 2x */
 	.logo {
 		display: block;
-		width: min(536px, 84vw);
+		width: calc(134px * var(--s));
 		height: auto;
 		image-rendering: pixelated;
 	}
+	@media (max-width: 40rem) {
+		.sign {
+			--s: 3;
+		}
+	}
+	@media (max-width: 30rem) {
+		.sign {
+			--s: 2;
+		}
+	}
+	/* Placed like the game's title screen: on the wordmark's bottom right, just overlapping the last letters */
 	.splash {
 		position: absolute;
-		right: -40px;
-		bottom: -8px;
+		left: 99%;
+		top: 94%;
 		color: #ffff00;
 		font-size: 20px;
 		text-shadow: 2px 2px 0 #3f3f00;
 		white-space: nowrap;
-		transform: rotate(-20deg);
+		transform: translate(-50%, -50%) rotate(-20deg);
 		animation: splash 0.5s ease-in-out infinite alternate;
 		pointer-events: none;
 	}
 	@keyframes splash {
 		from {
-			transform: rotate(-20deg) scale(1);
+			transform: translate(-50%, -50%) rotate(-20deg) scale(1);
 		}
 		to {
-			transform: rotate(-20deg) scale(1.08);
+			transform: translate(-50%, -50%) rotate(-20deg) scale(1.08);
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
@@ -175,20 +337,75 @@ const chapters = [
 			animation: none;
 		}
 	}
+	/* The menu, written on a canvas sign: icon, page, a dotted line to an arrow */
 	.menu {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
-		width: min(400px, 100%);
+		width: min(440px, 100%);
+		box-sizing: border-box;
+		padding: 6px 14px 4px;
+		box-shadow: 8px 8px 0 rgb(0 0 0 / 0.35);
 	}
-	.menu .wide {
-		width: 100%;
+	.menu-title {
+		margin: 0 0 4px;
+		text-align: center;
+		color: #6e3214;
+		padding-bottom: 6px;
+		border-bottom: 2px dashed #b18e65;
 	}
-	.pair {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-		gap: 8px;
-		margin-top: 16px;
+	.menu a {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		min-height: 44px;
+		color: #483015;
+		text-decoration: none;
+		transition: color 0.1s;
+	}
+	.menu a img {
+		image-rendering: pixelated;
+		flex: none;
+		transition: transform 0.15s;
+	}
+	.menu a i {
+		flex: 1;
+		min-width: 16px;
+		align-self: center;
+		margin: 10px 22px 0 0;
+		border-bottom: 2px dotted #b18e65;
+		position: relative;
+	}
+	.menu a i::after {
+		content: '>';
+		position: absolute;
+		right: -20px;
+		bottom: -10px;
+		color: #b18e65;
+		transition: transform 0.15s, color 0.1s;
+	}
+	.menu a:hover,
+	.menu a:focus-visible {
+		color: #000;
+		outline: none;
+	}
+	.menu a:hover img,
+	.menu a:focus-visible img {
+		transform: rotate(-8deg) scale(1.12);
+	}
+	.menu a:hover i,
+	.menu a:focus-visible i {
+		border-bottom-color: #785836;
+	}
+	.menu a:hover i::after,
+	.menu a:focus-visible i::after {
+		color: #6e3214;
+		transform: translateX(4px);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.menu a img,
+		.menu a i::after {
+			transition: none;
+		}
 	}
 	.corner {
 		position: absolute;
@@ -204,17 +421,23 @@ const chapters = [
 	.corner.right {
 		right: 10px;
 	}
-	.intro {
-		font-size: 20px;
-		line-height: 30px;
-		max-width: 48rem;
-		margin: 48px 0 40px;
-		color: var(--sl-color-gray-2);
+	/* The Minecraft range shares the bottom line with the right-hand line only where that one is hidden */
+	.corner .mc {
+		display: none;
 	}
-	.hl {
-		color: var(--fd-gold);
+	@media (max-width: 75rem) and (min-width: 40rem) {
+		.corner .mc {
+			display: inline;
+		}
+	}
+	/* Like the title screen: the right-hand line only fits when there's room for both */
+	@media (max-width: 75rem) {
+		.corner.right {
+			display: none;
+		}
 	}
 	.chapters {
+		margin-top: 48px;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 28px 24px;
@@ -227,6 +450,8 @@ const chapters = [
 		align-items: center;
 		gap: 10px;
 		margin: 0 0 6px;
+		padding-bottom: 6px;
+		border-bottom: 2px dashed #b18e65;
 		font-size: 20px;
 		font-weight: 400;
 		color: #483015;
@@ -259,8 +484,100 @@ const chapters = [
 		text-decoration-thickness: 2px;
 		text-underline-offset: 4px;
 	}
-	.pantry {
-		margin-top: 64px;
+	/* Sister mod: one Minecraft GUI panel, screenshot in a slot on the left, logo and text on the right */
+	.sister {
+		margin-top: 48px;
+		display: grid;
+		grid-template-columns: minmax(0, 28rem) minmax(16rem, 1fr);
+		gap: 20px 28px;
+		align-items: center;
+		padding: 16px;
+		background: #c6c6c6;
+		box-shadow: inset 4px 4px 0 #fff, inset -4px -4px 0 #555, 0 0 0 2px #000, 6px 6px 0 2px #000;
+		color: #404040;
+	}
+	.sister :global(.sister-shot) {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border: 4px solid #8b8b8b;
+		box-shadow: 0 0 0 2px #373737;
+	}
+	.sister-text {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		min-width: 0;
+	}
+	.sister-text p {
+		margin: 0;
+	}
+	.sister-kicker {
+		color: #606060;
+	}
+	.sister-lead {
+		color: #303030;
+	}
+	.sister h2 {
+		margin: 0;
+		line-height: 0;
+	}
+	.sister h2 img {
+		max-width: 100%;
+		height: auto;
+		image-rendering: pixelated;
+	}
+	.sister-links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px 20px;
+		margin-top: 6px;
+	}
+	.sister-more {
+		color: #303030;
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+	}
+	.sister-more:hover {
+		color: #000;
+	}
+	@media (max-width: 60rem) {
+		.sister h2 img {
+			width: 186px;
+			height: 88px;
+		}
+	}
+	@media (max-width: 40rem) {
+		.sister {
+			grid-template-columns: 1fr;
+		}
+	}
+	.pantry-wrap {
+		margin-top: 72px;
+	}
+	.pantry-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 16px 32px;
+		margin-bottom: 24px;
+	}
+	.pantry-head h2 {
+		margin: 0 0 8px;
+		font-size: 30px;
+		line-height: 40px;
+		font-weight: 400;
+		color: var(--fd-heading-ink);
+	}
+	.pantry-head p {
+		margin: 0;
+		max-width: 40rem;
+		color: var(--sl-color-gray-2);
 	}
 	.tabs {
 		display: flex;
@@ -292,8 +609,8 @@ const chapters = [
 	}
 	.inv {
 		display: block !important;
-		width: fit-content;
-		max-width: 100%;
+		width: 100%;
+		box-sizing: border-box;
 		padding: 12px 16px 16px !important;
 	}
 	.inv-title {
@@ -315,14 +632,17 @@ const chapters = [
 		text-decoration-thickness: 2px;
 		text-underline-offset: 4px;
 	}
+	/* As many columns as fit; the empty slots after the last item are a tiled slot background, so every row is full */
 	.inv-grid {
 		display: grid;
-		grid-template-columns: repeat(9, 54px);
+		grid-template-columns: repeat(auto-fill, 54px);
+		grid-auto-rows: 54px;
+		width: round(down, 100%, 54px);
+		margin-inline: auto;
+		min-height: 108px;
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='54' shape-rendering='crispEdges'%3E%3Crect width='54' height='54' fill='%238b8b8b'/%3E%3Crect y='51' width='54' height='3' fill='%23fff'/%3E%3Crect x='51' width='3' height='54' fill='%23fff'/%3E%3Crect width='54' height='3' fill='%23373737'/%3E%3Crect width='3' height='54' fill='%23373737'/%3E%3C/svg%3E") 0 0 / 54px 54px repeat;
 	}
 	@media (max-width: 40rem) {
-		.inv-grid {
-			grid-template-columns: repeat(5, 54px);
-		}
 		.menu :global(.mc-button) {
 			white-space: normal;
 			padding-inline: 10px;
@@ -339,12 +659,28 @@ const chapters = [
 		}
 		.title-screen {
 			min-height: 480px;
+			padding: 84px 10px 52px;
+			gap: 28px;
 		}
 		.corner.right {
 			display: none;
 		}
 		.splash {
-			right: 0;
+			left: 82%;
+			top: 116%;
+		}
+		.menu {
+			padding-inline: 6px;
+		}
+		.menu a {
+			gap: 8px;
+		}
+		.menu a i {
+			min-width: 0;
+			margin-right: 16px;
+		}
+		.menu a i::after {
+			right: -16px;
 		}
 	}
 </style>

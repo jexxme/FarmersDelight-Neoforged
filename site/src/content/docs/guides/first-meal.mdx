@@ -7,8 +7,6 @@ import { Steps, Aside } from '@astrojs/starlight/components';
 import Item from '../../../components/mc/Item.astro';
 import Render from '../../../components/mc/Render.astro';
 import Recipe from '../../../components/recipes/Recipe.astro';
-import EffectBadge from '../../../components/data/EffectBadge.astro';
-import FoodStats from '../../../components/data/FoodStats.astro';
 import { worldgen, biomes, items, recipeById } from '../../../lib/data';
 import { pot, stove, timeText } from '../../../data/code/cooking';
 
@@ -63,9 +61,8 @@ mod's crops come in along the way. Each step links to a page with more detail.
 6. **Serve it.** The finished stew waits in the pot. Put a <Item id="minecraft:bowl" /> in the container slot, or simply
    right-click the pot holding a bowl, to get a bowl of stew. See [Cooking Pot](/mechanics/cooking-pot/#serving).
 
-7. **Eat.** <Item id="beef_stew" /> fills <FoodStats nutrition={stew.food.nutrition} saturation={stew.food.saturation} compact />
-   and gives <EffectBadge id={nour.id} name={nour.name} ticks={nour.duration} />: for {timeText(nour.duration)} your hunger
-   bar doesn't go down. You get the bowl back. More on [Nourishment](/mechanics/effects/).
+7. **Eat.** <Item id="beef_stew" /> restores {stew.food.nutrition / 2} hunger shanks and gives you {timeText(nour.duration)} of
+   [Nourishment](/mechanics/effects/): while it lasts, your hunger bar doesn't go down. You get the bowl back.
 
 </Steps>
 

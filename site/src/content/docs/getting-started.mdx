@@ -1,115 +1,95 @@
 ---
 title: Getting started
-description: Install Farmer's Delight Neoforged, find your first crops, build a kitchen and cook your first meal.
+description: Coming from Farmer's Delight or new to it? Install Farmer's Delight Neoforged, see how the cooking loop goes and what the mod adds, and pick where to start.
 ---
 
-import { Steps, Aside } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 import Item from '../../components/mc/Item.astro';
-import Render from '../../components/mc/Render.astro';
 import Shot from '../../components/mc/Shot.astro';
-import RecipeList from '../../components/recipes/RecipeList.astro';
-import EffectBadge from '../../components/data/EffectBadge.astro';
-import { meta, items, worldgen } from '../../lib/data';
+import Loop from '../../components/cooking/Loop.astro';
+import { meta, items, iconOf } from '../../lib/data';
 import { rangeText, timeText } from '../../data/code/reference';
+import { jarUrl, storeLinks, versionLabel, REPO } from '../../data/code/downloads';
 
-export const stew = items['farmersdelight:vegetable_soup'];
 export const nourish = Object.values(items).flatMap((i) => i.consumable?.effects ?? []).filter((e) => e.id === 'farmersdelight:nourishment').map((e) => e.duration);
-export const wildCount = worldgen.filter((w) => w.id.includes('wild_')).length;
+export const oldest = meta.versions[meta.versions.length - 1].gameVersions.split(',')[0];
+export const newest = meta.versions[0].minecraft;
+export const links = (v) => [...storeLinks(v), { label: 'GitHub', href: jarUrl(v), download: true }];
+
+Farmer's Delight Neoforged is vectorwing's Farmer's Delight, kept cooking on Minecraft {oldest} to {newest} with NeoForge.
+
+<Aside type="tip" title="Coming from the original Farmer's Delight?">
+	Swap the file and carry on. Remove the original first; this mod replaces it. The mod ID is still `farmersdelight`
+	and every item and recipe keeps its name, so your worlds, datapacks and add-ons come along. See
+	[Differences from the original](/differences/).
+</Aside>
 
 Farmer's Delight adds a kitchen to Minecraft. You grow four new crops, cook meals in a pot over a fire, cut ingredients
-on a board and set out feasts for your friends. The food is worth it: most meals grant <EffectBadge id="farmersdelight:nourishment" name="Nourishment" />,
+on a board and set out feasts for your friends. The food is worth it: most meals grant [Nourishment](/mechanics/effects/),
 which stops your hunger bar from going down while it lasts.
 
 <Shot src="kitchen.jpg" caption="A Farmer's Delight kitchen: stoves, a cooking pot, cabinets and a cutting board." />
 
 ## Install
 
-Farmer's Delight Neoforged needs [NeoForge](https://neoforged.net/) and nothing else. Install it on both the client and the server.
-Use the file that matches your Minecraft version:
+Farmer's Delight Neoforged needs [NeoForge](https://neoforged.net/) and nothing else. Find your Minecraft version and
+download from that row. Every row is the same release, {versionLabel()}:
 
 <table>
 	<thead>
-		<tr><th>Minecraft</th><th>NeoForge</th></tr>
+		<tr><th>Minecraft and NeoForge</th><th>Download</th></tr>
 	</thead>
 	<tbody>
 		{meta.versions.map((v) => (
 			<tr>
-				<td><strong>{v.gameVersions.replaceAll(',', ', ')}</strong></td>
-				<td>{rangeText(v.neoforgeRange)}</td>
+				<td><strong>{v.gameVersions.replaceAll(',', ', ')}</strong><br />NeoForge {rangeText(v.neoforgeRange)}</td>
+				<td>{links(v).map((l, i) => <>{i > 0 && ' · '}<a href={l.href} download={l.download || undefined} style="white-space:nowrap">{l.label}</a></>)}</td>
 			</tr>
 		))}
 	</tbody>
 </table>
 
-Download it from [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged).
+Put the same file in the `mods` folder of the server and of every player. The <a href={`${REPO}/releases`}>GitHub releases</a>
+also have the older versions.
 
-<Aside type="tip" title="Coming from the original Farmer's Delight?">
-	Remove it first; this mod replaces it. Your worlds, datapacks and add-ons keep working, because every item and recipe
-	keeps its name. See [Differences from the original](/differences/).
-</Aside>
+## How it works
 
-## Your first hour
+Every meal goes the same way, from the field to the table. Click a step for the details.
 
-<Steps>
+<Loop />
 
-1. **Find wild crops.** There are {wildCount} kinds of wild crops in the overworld. Break them for seeds and produce:
-   <Item id="wild_cabbages" /> and <Item id="wild_beetroots" /> grow on beaches, <Item id="wild_onions" /> and <Item id="wild_carrots" /> in temperate biomes, <Item id="wild_potatoes" /> in cold ones,
-   <Item id="wild_tomatoes" /> in hot biomes and <Item id="wild_rice" /> in shallow water. The [wild crops page](/mechanics/wild-crops/) has the exact biomes. Village farms grow some of the crops too.
+## What the mod adds
 
-   <Render name="scenes/wild-crops" size={300} caption="Wild cabbages and beetroots on sand, wild onions, carrots and potatoes on grass." />
-
-2. **Make a knife.** A <Item id="flint_knife" /> is the cheapest. Knives cut ingredients on the Cutting Board, harvest straw from grass
-   and get extra drops from animals.
-
-   <RecipeList ids={['flint_knife']} />
-
-3. **Plant a garden.** Plant <Item id="cabbage_seeds" />, <Item id="tomato_seeds" /> and <Item id="onion" /> on farmland. Rice goes into a
-   one-block-deep water source. Put rope above your tomatoes and they climb it. Details are on the [crops page](/mechanics/crops/).
-
-4. **Build a kitchen.** Craft a <Item id="cooking_pot" /> and a <Item id="stove" />. The pot only cooks with heat below it. A lit
-   stove, a campfire or fire all work; the [heat sources page](/mechanics/heat-sources/) lists them all.
-
-   <RecipeList ids={['cooking_pot', 'stove', 'cutting_board']} />
-
-5. **Cook a meal.** Put the ingredients in the pot over heat and wait. Take the meal out with an empty <Item id="minecraft:bowl" /> in the
-   bowl slot. <Item id="vegetable_soup" /> is a good first meal. It restores {stew.food.nutrition} hunger and gives Nourishment.
-
-   <RecipeList ids={['cooking/vegetable_soup']} />
-
-</Steps>
-
-## Ideas worth knowing
-
-<dl class="ideas">
+<dl class="tour">
 	<div>
-		<dt><Item id="beef_stew" label="Nourishment" /></dt>
-		<dd>Meals give Nourishment for {timeText(Math.min(...nourish))} to {timeText(Math.max(...nourish))}. While it lasts, your hunger bar doesn't go down. [How it works](/mechanics/effects/).</dd>
+		<dt><img class="pixel" src={iconOf("farmersdelight:cooking_pot")?.src} alt="" width="32" height="32" /> A kitchen</dt>
+		<dd>The [Cooking Pot](/mechanics/cooking-pot/) turns ingredients into meals over a [heat source](/mechanics/heat-sources/). The [Stove](/mechanics/stove/) grills six things at once, the [Skillet](/mechanics/skillet/) cooks in your hand, and the [Cutting Board](/mechanics/cutting-board/) cuts food and blocks into parts.</dd>
 	</div>
 	<div>
-		<dt><Item id="rich_soil" /></dt>
-		<dd>Organic Compost slowly turns into Rich Soil, which now and then gives the crop on it a free bone-meal growth. [Composting](/mechanics/organic-compost/).</dd>
+		<dt><img class="pixel" src={iconOf("farmersdelight:cabbage")?.src} alt="" width="32" height="32" /> New crops</dt>
+		<dd>Cabbage, tomatoes, onions and rice. You find them first as [wild crops](/mechanics/wild-crops/) out in the world. [Organic Compost](/mechanics/organic-compost/) slowly turns into [Rich Soil](/mechanics/rich-soil/), which helps crops grow and lets you farm [mushroom colonies](/mechanics/mushroom-colonies/).</dd>
 	</div>
 	<div>
-		<dt><Item id="iron_knife" label="Knives" /></dt>
-		<dd>Kill pigs with a knife for ham, cut grass for straw, and slice cakes and pies. [Knives](/mechanics/knives/).</dd>
+		<dt><img class="pixel" src={iconOf("farmersdelight:beef_stew")?.src} alt="" width="32" height="32" /> Better food</dt>
+		<dd>Most meals give [Nourishment](/mechanics/effects/) for {timeText(Math.min(...nourish))} to {timeText(Math.max(...nourish))}: while it lasts, your hunger bar doesn't go down. Big dishes become [feasts](/mechanics/feasts/) you place and share, and [pies](/mechanics/pies/) are eaten slice by slice.</dd>
 	</div>
 	<div>
-		<dt><Item id="roast_chicken_block" label="Feasts" /></dt>
-		<dd>Some meals are placed as a block and served into bowls, several servings each. [Feasts](/mechanics/feasts/).</dd>
+		<dt><img class="pixel" src={iconOf("farmersdelight:iron_knife")?.src} alt="" width="32" height="32" /> Knives</dt>
+		<dd>[Knives](/mechanics/knives/) get ham from pigs, straw from grass and slices from cakes, and they're what the Cutting Board needs for most food.</dd>
 	</div>
 </dl>
 
-## Where next
+## Where to start
 
-- [Your first meal, step by step](/guides/first-meal/)
-- [Farming progression](/guides/farming-progression/): from wild crops to Rich Soil and mushroom colonies
-- [Food reference](/reference/food/): which food is best, sorted every way
-- [Recipe planner](/reference/recipe-planner/): everything you need for a dish, down to the crops
+- **New to the mod?** Follow [Your first meal](/guides/first-meal/): from a fresh world to your first bowl of stew, step by step.
+- **Want a proper farm?** The [Farming guide](/guides/farming-progression/) takes you from wild crops to Rich Soil and mushroom colonies.
+- **Looking something up?** Every item has its own page in [All items & blocks](/items/), and the [Food reference](/reference/food/) compares every meal.
+- **Building a modpack?** [Compatibility](/compatibility/) lists what works with JEI, REI, AppleSkin, Create and more, and which recipes and tags other mods can use.
 
 <style>{`
-.ideas { margin: 1rem 0 0; border-top: 1px solid var(--fd-rule); }
-.ideas > div { display: grid; grid-template-columns: 12rem 1fr; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--fd-border); margin: 0; }
-.ideas dt { font-weight: 400; }
-.ideas dd { margin: 0; }
-@media (max-width: 40rem) { .ideas > div { grid-template-columns: 1fr; gap: .2rem; } }
+.tour { margin: 1rem 0 0; border-top: 2px solid var(--fd-border); }
+.tour > div { display: grid; align-items: start; grid-template-columns: 12rem 1fr; gap: 1rem; padding: .7rem 0; border-bottom: 2px solid var(--fd-border); margin: 0; }
+.tour dt { font-weight: 400; display: flex; align-items: center; gap: 10px; color: var(--fd-heading-ink); }
+.tour dd { margin: 0; }
+@media (max-width: 40rem) { .tour > div { grid-template-columns: 1fr; gap: .2rem; } }
 `}</style>

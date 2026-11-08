@@ -1,9 +1,14 @@
 ---
 import Default from '@astrojs/starlight/components/Head.astro';
+import { getImage } from 'astro:assets';
+import hero from '../../assets/shots/hero.jpg';
 import { url } from '../../lib/data';
-const og = Astro.site ? new URL(url('/shots/hero.jpg'), Astro.site).href : null;
+// Share image: the title-screen panorama as a 1200 px JPG (what social sites expect)
+const share = await getImage({ src: hero, width: 1200, format: 'jpg', quality: 82 });
+const og = Astro.site ? new URL(share.src, Astro.site).href : null;
 ---
 <Default><slot /></Default>
+<link rel="preload" href={url('/fonts/fd-pixel.otf')} as="font" type="font/otf" crossorigin />
 <meta name="theme-color" content="#17140f" />
 {og && <meta property="og:image" content={og} />}
 {og && <meta name="twitter:image" content={og} />}

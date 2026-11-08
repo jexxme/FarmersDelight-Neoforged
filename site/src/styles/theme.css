@@ -94,6 +94,7 @@
 	--fd-border: #5c4329;
 	--fd-rule: #b18e65;
 	--fd-heading-ink: #f3e6d2;
+	--fd-heading-shadow: 2px 2px 0 #000;
 }
 
 /* Light: canvas-sign paper */
@@ -124,6 +125,7 @@
 	--fd-border: #b18e65;
 	--fd-rule: #483015;
 	--fd-heading-ink: #483015;
+	--fd-heading-shadow: none;
 }
 
 html {
@@ -150,6 +152,12 @@ header.header {
 	height: 68px !important;
 	width: auto !important;
 	max-width: none;
+}
+/* Phones: a little smaller so the search and menu buttons fit beside it */
+@media (max-width: 30rem) {
+	.site-title img {
+		height: 54px !important;
+	}
 }
 /* Search box and theme picker as Minecraft text fields */
 site-search > button,
@@ -178,25 +186,283 @@ header .social-icons a {
 header starlight-theme-select svg {
 	color: #e0e0e0;
 }
+/* Search sits with the other controls on the right (as the creative search field does), not at the sidebar edge */
+header .header > :nth-child(2) {
+	justify-content: flex-end;
+}
+@media (min-width: 50rem) {
+	site-search > button {
+		width: 20rem;
+	}
+}
+/* Same height as the search field; a GitHub icon you can actually see */
+starlight-theme-select select {
+	height: 40px;
+	padding-block: 0 !important;
+}
+/* Search, GitHub and theme read as one toolbar: three black text-field boxes, same height, same gaps */
+@media (min-width: 50rem) {
+	header .header {
+		column-gap: 8px;
+	}
+	header .right-group {
+		gap: 8px;
+	}
+	header .social-icons::after {
+		display: none;
+	}
+}
+/* GitHub as a square box like the theme button (header and the phone menu) */
+.social-icons a {
+	width: 40px;
+	height: 40px;
+	padding: 0 !important;
+	margin: 0 !important;
+	display: grid !important;
+	place-items: center;
+	background: #000;
+	border: 2px solid #a0a0a0;
+	color: #fff !important;
+	filter: none !important;
+}
+.social-icons a:hover {
+	border-color: #fff;
+}
+header .social-icons svg {
+	width: 24px;
+	height: 24px;
+}
+.site-title img {
+	transition: transform 0.15s;
+}
+.site-title:hover img {
+	transform: rotate(-2deg) scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+	.site-title:hover img {
+		transform: none;
+	}
+}
+/* The phone menu button: the same square black box as search, GitHub and theme (phones only: Starlight shows it below 50rem) */
+@media (max-width: 50rem) {
+	.sl-menu-button {
+		width: 40px !important;
+		height: 40px !important;
+		display: grid !important;
+		place-items: center;
+		padding: 0 !important;
+		background: #000 !important;
+		border: 2px solid #a0a0a0 !important;
+		border-radius: 0 !important;
+		color: #fff !important;
+		box-shadow: none !important;
+		top: calc((var(--sl-nav-height) - 40px) / 2) !important;
+	}
+	.sl-menu-button:hover,
+	.sl-menu-button[aria-expanded='true'] {
+		border-color: #fff !important;
+	}
+	.sl-menu-button svg {
+		width: 24px;
+		height: 24px;
+	}
+}
+@media (max-width: 50rem) {
+	site-search > button {
+		width: 40px;
+		height: 40px;
+		justify-content: center;
+	}
+}
+
+/* Opening search hides the page scrollbar; keep its space so the page doesn't jump sideways */
+html {
+	scrollbar-gutter: stable;
+}
+
+/* ---------------------------------------------------------------- search dialog, like the creative "Search Items" tab */
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+#starlight__search .fd-search-icon {
+	width: 32px;
+	height: 32px;
+	flex: none;
+	image-rendering: pixelated;
+}
+/* The sub-result that only repeats the page title: keep its text, drop the repeated name */
+#starlight__search .fd-dup .pagefind-ui__result-link {
+	font-size: 0;
+	line-height: 0;
+}
+#starlight__search .fd-dup .pagefind-ui__result-title {
+	height: 0;
+	line-height: 0;
+}
+site-search dialog {
+	background: #c6c6c6 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: inset 4px 4px 0 #fff, inset -4px -4px 0 #555, 0 0 0 4px #000, 8px 8px 0 4px #000 !important;
+}
+@media (min-width: 50rem) {
+	site-search dialog {
+		min-height: 0 !important;
+	}
+}
+site-search button[data-close-modal] {
+	color: #404040;
+}
+#starlight__search {
+	--pagefind-ui-primary: #404040;
+	--pagefind-ui-text: #404040;
+	--pagefind-ui-font: var(--sl-font);
+	--pagefind-ui-border-radius: 0;
+	--sl-search-result-pad-inline-start: 16px;
+	--sl-search-corners: 0;
+}
+#starlight__search .pagefind-ui__search-input {
+	background: #000;
+	border: 2px solid #a0a0a0;
+	border-radius: 0;
+	color: #e0e0e0;
+	font-size: 20px;
+}
+#starlight__search .pagefind-ui__search-input:focus {
+	border-color: #fff;
+}
+#starlight__search .pagefind-ui__search-input::placeholder {
+	color: #a0a0a0;
+	opacity: 1; /* Pagefind dims it to 0.2 */
+}
+#starlight__search .pagefind-ui__form::before {
+	background-color: #e0e0e0;
+}
+#starlight__search .pagefind-ui__search-clear::before {
+	background-color: #e0e0e0;
+}
+/* Empty dialog: say what you can search for instead of a blank panel */
+#starlight__search .pagefind-ui__form:not(:has(.pagefind-ui__results-area))::after {
+	content: 'Search every item, block, recipe and guide. Try "tomato", "knife" or "rich soil".';
+	display: block;
+	margin-top: 20px;
+	color: #404040;
+	font-size: 20px;
+	line-height: 30px;
+}
+#starlight__search .pagefind-ui__message {
+	color: #404040;
+	font-size: 20px;
+}
+/* The pixel font is only crisp at multiples of 10 px; Pagefind's own sizes (18 px and smaller) blur it */
+#starlight__search .pagefind-ui__result-title,
+#starlight__search .pagefind-ui__result-link {
+	font-size: 20px;
+	line-height: 30px;
+}
+/* Results as slot-grey cards with Minecraft's white GUI text */
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title::before,
+#starlight__search .pagefind-ui__result-nested::before {
+	display: none;
+}
+#starlight__search .pagefind-ui__result {
+	background: #8b8b8b;
+	box-shadow: inset 2px 2px 0 #373737, inset -2px -2px 0 #fff;
+	padding: 2px;
+}
+#starlight__search .pagefind-ui__result-inner > * {
+	background: transparent;
+}
+#starlight__search .pagefind-ui__result-nested {
+	border-top: 2px solid #6f6f6f;
+	padding-inline-start: 32px;
+}
+#starlight__search .pagefind-ui__result-link {
+	--pagefind-ui-text: #fff;
+	color: #fff;
+	font-weight: 400;
+	text-shadow: 2px 2px 0 #3f3f3f;
+}
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title:hover .pagefind-ui__result-link,
+#starlight__search .pagefind-ui__result-nested:hover .pagefind-ui__result-link,
+#starlight__search .pagefind-ui__result-link:focus-visible {
+	color: #ffffa0;
+}
+#starlight__search .pagefind-ui__result-inner > .pagefind-ui__result-title:hover,
+#starlight__search .pagefind-ui__result-nested:hover {
+	background: #9d9d9d;
+}
+#starlight__search .pagefind-ui__result-excerpt {
+	color: #e0e0e0;
+	font-size: 20px;
+	line-height: 30px;
+	text-shadow: 2px 2px 0 #3f3f3f;
+}
+#starlight__search mark {
+	color: #ffff55;
+	background: none;
+	font-weight: 400;
+}
+site-search dialog::backdrop {
+	background: rgb(14 8 3 / 0.7);
+}
+/* "Load more results" as a vanilla stone button */
+#starlight__search .pagefind-ui__button {
+	border-radius: 0;
+	border: 0;
+	background: none;
+	border-style: solid;
+	border-width: 6px;
+	border-image: url('/FarmersDelight-Neoforged/ui/button.png') 3 fill / 6px stretch;
+	image-rendering: pixelated;
+	color: #fff;
+	text-shadow: 2px 2px 0 #3f3f3f;
+	font-family: var(--sl-font);
+	font-size: 20px;
+}
+#starlight__search .pagefind-ui__button:hover,
+#starlight__search .pagefind-ui__button:focus-visible {
+	border-image-source: url('/FarmersDelight-Neoforged/ui/button-hover.png');
+	color: #ffffa0;
+	outline: none;
+}
 
 /* ---------------------------------------------------------------- sidebar */
+/* The sidebar is a panel with an oak post down its right edge */
 .sidebar-pane {
 	background: var(--sl-color-bg-sidebar);
-	border-inline-end: 5px solid #000 !important;
+	border-inline-end: 0 !important;
+	box-shadow: inset -2px 0 0 #000, inset -8px 0 0 var(--fd-frame-light), inset -10px 0 0 var(--fd-frame);
+}
+.sidebar-content {
+	padding-inline-end: 22px !important;
 }
 .sidebar-content a {
 	border-radius: 0 !important;
+	transition: color 0.1s, background-color 0.1s;
 }
+.sidebar-content a:not([aria-current='page']):hover {
+	color: var(--sl-color-text-accent) !important;
+}
+/* The page you're on: the orange sign, with a dark marker bar on its left */
 .sidebar-content a[aria-current='page'],
 .sidebar-content a[aria-current='page']:hover {
 	background: var(--fd-orange-paper) !important;
 	color: var(--fd-orange-ink) !important;
-	box-shadow: inset 0 0 0 2px var(--fd-orange-frame);
+	box-shadow: inset 4px 0 0 var(--fd-orange-frame), inset 0 0 0 2px var(--fd-orange-frame);
 }
 .sidebar-content summary .group-label span {
 	color: var(--fd-orange-paper);
+	text-shadow: 2px 0 0 currentColor;
+	letter-spacing: 2px;
 }
-:root[data-theme='light'] .sidebar-content summary .group-label span {
+.sidebar-content summary svg {
+	color: var(--fd-orange-paper);
+}
+:root[data-theme='light'] .sidebar-content summary .group-label span,
+:root[data-theme='light'] .sidebar-content summary svg {
 	color: var(--fd-orange-frame);
 }
 .sidebar-content .large {
@@ -204,37 +470,118 @@ header starlight-theme-select svg {
 }
 
 /* ---------------------------------------------------------------- headings */
+/* Page title: a canvas sign hanging on two chains */
 h1#_top {
+	--chain: repeating-linear-gradient(#74747e 0 4px, #c4c4cc 4px 6px, #2a2a31 6px 8px, #4c4c55 8px 12px);
+	--L: 96px; /* chain length: they run up under the header, where the hooks are */
+	position: relative;
 	display: inline-block;
 	font-family: var(--fd-font-display);
 	font-weight: 400;
 	font-size: 40px;
 	line-height: 1.25;
 	color: #483015;
-	padding: 6px 20px 2px;
+	padding: 6px 24px 2px;
+	margin-top: 40px;
 	border-style: solid;
 	border-width: 8px 12px 12px 8px;
 	border-image: url('/FarmersDelight-Neoforged/ui/sign.png') 2 3 3 2 fill / 8px 12px 12px 8px repeat;
 	image-rendering: pixelated;
 	max-width: 100%;
+	box-shadow: 8px 8px 0 rgb(0 0 0 / 0.35);
+}
+h1#_top::before,
+h1#_top::after {
+	content: '';
+	position: absolute;
+	bottom: calc(100% + 8px);
+	width: 6px;
+	height: var(--L);
+	background: var(--chain);
+	box-shadow: 2px 0 0 #2a2a31;
+}
+h1#_top::before {
+	left: 8px;
+}
+h1#_top::after {
+	right: 12px;
+}
+/* Hanging signs swing like a real two-chain sign: each chain turns on its own hook, which stays put, and the board
+   swings sideways and stays level, always hanging from the chain ends. The sign settles when the page opens; a touch
+   sets it swinging again (scripts/mc.ts restarts the animation). --L is the chain length, --k scales the swing. */
+:where(h1#_top, .fd-hang) {
+	--k: 1;
+	animation: fd-hang 2s ease-in-out both;
+}
+:where(h1#_top, .fd-hang)::before,
+:where(h1#_top, .fd-hang)::after {
+	transform-origin: 50% 0;
+	animation: fd-hang-chain 2s ease-in-out both;
+}
+@keyframes fd-hang {
+	0% {
+		transform: none;
+	}
+	14% {
+		transform: translate(calc(var(--L) * sin(6deg * var(--k))), calc(var(--L) * (cos(6deg * var(--k)) - 1)));
+	}
+	32% {
+		transform: translate(calc(var(--L) * sin(-4.4deg * var(--k))), calc(var(--L) * (cos(-4.4deg * var(--k)) - 1)));
+	}
+	50% {
+		transform: translate(calc(var(--L) * sin(2.6deg * var(--k))), calc(var(--L) * (cos(2.6deg * var(--k)) - 1)));
+	}
+	67% {
+		transform: translate(calc(var(--L) * sin(-1.3deg * var(--k))), calc(var(--L) * (cos(-1.3deg * var(--k)) - 1)));
+	}
+	83% {
+		transform: translate(calc(var(--L) * sin(0.5deg * var(--k))), calc(var(--L) * (cos(0.5deg * var(--k)) - 1)));
+	}
+	100% {
+		transform: none;
+	}
+}
+@keyframes fd-hang-chain {
+	0% {
+		transform: none;
+	}
+	14% {
+		transform: translate(calc(var(--L) * sin(-6deg * var(--k))), calc(var(--L) * (1 - cos(6deg * var(--k))))) rotate(calc(-6deg * var(--k)));
+	}
+	32% {
+		transform: translate(calc(var(--L) * sin(4.4deg * var(--k))), calc(var(--L) * (1 - cos(-4.4deg * var(--k))))) rotate(calc(4.4deg * var(--k)));
+	}
+	50% {
+		transform: translate(calc(var(--L) * sin(-2.6deg * var(--k))), calc(var(--L) * (1 - cos(2.6deg * var(--k))))) rotate(calc(-2.6deg * var(--k)));
+	}
+	67% {
+		transform: translate(calc(var(--L) * sin(1.3deg * var(--k))), calc(var(--L) * (1 - cos(-1.3deg * var(--k))))) rotate(calc(1.3deg * var(--k)));
+	}
+	83% {
+		transform: translate(calc(var(--L) * sin(-0.5deg * var(--k))), calc(var(--L) * (1 - cos(0.5deg * var(--k))))) rotate(calc(-0.5deg * var(--k)));
+	}
+	100% {
+		transform: none;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	:where(h1#_top, .fd-hang),
+	:where(h1#_top, .fd-hang)::before,
+	:where(h1#_top, .fd-hang)::after {
+		animation: none;
+	}
+}
+/* The title panel's bottom line would cut the chains short; the sign hangs on the wall itself */
+.content-panel:has(h1#_top),
+.content-panel:has(h1#_top) + .content-panel {
+	border-bottom: 0 !important;
+	border-top: 0 !important;
 }
 .sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
 	font-family: var(--fd-font-display);
 	font-weight: 400;
 	letter-spacing: 0;
 	color: var(--fd-heading-ink);
-}
-.sl-markdown-content h2:not(:where(.not-content *)) {
-	display: inline-block;
-	font-size: 30px;
-	line-height: 1.4;
-	margin: 0;
-	padding: 4px 14px 0;
-	color: var(--fd-orange-ink);
-	border-style: solid;
-	border-width: 6px 9px 9px 6px;
-	border-image: url('/FarmersDelight-Neoforged/ui/sign-orange.png') 2 3 3 2 fill / 6px 9px 9px 6px repeat;
-	image-rendering: pixelated;
 }
 .sl-markdown-content h3:not(:where(.not-content *)) {
 	font-size: 20px;
@@ -370,15 +717,49 @@ b {
 starlight-tabs [role='tab'] {
 	border-radius: 0 !important;
 }
+/* Previous / next: small canvas signs that lift when you point at them */
 .pagination-links a {
-	border: 3px solid var(--fd-frame) !important;
-	box-shadow: 4px 4px 0 #000 !important;
-	background: var(--fd-surface) !important;
+	border-style: solid !important;
+	border-width: 8px 12px 12px 8px !important;
+	border-image: url('/FarmersDelight-Neoforged/ui/sign.png') 2 3 3 2 fill / 8px 12px 12px 8px repeat !important;
+	image-rendering: pixelated;
+	background: none !important;
+	box-shadow: none !important;
+	color: var(--fd-ink) !important;
+	transition: transform 0.12s;
 }
+.pagination-links a .link-title {
+	color: var(--fd-orange-frame);
+}
+.pagination-links a:hover {
+	transform: translateY(-2px);
+}
+.pagination-links a:hover .link-title {
+	color: #000;
+}
+@media (prefers-reduced-motion: reduce) {
+	.pagination-links a:hover {
+		transform: none;
+	}
+}
+/* Right-hand "On this page": quiet links, the section you're reading marked like a selection cursor */
 #starlight__on-this-page {
 	font-family: var(--sl-font);
 	font-size: 20px !important;
+	color: var(--fd-heading-ink);
+}
+starlight-toc a {
+	color: var(--sl-color-gray-3);
+	transition: color 0.1s;
+}
+starlight-toc a:hover {
 	color: var(--sl-color-white);
+}
+starlight-toc a[aria-current='true'] {
+	color: var(--sl-color-text-accent) !important;
+}
+starlight-toc a[aria-current='true']::before {
+	content: '> ';
 }
 
 /* Minecraft button (vanilla widget sprite, 9-slice) */
@@ -546,18 +927,22 @@ img.pixel,
 	line-height: 28px;
 }
 
-/* Section headings: no sign box, a full-width rule above instead */
+/* Section headings over a painted rule: an orange bar, a light nub, a thin seam to the edge */
 .sl-markdown-content h2:not(:where(.not-content *)) {
 	display: block;
 	width: 100%;
 	font-size: 30px;
 	line-height: 40px;
 	color: var(--fd-heading-ink);
-	padding: 16px 0 0;
+	text-shadow: var(--fd-heading-shadow);
+	padding: 0 0 14px;
 	border: 0;
-	border-top: 4px solid var(--fd-border);
 	border-image: none;
 	margin: 0;
+	background:
+		linear-gradient(var(--fd-orange), var(--fd-orange)) 0 100% / 96px 4px no-repeat,
+		linear-gradient(var(--fd-frame-light), var(--fd-frame-light)) 100px 100% / 12px 4px no-repeat,
+		linear-gradient(var(--sl-color-hairline), var(--sl-color-hairline)) 116px calc(100% - 1px) / 100% 2px no-repeat;
 }
 .sl-markdown-content .sl-heading-wrapper.level-h2 {
 	margin-top: 64px;
@@ -581,13 +966,41 @@ img.pixel,
 .sl-markdown-content > :is(h2, h3) + * {
 	margin-top: 12px !important;
 }
+.sl-markdown-content .sl-heading-wrapper.level-h2 + *,
+.sl-markdown-content > h2 + * {
+	margin-top: 16px !important;
+}
 /* The anchor link only shows on hover, so it doesn't add noise next to every heading */
 .sl-markdown-content .sl-anchor-link {
 	opacity: 0;
+	transition: opacity 0.12s;
+	color: var(--sl-color-gray-3);
 }
 .sl-markdown-content .sl-heading-wrapper:hover .sl-anchor-link,
 .sl-markdown-content .sl-anchor-link:focus-visible {
 	opacity: 1;
+}
+/* Phones have no hover: the anchor stays faintly visible there */
+@media (hover: none) {
+	.sl-markdown-content .sl-anchor-link {
+		opacity: 0.5;
+	}
+}
+/* A heading you jumped to (a #link, the table of contents) glows for a moment */
+.sl-markdown-content :is(h2, h3):target {
+	animation: fd-target 1.6s ease-out;
+}
+@keyframes fd-target {
+	0%,
+	30% {
+		color: var(--sl-color-accent-high);
+		text-shadow: 0 0 12px rgb(242 186 132 / 0.8), var(--fd-heading-shadow);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.sl-markdown-content :is(h2, h3):target {
+		animation: none;
+	}
 }
 
 /* Visual blocks get room around them; text blocks stay close together */
@@ -604,10 +1017,29 @@ img.pixel,
 	margin-top: 6px;
 }
 
-/* Asides: compact */
+/* Asides: compact signs, pinned to the wall with a nail and never quite straight */
 .starlight-aside {
+	position: relative;
 	margin-top: 28px !important;
-	padding: 8px 16px 6px;
+	padding: 10px 18px 6px;
+	transform: rotate(-0.3deg);
+}
+.starlight-aside:nth-of-type(even) {
+	transform: rotate(0.25deg);
+}
+.starlight-aside::before {
+	content: '';
+	position: absolute;
+	top: -2px;
+	left: 50%;
+	width: 8px;
+	height: 8px;
+	margin-left: -4px;
+	background: #74747e;
+	box-shadow: inset 2px 2px 0 #c4c4cc, inset -2px -2px 0 #4c4c55, 2px 2px 0 rgb(0 0 0 / 0.5);
+}
+.starlight-aside--tip .starlight-aside__title {
+	color: #3d6b1c !important;
 }
 .starlight-aside__content p {
 	line-height: 28px;
@@ -642,4 +1074,119 @@ starlight-toc h2 {
 .sl-markdown-content svg[viewBox] {
 	max-width: 100%;
 	height: auto;
+}
+
+/* ---------------------------------------------------------------- phone "On this page" bar */
+/* One dark-oak strip under the header: "On this page" quiet, the section you're in in orange, a caret at the end;
+   it opens a canvas sign with the sections */
+mobile-starlight-toc nav {
+	background: #3d2813 url('/FarmersDelight-Neoforged/ui/dark-oak-planks.png') 0 0 / 64px 64px !important;
+	image-rendering: pixelated;
+	border-top: 0 !important;
+	box-shadow: 0 2px 0 var(--fd-frame-light), 0 4px 0 #000;
+}
+mobile-starlight-toc summary {
+	gap: 10px !important;
+	border-bottom: 0 !important;
+	padding-inline: 16px !important;
+	cursor: pointer;
+}
+mobile-starlight-toc summary .toggle {
+	border: 0 !important;
+	border-radius: 0 !important;
+	background: none !important;
+	padding: 0 !important;
+	gap: 0 !important;
+	color: #d4bea4 !important;
+	text-shadow: 2px 2px 0 #000;
+}
+mobile-starlight-toc summary .toggle::after {
+	content: ':';
+}
+mobile-starlight-toc summary .toggle .caret {
+	display: none;
+}
+mobile-starlight-toc summary .display-current {
+	flex: 1;
+	color: var(--fd-orange-paper) !important;
+	text-shadow: 2px 2px 0 #000;
+}
+/* a pixel caret: points down, up when open */
+mobile-starlight-toc summary::after {
+	content: '';
+	flex: none;
+	width: 12px;
+	height: 8px;
+	background: var(--fd-orange-paper);
+	clip-path: polygon(0 0, 100% 0, 100% 25%, 83% 25%, 83% 50%, 67% 50%, 67% 75%, 50% 75%, 50% 100%, 50% 100%, 33% 75%, 33% 50%, 17% 50%, 17% 25%, 0 25%);
+	transition: transform 0.15s;
+}
+mobile-starlight-toc details[open] summary::after {
+	transform: rotate(180deg);
+}
+mobile-starlight-toc summary:hover .display-current,
+mobile-starlight-toc summary:focus-visible .display-current {
+	color: #ffe3c2 !important;
+}
+mobile-starlight-toc .dropdown {
+	--sl-color-white: #000;
+	--sl-color-gray-2: #483015;
+	--sl-color-gray-3: #553a1f;
+	--sl-color-text-accent: #6e3214;
+	margin: 6px 10px 0 !important;
+	border-radius: 0 !important;
+	border-style: solid !important;
+	border-width: 8px 12px 12px 8px !important;
+	border-image: url('/FarmersDelight-Neoforged/ui/sign.png') 2 3 3 2 fill / 8px 12px 12px 8px repeat !important;
+	image-rendering: pixelated;
+	background: none !important;
+	box-shadow: 8px 8px 0 rgb(0 0 0 / 0.45) !important;
+	color: #483015;
+}
+mobile-starlight-toc .dropdown a {
+	color: #553a1f !important;
+}
+mobile-starlight-toc .dropdown a[aria-current='true'] {
+	color: #6e3214 !important;
+}
+
+/* ---------------------------------------------------------------- small interaction polish */
+.mc-button:active {
+	transform: translateY(2px);
+}
+.sl-markdown-content a:not(:where(.not-content *)) {
+	transition: color 0.1s;
+}
+::selection {
+	background: var(--fd-orange);
+	color: #fff;
+}
+.sl-markdown-content tbody tr:not(:where(.not-content *)) {
+	transition: background-color 0.1s;
+}
+.sl-markdown-content tbody tr:not(:where(.not-content *)):hover {
+	background: rgb(242 186 132 / 0.06);
+}
+:root[data-theme='light'] :is(.fd-board, .fd-card) {
+	box-shadow: 4px 4px 0 rgb(60 30 10 / 0.35);
+}
+
+/* Page to page: a quick cross-fade where the browser supports it (the header and sidebar stay put) */
+@view-transition {
+	navigation: auto;
+}
+header.header {
+	view-transition-name: fd-header;
+}
+.sidebar-pane {
+	view-transition-name: fd-sidebar;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 0.18s;
+}
+@media (prefers-reduced-motion: reduce) {
+	@view-transition {
+		navigation: none;
+	}
 }

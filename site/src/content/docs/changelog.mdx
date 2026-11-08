@@ -5,8 +5,9 @@ tableOfContents: false
 ---
 import Changelog from '../../components/reference/Changelog.astro';
 import { meta } from '../../lib/data';
+import { versionLabel, stores } from '../../data/code/downloads';
 
-The current release is **{meta.modVersion}** for Minecraft {meta.versions.map((v) => v.minecraft).join(', ')}. The first part of the version is the Farmer's Delight content it carries; the `+neoforged` number counts this mod's own releases.
-Download it from [Modrinth](https://modrinth.com/mod/farmers-delight-neoforged), [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-neoforged) or the [GitHub releases](https://github.com/jexxme/FarmersDelight-Neoforged/releases). Below are this mod's releases first, then the original Farmer's Delight's.
+The current release is **{versionLabel()}** for Minecraft {meta.versions.map((v) => v.minecraft).join(', ')}. The FD number is the Farmer's Delight content it carries; the number in brackets counts this mod's own releases (release tags so far write it as `+neoforged.N`).
+Download it from {stores.map((l, i) => <>{i > 0 && (i === stores.length - 1 ? ' or the ' : ', ')}<a href={l.href}>{l.label}</a></>)}. Below are this mod's releases first, then the original Farmer's Delight's.
 
 <Changelog />

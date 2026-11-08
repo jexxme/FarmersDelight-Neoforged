@@ -140,6 +140,9 @@
 #mc-tooltip .t-gold {
 	color: #ffaa00;
 }
+#mc-tooltip .t-red {
+	color: #ff5555;
+}
 #mc-tooltip .t-id {
 	color: #555;
 	text-shadow: 2px 2px 0 #151515;
