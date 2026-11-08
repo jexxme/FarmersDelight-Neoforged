@@ -1,6 +1,7 @@
 name: Release
 
-# Push a tag named <minecraft_version>-<mod_version> (e.g. 26.3-1.3.3+neoforged.1) on the matching branch.
+# Push a tag named <minecraft_version>-<mod_version> (e.g. 26.3-1.3.4-2) on the matching branch.
+# mod_version is <Farmer's Delight version>-<our release number>; the stores show it as "MC 26.3 · FD 1.3.4 (2)".
 # Publishes to GitHub Releases always, and to Modrinth / CurseForge once these are set up in the repository settings:
 #   Variables: MODRINTH_PROJECT_ID, CURSEFORGE_PROJECT_ID     Secrets: MODRINTH_TOKEN, CURSEFORGE_TOKEN
 on:
@@ -36,10 +37,17 @@ jobs:
             echo "::error::release_game_versions is missing in gradle.properties."
             exit 1
           fi
+          if ! [[ "${mod}" =~ ^[0-9]+(\.[0-9]+)*-[0-9]+$ ]]; then
+            echo "::error::mod_version must be <Farmer's Delight version>-<release number>, e.g. 1.3.4-2 (got ${mod})."
+            exit 1
+          fi
+          fd="${mod%-*}"; n="${mod##*-}"
+          first="${games%%,*}"; last="${games##*,}"
+          if [ "${first}" = "${last}" ]; then mc_file="${first}"; mc_label="${first}"; else mc_file="${first}-${last}"; mc_label="${first}–${last}"; fi
           {
-            echo "version=${expected}"
-            echo "mod_version=${mod}"
-            echo "games_label=$(echo "${games}" | sed 's/,/, /g')"
+            echo "title=MC ${mc_label} · FD ${fd} (${n})"
+            echo "file_version=MC${mc_file}-FD${mod}"
+            echo "jar=build/libs/FarmersDelight-Neoforged-MC${mc_file}-FD${mod}.jar"
             echo "games<<EOF"; echo "${games}" | tr ',' '\n'; echo "EOF"
           } >> "$GITHUB_OUTPUT"
           # Release notes: the first section of changelog.md (up to the next "## " or "# " heading)
@@ -69,9 +77,9 @@ jobs:
       - name: GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          name: Farmer's Delight Neoforged ${{ steps.info.outputs.mod_version }} for Minecraft ${{ steps.info.outputs.games_label }}
+          name: ${{ steps.info.outputs.title }}
           body_path: release-notes.md
-          files: build/libs/FarmersDelight-Neoforged-${{ steps.info.outputs.version }}.jar
+          files: ${{ steps.info.outputs.jar }}
           fail_on_unmatched_files: true
           make_latest: ${{ steps.info.outputs.latest }}
 
@@ -81,9 +89,9 @@ jobs:
         with:
           modrinth-id: ${{ vars.MODRINTH_PROJECT_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files: build/libs/FarmersDelight-Neoforged-${{ steps.info.outputs.version }}.jar
-          name: ${{ steps.info.outputs.mod_version }} for Minecraft ${{ steps.info.outputs.games_label }}
-          version: ${{ steps.info.outputs.version }}
+          files: ${{ steps.info.outputs.jar }}
+          name: ${{ steps.info.outputs.title }}
+          version: ${{ steps.info.outputs.file_version }}
           version-type: release
           changelog-file: release-notes.md
           loaders: neoforge
@@ -101,9 +109,9 @@ jobs:
         with:
           curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          files: build/libs/FarmersDelight-Neoforged-${{ steps.info.outputs.version }}.jar
-          name: Farmer's Delight Neoforged ${{ steps.info.outputs.mod_version }} for Minecraft ${{ steps.info.outputs.games_label }}
-          version: ${{ steps.info.outputs.version }}
+          files: ${{ steps.info.outputs.jar }}
+          name: ${{ steps.info.outputs.title }}
+          version: ${{ steps.info.outputs.file_version }}
           version-type: release
           changelog-file: release-notes.md
           loaders: neoforge
