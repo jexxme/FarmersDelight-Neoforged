@@ -704,6 +704,10 @@ public final class FDPortAuditTests
 	/**
 	 * Runs wheat through each village farm's processor list, as structure placement does, and counts the crops. FD's
 	 * rules reused vanilla's random numbers, so plains and taiga farms never got cabbages.
+	 * <p>
+	 * The processors read the world at each position and seed their random numbers from it (a hash, so neighbouring
+	 * blocks are as random as distant ones). The samples stay in a 64 by 63 block area at the test, a few chunks: spread
+	 * over thousands of chunks they made the server generate all of them, which ran CI out of memory on 26.1.x.
 	 */
 	private static void villageFarmsGrowFdCrops(GameTestHelper helper) {
 		List<String> problems = new ArrayList<>();
@@ -715,6 +719,7 @@ public final class FDPortAuditTests
 			"farm_savanna", List.of(ModBlocks.CABBAGE_CROP.get(), ModBlocks.TOMATO_CROP.get(), Blocks.MELON_STEM),
 			"farm_desert", List.of(ModBlocks.CABBAGE_CROP.get(), ModBlocks.TOMATO_CROP.get(), Blocks.BEETROOTS));
 		int samples = 4000;
+		BlockPos origin = helper.absolutePos(BlockPos.ZERO);
 		for (var entry : expected.entrySet()) {
 			StructureProcessorList list = processorLists.getValue(Identifier.withDefaultNamespace(entry.getKey()));
 			if (list == null) {
@@ -723,7 +728,7 @@ public final class FDPortAuditTests
 			}
 			Map<Block, Integer> counts = new HashMap<>();
 			for (int i = 0; i < samples; i++) {
-				BlockPos pos = new BlockPos(i * 7, 64, i * 13);
+				BlockPos pos = origin.offset(i % 64, 0, i / 64);
 				StructureTemplate.StructureBlockInfo original = new StructureTemplate.StructureBlockInfo(pos, Blocks.WHEAT.defaultBlockState(), null);
 				StructureTemplate.StructureBlockInfo info = original;
 				for (StructureProcessor processor : list.list()) {
