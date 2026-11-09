@@ -1,4 +1,4 @@
-// 26.2	2026-11-04T00:44:47.3874725	Loot Tables
+// 26.2	2026-11-09T02:33:47.7716746	Loot Tables
 bb6cefb24c74f6ba0377e761d1845a5b9b41c310 data/farmersdelight/loot_table/blocks/acacia_cabinet.json
 23fb8611e8fde16b90b760500fb6d39c0042c092 data/farmersdelight/loot_table/blocks/apple_pie.json
 af4d70bb7506b1c7a81c191ee6a9e684b4ca2931 data/farmersdelight/loot_table/blocks/bamboo_basket.json
@@ -84,6 +84,7 @@ fff4aad2caaa51066b3653308a6f1cd28a8e87b6 data/farmersdelight/loot_table/blocks/s
 3e81941a7eb005a365c4eb01c2aa10e1268aee53 data/farmersdelight/loot_table/blocks/tatami.json
 5a893b125d652db1de5431704dd9f99e62d16d50 data/farmersdelight/loot_table/blocks/tomatoes.json
 a945eb2d3eaa36c9cba998966951c7de3cfbfe29 data/farmersdelight/loot_table/blocks/tomatoes_on_rope.json
+a96340a16bfe7cd86058df67633bee33d5ee5236 data/farmersdelight/loot_table/blocks/tomatoes_on_support.json
 bd75a6dcd49fcf8f7fb33bb2eff8c1ed99543e2c data/farmersdelight/loot_table/blocks/tomato_crate.json
 0c03838284d41953f75ac675c009d7f93345a75c data/farmersdelight/loot_table/blocks/warped_cabinet.json
 36cec59cdca7d197476354f1c364d421cf018fbf data/farmersdelight/loot_table/blocks/white_canvas_sign.json
