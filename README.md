@@ -1,4 +1,4 @@
-<p align="center" style="text-align:center"><img src="https://raw.githubusercontent.com/jexxme/FarmersDelight-Neoforged/26.3/branding/store/hero.png" width="724" alt="Farmer's Delight Neoforged, hanging on two chains from an oak beam, with the plaque &quot;Minecraft 26.1 – 26.3 · NeoForge&quot; and a yellow splash: 320 recipes!"></p>
+<p align="center" style="text-align:center"><img src="https://raw.githubusercontent.com/jexxme/FarmersDelight-Neoforged/26.3/branding/store/hero.png" width="724" alt="The Farmer's Delight Neoforged banner, with the plaque &quot;Minecraft 26.1 – 26.3 · NeoForge&quot; and a yellow splash: 320 recipes!"></p>
 
 <p align="center" style="text-align:center"><b>Farmer's Delight lives on: crops, knives, cooking pots and feasts for Minecraft 26.1 to 26.3.</b><br>
 Grow the crops, cut them on a board, cook them in a pot and set a feast on the table. Farmer's Delight Neoforged is an independent NeoForge continuation of vectorwing's Farmer's Delight, made by <b>Jexxme</b> and not affiliated with or endorsed by vectorwing.</p>
