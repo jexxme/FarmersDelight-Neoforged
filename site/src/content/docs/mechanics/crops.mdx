@@ -10,6 +10,7 @@ import RecipeList from '../../../components/recipes/RecipeList.astro';
 import Chips from '../../../components/farming/Chips.astro';
 import BlockDrops from '../../../components/farming/BlockDrops.astro';
 import TomatoClimb from '../../../components/farming/TomatoClimb.astro';
+import { Aside } from '@astrojs/starlight/components';
 import { blocks, trades, tags, nameOf, pct } from '../../../lib/data';
 import { crops, vanilla, cropRoll, oneIn, checksToTime, checkSeconds, bonemealSplit } from '../../../data/code/farming';
 
@@ -83,6 +84,19 @@ Vines on rope need light {crops.tomatoSurvive.value}+ or a view of the sky to st
 
 <Shot src="mechanics/rich-soil-farm.jpg" caption="Rich Soil Farmland with cabbages and onions, and tomatoes climbing a rope trellis behind." />
 
+### Trellises and other supports
+
+Rope isn't the only thing a vine climbs. Other mods can add their own supports, and a vine grows into them just like onto rope. The trellis from [Vine & Barrel](https://jexxme.github.io/VineAndBarrel/) is one: put a trellis above a tomato vine and it climbs in.
+
+- The support stays inside the vine, exactly as it was. You still bump into it, and the leaves grow around it.
+- However the vine goes, the support is left standing: you break it, it's blown up or burnt, or it loses its light or the plant below. Breaking the vine never drops the support.
+- Supports count toward the same {crops.tomatoClimb.value} blocks as rope, and you can mix rope and trellises in one column.
+- For modpacks: add a block to the block tag `#farmersdelight:tomato_supports` and tomatoes climb it. Blocks that store items (chests and the like) don't work, and a waterlogged block is skipped.
+
+<Aside type="note" title="NeoForge only">
+This is a Farmer's Delight Neoforged feature. Farmer's Delight Refabricated (Fabric) and the original Farmer's Delight don't read this tag, so their tomatoes only climb rope.
+</Aside>
+
 ## Rice
 
 Plant <Item id="rice" /> in a **full water source block, one block deep**, standing on <Chips tag="minecraft:substrate_overworld" compact />. It won't go into flowing water, and clicking dry dirt or farmland with rice shows a hint instead. Rice checks the light **just above the water** ({crops.riceTick.value}+), not at the plant.
@@ -125,7 +139,7 @@ Bone meal works the same by hand, from a dispenser or from [Rich Soil](/mechanic
 
 ## Good to know
 
-- A tomato vine keeps trying to climb after it ripens, so you can add rope at any time.
+- A tomato vine keeps trying to climb after it ripens, so you can add rope (or a trellis) at any time.
 - [Rich Soil Farmland](/mechanics/rich-soil/) can't be trampled and accepts every crop that grows on farmland, other mods' crops included.
 - Rotten tomatoes only come from ripe vines, whether you pick or break them.
 - **Throw rotten tomatoes.** Right-click to throw one, or load them into a dispenser. It does no damage, but it splats on whatever it hits with a juicy squelch: perfect for pranks.

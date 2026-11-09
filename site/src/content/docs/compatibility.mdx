@@ -72,6 +72,7 @@ Farmer's Delight puts its items in the shared tags most mods use, so another mod
 <li><strong>{modNames[m] ?? m}:</strong> {otherTags.filter((f) => f.tag.startsWith(m + ':')).map((f) => foreignTagText[`${f.registry} ${f.tag}`]).join('; ')}{m === 'create' && '. A Create Chute between a heat source and a Cooking Pot passes the heat up'}.</li>
 ))}
 <li><strong>Ropes from {ropes.join(' and ')}:</strong> tomato vines climb them too.</li>
+<li><strong>Trellises and other supports:</strong> tomato vines climb any block in `#farmersdelight:tomato_supports` and leave it standing when they go. Ropes are in it already; other mods add theirs, such as Vine &amp; Barrel's trellis. NeoForge only: Farmer's Delight Refabricated on Fabric doesn't read this tag. See [Trellises and other supports](/mechanics/crops/#trellises-and-other-supports).</li>
 </ul>
 
 With **Serene Seasons**, the crops grow in these seasons:
@@ -92,6 +93,7 @@ separate mod by the same author and works fine on its own. Install both and thes
 
 - The <Item id="stove" /> and Farmer's Delight's other heat sources heat Vine & Barrel's Brew Kettle.
 - Grape and hop bushes climb <Item id="rope" label="ropes" /> like tomatoes do.
+- Tomato vines climb Vine & Barrel's trellis, and leave it standing when they go ([how](/mechanics/crops/#trellises-and-other-supports)).
 - <Item id="rich_soil" /> and <Item id="rich_soil_farmland" /> speed up grapes, hops and barley.
 - <Item id="apple_cider" /> and <Item id="melon_juice" /> age in the Aging Barrel into Hard Cider and Melon Wine.
 - The <Item id="cooking_pot" /> cooks with its drinks and barley: Beer-Battered Fish, Wine-Braised Beef, Cider-Braised
