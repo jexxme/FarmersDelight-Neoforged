@@ -72,6 +72,9 @@ public class ModTags
 
 		public static final TagKey<Block> ROPES = modBlockTag("ropes");
 
+		// Blocks a tomato vine climbs. Ropes (#farmersdelight:ropes) work as before; any other block is kept inside the vine and put back when it goes.
+		public static final TagKey<Block> TOMATO_SUPPORTS = modBlockTag("tomato_supports");
+
 		public static final TagKey<Block> WILD_CROPS = modBlockTag("wild_crops");
 	}
 

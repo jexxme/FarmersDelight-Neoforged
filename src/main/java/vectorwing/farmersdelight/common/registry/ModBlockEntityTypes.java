@@ -25,6 +25,8 @@ public class ModBlockEntityTypes
 		() -> new BlockEntityType<>(CuttingBoardBlockEntity::new, ModBlocks.CUTTING_BOARD.get()));
 	public static final Supplier<BlockEntityType<SkilletBlockEntity>> SKILLET = TILES.register("skillet",
 		() -> new BlockEntityType<>(SkilletBlockEntity::new, ModBlocks.SKILLET.get()));
+	public static final Supplier<BlockEntityType<TomatoSupportBlockEntity>> TOMATO_SUPPORT = TILES.register("tomato_support",
+		() -> new BlockEntityType<>(TomatoSupportBlockEntity::new, ModBlocks.TOMATO_CROP_ON_SUPPORT.get()));
 	public static final Supplier<BlockEntityType<CabinetBlockEntity>> CABINET = TILES.register("cabinet",
 		() -> new BlockEntityType<>(CabinetBlockEntity::new,
 			ModBlocks.OAK_CABINET.get(),

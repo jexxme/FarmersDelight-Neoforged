@@ -27,6 +27,7 @@ import vectorwing.farmersdelight.client.gui.CookingPotTooltip;
 import vectorwing.farmersdelight.client.gui.HUDOverlays;
 import vectorwing.farmersdelight.client.particle.SparkleParticle;
 import vectorwing.farmersdelight.client.particle.StarParticle;
+import vectorwing.farmersdelight.client.model.SupportedTomatoModel;
 import vectorwing.farmersdelight.client.particle.SteamParticle;
 import vectorwing.farmersdelight.common.registry.ModRecipeCategories;
 import vectorwing.farmersdelight.client.renderer.*;
@@ -55,6 +56,11 @@ public class ClientSetupEvents
 				return stack.has(ModDataComponents.SKILLET_FLIP_TIMESTAMP.get()) ? EnumParameters.PROXY_SKILLET_FLIP.getValue() : null;
 			}
 		}, ModItems.SKILLET.get());
+	}
+
+	@SubscribeEvent
+	public static void wrapBlockModels(ModelEvent.ModifyBakingResult event) {
+		SupportedTomatoModel.wrap(event);
 	}
 
 	@SubscribeEvent

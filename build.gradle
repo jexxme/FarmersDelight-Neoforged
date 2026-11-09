@@ -21,6 +21,13 @@ sourceSets.main.resources {
     exclude(".cache")
 }
 
+// Test-only data for the GameTest server run only (see neoForge.mods), never packed into the jar. It stands in for
+// other mods, e.g. it puts a vanilla block into #farmersdelight:tomato_supports like another mod's trellis.
+sourceSets {
+    gametest {
+    }
+}
+
 repositories {
     maven {
         // JEI
@@ -58,6 +65,18 @@ neoForge {
 
     // This line is optional. Access Transformers are automatically detected
     // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+
+    // Two views of the same mod (one mods.toml): the real one, and one with the test-only data from src/gametest on
+    // top. Only the GameTest server loads the second, so dev clients, servers and the docs export play what the jar ships.
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+        "${mod_id}_gametest" {
+            sourceSet(sourceSets.main)
+            sourceSet(sourceSets.gametest)
+        }
+    }
 
     runs {
         client {
@@ -104,7 +123,8 @@ neoForge {
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file(project.findProperty('datagenOutput') ?: 'src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
-        configureEach {
+        configureEach { run ->
+            loadedMods = run.name == 'gameTestServer' ? [neoForge.mods.named("${mod_id}_gametest").get()] : [neoForge.mods.named(mod_id).get()]
             // Recommended logging data for a userdev environment
             // The markers can be added/remove as needed separated by commas.
             // "SCAN": For mods scan.
@@ -119,11 +139,6 @@ neoForge {
         }
     }
 
-    mods {
-        "${mod_id}" {
-            sourceSet(sourceSets.main)
-        }
-    }
 }
 
 configurations {
