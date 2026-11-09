@@ -1,3 +1,9 @@
+## Farmer's Delight Neoforged 1.3.4-3
+
+- Tomatoes climb other mods' trellises: a tomato vine climbs any block in the new block tag
+  `#farmersdelight:tomato_supports` (ropes are in it already). The support stays inside the vine exactly as it was,
+  and is left standing however the vine goes. Vine & Barrel's trellis is one, from Vine & Barrel 1.1.0.
+
 ## Farmer's Delight Neoforged 1.3.4+neoforged.2
 
 - Documentation: a full guide to every block, item and mechanic, with recipes, food values and config options:
