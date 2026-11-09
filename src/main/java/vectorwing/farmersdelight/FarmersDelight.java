@@ -72,6 +72,7 @@ public class FarmersDelight
 			vectorwing.farmersdelight.gametest.FDConservationTests.register(modEventBus);
 			vectorwing.farmersdelight.gametest.FDRegressionTests.register(modEventBus);
 			vectorwing.farmersdelight.gametest.FDPortAuditTests.register(modEventBus);
+			vectorwing.farmersdelight.gametest.FDTomatoSupportTests.register(modEventBus);
 		}
 
 		RegistryAliases.addRegistryAliases();

@@ -140,7 +140,8 @@ public class BlockTags extends BlockTagsProvider
 			ModBlocks.RICE_CROP_PANICLES.get(),
 			ModBlocks.BUDDING_TOMATO_CROP.get(),
 			ModBlocks.TOMATO_CROP.get(),
-			ModBlocks.TOMATO_CROP_ON_ROPE.get());
+			ModBlocks.TOMATO_CROP_ON_ROPE.get(),
+			ModBlocks.TOMATO_CROP_ON_SUPPORT.get());
 		fdTag(net.minecraft.tags.BlockTags.STANDING_SIGNS).add(
 			ModBlocks.CANVAS_SIGN.get(),
 			ModBlocks.WHITE_CANVAS_SIGN.get(),
@@ -324,6 +325,7 @@ public class BlockTags extends BlockTagsProvider
 		fdTag(ModTags.Blocks.ROPES).add(ModBlocks.ROPE.get())
 			.add(TagEntry.optionalElement(Identifier.parse("quark:rope")))
 			.add(TagEntry.optionalElement(Identifier.parse("supplementaries:rope")));
+		fdTag(ModTags.Blocks.TOMATO_SUPPORTS).addTag(ModTags.Blocks.ROPES);
 		fdTag(ModTags.Blocks.TRAY_HEAT_SOURCES).add(
 				Blocks.LAVA)
 			.addTag(net.minecraft.tags.BlockTags.CAMPFIRES)
@@ -417,6 +419,7 @@ public class BlockTags extends BlockTagsProvider
 			ModBlocks.BUDDING_TOMATO_CROP.get(),
 			ModBlocks.TOMATO_CROP.get(),
 			ModBlocks.TOMATO_CROP_ON_ROPE.get(),
+			ModBlocks.TOMATO_CROP_ON_SUPPORT.get(),
 			ModBlocks.RICE_CROP.get(),
 			ModBlocks.RICE_CROP_PANICLES.get());
 		fdTag(CompatibilityTags.SERENE_SEASONS_WINTER_CROPS_BLOCK).add(

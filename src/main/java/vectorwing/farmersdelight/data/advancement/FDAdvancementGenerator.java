@@ -118,7 +118,7 @@ public class FDAdvancementGenerator extends AdvancementSubProvider {
 								Optional.of(
 										Holder.direct(
 												LocationCheck.checkLocation(
-														LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(output.lookup(Registries.BLOCK), ModBlocks.TOMATO_CROP_ON_ROPE.get()).setProperties(
+														LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(output.lookup(Registries.BLOCK), ModBlocks.TOMATO_CROP_ON_ROPE.get(), ModBlocks.TOMATO_CROP_ON_SUPPORT.get()).setProperties(
 																StatePropertiesPredicate.Builder.properties()
 																		.hasProperty(TomatoBlock.VINE_AGE, 0)
 														))

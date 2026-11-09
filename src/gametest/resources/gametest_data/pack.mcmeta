@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "description": "Farmer's Delight Neoforged: test-only data for the GameTest server",
+    "min_format": 101,
+    "max_format": 200
+  }
+}

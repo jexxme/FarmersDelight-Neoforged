@@ -300,6 +300,9 @@ public class ModBlocks
 		TomatoBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT));
 	public static final Supplier<Block> TOMATO_CROP_ON_ROPE = regBlock("tomatoes_on_rope",
 		HangingTomatoBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).pushReaction(PushReaction.PUSH_PULL));
+	// A tomato vine on a block of #farmersdelight:tomato_supports other than a rope (e.g. a trellis): holds that block in its block entity
+	public static final Supplier<Block> TOMATO_CROP_ON_SUPPORT = regBlock("tomatoes_on_support",
+		TomatoOnSupportBlock::new, Block.Properties.ofFullCopy(TOMATO_CROP.get()).dynamicShape());
 	public static final Supplier<Block> RICE_CROP = regBlock("rice",
 		RiceBlock::new, Block.Properties.ofFullCopy(Blocks.WHEAT).mapColor(MapColor.PLANT).strength(0.2F));
 	public static final Supplier<Block> RICE_CROP_PANICLES = regBlock("rice_panicles",

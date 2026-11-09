@@ -1,11 +1,11 @@
-// 26.3	2026-11-04T01:24:27.7168435	Registries for Reloadable (farmersdelight[0]): [farmersdelight]
+// 26.3	2026-11-09T02:29:31.8966063	Registries for Reloadable (farmersdelight[0]): [farmersdelight]
 fd8aa50b63a7caca9c4c245177875346b846edb1 data/farmersdelight/advancement/main/craft_knife.json
 78035710700cea4b6cd85c0f3adea232640a74b3 data/farmersdelight/advancement/main/eat_nourishing_food.json
 bebc40877fccbc16ce69fecc4c0b7f837f290222 data/farmersdelight/advancement/main/get_fd_seed.json
 e10797d0ad39ccaa00598ca160449f5308a7ccda data/farmersdelight/advancement/main/get_ham.json
 2dda63ebed22c4e0babe562dd154f0500d0780c3 data/farmersdelight/advancement/main/get_mushroom_colony.json
 07c8cb24335437406bb529fc8eb98f2e0e0a056d data/farmersdelight/advancement/main/get_rich_soil.json
-5abfc7aea6623f13af14ac354ebaa42b54d7c118 data/farmersdelight/advancement/main/harvest_ropelogged_tomato.json
+6d41595da475be8a0f365683872ece8a838189e7 data/farmersdelight/advancement/main/harvest_ropelogged_tomato.json
 b90ee9a1e3f9446c2f2a40e720029af66eb4bef4 data/farmersdelight/advancement/main/harvest_straw.json
 37dcde471272cb1a6baffd3997b2678baee426b3 data/farmersdelight/advancement/main/hit_raider_with_rotten_tomato.json
 9df41ec64e2283b3cf20835e04d9f9d1660dded9 data/farmersdelight/advancement/main/master_chef.json
@@ -306,6 +306,7 @@ a09b07150713cfe1827a2cd5e311ffc8fc489289 data/farmersdelight/loot_table/blocks/s
 521c389e1eff9ca9719d56904ffc253b92133a86 data/farmersdelight/loot_table/blocks/tatami.json
 430e7c892131c6fa3118d9532ccad51b475e5e56 data/farmersdelight/loot_table/blocks/tomatoes.json
 dfd73841c789adf1998efd91bc77aadfdbd13ca6 data/farmersdelight/loot_table/blocks/tomatoes_on_rope.json
+7a4f8b7eec4adf5be255c6f88678556b8937bcf9 data/farmersdelight/loot_table/blocks/tomatoes_on_support.json
 e2a333678cf844ce567b98c14bf9238ecdc4eb20 data/farmersdelight/loot_table/blocks/tomato_crate.json
 dd762c9485b01b359300c6119dd73b89bd40d2f9 data/farmersdelight/loot_table/blocks/warped_cabinet.json
 8bfa9a9255c5c1073e673857fe586059b07ded4d data/farmersdelight/loot_table/blocks/white_canvas_sign.json
