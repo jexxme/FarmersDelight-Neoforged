@@ -149,14 +149,27 @@ public class TomatoBlock extends CropBlock
 	}
 
 
+	/** A rope (as before) or another block of {@code #farmersdelight:tomato_supports} (see {@link TomatoOnSupportBlock#canHold}). */
 	public boolean canClimbBlock(BlockState stateAbove) {
-		return Configuration.ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES.get() ? stateAbove.is(ModTags.Blocks.ROPES) : stateAbove.is(ModBlocks.ROPE.get());
+		return isClimbableRope(stateAbove) || TomatoOnSupportBlock.canHold(stateAbove);
+	}
+
+	public static boolean isClimbableRope(BlockState state) {
+		return Configuration.ENABLE_TOMATO_VINE_CLIMBING_TAGGED_ROPES.get() ? state.is(ModTags.Blocks.ROPES) : state.is(ModBlocks.ROPE.get());
+	}
+
+	/** The vine on a rope, or the vine on any other support. */
+	public static boolean isClimbingVine(BlockState state) {
+		return state.getBlock() instanceof HangingTomatoBlock;
 	}
 
 	@Nullable
 	public BlockState getClimbingState(BlockState stateAbove) {
-		if (this.canClimbBlock(stateAbove)){
+		if (isClimbableRope(stateAbove)) {
 			return ModBlocks.TOMATO_CROP_ON_ROPE.get().defaultBlockState();
+		}
+		if (TomatoOnSupportBlock.canHold(stateAbove)) {
+			return ModBlocks.TOMATO_CROP_ON_SUPPORT.get().defaultBlockState();
 		}
 		return null;
 	}
@@ -167,12 +180,21 @@ public class TomatoBlock extends CropBlock
 		BlockState climbingState = getClimbingState(stateAbove);
 		if (climbingState != null) {
 			int vineHeight;
-			for (vineHeight = 1; level.getBlockState(pos.below(vineHeight)).is(this); ++vineHeight) {
+			for (vineHeight = 1; isSameVine(level.getBlockState(pos.below(vineHeight))); ++vineHeight) {
 			}
 			if (vineHeight < 3) {
-				level.setBlockAndUpdate(posAbove, climbingState);
+				if (climbingState.getBlock() instanceof TomatoOnSupportBlock) {
+					TomatoOnSupportBlock.place(level, posAbove, climbingState, stateAbove);
+				} else {
+					level.setBlockAndUpdate(posAbove, climbingState);
+				}
 			}
 		}
+	}
+
+	/** Counts the vine's height: this block, and on a climbing vine any climbing vine (a column may mix ropes and other supports). */
+	private boolean isSameVine(BlockState state) {
+		return state.is(this) || (isClimbingVine(defaultBlockState()) && isClimbingVine(state));
 	}
 
 	@Override
@@ -221,7 +243,7 @@ public class TomatoBlock extends CropBlock
 			BlockState aboveState = level.getBlockState(pos.above());
 			if (canClimbBlock(level.getBlockState(pos.above()))) {
 				climbRopeAbove(level, pos);
-			} else if (aboveState.is(ModBlocks.TOMATO_CROP_ON_ROPE.get()) && isValidBonemealTarget(level, pos, aboveState)) {
+			} else if (isClimbingVine(aboveState) && isValidBonemealTarget(level, pos, aboveState)) {
 				performBonemeal(level, random, pos.above(), aboveState);
 			}
 		}

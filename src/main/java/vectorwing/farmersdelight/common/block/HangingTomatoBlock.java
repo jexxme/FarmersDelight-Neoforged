@@ -48,6 +48,11 @@ public class HangingTomatoBlock extends TomatoBlock
 	@Override
 	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
 		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
+		restoreAfterRemoval(level, pos, movedByPiston);
+	}
+
+	/** What the vine leaves behind when it went by anything but a player. On a rope: the rope (rope permanence). */
+	protected void restoreAfterRemoval(ServerLevel level, BlockPos pos, boolean movedByPiston) {
 		if (Configuration.ENABLE_TOMATO_ROPE_PERMANENCE.get() && !movedByPiston && level.getBlockState(pos).isAir()) {
 			placeRope(level, pos);
 		}

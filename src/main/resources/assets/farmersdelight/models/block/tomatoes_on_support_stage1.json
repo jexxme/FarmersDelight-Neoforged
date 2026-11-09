@@ -1,0 +1,7 @@
+{
+  "parent": "farmersdelight:block/template_crop_on_support",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "crop": "farmersdelight:block/tomatoes_on_rope_stage1"
+  }
+}

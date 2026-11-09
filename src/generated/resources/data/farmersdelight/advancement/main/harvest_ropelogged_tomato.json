@@ -8,7 +8,10 @@
             "condition": "minecraft:location_check",
             "predicate": {
               "block": {
-                "blocks": "farmersdelight:tomatoes_on_rope",
+                "blocks": [
+                  "farmersdelight:tomatoes_on_rope",
+                  "farmersdelight:tomatoes_on_support"
+                ],
                 "state": {
                   "age": "0"
                 }

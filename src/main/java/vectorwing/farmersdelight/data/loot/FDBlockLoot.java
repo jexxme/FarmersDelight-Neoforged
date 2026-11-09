@@ -111,7 +111,8 @@ public class FDBlockLoot extends BlockLootSubProvider
 				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
 				.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
 
-		add(ModBlocks.TOMATO_CROP_ON_ROPE.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
+		// The vine on a rope and on any other support drop the same (the rope or support itself stays as a block)
+		java.util.function.Function<Block, LootTable.Builder> climbingTomato = block -> this.applyExplosionDecay(block, LootTable.lootTable()
 			.withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.TOMATO.get()))
@@ -122,7 +123,9 @@ public class FDBlockLoot extends BlockLootSubProvider
 				.setRolls(ConstantValue.exactly(1.0F))
 				.add(LootItem.lootTableItem(ModItems.ROTTEN_TOMATO.get()))
 				.when(hasBlockStateProperties(block, StatePropertiesPredicate.Builder.properties().hasProperty(TomatoBlock.VINE_AGE, 3)))
-				.when(LootItemRandomChanceCondition.randomChance(0.05F)))));
+				.when(LootItemRandomChanceCondition.randomChance(0.05F))));
+		add(ModBlocks.TOMATO_CROP_ON_ROPE.get(), climbingTomato);
+		add(ModBlocks.TOMATO_CROP_ON_SUPPORT.get(), climbingTomato);
 
 		add(ModBlocks.SANDY_SHRUB.get(), block -> LootTable.lootTable()
 			.withPool(LootPool.lootPool()
